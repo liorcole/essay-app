@@ -1,0 +1,1560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Gap</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            background: #0a0a0f;
+            color: #e8e8e8;
+            min-height: 100vh;
+            line-height: 1.8;
+        }
+
+        .essay-container {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 80px 40px;
+        }
+
+        /* ========== ESSAY TEXT STYLES ========== */
+        /* Edit the text content in the HTML below */
+
+        .section {
+            margin-bottom: 60px;
+        }
+
+        .paragraph {
+            font-size: 1.25rem;
+            margin-bottom: 1.5em;
+            color: #d0d0d0;
+        }
+
+        .paragraph strong {
+            color: #ffffff;
+            font-weight: 600;
+        }
+
+        .emphasis {
+            font-style: italic;
+            color: #a8a8a8;
+        }
+
+        .parenthetical {
+            color: #888;
+            font-size: 1.1rem;
+        }
+
+        .main-thesis {
+            font-size: 1.75rem;
+            font-weight: 500;
+            color: #ffffff;
+            margin-bottom: 2em;
+            line-height: 1.5;
+        }
+
+        /* ========== STICKY NOTE ========== */
+
+        .identity-container,
+        .reality-container {
+            display: flex;
+            gap: 30px;
+            align-items: flex-start;
+            margin: 50px 0;
+        }
+
+        .identity-container .paragraph,
+        .reality-container .paragraph {
+            flex: 0 0 70%;
+            margin-bottom: 0;
+        }
+
+        .sticky-note {
+            flex: 0 0 260px;
+            padding: 20px;
+            background: #fef08a;
+            color: #1a1a1a;
+            font-family: 'Georgia', serif;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            cursor: pointer;
+            box-shadow: 4px 4px 12px rgba(0, 0, 0, 0.3);
+            transform: rotate(2deg);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .sticky-note:hover {
+            transform: rotate(0deg) scale(1.02);
+            box-shadow: 6px 6px 16px rgba(0, 0, 0, 0.4);
+        }
+
+        .sticky-note-heading {
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            color: #333;
+            text-transform: lowercase;
+        }
+
+        .sticky-note-front {
+            font-style: italic;
+            color: #666;
+            text-align: center;
+        }
+
+        .sticky-note-content {
+            display: none;
+        }
+
+        .sticky-note.revealed .sticky-note-front {
+            display: none;
+        }
+
+        .sticky-note.revealed .sticky-note-content {
+            display: block;
+        }
+
+        .identity-container .sticky-note {
+            background: #bbf7d0;
+        }
+
+        .reality-container .sticky-note {
+            background: #bfdbfe;
+        }
+
+        /* ========== SHADED BOX ========== */
+
+        .shaded-box {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 40px;
+            margin: 40px 0;
+        }
+
+        .shaded-box-title {
+            font-size: 1rem;
+            font-weight: 500;
+            color: #888;
+            text-transform: lowercase;
+            margin-bottom: 20px;
+            letter-spacing: 0.1em;
+        }
+
+        .shaded-box .paragraph {
+            margin-bottom: 1.5em;
+        }
+
+        .shaded-box .paragraph:last-child {
+            margin-bottom: 0;
+        }
+
+        .diagram-placeholder {
+            min-height: 200px;
+            margin-bottom: 30px;
+            border: 2px dashed rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: rgba(255, 255, 255, 0.3);
+        }
+
+        /* ========== BODY DIAGRAM ========== */
+
+        .body-diagram {
+            position: relative;
+            width: 300px;
+            height: 400px;
+            margin: 60px auto;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .body-click-hint {
+            position: absolute;
+            bottom: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-style: italic;
+            color: #888;
+            font-size: 0.9rem;
+            transition: opacity 0.3s ease;
+        }
+
+        .body-diagram.revealed .body-click-hint {
+            opacity: 0;
+        }
+
+        .body-image {
+            width: 180px;
+            height: auto;
+            position: relative;
+            z-index: 2;
+            filter: invert(1) opacity(0.9);
+        }
+
+        .infinity-bubble {
+            position: absolute;
+            width: 350px;
+            height: 450px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            overflow: visible;
+        }
+
+        .body-diagram.revealed .infinity-bubble {
+            opacity: 1;
+        }
+
+        .bubble-path {
+            fill: none;
+            stroke: #86efac;
+            stroke-width: 3;
+            animation: wobble 4s ease-in-out infinite;
+        }
+
+        @keyframes wobble {
+            0%, 100% {
+                d: path("M200,20 C320,20 380,80 380,200 C380,320 340,400 280,450 C240,480 160,480 120,450 C60,400 20,320 20,200 C20,80 80,20 200,20");
+            }
+            25% {
+                d: path("M200,25 C330,15 390,90 375,210 C370,330 330,410 270,455 C235,475 165,485 125,445 C55,395 15,310 25,195 C30,75 85,25 200,25");
+            }
+            50% {
+                d: path("M200,15 C315,25 375,75 385,195 C385,315 345,395 285,445 C245,485 155,475 115,455 C65,405 25,325 15,205 C15,85 75,15 200,15");
+            }
+            75% {
+                d: path("M200,22 C325,18 385,85 378,205 C375,325 335,405 275,452 C238,478 162,482 122,448 C58,398 18,315 22,198 C25,78 82,22 200,22");
+            }
+        }
+
+        .infinity-arrows {
+            opacity: 0;
+            transition: opacity 0.5s ease 0.3s;
+        }
+
+        .body-diagram.revealed .infinity-arrows {
+            opacity: 1;
+        }
+
+        .arrow {
+            fill: none;
+            stroke: #86efac;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        /* ========== TOOLTIP ========== */
+
+        .tooltip-trigger {
+            position: relative;
+            text-decoration: underline;
+            text-decoration-style: dotted;
+            text-underline-offset: 3px;
+            cursor: help;
+        }
+
+        .tooltip-content {
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 350px;
+            padding: 20px;
+            background: #1a1a1f;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            color: #a0a0a0;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+            z-index: 100;
+            margin-bottom: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        .tooltip-trigger:hover .tooltip-content {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* ========== INTERACTIVE KEYWORDS ========== */
+
+        .keyword {
+            font-size: 1.5rem;
+            font-weight: 700;
+            display: inline-block;
+            cursor: default;
+            transition: transform 0.1s ease-out;
+            position: relative;
+        }
+
+        .keyword-identity {
+            color: #86efac;
+            text-shadow: 0 0 30px rgba(134, 239, 172, 0.3);
+            cursor: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="84" height="22"><rect x="0" y="0" width="84" height="22" rx="4" fill="%230a0a0f" stroke="%2386efac" stroke-width="1"/><text x="42" y="15" font-family="Georgia, serif" font-size="11" font-weight="bold" fill="%2386efac" text-anchor="middle">CLICK ME!!</text></svg>') 42 11, pointer;
+        }
+
+        .keyword-reality {
+            color: #60a5fa;
+            text-shadow: 0 0 30px rgba(96, 165, 250, 0.3);
+            cursor: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="84" height="22"><rect x="0" y="0" width="84" height="22" rx="4" fill="%230a0a0f" stroke="%2360a5fa" stroke-width="1"/><text x="42" y="15" font-family="Georgia, serif" font-size="11" font-weight="bold" fill="%2360a5fa" text-anchor="middle">CLICK ME!!</text></svg>') 42 11, pointer;
+        }
+
+        .keyword-gap {
+            color: #86efac;
+            text-shadow: 0 0 30px rgba(134, 239, 172, 0.3);
+            cursor: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="84" height="22"><rect x="0" y="0" width="84" height="22" rx="4" fill="%230a0a0f" stroke="%2386efac" stroke-width="1"/><text x="42" y="15" font-family="Georgia, serif" font-size="11" font-weight="bold" fill="%2386efac" text-anchor="middle">CLICK ME!!</text></svg>') 42 11, pointer;
+        }
+
+        .keyword.hovering {
+            transform: translate(var(--hover-x, 0), var(--hover-y, 0));
+        }
+
+        .keyword.flashing {
+            animation: keywordFlash 0.5s ease-out;
+        }
+
+        @keyframes keywordFlash {
+            0%, 100% { opacity: 1; }
+            25% { opacity: 0.3; }
+            50% { opacity: 1; }
+            75% { opacity: 0.3; }
+        }
+
+        .keyword.auto-trigger {
+            transform: scale(1.5);
+            transition: transform 0.3s ease-out;
+        }
+
+        .keyword.auto-trigger-shrink {
+            transform: scale(1);
+            transition: transform 0.3s ease-out;
+        }
+
+        /* ========== GAP ARROW ANIMATION ========== */
+
+        .gap-arrow-svg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1000;
+        }
+
+        .gap-arrow-line {
+            fill: none;
+            stroke: #86efac;
+            stroke-width: 3;
+            stroke-linecap: round;
+            stroke-dasharray: 1000;
+            stroke-dashoffset: 1000;
+        }
+
+        .gap-arrow-line.animating {
+            animation: drawArrow 0.6s ease-out forwards;
+        }
+
+        @keyframes drawArrow {
+            to {
+                stroke-dashoffset: 0;
+            }
+        }
+
+        .gap-arrow-head {
+            fill: #86efac;
+            opacity: 0;
+        }
+
+        .gap-arrow-head.animating {
+            animation: showArrowHead 0.2s ease-out 0.5s forwards;
+        }
+
+        @keyframes showArrowHead {
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Permanent faint green fill when revealed */
+        .bubble-fill-green {
+            fill: rgba(134, 239, 172, 0.15);
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .body-diagram.revealed .bubble-fill-green {
+            opacity: 1;
+        }
+
+        /* Green flash fill effect for the gap */
+        .bubble-fill-flash {
+            fill: rgba(134, 239, 172, 0.5);
+            opacity: 0;
+            transition: opacity 0.1s ease;
+        }
+
+        .body-diagram.flash-fill .bubble-fill-flash {
+            animation: flashFill 2s ease-out;
+        }
+
+        @keyframes flashFill {
+            0% { opacity: 0; }
+            15% { opacity: 0.6; }
+            30% { opacity: 0.35; }
+            50% { opacity: 0.5; }
+            70% { opacity: 0.3; }
+            85% { opacity: 0.15; }
+            100% { opacity: 0; }
+        }
+
+        /* Body mask to cut out body shape from fill */
+        .body-diagram .body-image {
+            position: relative;
+            z-index: 3;
+        }
+
+        /* Limited sequence body images */
+        .limited-body-image {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 180px;
+            height: auto;
+            filter: invert(1);
+            opacity: 0;
+            z-index: 4;
+            transition: opacity 0.5s ease;
+        }
+
+        .limited-body-image.visible {
+            opacity: 1;
+        }
+
+        /* Hide original body when limited images are showing */
+        .body-diagram.limited-active .body-image {
+            opacity: 0;
+        }
+
+        /* Sense blocks positioned to the right with dotted lines */
+        .sense-blocks-container {
+            position: absolute;
+            top: 50%;
+            right: -120px;
+            transform: translateY(-50%);
+            width: auto;
+            height: 300px;
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: flex-start;
+            pointer-events: none;
+        }
+
+        .sense-block {
+            position: relative;
+            padding: 8px 16px;
+            background: rgba(134, 239, 172, 0.2);
+            border: 1px solid rgba(134, 239, 172, 0.5);
+            border-radius: 6px;
+            text-align: left;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #86efac;
+            text-transform: lowercase;
+            letter-spacing: 0.1em;
+            opacity: 0;
+            transform: translateX(10px);
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+
+        .sense-block::before {
+            content: '';
+            position: absolute;
+            right: 100%;
+            top: 50%;
+            width: 140px;
+            height: 0;
+            border-top: 2px dotted rgba(134, 239, 172, 0.6);
+            transform: translateY(-50%);
+        }
+
+        .sense-block.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* ========== EXAMPLE CARDS CASCADING ========== */
+
+        .example-cards-container {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 80px 0 100px 0;
+            padding: 40px 0;
+        }
+
+        .example-card {
+            position: relative;
+            width: 780px;
+            padding: 30px 35px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 4px 6px 20px rgba(0, 0, 0, 0.5);
+            margin-bottom: -40px;
+        }
+
+        .example-card-1 {
+            background: #1e3a5f;
+            border: none;
+        }
+
+        .example-card-2 {
+            background: #4a3728;
+            border: none;
+        }
+
+        .example-card-3 {
+            background: #2d4a3e;
+            border: none;
+        }
+
+        .example-card-4 {
+            background: #4a2d4a;
+            border: none;
+        }
+
+        .example-card-5 {
+            background: #3d3a2d;
+            border: none;
+        }
+
+        /* Cascading positions - alternating left/right with rotation */
+        .example-card[data-card="1"] {
+            align-self: flex-start;
+            margin-left: -5%;
+            transform: rotate(-3deg);
+            z-index: 1;
+        }
+
+        .example-card[data-card="2"] {
+            align-self: flex-end;
+            margin-right: -5%;
+            transform: rotate(2deg);
+            z-index: 2;
+        }
+
+        .example-card[data-card="3"] {
+            align-self: flex-start;
+            margin-left: 0%;
+            transform: rotate(-2deg);
+            z-index: 3;
+        }
+
+        .example-card[data-card="4"] {
+            align-self: flex-end;
+            margin-right: 0%;
+            transform: rotate(3deg);
+            z-index: 4;
+        }
+
+        .example-card[data-card="5"] {
+            align-self: flex-start;
+            margin-left: -3%;
+            transform: rotate(-2deg);
+            z-index: 5;
+            margin-bottom: 0;
+        }
+
+        .example-card:hover {
+            z-index: 10;
+            transform: rotate(0deg) scale(1.03);
+            box-shadow: 8px 12px 40px rgba(0, 0, 0, 0.6);
+        }
+
+        .example-card.active {
+            z-index: 10;
+        }
+
+        .example-card-title {
+            font-size: 0.85rem;
+            font-weight: 500;
+            text-transform: lowercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 20px;
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .example-card-diagram {
+            min-height: 160px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-style: italic;
+            font-size: 0.9rem;
+            background: rgba(0, 0, 0, 0.2);
+            border: 2px dashed rgba(255, 255, 255, 0.15);
+            color: rgba(255, 255, 255, 0.3);
+        }
+
+        .example-card .paragraph {
+            color: #d0d0d0;
+            font-size: 1.05rem;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .card-shuffle-hint {
+            text-align: center;
+            margin-top: 15px;
+            font-style: italic;
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .card-counter {
+            position: absolute;
+            bottom: 15px;
+            right: 20px;
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        /* ========== BIPOLAR DIAGRAM ========== */
+
+        .bipolar-diagram {
+            position: relative;
+            min-height: 380px;
+            cursor: pointer;
+            overflow: hidden;
+        }
+
+        .bipolar-scene {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            pointer-events: none;
+        }
+
+        .bipolar-scene.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .bipolar-frame {
+            width: 100%;
+            max-width: 100%;
+            height: auto;
+            object-fit: contain;
+        }
+
+        .bipolar-annotation {
+            position: absolute;
+            max-width: 220px;
+            padding: 12px 15px;
+            background: rgba(245, 158, 11, 0.15);
+            border-left: 3px solid #f59e0b;
+            border-radius: 4px;
+        }
+
+        .bipolar-annotation-right {
+            right: 15px;
+            top: 50px;
+        }
+
+        .bipolar-annotation-bottom {
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            max-width: 450px;
+            text-align: center;
+            border-left: none;
+            border-top: 3px solid #86efac;
+            background: rgba(134, 239, 172, 0.15);
+        }
+
+        .annotation-text {
+            font-size: 0.85rem;
+            font-style: italic;
+            color: #e0e0e0;
+            line-height: 1.4;
+        }
+
+        .bipolar-diagram .click-hint {
+            position: absolute;
+            bottom: 8px;
+            right: 15px;
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.4);
+            font-style: italic;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="essay-container">
+
+        <!-- ========== SECTION 1 ========== -->
+        <section class="section" id="section-1">
+
+            <h3 class="main-thesis">
+                It is my general belief that all human motivation has one source: the desire to shorten the gap between who we are (our identity) and how we live (our reality).
+            </h3>
+
+            <div class="identity-container">
+                <p class="paragraph">
+                    The gap exists because our <span class="keyword keyword-identity" data-keyword id="identity-keyword">identity</span> (our mind, soul, spirit) is <strong>infinite</strong> and abstract—you can't touch, taste, smell, see, or hear it. You can only <span class="emphasis">feel</span> it.
+                </p>
+                <div class="sticky-note" id="identity-note" onclick="this.classList.toggle('revealed')">
+                    <div class="sticky-note-heading">identity</div>
+                    <div class="sticky-note-content">If there was a mask over my face, my mom would still know who I am in a room filled with people through my actions. Who we are is indescribable, it's invisible, it just… is.</div>
+                </div>
+            </div>
+
+            <div class="reality-container">
+                <p class="paragraph">
+                    Meanwhile, our <span class="keyword keyword-reality" data-keyword id="reality-keyword">reality</span> (where we spend our time, our stuff, our physical body and space) is <strong>finite</strong>: we can directly touch, taste, smell, see, and hear it.
+                </p>
+                <div class="sticky-note" id="reality-note" onclick="this.classList.toggle('revealed')">
+                    <div class="sticky-note-heading">reality</div>
+                    <div class="sticky-note-content">I see the decor I hang on my wall, I can specifically show you what I do for my job, I can smell the salmon I'm cooking in the oven, I recognize my own face in the mirror, etc. These aren't concepts or feelings, our reality is observable fact.</div>
+                </div>
+            </div>
+
+            <p class="paragraph">
+                Because our lived reality is finite and <span class="keyword keyword-gap" data-keyword id="limited-keyword">limited</span> by nature, we simply can never capture the <span class="keyword keyword-gap" data-keyword id="infinite-keyword">infinite</span> totality of who we are in our daily lives. That is why there will always be a <span class="keyword keyword-gap" data-keyword id="gap-keyword">gap</span> between our identity and our reality, creating a permanent, underlying unease and discomfort within ourselves:
+            </p>
+
+            <div class="body-diagram" id="body-diagram">
+                <img src="Human_body_outline.png" alt="Human body outline" class="body-image">
+                <!-- Limited sequence images -->
+                <img src="body1.png" alt="Body state 1" class="limited-body-image" id="body1-img">
+                <img src="body2.png" alt="Body state 2" class="limited-body-image" id="body2-img">
+                <img src="body3.png" alt="Body state 3" class="limited-body-image" id="body3-img">
+                <img src="body4.png" alt="Body state 4" class="limited-body-image" id="body4-img">
+                <img src="body5.png" alt="Body state 5" class="limited-body-image" id="body5-img">
+                <div class="sense-blocks-container" id="sense-blocks">
+                    <div class="sense-block" data-sense="1">see</div>
+                    <div class="sense-block" data-sense="2">hear</div>
+                    <div class="sense-block" data-sense="3">smell</div>
+                    <div class="sense-block" data-sense="4">taste</div>
+                    <div class="sense-block" data-sense="5">touch</div>
+                </div>
+                <svg class="infinity-bubble" viewBox="0 0 400 500">
+                    <defs>
+                        <!-- Mask to cut out body shape for orange flash -->
+                        <mask id="body-cutout-mask">
+                            <!-- White = visible, Black = hidden -->
+                            <path fill="white" d="M200,20
+                                C320,20 380,80 380,200
+                                C380,320 340,400 280,450
+                                C240,480 160,480 120,450
+                                C60,400 20,320 20,200
+                                C20,80 80,20 200,20" />
+                            <!-- Cut out body shape (approximate) -->
+                            <ellipse cx="200" cy="250" rx="70" ry="180" fill="black" />
+                        </mask>
+                    </defs>
+                    <!-- Faint green fill (full, including body) - shows when revealed -->
+                    <path class="bubble-fill-green" d="M200,20
+                        C320,20 380,80 380,200
+                        C380,320 340,400 280,450
+                        C240,480 160,480 120,450
+                        C60,400 20,320 20,200
+                        C20,80 80,20 200,20" />
+                    <!-- Green flash fill - entire circle -->
+                    <path class="bubble-fill-flash" d="M200,20
+                        C320,20 380,80 380,200
+                        C380,320 340,400 280,450
+                        C240,480 160,480 120,450
+                        C60,400 20,320 20,200
+                        C20,80 80,20 200,20" />
+                    <path class="bubble-path" d="M200,20
+                        C320,20 380,80 380,200
+                        C380,320 340,400 280,450
+                        C240,480 160,480 120,450
+                        C60,400 20,320 20,200
+                        C20,80 80,20 200,20" />
+                    <!-- Arrows indicating infinity -->
+                    <g class="infinity-arrows">
+                        <path class="arrow" d="M200,5 L200,-15 M195,-10 L200,-15 L205,-10" />
+                        <path class="arrow" d="M395,200 L415,200 M410,195 L415,200 L410,205" />
+                        <path class="arrow" d="M200,495 L200,515 M195,510 L200,515 L205,510" />
+                        <path class="arrow" d="M5,200 L-15,200 M-10,195 L-15,200 L-10,205" />
+                        <path class="arrow" d="M340,80 L355,65 M355,72 L355,65 L348,65" />
+                        <path class="arrow" d="M340,420 L355,435 M348,435 L355,435 L355,428" />
+                        <path class="arrow" d="M60,420 L45,435 M52,435 L45,435 L45,428" />
+                        <path class="arrow" d="M60,80 L45,65 M45,72 L45,65 L52,65" />
+                    </g>
+                </svg>
+            </div>
+
+        </section>
+
+        <!-- ========== SECTION 2: WORDS BOX ========== -->
+        <section class="section" id="section-2">
+            <div class="shaded-box">
+                <h4 class="shaded-box-title">example</h4>
+                <div class="diagram-placeholder">
+                    <!-- Interactive diagram will go here -->
+                </div>
+
+                <p class="paragraph">
+                    Imagine there was one word in the english language: happy. I therefore would only be able to express a general feeling of happiness. So much of who I am would be left in my own head. Now imagine there were two words: happy, and very. I could more accurately express a feeling of general happiness then: am I happy or (drumroll please)… <em>very</em> happy? If there was a third word, I could more accurately pull my inner state into my reality through articulate. Today, its estimated that there are no more than ~1,000,000 words in the english language.
+                </p>
+
+                <p class="paragraph">
+                    My lived reality provides me with 1 million words to articulate myself - that's the hard limit. With those words, I express who I am, what I need, how I'm feeling… but only to the extent that I can using my one million available words. But my soul, my inner state is infinite - there could never be enough words to absolutely capture all that I am. The more words you add, the better I can channel myself in the world through articulation, but infinite can never be reached in a finite way. There will never be a finite number of words that equal infinite. And therefore, who you are in totality is bigger than words can describe. Who you are is bigger than art than the art you create, the clothing you express yourself through, your career, your home, your passions. All these elements of your reality channel bits of you, but ultimately your reality is limited to what you can directly see, taste, smell, touch and hear. And who you are is unlimited, invisible, and felt. You can never fit infinite into a finite jar… You can only collect bits of it.
+                </p>
+            </div>
+
+            <p class="paragraph">
+                So TLDR: the discomfort in the gap between our identity and lived reality is the birth of human motivation. <span class="tooltip-trigger">Everything<span class="tooltip-content">*everything meaning after our survival needs are met. Our primary motivation is food, shelter, reproduction (survival). It could be argued that our core desire to survive exists to spend more time channeling more of ourselves into the world, and reproduce to continue this process after death - but that is more of a philosophical thought experiment than what is intended in this essay which is more philosophy for the purpose of practical implementation. Anyway… Our discussion is assuming these needs are met.</span></span> we do is directly or indirectly, consciously or subconsciously, working to alleviate this unease by shortening the gap between identity and lived reality:
+            </p>
+        </section>
+
+        <!-- ========== SECTION 3: EXAMPLE CARDS ========== -->
+        <section class="section" id="section-3">
+            <div class="example-cards-container" id="card-stack">
+
+                <!-- Example Card 1 -->
+                <div class="example-card example-card-1" data-card="1">
+                    <h4 class="example-card-title">example</h4>
+                    <p class="paragraph">
+                        A person who went out and got a diagnosis for bipolar disease is clearly channeling a big part of their identity to their lived experience by simply identifying the language for how their brain tends to work.
+                    </p>
+                    <div class="example-card-diagram bipolar-diagram" id="bipolar-diagram">
+                        <!-- Scene 1 -->
+                        <div class="bipolar-scene bipolar-scene-1 active">
+                            <img src="bipolar1.png" alt="Bipolar diagram frame 1" class="bipolar-frame">
+                            <div class="click-hint">click to continue</div>
+                        </div>
+                        <!-- Scene 2 -->
+                        <div class="bipolar-scene bipolar-scene-2">
+                            <img src="bipolar2.png" alt="Bipolar diagram frame 2" class="bipolar-frame">
+                            <div class="click-hint">click to continue</div>
+                        </div>
+                        <!-- Scene 3 -->
+                        <div class="bipolar-scene bipolar-scene-3">
+                            <img src="bipolar3.png" alt="Bipolar diagram frame 3" class="bipolar-frame">
+                            <div class="click-hint">click to restart</div>
+                        </div>
+                    </div>
+                    <span class="card-counter">1 / 5</span>
+                </div>
+
+                <!-- Example Card 2 - Brown -->
+                <div class="example-card example-card-2" data-card="2">
+                    <h4 class="example-card-title">example</h4>
+                    <p class="paragraph">
+                        Think about when you were a kid and felt this drive to redecorate your room. One year princesses and pink, the next punk rock brutalism. Why? Functionally the room is the same - desk, chair, bed. But (whether consciously or unconsciously) we felt that discomfort with our space not matching who we are. A drive to match our reality with our identity. And thus, bits of who we are ends up in the posters lining the walls.
+                    </p>
+                    <div class="example-card-diagram">
+                        <!-- Interactive diagram will go here -->
+                    </div>
+                    <span class="card-counter">2 / 5</span>
+                </div>
+
+                <!-- Example Card 3 - Yellow/Amber -->
+                <div class="example-card example-card-3" data-card="3">
+                    <h4 class="example-card-title">example</h4>
+                    <div class="example-card-diagram">
+                        <!-- Interactive diagram will go here -->
+                    </div>
+                    <p class="paragraph">
+                        Placeholder text for example 3. This will be replaced with your content.
+                    </p>
+                    <span class="card-counter">3 / 5</span>
+                </div>
+
+                <!-- Example Card 4 - Pink -->
+                <div class="example-card example-card-4" data-card="4">
+                    <h4 class="example-card-title">example</h4>
+                    <div class="example-card-diagram">
+                        <!-- Interactive diagram will go here -->
+                    </div>
+                    <p class="paragraph">
+                        Placeholder text for example 4. This will be replaced with your content.
+                    </p>
+                    <span class="card-counter">4 / 5</span>
+                </div>
+
+                <!-- Example Card 5 - Purple -->
+                <div class="example-card example-card-5" data-card="5">
+                    <h4 class="example-card-title">example</h4>
+                    <div class="example-card-diagram">
+                        <!-- Interactive diagram will go here -->
+                    </div>
+                    <p class="paragraph">
+                        Placeholder text for example 5. This will be replaced with your content.
+                    </p>
+                    <span class="card-counter">5 / 5</span>
+                </div>
+
+            </div>
+            <p class="card-shuffle-hint">Click any card to bring it forward</p>
+        </section>
+
+        <!-- Add more sections below -->
+
+    </div>
+
+    <script>
+        // ========== INTERACTIVE KEYWORD HOVER EFFECT ==========
+        // Keywords follow the mouse when hovered
+
+        const keywords = document.querySelectorAll('[data-keyword]');
+
+        keywords.forEach(keyword => {
+            let isHovering = false;
+            let rect;
+
+            keyword.addEventListener('mouseenter', (e) => {
+                isHovering = true;
+                keyword.classList.add('hovering');
+                rect = keyword.getBoundingClientRect();
+            });
+
+            keyword.addEventListener('mouseleave', () => {
+                isHovering = false;
+                keyword.classList.remove('hovering');
+                keyword.style.setProperty('--hover-x', '0px');
+                keyword.style.setProperty('--hover-y', '0px');
+            });
+
+            keyword.addEventListener('mousemove', (e) => {
+                if (!isHovering) return;
+
+                const centerX = rect.left + rect.width / 2;
+                const centerY = rect.top + rect.height / 2;
+
+                // Calculate offset from center (max 15px movement)
+                const maxOffset = 15;
+                const offsetX = ((e.clientX - centerX) / rect.width) * maxOffset;
+                const offsetY = ((e.clientY - centerY) / rect.height) * maxOffset;
+
+                keyword.style.setProperty('--hover-x', `${offsetX}px`);
+                keyword.style.setProperty('--hover-y', `${offsetY}px`);
+            });
+        });
+
+        // ========== CARD FAN - CLICK TO FRONT ==========
+        // Click any card to bring it to the front
+
+        const cardStack = document.getElementById('card-stack');
+        const cards = cardStack.querySelectorAll('.example-card');
+
+        // Set first card as active initially
+        cards[0].classList.add('active');
+
+        cardStack.addEventListener('click', (e) => {
+            const clickedCard = e.target.closest('.example-card');
+            if (!clickedCard) return;
+
+            // Remove active from all cards
+            cards.forEach(card => card.classList.remove('active'));
+
+            // Add active to clicked card
+            clickedCard.classList.add('active');
+        });
+
+        // ========== GAP KEYWORD CLICK ANIMATION ==========
+        // Click on "gap" to draw arrow to diagram and flash fill
+
+        const gapKeyword = document.getElementById('gap-keyword');
+        const bodyDiagram = document.getElementById('body-diagram');
+        let arrowSvg = null;
+
+        // ========== SEQUENCE TRACKING ==========
+        // Order: limited -> infinite -> gap
+        const sequenceState = {
+            limitedTriggered: false,
+            infiniteTriggered: false,
+            gapTriggered: false
+        };
+
+        // Flash a keyword while triggering
+        function flashKeyword(keyword) {
+            keyword.classList.add('flashing');
+            setTimeout(() => keyword.classList.remove('flashing'), 500);
+        }
+
+        // ========== LIMITED KEYWORD ANIMATION ==========
+        const limitedKeyword = document.getElementById('limited-keyword');
+        const senseBlocks = document.querySelectorAll('.sense-block');
+        const senseBlocksContainer = document.getElementById('sense-blocks');
+        const body1Img = document.getElementById('body1-img');
+        const body2Img = document.getElementById('body2-img');
+        const body3Img = document.getElementById('body3-img');
+        const body4Img = document.getElementById('body4-img');
+        const body5Img = document.getElementById('body5-img');
+        const bodyImages = [body1Img, body2Img, body3Img, body4Img, body5Img];
+        let limitedArrowSvg = null;
+
+        // Duration of limited animation
+        const limitedDuration = 500 * 5; // cadence * 5 steps
+
+        function triggerLimited(isAutomatic = false) {
+            flashKeyword(limitedKeyword);
+
+            // Add grow animation if auto-triggered - stay big during animation
+            if (isAutomatic) {
+                limitedKeyword.classList.remove('auto-trigger', 'auto-trigger-shrink');
+                void limitedKeyword.offsetWidth; // Force reflow
+                limitedKeyword.classList.add('auto-trigger');
+
+                // Shrink back when animation completes
+                setTimeout(() => {
+                    limitedKeyword.classList.remove('auto-trigger');
+                    limitedKeyword.classList.add('auto-trigger-shrink');
+                    setTimeout(() => limitedKeyword.classList.remove('auto-trigger-shrink'), 300);
+                }, limitedDuration);
+            }
+
+            // Remove any existing arrow
+            if (limitedArrowSvg) {
+                limitedArrowSvg.remove();
+            }
+
+            // Reset images and sense blocks
+            bodyImages.forEach(img => img.classList.remove('visible'));
+            senseBlocks.forEach(block => block.classList.remove('visible'));
+
+            // Hide original body
+            bodyDiagram.classList.add('limited-active');
+
+            // Get positions for arrow
+            const keywordRect = limitedKeyword.getBoundingClientRect();
+            const containerRect = senseBlocksContainer.getBoundingClientRect();
+
+            // Start point: bottom center of "limited" keyword
+            const startX = keywordRect.left + keywordRect.width / 2;
+            const startY = keywordRect.bottom + 5;
+
+            // End point: left side of sense blocks container
+            const endX = containerRect.left - 10;
+            const endY = containerRect.top + containerRect.height / 2;
+
+            // Create SVG for the arrow
+            limitedArrowSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+            limitedArrowSvg.classList.add('gap-arrow-svg');
+            limitedArrowSvg.setAttribute('viewBox', `0 0 ${window.innerWidth} ${window.innerHeight}`);
+
+            // Create curved path
+            const midY = (startY + endY) / 2;
+            const pathD = `M ${startX} ${startY} Q ${endX - 50} ${midY}, ${endX} ${endY}`;
+
+            const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+            path.classList.add('gap-arrow-line');
+            path.setAttribute('d', pathD);
+
+            // Create arrow head pointing right
+            const arrowHead = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
+            arrowHead.classList.add('gap-arrow-head');
+            arrowHead.setAttribute('points', `${endX + 5},${endY} ${endX - 8},${endY - 6} ${endX - 8},${endY + 6}`);
+
+            limitedArrowSvg.appendChild(path);
+            limitedArrowSvg.appendChild(arrowHead);
+            document.body.appendChild(limitedArrowSvg);
+
+            // Trigger arrow animation
+            requestAnimationFrame(() => {
+                path.classList.add('animating');
+                arrowHead.classList.add('animating');
+            });
+
+            // Force reflow then start sequence
+            void senseBlocks[4].offsetWidth;
+
+            // Cadence timing
+            const cadence = 500;
+
+            // body1 + "touch" (bottom first) - immediate
+            body1Img.classList.add('visible');
+            senseBlocks[4].classList.add('visible'); // touch
+
+            // body2 + "taste"
+            setTimeout(() => {
+                body2Img.classList.add('visible');
+                senseBlocks[3].classList.add('visible'); // taste
+            }, cadence);
+
+            // body3 + "smell"
+            setTimeout(() => {
+                body3Img.classList.add('visible');
+                senseBlocks[2].classList.add('visible'); // smell
+            }, cadence * 2);
+
+            // body4 + "hear"
+            setTimeout(() => {
+                body4Img.classList.add('visible');
+                senseBlocks[1].classList.add('visible'); // hear
+            }, cadence * 3);
+
+            // body5 + "see"
+            setTimeout(() => {
+                body5Img.classList.add('visible');
+                senseBlocks[0].classList.add('visible'); // see
+            }, cadence * 4);
+
+            // Remove arrow after animation completes
+            setTimeout(() => {
+                if (limitedArrowSvg) {
+                    limitedArrowSvg.style.opacity = '0';
+                    limitedArrowSvg.style.transition = 'opacity 0.5s ease';
+                    setTimeout(() => {
+                        if (limitedArrowSvg) {
+                            limitedArrowSvg.remove();
+                            limitedArrowSvg = null;
+                        }
+                    }, 500);
+                }
+            }, limitedDuration);
+
+            sequenceState.limitedTriggered = true;
+        }
+
+        limitedKeyword.addEventListener('click', (e) => {
+            e.stopPropagation();
+            triggerLimited(false);
+        });
+
+        // ========== IDENTITY KEYWORD CLICK ANIMATION ==========
+        // Click on "identity" to draw arrow to sticky note and reveal it
+
+        const identityKeyword = document.getElementById('identity-keyword');
+        const identityNote = document.getElementById('identity-note');
+        let identityArrowSvg = null;
+
+        identityKeyword.addEventListener('click', (e) => {
+            e.stopPropagation();
+
+            // If already revealed, just close it
+            if (identityNote.classList.contains('revealed')) {
+                identityNote.classList.remove('revealed');
+                return;
+            }
+
+            // Remove any existing arrow
+            if (identityArrowSvg) {
+                identityArrowSvg.remove();
+            }
+
+            // Get positions
+            const keywordRect = identityKeyword.getBoundingClientRect();
+            const noteRect = identityNote.getBoundingClientRect();
+
+            // Start point: right side of keyword
+            const startX = keywordRect.right + 5;
+            const startY = keywordRect.top + keywordRect.height / 2;
+
+            // End point: left side of sticky note
+            const endX = noteRect.left - 5;
+            const endY = noteRect.top + noteRect.height / 2;
+
+            // Create SVG for the arrow
+            identityArrowSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+            identityArrowSvg.classList.add('gap-arrow-svg');
+            identityArrowSvg.setAttribute('viewBox', `0 0 ${window.innerWidth} ${window.innerHeight}`);
+
+            // Create curved path
+            const midX = (startX + endX) / 2;
+            const pathD = `M ${startX} ${startY} Q ${midX} ${startY - 30}, ${endX} ${endY}`;
+
+            const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+            path.classList.add('gap-arrow-line');
+            path.setAttribute('d', pathD);
+
+            // Create arrow head pointing right
+            const arrowHead = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
+            arrowHead.classList.add('gap-arrow-head');
+            arrowHead.setAttribute('points', `${endX + 5},${endY} ${endX - 8},${endY - 6} ${endX - 8},${endY + 6}`);
+
+            identityArrowSvg.appendChild(path);
+            identityArrowSvg.appendChild(arrowHead);
+            document.body.appendChild(identityArrowSvg);
+
+            // Trigger animation
+            requestAnimationFrame(() => {
+                path.classList.add('animating');
+                arrowHead.classList.add('animating');
+            });
+
+            // Reveal the sticky note after arrow reaches
+            setTimeout(() => {
+                identityNote.classList.add('revealed');
+
+                // Remove arrow after a delay
+                setTimeout(() => {
+                    if (identityArrowSvg) {
+                        identityArrowSvg.style.opacity = '0';
+                        identityArrowSvg.style.transition = 'opacity 0.5s ease';
+                        setTimeout(() => {
+                            identityArrowSvg.remove();
+                            identityArrowSvg = null;
+                        }, 500);
+                    }
+                }, 1500);
+            }, 600);
+        });
+
+        // ========== INFINITE KEYWORD CLICK ANIMATION ==========
+        // Click on "infinite" to draw arrow to orb and reveal it
+
+        const infiniteKeyword = document.getElementById('infinite-keyword');
+        let infiniteArrowSvg = null;
+
+        // Duration of infinite animation
+        const infiniteDuration = 2600; // arrow + reveal + cleanup
+
+        function triggerInfinite(isAutomatic = false) {
+            flashKeyword(infiniteKeyword);
+
+            // Add grow animation if auto-triggered - stay big during animation
+            if (isAutomatic) {
+                infiniteKeyword.classList.remove('auto-trigger', 'auto-trigger-shrink');
+                void infiniteKeyword.offsetWidth; // Force reflow
+                infiniteKeyword.classList.add('auto-trigger');
+
+                // Shrink back when animation completes
+                setTimeout(() => {
+                    infiniteKeyword.classList.remove('auto-trigger');
+                    infiniteKeyword.classList.add('auto-trigger-shrink');
+                    setTimeout(() => infiniteKeyword.classList.remove('auto-trigger-shrink'), 300);
+                }, infiniteDuration);
+            }
+
+            // Remove any existing arrow
+            if (infiniteArrowSvg) {
+                infiniteArrowSvg.remove();
+            }
+
+            // Get positions
+            const keywordRect = infiniteKeyword.getBoundingClientRect();
+            const diagramRect = bodyDiagram.getBoundingClientRect();
+
+            // Start point: bottom center of keyword
+            const startX = keywordRect.left + keywordRect.width / 2;
+            const startY = keywordRect.bottom + 5;
+
+            // End point: top edge of orb (outside)
+            const endX = diagramRect.left + diagramRect.width / 2;
+            const endY = diagramRect.top - 10;
+
+            // Create SVG for the arrow
+            infiniteArrowSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+            infiniteArrowSvg.classList.add('gap-arrow-svg');
+            infiniteArrowSvg.setAttribute('viewBox', `0 0 ${window.innerWidth} ${window.innerHeight}`);
+
+            // Create curved path
+            const midY = (startY + endY) / 2;
+            const pathD = `M ${startX} ${startY} Q ${startX} ${midY}, ${endX} ${endY}`;
+
+            const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+            path.classList.add('gap-arrow-line');
+            path.setAttribute('d', pathD);
+
+            // Create arrow head pointing down
+            const arrowHead = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
+            arrowHead.classList.add('gap-arrow-head');
+            arrowHead.setAttribute('points', `${endX},${endY + 5} ${endX - 8},${endY - 8} ${endX + 8},${endY - 8}`);
+
+            infiniteArrowSvg.appendChild(path);
+            infiniteArrowSvg.appendChild(arrowHead);
+            document.body.appendChild(infiniteArrowSvg);
+
+            // Trigger animation
+            requestAnimationFrame(() => {
+                path.classList.add('animating');
+                arrowHead.classList.add('animating');
+            });
+
+            // Reveal the bubble after arrow reaches (just the orb, no flash)
+            setTimeout(() => {
+                if (!bodyDiagram.classList.contains('revealed')) {
+                    bodyDiagram.classList.add('revealed');
+                }
+
+                // Remove arrow after a delay
+                setTimeout(() => {
+                    if (infiniteArrowSvg) {
+                        infiniteArrowSvg.style.opacity = '0';
+                        infiniteArrowSvg.style.transition = 'opacity 0.5s ease';
+                        setTimeout(() => {
+                            infiniteArrowSvg.remove();
+                            infiniteArrowSvg = null;
+                        }, 500);
+                    }
+                }, 1500);
+            }, 600);
+
+            sequenceState.infiniteTriggered = true;
+        }
+
+        infiniteKeyword.addEventListener('click', (e) => {
+            e.stopPropagation();
+
+            // Check if limited needs to be triggered first
+            if (!sequenceState.limitedTriggered) {
+                triggerLimited(true);
+                setTimeout(() => {
+                    triggerInfinite(false);
+                }, limitedDuration + 200);
+            } else {
+                triggerInfinite(false);
+            }
+        });
+
+        // ========== GAP TRIGGER FUNCTION ==========
+        function triggerGap(isAutomatic = false) {
+            flashKeyword(gapKeyword);
+
+            // Remove any existing arrow
+            if (arrowSvg) {
+                arrowSvg.remove();
+            }
+
+            // Get positions
+            const gapRect = gapKeyword.getBoundingClientRect();
+            const diagramRect = bodyDiagram.getBoundingClientRect();
+
+            // Start point: bottom center of "gap" word
+            const startX = gapRect.left + gapRect.width / 2;
+            const startY = gapRect.bottom + 5;
+
+            // End point: top edge of orb (outside)
+            const endX = diagramRect.left + diagramRect.width / 2;
+            const endY = diagramRect.top - 10;
+
+            // Create SVG for the arrow
+            arrowSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+            arrowSvg.classList.add('gap-arrow-svg');
+            arrowSvg.setAttribute('viewBox', `0 0 ${window.innerWidth} ${window.innerHeight}`);
+
+            // Create curved path
+            const midY = (startY + endY) / 2;
+            const pathD = `M ${startX} ${startY} Q ${startX} ${midY}, ${endX} ${endY}`;
+
+            const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+            path.classList.add('gap-arrow-line');
+            path.setAttribute('d', pathD);
+
+            // Create arrow head pointing down
+            const arrowHead = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
+            arrowHead.classList.add('gap-arrow-head');
+            arrowHead.setAttribute('points', `${endX},${endY + 5} ${endX - 8},${endY - 8} ${endX + 8},${endY - 8}`);
+
+            arrowSvg.appendChild(path);
+            arrowSvg.appendChild(arrowHead);
+            document.body.appendChild(arrowSvg);
+
+            // Trigger animation
+            requestAnimationFrame(() => {
+                path.classList.add('animating');
+                arrowHead.classList.add('animating');
+            });
+
+            // Reveal the bubble if not already revealed
+            if (!bodyDiagram.classList.contains('revealed')) {
+                bodyDiagram.classList.add('revealed');
+            }
+
+            // Flash the fill after arrow reaches
+            setTimeout(() => {
+                bodyDiagram.classList.add('flash-fill');
+
+                // Remove flash class after animation
+                setTimeout(() => {
+                    bodyDiagram.classList.remove('flash-fill');
+                }, 2000);
+
+                // Remove arrow after a delay
+                setTimeout(() => {
+                    if (arrowSvg) {
+                        arrowSvg.style.opacity = '0';
+                        arrowSvg.style.transition = 'opacity 0.5s ease';
+                        setTimeout(() => {
+                            arrowSvg.remove();
+                            arrowSvg = null;
+                        }, 500);
+                    }
+                }, 2200);
+            }, 600);
+
+            sequenceState.gapTriggered = true;
+        }
+
+        gapKeyword.addEventListener('click', (e) => {
+            e.stopPropagation();
+
+            // Check sequence: need limited and infinite first
+            if (!sequenceState.limitedTriggered && !sequenceState.infiniteTriggered) {
+                // Neither triggered - trigger both then gap
+                triggerLimited(true);
+                setTimeout(() => {
+                    triggerInfinite(true);
+                    setTimeout(() => {
+                        triggerGap(false);
+                    }, infiniteDuration + 200);
+                }, limitedDuration + 200);
+            } else if (!sequenceState.infiniteTriggered) {
+                // Limited done, need infinite then gap
+                triggerInfinite(true);
+                setTimeout(() => {
+                    triggerGap(false);
+                }, infiniteDuration + 200);
+            } else {
+                // Both done, just trigger gap
+                triggerGap(false);
+            }
+        });
+
+        // ========== BODY DIAGRAM CLICK TO RESET ==========
+        bodyDiagram.addEventListener('click', (e) => {
+            // Reset all visual states
+            bodyDiagram.classList.remove('revealed');
+            bodyDiagram.classList.remove('limited-active');
+            bodyDiagram.classList.remove('flash-fill');
+
+            // Hide all body images
+            bodyImages.forEach(img => img.classList.remove('visible'));
+
+            // Hide all sense blocks
+            senseBlocks.forEach(block => block.classList.remove('visible'));
+
+            // Reset sequence state so animations can be triggered again
+            sequenceState.limitedTriggered = false;
+            sequenceState.infiniteTriggered = false;
+            sequenceState.gapTriggered = false;
+        });
+
+        // ========== BIPOLAR DIAGRAM CLICK TOGGLE ==========
+        // Click to cycle through scenes 1, 2, 3
+
+        const bipolarDiagram = document.getElementById('bipolar-diagram');
+        const bipolarScenes = bipolarDiagram.querySelectorAll('.bipolar-scene');
+        let currentScene = 1;
+
+        bipolarDiagram.addEventListener('click', (e) => {
+            e.stopPropagation();
+            bipolarScenes.forEach(scene => scene.classList.remove('active'));
+            currentScene = currentScene >= 3 ? 1 : currentScene + 1;
+            bipolarDiagram.querySelector(`.bipolar-scene-${currentScene}`).classList.add('active');
+        });
+
+        // ========== REALITY KEYWORD CLICK ANIMATION ==========
+        // Click on "reality" to draw arrow to sticky note and reveal it
+
+        const realityKeyword = document.getElementById('reality-keyword');
+        const realityNote = document.getElementById('reality-note');
+        let realityArrowSvg = null;
+
+        realityKeyword.addEventListener('click', (e) => {
+            e.stopPropagation();
+
+            // If already revealed, just close it
+            if (realityNote.classList.contains('revealed')) {
+                realityNote.classList.remove('revealed');
+                return;
+            }
+
+            // Remove any existing arrow
+            if (realityArrowSvg) {
+                realityArrowSvg.remove();
+            }
+
+            // Get positions
+            const keywordRect = realityKeyword.getBoundingClientRect();
+            const noteRect = realityNote.getBoundingClientRect();
+
+            // Start point: right side of keyword
+            const startX = keywordRect.right + 5;
+            const startY = keywordRect.top + keywordRect.height / 2;
+
+            // End point: left side of sticky note
+            const endX = noteRect.left - 5;
+            const endY = noteRect.top + noteRect.height / 2;
+
+            // Create SVG for the arrow
+            realityArrowSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+            realityArrowSvg.classList.add('gap-arrow-svg');
+            realityArrowSvg.setAttribute('viewBox', `0 0 ${window.innerWidth} ${window.innerHeight}`);
+
+            // Create curved path
+            const midX = (startX + endX) / 2;
+            const pathD = `M ${startX} ${startY} Q ${midX} ${startY - 30}, ${endX} ${endY}`;
+
+            const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+            path.classList.add('gap-arrow-line');
+            path.setAttribute('d', pathD);
+            path.style.stroke = '#60a5fa'; // Blue for reality
+
+            // Create arrow head pointing right
+            const arrowHead = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
+            arrowHead.classList.add('gap-arrow-head');
+            arrowHead.setAttribute('points', `${endX + 5},${endY} ${endX - 8},${endY - 6} ${endX - 8},${endY + 6}`);
+            arrowHead.style.fill = '#60a5fa'; // Blue for reality
+
+            realityArrowSvg.appendChild(path);
+            realityArrowSvg.appendChild(arrowHead);
+            document.body.appendChild(realityArrowSvg);
+
+            // Trigger animation
+            requestAnimationFrame(() => {
+                path.classList.add('animating');
+                arrowHead.classList.add('animating');
+            });
+
+            // Reveal the sticky note after arrow reaches
+            setTimeout(() => {
+                realityNote.classList.add('revealed');
+
+                // Remove arrow after a delay
+                setTimeout(() => {
+                    if (realityArrowSvg) {
+                        realityArrowSvg.style.opacity = '0';
+                        realityArrowSvg.style.transition = 'opacity 0.5s ease';
+                        setTimeout(() => {
+                            realityArrowSvg.remove();
+                            realityArrowSvg = null;
+                        }, 500);
+                    }
+                }, 1500);
+            }, 600);
+        });
+    </script>
+</body>
+</html>
