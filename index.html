@@ -123,7 +123,7 @@
         }
 
         .identity-container .sticky-note {
-            background: #bbf7d0;
+            background: #bfdbfe;
         }
 
         .reality-container .sticky-note {
@@ -171,9 +171,9 @@
 
         .body-diagram {
             position: relative;
-            width: 300px;
-            height: 400px;
-            margin: 60px auto;
+            width: 240px;
+            height: 320px;
+            margin: 40px auto;
             cursor: pointer;
             display: flex;
             align-items: center;
@@ -195,26 +195,356 @@
             opacity: 0;
         }
 
+        .body-diagram-container {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 60px auto;
+        }
+
+        .body-diagram {
+            transition: all 0.6s ease-out;
+        }
+
+        /* Expanded state when "do" is clicked */
+        .body-diagram.expanded {
+            width: 800px;
+            height: 750px;
+        }
+
+        .body-diagram.expanded .infinity-bubble {
+            width: 800px;
+            height: 750px;
+        }
+
+        .body-diagram.expanded .sense-blocks-container {
+            opacity: 0;
+        }
+
+        .body-diagram.expanded .body-image {
+            transform: translateY(150px);
+            transition: transform 0.6s ease-out;
+        }
+
+        .body-diagram.expanded .limited-body-image {
+            transform: translate(-50%, -50%) translateY(150px);
+            transition: transform 0.6s ease-out;
+        }
+
+        .orb-text {
+            position: absolute;
+            top: 120px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80%;
+            text-align: center;
+            font-size: 1rem;
+            color: #d0d0d0;
+            line-height: 1.7;
+            opacity: 0;
+            transition: opacity 0.5s ease-out 0.3s;
+            z-index: 10;
+        }
+
+        .body-diagram.expanded .orb-text {
+            opacity: 1;
+        }
+
+        .body-diagram.expanded .infinity-bubble {
+            opacity: 1;
+        }
+
+        .body-diagram.expanded {
+            cursor: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="84" height="22"><rect x="0" y="0" width="84" height="22" rx="4" fill="%230a0a0f" stroke="%2386efac" stroke-width="1"/><text x="42" y="15" font-family="Georgia, serif" font-size="11" font-weight="bold" fill="%2386efac" text-anchor="middle">CLICK ME!!</text></svg>') 42 11, pointer;
+        }
+
+        /* Scene 2 image for expanded orb */
+        .do-scene2-image {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) translateY(60px);
+            width: 500px;
+            height: auto;
+            filter: invert(1);
+            opacity: 0;
+            z-index: 4;
+            transition: opacity 0.5s ease;
+        }
+
+        .body-diagram.expanded.scene2 .do-scene2-image {
+            opacity: 1;
+        }
+
+        .body-diagram.expanded.scene2 .body-image,
+        .body-diagram.expanded.scene2 .limited-body-image {
+            opacity: 0;
+        }
+
+        /* Scene 3 image */
+        .do-scene3-image {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) translateY(60px);
+            width: 500px;
+            height: auto;
+            filter: invert(1);
+            opacity: 0;
+            z-index: 4;
+            transition: opacity 0.5s ease;
+        }
+
+        .body-diagram.expanded.scene3 .do-scene3-image {
+            opacity: 1;
+        }
+
+        .body-diagram.expanded.scene3 .do-scene2-image {
+            opacity: 0;
+        }
+
+        .body-diagram.expanded.scene3 .body-image,
+        .body-diagram.expanded.scene3 .limited-body-image {
+            opacity: 0;
+        }
+
+        /* Hide scene2 orbs in scene3 */
+        .body-diagram.expanded.scene3 .scene2-orb {
+            opacity: 0;
+        }
+
+        /* Scene 3 green orbs */
+        .scene3-orb {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            z-index: 20;
+            opacity: 0;
+            transition: all 0.5s ease;
+            animation: orbPulse 2s ease-in-out infinite;
+        }
+
+        .orb-green {
+            background: radial-gradient(circle, #86efac 0%, rgba(134, 239, 172, 0.3) 70%, transparent 100%);
+            box-shadow: 0 0 10px rgba(134, 239, 172, 0.5);
+        }
+
+        .body-diagram.expanded.scene3 .scene3-orb {
+            opacity: 1;
+        }
+
+        /* Hide the main head-orb in scene3 since we have the two scene3 orbs */
+        .body-diagram.expanded.scene3 .head-orb {
+            opacity: 0;
+        }
+
+        /* Scene 4 - body with graphic beside it */
+        .do-scene4-image {
+            position: absolute;
+            top: 50%;
+            left: 65%;
+            transform: translateY(-50%) translateY(150px);
+            width: 40px;
+            height: auto;
+            filter: invert(1);
+            opacity: 0;
+            z-index: 4;
+            transition: opacity 0.5s ease;
+        }
+
+        .body-diagram.expanded.scene4 .do-scene4-image {
+            opacity: 1;
+        }
+
+        .body-diagram.expanded.scene4 .do-scene3-image {
+            opacity: 0;
+        }
+
+        /* Show body again in scene4, same position as scene1 */
+        .body-diagram.expanded.scene4 .body-image {
+            opacity: 1;
+            transform: translateY(150px);
+        }
+
+        /* Hide scene3 orbs in scene4 */
+        .body-diagram.expanded.scene4 .scene3-orb {
+            opacity: 0;
+        }
+
+        /* Show head orb again in scene4 */
+        .body-diagram.expanded.scene4 .head-orb {
+            opacity: 1;
+        }
+
+        /* Scene 4 orb for the new graphic */
+        .scene4-orb {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            z-index: 20;
+            opacity: 0;
+            transition: all 0.5s ease;
+            animation: orbPulse 2s ease-in-out infinite;
+            background: radial-gradient(circle, #86efac 0%, rgba(134, 239, 172, 0.3) 70%, transparent 100%);
+            box-shadow: 0 0 10px rgba(134, 239, 172, 0.5);
+        }
+
+        .body-diagram.expanded.scene4 .scene4-orb {
+            opacity: 1;
+        }
+
+        /* Scene 5 - orb travels along path */
+        .body-diagram.expanded.scene5 .scene4-orb {
+            animation: orbPath 2s ease-in-out forwards;
+        }
+
+        .body-diagram.expanded.scene5 .do-scene4-image {
+            opacity: 1;
+        }
+
+        .body-diagram.expanded.scene5 .body-image {
+            opacity: 1;
+            transform: translateY(150px);
+        }
+
+        @keyframes orbPath {
+            0% { left: 62.8%; top: 68.4%; opacity: 1; }
+            20% { left: 57.7%; top: 68%; opacity: 1; }
+            40% { left: 54.7%; top: 72.1%; opacity: 1; }
+            60% { left: 53%; top: 78.1%; opacity: 1; }
+            80% { left: 53%; top: 82%; opacity: 1; }
+            100% { left: 53.3%; top: 84.9%; opacity: 0; }
+        }
+
+        /* Body fill overlay - appears after orb reaches destination */
+        .body-fill-overlay {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 140px;
+            height: auto;
+            filter: invert(1);
+            opacity: 0;
+            z-index: 5;
+            pointer-events: none;
+        }
+
+        .body-diagram.expanded.scene5 .body-fill-overlay {
+            transform: translate(-50%, -50%) translateY(150px);
+            animation: showBodyFill 0.5s ease-out forwards;
+            animation-delay: 2s;
+        }
+
+        @keyframes showBodyFill {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+        /* Small green orb in person's head */
+        .head-orb {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: radial-gradient(circle, #86efac 0%, rgba(134, 239, 172, 0.3) 70%, transparent 100%);
+            border-radius: 50%;
+            z-index: 20;
+            opacity: 0;
+            transition: all 0.5s ease;
+            animation: orbPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes orbPulse {
+            0%, 100% {
+                transform: translate(-50%, -50%) scale(1);
+                box-shadow: 0 0 10px rgba(134, 239, 172, 0.5);
+            }
+            50% {
+                transform: translate(-50%, -50%) scale(1.2);
+                box-shadow: 0 0 20px rgba(134, 239, 172, 0.8);
+            }
+        }
+
+        /* Orb appears when revealed (infinite) or expanded (do) - position controlled by JavaScript */
+        .body-diagram.revealed .head-orb,
+        .body-diagram.expanded .head-orb {
+            opacity: 1;
+        }
+
+        /* Scene 2 colored orbs */
+        .scene2-orb {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            z-index: 20;
+            opacity: 0;
+            transition: all 0.5s ease;
+            animation: orbPulse 2s ease-in-out infinite;
+        }
+
+        .body-diagram.expanded.scene2 .scene2-orb {
+            opacity: 1;
+        }
+
+        .orb-blue {
+            background: radial-gradient(circle, #60a5fa 0%, rgba(96, 165, 250, 0.3) 70%, transparent 100%);
+            box-shadow: 0 0 10px rgba(96, 165, 250, 0.5);
+        }
+        .orb-purple {
+            background: radial-gradient(circle, #c084fc 0%, rgba(192, 132, 252, 0.3) 70%, transparent 100%);
+            box-shadow: 0 0 10px rgba(192, 132, 252, 0.5);
+        }
+        .orb-pink {
+            background: radial-gradient(circle, #f472b6 0%, rgba(244, 114, 182, 0.3) 70%, transparent 100%);
+            box-shadow: 0 0 10px rgba(244, 114, 182, 0.5);
+        }
+        .orb-red {
+            background: radial-gradient(circle, #f87171 0%, rgba(248, 113, 113, 0.3) 70%, transparent 100%);
+            box-shadow: 0 0 10px rgba(248, 113, 113, 0.5);
+        }
+        .orb-orange {
+            background: radial-gradient(circle, #fb923c 0%, rgba(251, 146, 60, 0.3) 70%, transparent 100%);
+            box-shadow: 0 0 10px rgba(251, 146, 60, 0.5);
+        }
+        .orb-yellow {
+            background: radial-gradient(circle, #fbbf24 0%, rgba(251, 191, 36, 0.3) 70%, transparent 100%);
+            box-shadow: 0 0 10px rgba(251, 191, 36, 0.5);
+        }
+        .orb-cyan {
+            background: radial-gradient(circle, #22d3d8 0%, rgba(34, 211, 216, 0.3) 70%, transparent 100%);
+            box-shadow: 0 0 10px rgba(34, 211, 216, 0.5);
+        }
+        .orb-white {
+            background: radial-gradient(circle, #ffffff 0%, rgba(255, 255, 255, 0.3) 70%, transparent 100%);
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+        }
+
         .body-image {
-            width: 180px;
+            width: 140px;
             height: auto;
             position: relative;
             z-index: 2;
             filter: invert(1) opacity(0.9);
+            transition: opacity 0.5s ease;
         }
 
         .infinity-bubble {
             position: absolute;
-            width: 350px;
-            height: 450px;
+            width: 280px;
+            height: 360px;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
             z-index: 1;
             opacity: 0;
-            transition: opacity 0.5s ease;
+            transition: opacity 0.5s ease, width 0.6s ease-out, height 0.6s ease-out;
             overflow: visible;
         }
+
 
         .body-diagram.revealed .infinity-bubble {
             opacity: 1;
@@ -307,9 +637,9 @@
         }
 
         .keyword-identity {
-            color: #86efac;
-            text-shadow: 0 0 30px rgba(134, 239, 172, 0.3);
-            cursor: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="84" height="22"><rect x="0" y="0" width="84" height="22" rx="4" fill="%230a0a0f" stroke="%2386efac" stroke-width="1"/><text x="42" y="15" font-family="Georgia, serif" font-size="11" font-weight="bold" fill="%2386efac" text-anchor="middle">CLICK ME!!</text></svg>') 42 11, pointer;
+            color: #60a5fa;
+            text-shadow: 0 0 30px rgba(96, 165, 250, 0.3);
+            cursor: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="84" height="22"><rect x="0" y="0" width="84" height="22" rx="4" fill="%230a0a0f" stroke="%2360a5fa" stroke-width="1"/><text x="42" y="15" font-family="Georgia, serif" font-size="11" font-weight="bold" fill="%2360a5fa" text-anchor="middle">CLICK ME!!</text></svg>') 42 11, pointer;
         }
 
         .keyword-reality {
@@ -352,7 +682,7 @@
         /* ========== GAP ARROW ANIMATION ========== */
 
         .gap-arrow-svg {
-            position: fixed;
+            position: absolute;
             top: 0;
             left: 0;
             width: 100%;
@@ -439,7 +769,7 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 180px;
+            width: 140px;
             height: auto;
             filter: invert(1);
             opacity: 0;
@@ -460,26 +790,27 @@
         .sense-blocks-container {
             position: absolute;
             top: 50%;
-            right: -120px;
+            right: -100px;
             transform: translateY(-50%);
             width: auto;
-            height: 300px;
+            height: 240px;
             z-index: 10;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
             align-items: flex-start;
             pointer-events: none;
+            transition: opacity 0.5s ease;
         }
 
         .sense-block {
             position: relative;
-            padding: 8px 16px;
+            padding: 6px 12px;
             background: rgba(134, 239, 172, 0.2);
             border: 1px solid rgba(134, 239, 172, 0.5);
-            border-radius: 6px;
+            border-radius: 4px;
             text-align: left;
-            font-size: 0.85rem;
+            font-size: 0.75rem;
             font-weight: 600;
             color: #86efac;
             text-transform: lowercase;
@@ -494,7 +825,7 @@
             position: absolute;
             right: 100%;
             top: 50%;
-            width: 140px;
+            width: 110px;
             height: 0;
             border-top: 2px dotted rgba(134, 239, 172, 0.6);
             transform: translateY(-50%);
@@ -758,8 +1089,13 @@
                 Because our lived reality is finite and <span class="keyword keyword-gap" data-keyword id="limited-keyword">limited</span> by nature, we simply can never capture the <span class="keyword keyword-gap" data-keyword id="infinite-keyword">infinite</span> totality of who we are in our daily lives. That is why there will always be a <span class="keyword keyword-gap" data-keyword id="gap-keyword">gap</span> between our identity and our reality, creating a permanent, underlying unease and discomfort within ourselves:
             </p>
 
-            <div class="body-diagram" id="body-diagram">
-                <img src="Human_body_outline.png" alt="Human body outline" class="body-image">
+            <p class="paragraph">
+                The discomfort of living in a reality that doesn't fully reflect who we are is the source of human motivation. We are motivated to reduce this gap. The more our reality captures our true identity, the more that discomfort fades. This is the core driver behind everything we <span class="keyword keyword-gap" data-keyword id="do-keyword">do</span>:
+            </p>
+
+            <div class="body-diagram-container">
+                <div class="body-diagram" id="body-diagram">
+                    <img src="Human_body_outline.png" alt="Human body outline" class="body-image">
                 <!-- Limited sequence images -->
                 <img src="body1.png" alt="Body state 1" class="limited-body-image" id="body1-img">
                 <img src="body2.png" alt="Body state 2" class="limited-body-image" id="body2-img">
@@ -773,7 +1109,7 @@
                     <div class="sense-block" data-sense="4">taste</div>
                     <div class="sense-block" data-sense="5">touch</div>
                 </div>
-                <svg class="infinity-bubble" viewBox="0 0 400 500">
+                <svg class="infinity-bubble" viewBox="0 0 400 500" preserveAspectRatio="none">
                     <defs>
                         <!-- Mask to cut out body shape for orange flash -->
                         <mask id="body-cutout-mask">
@@ -820,7 +1156,33 @@
                         <path class="arrow" d="M60,80 L45,65 M45,72 L45,65 L52,65" />
                     </g>
                 </svg>
+                <div class="orb-text">A person is struggling with feeling like the way they perceive, think, and relate is fundamentally different from others, yet lack the language to explain how or why. This creates a distinct discomfort: living in a reality that does not reflect how they operate, even at the level of articulating their own experience.</div>
+                <img src="do-scene2.png" alt="Scene 2" class="do-scene2-image">
+                <img src="do-scene3.png" alt="Scene 3" class="do-scene3-image">
+                <div class="head-orb"></div>
+                <div class="scene2-orb orb-blue" data-orb="1"></div>
+                <div class="scene2-orb orb-purple" data-orb="2"></div>
+                <div class="scene2-orb orb-pink" data-orb="3"></div>
+                <div class="scene2-orb orb-red" data-orb="4"></div>
+                <div class="scene2-orb orb-orange" data-orb="5"></div>
+                <div class="scene2-orb orb-yellow" data-orb="6"></div>
+                <div class="scene2-orb orb-cyan" data-orb="7"></div>
+                <div class="scene2-orb orb-white" data-orb="8"></div>
+                <div class="scene3-orb orb-green" data-orb="1"></div>
+                <div class="scene3-orb orb-green" data-orb="2"></div>
+                <img src="do-scene4.png" alt="Scene 4" class="do-scene4-image">
+                <div class="scene4-orb" data-orb="1"></div>
+                <img src="bodyfill1.png" alt="Body Fill" class="body-fill-overlay">
+                </div>
             </div>
+
+            <p class="paragraph">
+                Tactically, this means we are always looking for pieces of ourselves in the physical world - consciously or subconsciously, directly or indirectly. When we find a bit of ourselves in the world - whether it's in a song, a perfume, an outfit that feels like you - we have successfully channeled a bit more of us into our lived reality. Our world bends a bit more in alignment of our identity.
+            </p>
+
+            <p class="paragraph">
+                Things, knowledge, relationships, and experiences facilitate this process, acting as vessels that bridge our intangible identity into the finite reality we live in:
+            </p>
 
         </section>
 
@@ -1056,22 +1418,26 @@
             // Hide original body
             bodyDiagram.classList.add('limited-active');
 
-            // Get positions for arrow
+            // Get positions for arrow with scroll offset
             const keywordRect = limitedKeyword.getBoundingClientRect();
             const containerRect = senseBlocksContainer.getBoundingClientRect();
+            const scrollX = window.scrollX;
+            const scrollY = window.scrollY;
 
             // Start point: bottom center of "limited" keyword
-            const startX = keywordRect.left + keywordRect.width / 2;
-            const startY = keywordRect.bottom + 5;
+            const startX = keywordRect.left + keywordRect.width / 2 + scrollX;
+            const startY = keywordRect.bottom + 5 + scrollY;
 
             // End point: left side of sense blocks container
-            const endX = containerRect.left - 10;
-            const endY = containerRect.top + containerRect.height / 2;
+            const endX = containerRect.left - 10 + scrollX;
+            const endY = containerRect.top + containerRect.height / 2 + scrollY;
 
             // Create SVG for the arrow
             limitedArrowSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
             limitedArrowSvg.classList.add('gap-arrow-svg');
-            limitedArrowSvg.setAttribute('viewBox', `0 0 ${window.innerWidth} ${window.innerHeight}`);
+            limitedArrowSvg.style.width = document.documentElement.scrollWidth + 'px';
+            limitedArrowSvg.style.height = document.documentElement.scrollHeight + 'px';
+            limitedArrowSvg.setAttribute('viewBox', `0 0 ${document.documentElement.scrollWidth} ${document.documentElement.scrollHeight}`);
 
             // Create curved path
             const midY = (startY + endY) / 2;
@@ -1173,22 +1539,26 @@
                 identityArrowSvg.remove();
             }
 
-            // Get positions
+            // Get positions with scroll offset for absolute positioning
             const keywordRect = identityKeyword.getBoundingClientRect();
             const noteRect = identityNote.getBoundingClientRect();
+            const scrollX = window.scrollX;
+            const scrollY = window.scrollY;
 
             // Start point: right side of keyword
-            const startX = keywordRect.right + 5;
-            const startY = keywordRect.top + keywordRect.height / 2;
+            const startX = keywordRect.right + 5 + scrollX;
+            const startY = keywordRect.top + keywordRect.height / 2 + scrollY;
 
             // End point: left side of sticky note
-            const endX = noteRect.left - 5;
-            const endY = noteRect.top + noteRect.height / 2;
+            const endX = noteRect.left - 5 + scrollX;
+            const endY = noteRect.top + noteRect.height / 2 + scrollY;
 
             // Create SVG for the arrow
             identityArrowSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
             identityArrowSvg.classList.add('gap-arrow-svg');
-            identityArrowSvg.setAttribute('viewBox', `0 0 ${window.innerWidth} ${window.innerHeight}`);
+            identityArrowSvg.style.width = document.documentElement.scrollWidth + 'px';
+            identityArrowSvg.style.height = document.documentElement.scrollHeight + 'px';
+            identityArrowSvg.setAttribute('viewBox', `0 0 ${document.documentElement.scrollWidth} ${document.documentElement.scrollHeight}`);
 
             // Create curved path
             const midX = (startX + endX) / 2;
@@ -1197,11 +1567,13 @@
             const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
             path.classList.add('gap-arrow-line');
             path.setAttribute('d', pathD);
+            path.style.stroke = '#60a5fa'; // Blue for identity
 
             // Create arrow head pointing right
             const arrowHead = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
             arrowHead.classList.add('gap-arrow-head');
             arrowHead.setAttribute('points', `${endX + 5},${endY} ${endX - 8},${endY - 6} ${endX - 8},${endY + 6}`);
+            arrowHead.style.fill = '#60a5fa'; // Blue for identity
 
             identityArrowSvg.appendChild(path);
             identityArrowSvg.appendChild(arrowHead);
@@ -1262,22 +1634,26 @@
                 infiniteArrowSvg.remove();
             }
 
-            // Get positions
+            // Get positions with scroll offset
             const keywordRect = infiniteKeyword.getBoundingClientRect();
             const diagramRect = bodyDiagram.getBoundingClientRect();
+            const scrollX = window.scrollX;
+            const scrollY = window.scrollY;
 
             // Start point: bottom center of keyword
-            const startX = keywordRect.left + keywordRect.width / 2;
-            const startY = keywordRect.bottom + 5;
+            const startX = keywordRect.left + keywordRect.width / 2 + scrollX;
+            const startY = keywordRect.bottom + 5 + scrollY;
 
             // End point: top edge of orb (outside)
-            const endX = diagramRect.left + diagramRect.width / 2;
-            const endY = diagramRect.top - 10;
+            const endX = diagramRect.left + diagramRect.width / 2 + scrollX;
+            const endY = diagramRect.top - 10 + scrollY;
 
             // Create SVG for the arrow
             infiniteArrowSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
             infiniteArrowSvg.classList.add('gap-arrow-svg');
-            infiniteArrowSvg.setAttribute('viewBox', `0 0 ${window.innerWidth} ${window.innerHeight}`);
+            infiniteArrowSvg.style.width = document.documentElement.scrollWidth + 'px';
+            infiniteArrowSvg.style.height = document.documentElement.scrollHeight + 'px';
+            infiniteArrowSvg.setAttribute('viewBox', `0 0 ${document.documentElement.scrollWidth} ${document.documentElement.scrollHeight}`);
 
             // Create curved path
             const midY = (startY + endY) / 2;
@@ -1306,6 +1682,7 @@
             setTimeout(() => {
                 if (!bodyDiagram.classList.contains('revealed')) {
                     bodyDiagram.classList.add('revealed');
+                    updateOrbPosition('infinite');
                 }
 
                 // Remove arrow after a delay
@@ -1342,27 +1719,45 @@
         function triggerGap(isAutomatic = false) {
             flashKeyword(gapKeyword);
 
+            // Add grow animation if auto-triggered
+            if (isAutomatic) {
+                gapKeyword.classList.remove('auto-trigger', 'auto-trigger-shrink');
+                void gapKeyword.offsetWidth; // Force reflow
+                gapKeyword.classList.add('auto-trigger');
+
+                // Shrink back after animation
+                setTimeout(() => {
+                    gapKeyword.classList.remove('auto-trigger');
+                    gapKeyword.classList.add('auto-trigger-shrink');
+                    setTimeout(() => gapKeyword.classList.remove('auto-trigger-shrink'), 300);
+                }, 2500);
+            }
+
             // Remove any existing arrow
             if (arrowSvg) {
                 arrowSvg.remove();
             }
 
-            // Get positions
+            // Get positions with scroll offset
             const gapRect = gapKeyword.getBoundingClientRect();
             const diagramRect = bodyDiagram.getBoundingClientRect();
+            const scrollX = window.scrollX;
+            const scrollY = window.scrollY;
 
             // Start point: bottom center of "gap" word
-            const startX = gapRect.left + gapRect.width / 2;
-            const startY = gapRect.bottom + 5;
+            const startX = gapRect.left + gapRect.width / 2 + scrollX;
+            const startY = gapRect.bottom + 5 + scrollY;
 
             // End point: top edge of orb (outside)
-            const endX = diagramRect.left + diagramRect.width / 2;
-            const endY = diagramRect.top - 10;
+            const endX = diagramRect.left + diagramRect.width / 2 + scrollX;
+            const endY = diagramRect.top - 10 + scrollY;
 
             // Create SVG for the arrow
             arrowSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
             arrowSvg.classList.add('gap-arrow-svg');
-            arrowSvg.setAttribute('viewBox', `0 0 ${window.innerWidth} ${window.innerHeight}`);
+            arrowSvg.style.width = document.documentElement.scrollWidth + 'px';
+            arrowSvg.style.height = document.documentElement.scrollHeight + 'px';
+            arrowSvg.setAttribute('viewBox', `0 0 ${document.documentElement.scrollWidth} ${document.documentElement.scrollHeight}`);
 
             // Create curved path
             const midY = (startY + endY) / 2;
@@ -1442,12 +1837,241 @@
             }
         });
 
-        // ========== BODY DIAGRAM CLICK TO RESET ==========
+        // ========== DEBUG MODE FOR ORB POSITIONING ==========
+        // Set to true to click and get coordinates, false for normal use
+        const DEBUG_ORB_POSITIONS = false;
+        const DEBUG_SCENE = 'scene4'; // which scene to debug: 'infinite', 'scene1', 'scene2', 'scene3', 'scene4'
+        let debugOrbNumber = 1; // for scene2 (1-8) or scene3 (1-2), which orb we're positioning
+
+        const headOrb = document.querySelector('.head-orb');
+
+        // Orb positions as percentages of the body-diagram container
+        const orbPositions = {
+            infinite: { x: 52.5, y: 16.9 },  // body head when infinite clicked (before do)
+            scene1: { x: 50.8, y: 55.5 },    // body head position (do clicked)
+            scene2: { x: 54.1, y: 47.1 },    // computer person head position (green orb)
+            scene3: { x: 50, y: 50 },        // scene 3 head position (not used - scene3 has its own orbs)
+            scene4: { x: 50.8, y: 55.5 }     // same as scene1 - body in same position
+        };
+
+        // Scene 2 colored orb positions
+        const scene2OrbPositions = {
+            1: { x: 41.1, y: 54.7 },   // blue
+            2: { x: 41.0, y: 63.2 },   // purple
+            3: { x: 33.4, y: 59.6 },   // pink
+            4: { x: 33.3, y: 62.2 },   // red
+            5: { x: 29.0, y: 64.9 },   // orange
+            6: { x: 29.7, y: 61.3 },   // yellow
+            7: { x: 24.8, y: 63.8 },   // cyan
+            8: { x: 25.8, y: 60.9 }    // white
+        };
+
+        const scene2Orbs = document.querySelectorAll('.scene2-orb');
+        const scene3Orbs = document.querySelectorAll('.scene3-orb');
+
+        // Scene 3 green orb positions
+        const scene3OrbPositions = {
+            1: { x: 58.3, y: 56.8 },   // green orb 1
+            2: { x: 31.9, y: 43.9 }    // green orb 2
+        };
+
+        // Scene 4 orb position (for the graphic)
+        const scene4OrbPositions = {
+            1: { x: 68.0, y: 70.2 }
+        };
+
+        const scene4Orbs = document.querySelectorAll('.scene4-orb');
+
+        // Path debug mode disabled - waypoints captured
+
+        function updateScene4Orbs() {
+            scene4Orbs.forEach(orb => {
+                const orbNum = orb.dataset.orb;
+                const pos = scene4OrbPositions[orbNum];
+                if (pos) {
+                    orb.style.left = pos.x + '%';
+                    orb.style.top = pos.y + '%';
+                }
+            });
+        }
+
+        function updateOrbPosition(scene) {
+            const pos = orbPositions[scene];
+            if (pos && headOrb) {
+                headOrb.style.left = pos.x + '%';
+                headOrb.style.top = pos.y + '%';
+            }
+        }
+
+        function updateScene2Orbs() {
+            scene2Orbs.forEach(orb => {
+                const orbNum = orb.dataset.orb;
+                const pos = scene2OrbPositions[orbNum];
+                if (pos) {
+                    orb.style.left = pos.x + '%';
+                    orb.style.top = pos.y + '%';
+                }
+            });
+        }
+
+        function updateScene3Orbs() {
+            scene3Orbs.forEach(orb => {
+                const orbNum = orb.dataset.orb;
+                const pos = scene3OrbPositions[orbNum];
+                if (pos) {
+                    orb.style.left = pos.x + '%';
+                    orb.style.top = pos.y + '%';
+                }
+            });
+        }
+
+        // ========== BODY DIAGRAM CLICK TO RESET OR ADVANCE SCENE ==========
+        const orbText = document.querySelector('.orb-text');
+        const scene1Text = "A person is struggling with feeling like the way they perceive, think, and relate is fundamentally different from others, yet lack the language to explain how or why. This creates a distinct discomfort: living in a reality that does not reflect how they operate, even at the level of articulating their own experience.";
+        const scene2Text = "That discomfort drives him to search for an explanation.";
+        const scene3Text = "When the person receives a diagnosis of autism, nothing about their reality changes. They are the same before and after. What changes is alignment. The diagnosis gives language to an otherwise inexpressible identity, making their inner experience legible to themselves and to the world.";
+        const scene4Text = "The relief in a diagnosis does not come from correction or cure, but from reducing the gap between identity and reality.";
+
         bodyDiagram.addEventListener('click', (e) => {
+            // Determine current scene
+            let currentScene = null;
+            if (bodyDiagram.classList.contains('expanded') && bodyDiagram.classList.contains('scene4')) {
+                currentScene = 'scene4';
+            } else if (bodyDiagram.classList.contains('expanded') && bodyDiagram.classList.contains('scene3')) {
+                currentScene = 'scene3';
+            } else if (bodyDiagram.classList.contains('expanded') && bodyDiagram.classList.contains('scene2')) {
+                currentScene = 'scene2';
+            } else if (bodyDiagram.classList.contains('expanded')) {
+                currentScene = 'scene1';
+            } else if (bodyDiagram.classList.contains('revealed')) {
+                currentScene = 'infinite';
+            }
+
+            // DEBUG MODE: Show coordinates where you clicked
+            if (DEBUG_ORB_POSITIONS && currentScene === DEBUG_SCENE) {
+                const rect = bodyDiagram.getBoundingClientRect();
+                const x = ((e.clientX - rect.left) / rect.width * 100).toFixed(1);
+                const y = ((e.clientY - rect.top) / rect.height * 100).toFixed(1);
+
+                // For scene2, we're positioning orbs 1-8
+                const orbColors = ['', 'blue', 'purple', 'pink', 'red', 'orange', 'yellow', 'cyan', 'white'];
+
+                // Show coordinates on screen
+                const coordDisplay = document.createElement('div');
+                coordDisplay.style.cssText = 'position:fixed;top:20px;left:50%;transform:translateX(-50%);background:#86efac;color:#000;padding:15px 25px;border-radius:8px;font-family:monospace;font-size:16px;z-index:9999;';
+
+                if (DEBUG_SCENE === 'scene2') {
+                    coordDisplay.innerHTML = `<strong>Orb ${debugOrbNumber} (${orbColors[debugOrbNumber]}):</strong> x: ${x}, y: ${y}<br><small>Click again for next orb (${debugOrbNumber + 1}/8)</small>`;
+
+                    // Move this orb to clicked position
+                    const currentOrb = document.querySelector(`.scene2-orb[data-orb="${debugOrbNumber}"]`);
+                    if (currentOrb) {
+                        currentOrb.style.left = x + '%';
+                        currentOrb.style.top = y + '%';
+                    }
+
+                    console.log(`${debugOrbNumber}: { x: ${x}, y: ${y} },   // ${orbColors[debugOrbNumber]}`);
+
+                    // Move to next orb
+                    debugOrbNumber++;
+                    if (debugOrbNumber > 8) debugOrbNumber = 1;
+                } else if (DEBUG_SCENE === 'scene3') {
+                    coordDisplay.innerHTML = `<strong>Green Orb ${debugOrbNumber}:</strong> x: ${x}, y: ${y}<br><small>Click again for next orb (${debugOrbNumber}/2)</small>`;
+
+                    // Move this orb to clicked position
+                    const currentOrb = document.querySelector(`.scene3-orb[data-orb="${debugOrbNumber}"]`);
+                    if (currentOrb) {
+                        currentOrb.style.left = x + '%';
+                        currentOrb.style.top = y + '%';
+                    }
+
+                    console.log(`${debugOrbNumber}: { x: ${x}, y: ${y} },   // green orb ${debugOrbNumber}`);
+
+                    // Move to next orb
+                    debugOrbNumber++;
+                    if (debugOrbNumber > 2) debugOrbNumber = 1;
+                } else if (DEBUG_SCENE === 'scene4') {
+                    coordDisplay.innerHTML = `<strong>Scene 4 Orb:</strong> x: ${x}, y: ${y}<br><small>Orb for the graphic</small>`;
+
+                    // Move this orb to clicked position
+                    const currentOrb = document.querySelector(`.scene4-orb[data-orb="1"]`);
+                    if (currentOrb) {
+                        currentOrb.style.left = x + '%';
+                        currentOrb.style.top = y + '%';
+                    }
+
+                    console.log(`1: { x: ${x}, y: ${y} },   // scene4 orb`);
+                } else {
+                    coordDisplay.innerHTML = `<strong>Clicked at (${DEBUG_SCENE}):</strong> x: ${x}, y: ${y}<br><small>Copy these values to orbPositions</small>`;
+                    headOrb.style.left = x + '%';
+                    headOrb.style.top = y + '%';
+                    console.log(`{ x: ${x}, y: ${y} }`);
+                }
+
+                // Remove any existing coord display first
+                const existingDisplay = document.querySelector('.coord-display');
+                if (existingDisplay) existingDisplay.remove();
+
+                coordDisplay.classList.add('coord-display');
+                document.body.appendChild(coordDisplay);
+
+                // Display stays until next click (removed when new one is created)
+
+                return;
+            }
+
+            // If expanded but not scene2, advance to scene2
+            if (bodyDiagram.classList.contains('expanded') && !bodyDiagram.classList.contains('scene2') && !bodyDiagram.classList.contains('scene3') && !bodyDiagram.classList.contains('scene4') && !bodyDiagram.classList.contains('scene5')) {
+                bodyDiagram.classList.add('scene2');
+                orbText.textContent = scene2Text;
+                updateOrbPosition('scene2');
+                updateScene2Orbs();
+                return;
+            }
+
+            // If scene2 but not scene3, advance to scene3
+            if (bodyDiagram.classList.contains('expanded') && bodyDiagram.classList.contains('scene2') && !bodyDiagram.classList.contains('scene3')) {
+                bodyDiagram.classList.remove('scene2');
+                bodyDiagram.classList.add('scene3');
+                orbText.textContent = scene3Text;
+                updateScene3Orbs();
+                return;
+            }
+
+            // If scene3 but not scene4, advance to scene4
+            if (bodyDiagram.classList.contains('expanded') && bodyDiagram.classList.contains('scene3') && !bodyDiagram.classList.contains('scene4')) {
+                bodyDiagram.classList.remove('scene3');
+                bodyDiagram.classList.add('scene4');
+                orbText.textContent = scene4Text;
+                updateOrbPosition('scene4');
+                updateScene4Orbs();
+                return;
+            }
+
+            // If scene4, advance to scene5 (orb travels along path)
+            if (bodyDiagram.classList.contains('expanded') && bodyDiagram.classList.contains('scene4') && !bodyDiagram.classList.contains('scene5')) {
+                bodyDiagram.classList.add('scene5');
+                orbText.textContent = "";
+                return;
+            }
+
+            // Scene 5 is the final scene - do nothing if clicked
+            if (bodyDiagram.classList.contains('expanded') && bodyDiagram.classList.contains('scene5')) {
+                return;
+            }
+
             // Reset all visual states
             bodyDiagram.classList.remove('revealed');
             bodyDiagram.classList.remove('limited-active');
             bodyDiagram.classList.remove('flash-fill');
+            bodyDiagram.classList.remove('expanded');
+            bodyDiagram.classList.remove('scene2');
+            bodyDiagram.classList.remove('scene3');
+            bodyDiagram.classList.remove('scene4');
+            bodyDiagram.classList.remove('scene5');
+
+            // Reset orb text
+            orbText.textContent = scene1Text;
 
             // Hide all body images
             bodyImages.forEach(img => img.classList.remove('visible'));
@@ -1459,6 +2083,133 @@
             sequenceState.limitedTriggered = false;
             sequenceState.infiniteTriggered = false;
             sequenceState.gapTriggered = false;
+        });
+
+        // ========== DO KEYWORD CLICK - EXPAND ORB WITH TEXT ==========
+        const doKeyword = document.getElementById('do-keyword');
+        let doArrowSvg = null;
+
+        function triggerDo(isAutomatic = false) {
+            flashKeyword(doKeyword);
+
+            // Add grow animation if auto-triggered
+            if (isAutomatic) {
+                doKeyword.classList.remove('auto-trigger', 'auto-trigger-shrink');
+                void doKeyword.offsetWidth; // Force reflow
+                doKeyword.classList.add('auto-trigger');
+
+                // Shrink back after expansion
+                setTimeout(() => {
+                    doKeyword.classList.remove('auto-trigger');
+                    doKeyword.classList.add('auto-trigger-shrink');
+                    setTimeout(() => doKeyword.classList.remove('auto-trigger-shrink'), 300);
+                }, 600);
+            }
+
+            // Remove any existing arrow
+            if (doArrowSvg) {
+                doArrowSvg.remove();
+            }
+
+            bodyDiagram.classList.add('expanded');
+            updateOrbPosition('scene1');
+
+            // Draw arrow after expansion starts
+            setTimeout(() => {
+                const keywordRect = doKeyword.getBoundingClientRect();
+                const textRect = orbText.getBoundingClientRect();
+                const scrollX = window.scrollX;
+                const scrollY = window.scrollY;
+
+                // Start point: bottom center of "do" keyword
+                const startX = keywordRect.left + keywordRect.width / 2 + scrollX;
+                const startY = keywordRect.bottom + 5 + scrollY;
+
+                // End point: top center of orb text
+                const endX = textRect.left + textRect.width / 2 + scrollX;
+                const endY = textRect.top - 10 + scrollY;
+
+                // Create SVG for the arrow
+                doArrowSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+                doArrowSvg.classList.add('gap-arrow-svg');
+                doArrowSvg.style.width = document.documentElement.scrollWidth + 'px';
+                doArrowSvg.style.height = document.documentElement.scrollHeight + 'px';
+                doArrowSvg.setAttribute('viewBox', `0 0 ${document.documentElement.scrollWidth} ${document.documentElement.scrollHeight}`);
+
+                // Create curved path
+                const midY = (startY + endY) / 2;
+                const pathD = `M ${startX} ${startY} Q ${startX} ${midY}, ${endX} ${endY}`;
+
+                const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+                path.classList.add('gap-arrow-line');
+                path.setAttribute('d', pathD);
+
+                // Create arrow head pointing down
+                const arrowHead = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
+                arrowHead.classList.add('gap-arrow-head');
+                arrowHead.setAttribute('points', `${endX},${endY + 5} ${endX - 8},${endY - 8} ${endX + 8},${endY - 8}`);
+
+                doArrowSvg.appendChild(path);
+                doArrowSvg.appendChild(arrowHead);
+                document.body.appendChild(doArrowSvg);
+
+                // Trigger animation
+                requestAnimationFrame(() => {
+                    path.classList.add('animating');
+                    arrowHead.classList.add('animating');
+                });
+
+                // Remove arrow after a delay
+                setTimeout(() => {
+                    if (doArrowSvg) {
+                        doArrowSvg.style.opacity = '0';
+                        doArrowSvg.style.transition = 'opacity 0.5s ease';
+                        setTimeout(() => {
+                            if (doArrowSvg) {
+                                doArrowSvg.remove();
+                                doArrowSvg = null;
+                            }
+                        }, 500);
+                    }
+                }, 2000);
+            }, 400);
+        }
+
+        doKeyword.addEventListener('click', (e) => {
+            e.stopPropagation();
+
+            // Check sequence: need limited, infinite, and gap first
+            if (!sequenceState.limitedTriggered && !sequenceState.infiniteTriggered && !sequenceState.gapTriggered) {
+                // None triggered - trigger all then do
+                triggerLimited(true);
+                setTimeout(() => {
+                    triggerInfinite(true);
+                    setTimeout(() => {
+                        triggerGap(true);
+                        setTimeout(() => {
+                            triggerDo(true);
+                        }, 2800);
+                    }, infiniteDuration + 200);
+                }, limitedDuration + 200);
+            } else if (!sequenceState.infiniteTriggered && !sequenceState.gapTriggered) {
+                // Limited done, need infinite and gap then do
+                triggerInfinite(true);
+                setTimeout(() => {
+                    triggerGap(true);
+                    setTimeout(() => {
+                        triggerDo(true);
+                    }, 2800);
+                }, infiniteDuration + 200);
+            } else if (!sequenceState.gapTriggered) {
+                // Limited and infinite done, need gap then do
+                triggerGap(true);
+                setTimeout(() => {
+                    triggerDo(true);
+                }, 2800);
+            } else {
+                // All done, just trigger do
+                triggerDo(false);
+            }
         });
 
         // ========== BIPOLAR DIAGRAM CLICK TOGGLE ==========
@@ -1496,22 +2247,26 @@
                 realityArrowSvg.remove();
             }
 
-            // Get positions
+            // Get positions with scroll offset for absolute positioning
             const keywordRect = realityKeyword.getBoundingClientRect();
             const noteRect = realityNote.getBoundingClientRect();
+            const scrollX = window.scrollX;
+            const scrollY = window.scrollY;
 
             // Start point: right side of keyword
-            const startX = keywordRect.right + 5;
-            const startY = keywordRect.top + keywordRect.height / 2;
+            const startX = keywordRect.right + 5 + scrollX;
+            const startY = keywordRect.top + keywordRect.height / 2 + scrollY;
 
             // End point: left side of sticky note
-            const endX = noteRect.left - 5;
-            const endY = noteRect.top + noteRect.height / 2;
+            const endX = noteRect.left - 5 + scrollX;
+            const endY = noteRect.top + noteRect.height / 2 + scrollY;
 
             // Create SVG for the arrow
             realityArrowSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
             realityArrowSvg.classList.add('gap-arrow-svg');
-            realityArrowSvg.setAttribute('viewBox', `0 0 ${window.innerWidth} ${window.innerHeight}`);
+            realityArrowSvg.style.width = document.documentElement.scrollWidth + 'px';
+            realityArrowSvg.style.height = document.documentElement.scrollHeight + 'px';
+            realityArrowSvg.setAttribute('viewBox', `0 0 ${document.documentElement.scrollWidth} ${document.documentElement.scrollHeight}`);
 
             // Create curved path
             const midX = (startX + endX) / 2;
