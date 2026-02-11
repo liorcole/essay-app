@@ -444,6 +444,319 @@
             100% { opacity: 1; }
         }
 
+        /* Scene 6 - room with text, hide clipboard and orb */
+        .body-diagram.expanded.scene6 .do-scene4-image {
+            opacity: 0;
+        }
+
+        .body-diagram.expanded.scene6 .scene4-orb {
+            opacity: 0;
+        }
+
+        .scene6-text {
+            position: absolute;
+            top: 130px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 85%;
+            text-align: center;
+            font-size: 0.95rem;
+            color: white;
+            opacity: 0;
+            z-index: 10;
+            line-height: 1.5;
+        }
+
+        .body-diagram.expanded.scene6 .scene6-text,
+        .body-diagram.expanded.scene7 .scene6-text,
+        .body-diagram.expanded.scene8 .scene6-text,
+        .body-diagram.expanded.scene9 .scene6-text,
+        .body-diagram.expanded.scene10 .scene6-text {
+            opacity: 1;
+            transition: opacity 0.5s ease;
+        }
+
+        /* Hide scene6 text in scene11+ */
+        .body-diagram.expanded.scene11 .scene6-text {
+            opacity: 0;
+        }
+
+        /* Scene 12 text */
+        .scene12-text {
+            position: absolute;
+            top: 130px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 85%;
+            text-align: center;
+            font-size: 0.95rem;
+            color: white;
+            opacity: 0;
+            z-index: 10;
+            line-height: 1.5;
+        }
+
+        .body-diagram.expanded.scene12 .scene12-text {
+            opacity: 1;
+            transition: opacity 0.5s ease;
+        }
+
+        /* Room image for scene 6 */
+        .room-image {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) translateY(80px);
+            width: 500px;
+            height: auto;
+            filter: invert(1);
+            opacity: 0;
+            z-index: 6;
+            pointer-events: none;
+            transition: opacity 0.5s ease;
+        }
+
+        .body-diagram.expanded.scene6 .room-image {
+            opacity: 1;
+        }
+
+        /* Hide body, fill, and head orb in scene6+ when room shows - same pattern as scene2/3 */
+        .body-diagram.expanded.scene6 .body-image,
+        .body-diagram.expanded.scene6 .body-fill-overlay,
+        .body-diagram.expanded.scene6 .head-orb,
+        .body-diagram.expanded.scene6 .limited-body-image,
+        .body-diagram.expanded.scene7 .body-image,
+        .body-diagram.expanded.scene7 .body-fill-overlay,
+        .body-diagram.expanded.scene7 .head-orb,
+        .body-diagram.expanded.scene7 .limited-body-image,
+        .body-diagram.expanded.scene8 .body-image,
+        .body-diagram.expanded.scene8 .body-fill-overlay,
+        .body-diagram.expanded.scene8 .head-orb,
+        .body-diagram.expanded.scene8 .limited-body-image,
+        .body-diagram.expanded.scene9 .body-image,
+        .body-diagram.expanded.scene9 .body-fill-overlay,
+        .body-diagram.expanded.scene9 .head-orb,
+        .body-diagram.expanded.scene9 .limited-body-image,
+        .body-diagram.expanded.scene10 .body-image,
+        .body-diagram.expanded.scene10 .body-fill-overlay,
+        .body-diagram.expanded.scene10 .head-orb,
+        .body-diagram.expanded.scene10 .limited-body-image,
+        .body-diagram.expanded.scene11 .body-image,
+        .body-diagram.expanded.scene11 .body-fill-overlay,
+        .body-diagram.expanded.scene11 .head-orb,
+        .body-diagram.expanded.scene11 .limited-body-image {
+            opacity: 0 !important;
+            animation: none !important;
+        }
+
+        /* Room sequence images (scenes 7-11) */
+        .room1-image, .room2-image, .room3-image, .room4-image, .room5-image {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) translateY(80px);
+            width: 500px;
+            height: auto;
+            filter: invert(1);
+            opacity: 0;
+            z-index: 6;
+            pointer-events: none;
+            transition: opacity 0.5s ease;
+        }
+
+        /* Scene 7 - room1 with 1 orb */
+        .body-diagram.expanded.scene7 .room-image { opacity: 0; }
+        .body-diagram.expanded.scene7 .room1-image { opacity: 1; }
+
+        /* Scene 8 - room2 with 2 orbs */
+        .body-diagram.expanded.scene8 .room1-image { opacity: 0; }
+        .body-diagram.expanded.scene8 .room2-image { opacity: 1; }
+
+        /* Scene 9 - room3 with 4 orbs */
+        .body-diagram.expanded.scene9 .room2-image { opacity: 0; }
+        .body-diagram.expanded.scene9 .room3-image { opacity: 1; }
+
+        /* Scene 10 - room4 with 5 orbs */
+        .body-diagram.expanded.scene10 .room3-image { opacity: 0; }
+        .body-diagram.expanded.scene10 .room4-image { opacity: 1; }
+
+        /* Scene 11 - room4 stays during animation */
+        .body-diagram.expanded.scene11 .room4-image { opacity: 1; }
+        .body-diagram.expanded.scene11 .room5-image { opacity: 0; }
+
+        /* Scene 11 complete - room5 appears after animation */
+        .body-diagram.expanded.scene11.animation-complete .room4-image { opacity: 0; }
+        .body-diagram.expanded.scene11.animation-complete .room5-image { opacity: 1; }
+
+        /* Scene 12 - hide ALL room images, show read1 with text */
+        .body-diagram.expanded.scene12 .room-image,
+        .body-diagram.expanded.scene12 .room1-image,
+        .body-diagram.expanded.scene12 .room2-image,
+        .body-diagram.expanded.scene12 .room3-image,
+        .body-diagram.expanded.scene12 .room4-image,
+        .body-diagram.expanded.scene12 .room5-image { opacity: 0 !important; }
+        .body-diagram.expanded.scene12 .room-orb { opacity: 0 !important; }
+
+        /* Slideshow images for scene 12 */
+        .slide-image {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) translateY(80px);
+            width: 500px;
+            height: auto;
+            filter: invert(1);
+            opacity: 0;
+            z-index: 7;
+            pointer-events: none;
+            transition: opacity 0.5s ease;
+        }
+
+        /* Scene 12 default - show read1 */
+        .body-diagram.expanded.scene12 .slide-read1 { opacity: 1; }
+
+        /* Scene 12 slide states - only one image at a time */
+        .body-diagram.expanded.scene12.slide-2 .slide-read1 { opacity: 0; }
+        .body-diagram.expanded.scene12.slide-2 .slide-read2 { opacity: 1; }
+
+        .body-diagram.expanded.scene12.slide-3 .slide-read1 { opacity: 0; }
+        .body-diagram.expanded.scene12.slide-3 .slide-read2 { opacity: 0; }
+        .body-diagram.expanded.scene12.slide-3 .slide-school1 { opacity: 1; }
+
+        .body-diagram.expanded.scene12.slide-4 .slide-read1 { opacity: 0; }
+        .body-diagram.expanded.scene12.slide-4 .slide-school1 { opacity: 0; }
+        .body-diagram.expanded.scene12.slide-4 .slide-school2 { opacity: 1; }
+
+        .body-diagram.expanded.scene12.slide-5 .slide-read1 { opacity: 0; }
+        .body-diagram.expanded.scene12.slide-5 .slide-school2 { opacity: 0; }
+        .body-diagram.expanded.scene12.slide-5 .slide-conversation1 { opacity: 1; }
+
+        .body-diagram.expanded.scene12.slide-6 .slide-read1 { opacity: 0; }
+        .body-diagram.expanded.scene12.slide-6 .slide-conversation1 { opacity: 0; }
+        .body-diagram.expanded.scene12.slide-6 .slide-conversation2 { opacity: 1; }
+
+        /* Scene 13 text */
+        .scene13-text {
+            position: absolute;
+            top: 130px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 85%;
+            text-align: center;
+            font-size: 0.95rem;
+            color: white;
+            opacity: 0;
+            z-index: 10;
+            line-height: 1.5;
+        }
+
+        .body-diagram.expanded.scene13 .scene13-text {
+            opacity: 1;
+            transition: opacity 0.5s ease;
+        }
+
+        /* Scene 13 - hide scene 12 stuff, show car images */
+        .body-diagram.expanded.scene13 .scene12-text { opacity: 0 !important; }
+        .body-diagram.expanded.scene13 .slide-image { opacity: 0 !important; }
+
+        /* Scene 13 default - show car1 */
+        .body-diagram.expanded.scene13 .slide-car1 { opacity: 1 !important; }
+
+        /* Scene 13 slide-2 - show car2 */
+        .body-diagram.expanded.scene13.slide-2 .slide-car1 { opacity: 0 !important; }
+        .body-diagram.expanded.scene13.slide-2 .slide-car2 { opacity: 1 !important; }
+
+        /* Room orbs - all green like head orb */
+        .room-orb {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: radial-gradient(circle, #86efac 0%, rgba(134, 239, 172, 0.3) 70%, transparent 100%);
+            border-radius: 50%;
+            z-index: 25;
+            opacity: 0;
+            box-shadow: 0 0 10px rgba(134, 239, 172, 0.5);
+            animation: orbPulse 2s ease-in-out infinite;
+        }
+
+        /* Orb visibility per scene */
+        /* Orb 6 = head orb, shows in all room scenes (6-11) */
+        .body-diagram.expanded.scene6 .room-orb[data-room-orb="6"],
+        .body-diagram.expanded.scene7 .room-orb[data-room-orb="6"],
+        .body-diagram.expanded.scene8 .room-orb[data-room-orb="6"],
+        .body-diagram.expanded.scene9 .room-orb[data-room-orb="6"],
+        .body-diagram.expanded.scene10 .room-orb[data-room-orb="6"],
+        .body-diagram.expanded.scene11 .room-orb[data-room-orb="6"] { opacity: 1; }
+
+        .body-diagram.expanded.scene7 .room-orb[data-room-orb="1"] { opacity: 1; }
+
+        .body-diagram.expanded.scene8 .room-orb[data-room-orb="1"],
+        .body-diagram.expanded.scene8 .room-orb[data-room-orb="2"] { opacity: 1; }
+
+        .body-diagram.expanded.scene9 .room-orb[data-room-orb="1"],
+        .body-diagram.expanded.scene9 .room-orb[data-room-orb="2"],
+        .body-diagram.expanded.scene9 .room-orb[data-room-orb="3"],
+        .body-diagram.expanded.scene9 .room-orb[data-room-orb="4"] { opacity: 1; }
+
+        /* Scene 10 - all 5 orbs + head orb visible */
+        .body-diagram.expanded.scene10 .room-orb[data-room-orb="1"],
+        .body-diagram.expanded.scene10 .room-orb[data-room-orb="2"],
+        .body-diagram.expanded.scene10 .room-orb[data-room-orb="3"],
+        .body-diagram.expanded.scene10 .room-orb[data-room-orb="4"],
+        .body-diagram.expanded.scene10 .room-orb[data-room-orb="5"] { opacity: 1; }
+
+        /* Scene 11 - all 5 orbs visible and animating */
+        .body-diagram.expanded.scene11 .room-orb[data-room-orb="1"],
+        .body-diagram.expanded.scene11 .room-orb[data-room-orb="2"],
+        .body-diagram.expanded.scene11 .room-orb[data-room-orb="3"],
+        .body-diagram.expanded.scene11 .room-orb[data-room-orb="4"],
+        .body-diagram.expanded.scene11 .room-orb[data-room-orb="5"] { opacity: 1; }
+
+        /* Keep head orb (orb 6) visible in scene11 */
+        .body-diagram.expanded.scene11 .room-orb[data-room-orb="6"] { opacity: 1; }
+
+        /* Keyframe animations for each orb to destination (50.2, 66.0) */
+        @keyframes orbPath1 {
+            0% { left: 29.5%; top: 48.3%; }
+            100% { left: 50.2%; top: 66.0%; }
+        }
+
+        @keyframes orbPath2 {
+            0% { left: 70.2%; top: 48.4%; }
+            100% { left: 50.2%; top: 66.0%; }
+        }
+
+        @keyframes orbPath3 {
+            0% { left: 56.3%; top: 46.4%; }
+            100% { left: 50.2%; top: 66.0%; }
+        }
+
+        @keyframes orbPath4 {
+            0% { left: 80.0%; top: 44.9%; }
+            100% { left: 50.2%; top: 66.0%; }
+        }
+
+        @keyframes orbPath5 {
+            0% { left: 43.4%; top: 47.6%; }
+            100% { left: 50.2%; top: 66.0%; }
+        }
+
+        .body-diagram.expanded.scene11 .room-orb[data-room-orb="1"] {
+            animation: orbPath1 1s ease-out forwards, orbPulse 2s ease-in-out infinite;
+        }
+        .body-diagram.expanded.scene11 .room-orb[data-room-orb="2"] {
+            animation: orbPath2 1s ease-out forwards, orbPulse 2s ease-in-out infinite;
+        }
+        .body-diagram.expanded.scene11 .room-orb[data-room-orb="3"] {
+            animation: orbPath3 1s ease-out forwards, orbPulse 2s ease-in-out infinite;
+        }
+        .body-diagram.expanded.scene11 .room-orb[data-room-orb="4"] {
+            animation: orbPath4 1s ease-out forwards, orbPulse 2s ease-in-out infinite;
+        }
+        .body-diagram.expanded.scene11 .room-orb[data-room-orb="5"] {
+            animation: orbPath5 1s ease-out forwards, orbPulse 2s ease-in-out infinite;
+        }
+
         /* Small green orb in person's head */
         .head-orb {
             position: absolute;
@@ -604,8 +917,8 @@
             bottom: 100%;
             left: 50%;
             transform: translateX(-50%);
-            width: 350px;
-            padding: 20px;
+            width: 875px;
+            padding: 20px 20px 45px 20px;
             background: #1a1a1f;
             border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 8px;
@@ -623,6 +936,110 @@
         .tooltip-trigger:hover .tooltip-content {
             opacity: 1;
             visibility: visible;
+        }
+
+        .tooltip-trigger.highlight {
+            font-weight: normal;
+            color: white;
+            text-decoration: underline;
+            text-decoration-style: dotted;
+        }
+
+        .tooltip-trigger.highlight .tooltip-content {
+            font-weight: normal;
+        }
+
+        .tooltip-audio-controls {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            pointer-events: auto;
+        }
+
+        .tooltip-voice-select {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 6px;
+            color: #a0a0a0;
+            font-size: 0.7rem;
+            padding: 4px 6px;
+            cursor: pointer;
+            max-width: 150px;
+            height: 32px;
+        }
+
+        .tooltip-voice-select:hover {
+            background: rgba(255, 255, 255, 0.15);
+            color: #ffffff;
+        }
+
+        .tooltip-voice-select:focus {
+            outline: none;
+            border-color: rgba(255, 255, 255, 0.4);
+        }
+
+        .tooltip-speed-btn {
+            height: 32px;
+            padding: 0 8px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 6px;
+            color: #a0a0a0;
+            font-size: 0.7rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s ease;
+            white-space: nowrap;
+        }
+
+        .tooltip-speed-btn:hover {
+            background: rgba(255, 255, 255, 0.15);
+            color: #ffffff;
+        }
+
+        .tooltip-audio-btn {
+            width: 32px;
+            height: 32px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 6px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s ease;
+            flex-shrink: 0;
+        }
+
+        .tooltip-audio-btn:hover {
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .tooltip-audio-btn.playing {
+            background: rgba(134, 239, 172, 0.2);
+            border-color: rgba(134, 239, 172, 0.4);
+        }
+
+        .tooltip-audio-btn svg {
+            width: 16px;
+            height: 16px;
+            fill: #a0a0a0;
+        }
+
+        .tooltip-audio-btn:hover svg {
+            fill: #ffffff;
+        }
+
+        .tooltip-audio-btn.playing svg {
+            fill: #86efac;
+        }
+
+        .tooltip-content .red-bold {
+            color: #ff4444;
+            font-weight: bold;
         }
 
         /* ========== INTERACTIVE KEYWORDS ========== */
@@ -781,6 +1198,30 @@
             opacity: 1;
         }
 
+        /* body5 - inverted like the others, higher z-index to show on top */
+        #body5-img {
+            filter: invert(1);
+            z-index: 10;
+        }
+
+        /* Make sure body5 shows on top when visible (but not in later scenes) */
+        #body5-img.visible {
+            opacity: 1;
+        }
+
+        /* Hide body5 in scenes 5+ (keep visible in scene4 for "relief in diagnosis" text) */
+        .body-diagram.expanded.scene5 #body5-img,
+        .body-diagram.expanded.scene6 #body5-img,
+        .body-diagram.expanded.scene7 #body5-img,
+        .body-diagram.expanded.scene8 #body5-img,
+        .body-diagram.expanded.scene9 #body5-img,
+        .body-diagram.expanded.scene10 #body5-img,
+        .body-diagram.expanded.scene11 #body5-img,
+        .body-diagram.expanded.scene12 #body5-img,
+        .body-diagram.expanded.scene13 #body5-img {
+            opacity: 0 !important;
+        }
+
         /* Hide original body when limited images are showing */
         .body-diagram.limited-active .body-image {
             opacity: 0;
@@ -806,13 +1247,13 @@
         .sense-block {
             position: relative;
             padding: 6px 12px;
-            background: rgba(134, 239, 172, 0.2);
-            border: 1px solid rgba(134, 239, 172, 0.5);
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.4);
             border-radius: 4px;
             text-align: left;
             font-size: 0.75rem;
             font-weight: 600;
-            color: #86efac;
+            color: #ffffff;
             text-transform: lowercase;
             letter-spacing: 0.1em;
             opacity: 0;
@@ -827,230 +1268,13 @@
             top: 50%;
             width: 110px;
             height: 0;
-            border-top: 2px dotted rgba(134, 239, 172, 0.6);
+            border-top: 2px dotted rgba(255, 255, 255, 0.5);
             transform: translateY(-50%);
         }
 
         .sense-block.visible {
             opacity: 1;
             transform: translateX(0);
-        }
-
-        /* ========== EXAMPLE CARDS CASCADING ========== */
-
-        .example-cards-container {
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin: 80px 0 100px 0;
-            padding: 40px 0;
-        }
-
-        .example-card {
-            position: relative;
-            width: 780px;
-            padding: 30px 35px;
-            border-radius: 12px;
-            cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 4px 6px 20px rgba(0, 0, 0, 0.5);
-            margin-bottom: -40px;
-        }
-
-        .example-card-1 {
-            background: #1e3a5f;
-            border: none;
-        }
-
-        .example-card-2 {
-            background: #4a3728;
-            border: none;
-        }
-
-        .example-card-3 {
-            background: #2d4a3e;
-            border: none;
-        }
-
-        .example-card-4 {
-            background: #4a2d4a;
-            border: none;
-        }
-
-        .example-card-5 {
-            background: #3d3a2d;
-            border: none;
-        }
-
-        /* Cascading positions - alternating left/right with rotation */
-        .example-card[data-card="1"] {
-            align-self: flex-start;
-            margin-left: -5%;
-            transform: rotate(-3deg);
-            z-index: 1;
-        }
-
-        .example-card[data-card="2"] {
-            align-self: flex-end;
-            margin-right: -5%;
-            transform: rotate(2deg);
-            z-index: 2;
-        }
-
-        .example-card[data-card="3"] {
-            align-self: flex-start;
-            margin-left: 0%;
-            transform: rotate(-2deg);
-            z-index: 3;
-        }
-
-        .example-card[data-card="4"] {
-            align-self: flex-end;
-            margin-right: 0%;
-            transform: rotate(3deg);
-            z-index: 4;
-        }
-
-        .example-card[data-card="5"] {
-            align-self: flex-start;
-            margin-left: -3%;
-            transform: rotate(-2deg);
-            z-index: 5;
-            margin-bottom: 0;
-        }
-
-        .example-card:hover {
-            z-index: 10;
-            transform: rotate(0deg) scale(1.03);
-            box-shadow: 8px 12px 40px rgba(0, 0, 0, 0.6);
-        }
-
-        .example-card.active {
-            z-index: 10;
-        }
-
-        .example-card-title {
-            font-size: 0.85rem;
-            font-weight: 500;
-            text-transform: lowercase;
-            letter-spacing: 0.1em;
-            margin-bottom: 20px;
-            color: rgba(255, 255, 255, 0.5);
-        }
-
-        .example-card-diagram {
-            min-height: 160px;
-            margin-bottom: 20px;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-style: italic;
-            font-size: 0.9rem;
-            background: rgba(0, 0, 0, 0.2);
-            border: 2px dashed rgba(255, 255, 255, 0.15);
-            color: rgba(255, 255, 255, 0.3);
-        }
-
-        .example-card .paragraph {
-            color: #d0d0d0;
-            font-size: 1.05rem;
-            margin-bottom: 20px;
-            line-height: 1.6;
-        }
-
-        .card-shuffle-hint {
-            text-align: center;
-            margin-top: 15px;
-            font-style: italic;
-            color: #666;
-            font-size: 0.9rem;
-        }
-
-        .card-counter {
-            position: absolute;
-            bottom: 15px;
-            right: 20px;
-            font-size: 0.8rem;
-            color: rgba(255, 255, 255, 0.4);
-        }
-
-        /* ========== BIPOLAR DIAGRAM ========== */
-
-        .bipolar-diagram {
-            position: relative;
-            min-height: 380px;
-            cursor: pointer;
-            overflow: hidden;
-        }
-
-        .bipolar-scene {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            transition: opacity 0.4s ease;
-            pointer-events: none;
-        }
-
-        .bipolar-scene.active {
-            opacity: 1;
-            pointer-events: auto;
-        }
-
-        .bipolar-frame {
-            width: 100%;
-            max-width: 100%;
-            height: auto;
-            object-fit: contain;
-        }
-
-        .bipolar-annotation {
-            position: absolute;
-            max-width: 220px;
-            padding: 12px 15px;
-            background: rgba(245, 158, 11, 0.15);
-            border-left: 3px solid #f59e0b;
-            border-radius: 4px;
-        }
-
-        .bipolar-annotation-right {
-            right: 15px;
-            top: 50px;
-        }
-
-        .bipolar-annotation-bottom {
-            bottom: 40px;
-            left: 50%;
-            transform: translateX(-50%);
-            max-width: 450px;
-            text-align: center;
-            border-left: none;
-            border-top: 3px solid #86efac;
-            background: rgba(134, 239, 172, 0.15);
-        }
-
-        .annotation-text {
-            font-size: 0.85rem;
-            font-style: italic;
-            color: #e0e0e0;
-            line-height: 1.4;
-        }
-
-        .bipolar-diagram .click-hint {
-            position: absolute;
-            bottom: 8px;
-            right: 15px;
-            font-size: 0.75rem;
-            color: rgba(255, 255, 255, 0.4);
-            font-style: italic;
         }
 
     </style>
@@ -1086,11 +1310,11 @@
             </div>
 
             <p class="paragraph">
-                Because our lived reality is finite and <span class="keyword keyword-gap" data-keyword id="limited-keyword">limited</span> by nature, we simply can never capture the <span class="keyword keyword-gap" data-keyword id="infinite-keyword">infinite</span> totality of who we are in our daily lives. That is why there will always be a <span class="keyword keyword-gap" data-keyword id="gap-keyword">gap</span> between our identity and our reality, creating a permanent, underlying unease and discomfort within ourselves:
+                Because our lived reality is finite and <span class="keyword keyword-gap" data-keyword id="limited-keyword">limited</span> by nature, we simply can never capture the <span class="keyword keyword-gap" data-keyword id="infinite-keyword">infinite</span> totality of who we are in our daily lives. Our <span class="keyword keyword-gap" data-keyword id="mind-keyword">mind</span> receives signals that help inform us of our identity as we live our lives, though an <span class="tooltip-trigger highlight">abstract and encrypted<span class="tooltip-content">A blind man cannot directly perceive sight- it exists outside his physical abilities. Instead, sight must be translated into what is accessible: like touch or sound. "The apple is round and smooth." "Red feels like the sun's warmth." These descriptions act as bridges, but they never produce a true visual mental model. Core aspects of sight (like color) remain directly unreachable.<br><br>This mirrors how our minds receive information about who we are. Identity is not directly observable to us. It is only inferred through signals that surface in our various experiences (emotions, desires, affinities, discomforts) which are translated from the constraints of our biological abilities (sight, smell, touch, taste, sound). <span class="red-bold">There is no sixth sense for soul detection.</span><br><br>Just as the blind man cannot see the vase yet can feel its form, texture, and resonance (and from that, still feel alignment with it), we sense our deeper self through indirect articulations. These moments of resonance are not full comprehension, but they are the closest approximation available within a finite body.<span class="tooltip-audio-controls" onclick="event.stopPropagation()"><select class="tooltip-voice-select" id="tooltip-voice-select"></select><button class="tooltip-speed-btn" id="tooltip-speed-btn" onclick="cycleSpeed(this)">1x</button><button class="tooltip-audio-btn" id="tooltip-audio-btn" onclick="toggleTooltipAudio(this)"><svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg></button></span></span></span> modality.
             </p>
 
             <p class="paragraph">
-                The discomfort of living in a reality that doesn't fully reflect who we are is the source of human motivation. We are motivated to reduce this gap. The more our reality captures our true identity, the more that discomfort fades. This is the core driver behind everything we <span class="keyword keyword-gap" data-keyword id="do-keyword">do</span>:
+                The discomfort of living in a reality that doesn't fully reflect who we are is the source of human motivation. We are motivated to reduce this <span class="keyword keyword-gap" data-keyword id="gap-keyword">gap</span>. The more our reality captures our true identity, the more that discomfort fades. This is the core driver behind everything we <span class="keyword keyword-gap" data-keyword id="do-keyword">do</span>:
             </p>
 
             <div class="body-diagram-container">
@@ -1173,6 +1397,29 @@
                 <img src="do-scene4.png" alt="Scene 4" class="do-scene4-image">
                 <div class="scene4-orb" data-orb="1"></div>
                 <img src="bodyfill1.png" alt="Body Fill" class="body-fill-overlay">
+                <div class="scene6-text">Or think about when you were a kid and felt this drive to redecorate your room. One year princesses and pink, the next punk rock brutalism. Why? Functionally the room is the same - desk, chair, bed. But (whether consciously or unconsciously) we felt that discomfort with our space not matching who we are. A drive to match our reality with our identity. And thus, bits of who we are ends up in the posters lining the walls.</div>
+                <div class="scene12-text">We go to school, we read, we have deep conversations and experiences… Each piece of knowledge and experience teaching us how to articulate the world around us and subsequently who we are within it: bits of ourselves surface when we find language that perfectly describes part of who we are, maybe it's a personality type, sexuality, a moral or political framework.</div>
+                <div class="scene13-text">We chase that ineffable "yes" feeling at concerts, festivals, museums…. Think about the last time you were belting out your favorite song in the car - a bit of your soul is captured in that song and channeled into that chorus.</div>
+                <img src="room.png" alt="Room" class="room-image">
+                <img src="room1.png" alt="Room 1" class="room1-image">
+                <img src="room2.png" alt="Room 2" class="room2-image">
+                <img src="room3.png" alt="Room 3" class="room3-image">
+                <img src="room4.png" alt="Room 4" class="room4-image">
+                <img src="room5.png" alt="Room 5" class="room5-image">
+                <img src="read1.png" alt="Read 1" class="slide-image slide-read1">
+                <img src="read2.png" alt="Read 2" class="slide-image slide-read2">
+                <img src="school1.png" alt="School 1" class="slide-image slide-school1">
+                <img src="school2.png" alt="School 2" class="slide-image slide-school2">
+                <img src="conversation1.png" alt="Conversation 1" class="slide-image slide-conversation1">
+                <img src="conversation2.png" alt="Conversation 2" class="slide-image slide-conversation2">
+                <img src="car.png" alt="Car 1" class="slide-image slide-car1">
+                <img src="car2.png" alt="Car 2" class="slide-image slide-car2">
+                <div class="room-orb" data-room-orb="1"></div>
+                <div class="room-orb" data-room-orb="2"></div>
+                <div class="room-orb" data-room-orb="3"></div>
+                <div class="room-orb" data-room-orb="4"></div>
+                <div class="room-orb" data-room-orb="5"></div>
+                <div class="room-orb" data-room-orb="6"></div>
                 </div>
             </div>
 
@@ -1208,93 +1455,98 @@
             </p>
         </section>
 
-        <!-- ========== SECTION 3: EXAMPLE CARDS ========== -->
-        <section class="section" id="section-3">
-            <div class="example-cards-container" id="card-stack">
-
-                <!-- Example Card 1 -->
-                <div class="example-card example-card-1" data-card="1">
-                    <h4 class="example-card-title">example</h4>
-                    <p class="paragraph">
-                        A person who went out and got a diagnosis for bipolar disease is clearly channeling a big part of their identity to their lived experience by simply identifying the language for how their brain tends to work.
-                    </p>
-                    <div class="example-card-diagram bipolar-diagram" id="bipolar-diagram">
-                        <!-- Scene 1 -->
-                        <div class="bipolar-scene bipolar-scene-1 active">
-                            <img src="bipolar1.png" alt="Bipolar diagram frame 1" class="bipolar-frame">
-                            <div class="click-hint">click to continue</div>
-                        </div>
-                        <!-- Scene 2 -->
-                        <div class="bipolar-scene bipolar-scene-2">
-                            <img src="bipolar2.png" alt="Bipolar diagram frame 2" class="bipolar-frame">
-                            <div class="click-hint">click to continue</div>
-                        </div>
-                        <!-- Scene 3 -->
-                        <div class="bipolar-scene bipolar-scene-3">
-                            <img src="bipolar3.png" alt="Bipolar diagram frame 3" class="bipolar-frame">
-                            <div class="click-hint">click to restart</div>
-                        </div>
-                    </div>
-                    <span class="card-counter">1 / 5</span>
-                </div>
-
-                <!-- Example Card 2 - Brown -->
-                <div class="example-card example-card-2" data-card="2">
-                    <h4 class="example-card-title">example</h4>
-                    <p class="paragraph">
-                        Think about when you were a kid and felt this drive to redecorate your room. One year princesses and pink, the next punk rock brutalism. Why? Functionally the room is the same - desk, chair, bed. But (whether consciously or unconsciously) we felt that discomfort with our space not matching who we are. A drive to match our reality with our identity. And thus, bits of who we are ends up in the posters lining the walls.
-                    </p>
-                    <div class="example-card-diagram">
-                        <!-- Interactive diagram will go here -->
-                    </div>
-                    <span class="card-counter">2 / 5</span>
-                </div>
-
-                <!-- Example Card 3 - Yellow/Amber -->
-                <div class="example-card example-card-3" data-card="3">
-                    <h4 class="example-card-title">example</h4>
-                    <div class="example-card-diagram">
-                        <!-- Interactive diagram will go here -->
-                    </div>
-                    <p class="paragraph">
-                        Placeholder text for example 3. This will be replaced with your content.
-                    </p>
-                    <span class="card-counter">3 / 5</span>
-                </div>
-
-                <!-- Example Card 4 - Pink -->
-                <div class="example-card example-card-4" data-card="4">
-                    <h4 class="example-card-title">example</h4>
-                    <div class="example-card-diagram">
-                        <!-- Interactive diagram will go here -->
-                    </div>
-                    <p class="paragraph">
-                        Placeholder text for example 4. This will be replaced with your content.
-                    </p>
-                    <span class="card-counter">4 / 5</span>
-                </div>
-
-                <!-- Example Card 5 - Purple -->
-                <div class="example-card example-card-5" data-card="5">
-                    <h4 class="example-card-title">example</h4>
-                    <div class="example-card-diagram">
-                        <!-- Interactive diagram will go here -->
-                    </div>
-                    <p class="paragraph">
-                        Placeholder text for example 5. This will be replaced with your content.
-                    </p>
-                    <span class="card-counter">5 / 5</span>
-                </div>
-
-            </div>
-            <p class="card-shuffle-hint">Click any card to bring it forward</p>
-        </section>
-
         <!-- Add more sections below -->
 
     </div>
 
     <script>
+        // ========== TOOLTIP AUDIO ==========
+        let tooltipUtterance = null;
+        const voiceSelect = document.getElementById('tooltip-voice-select');
+        const speeds = [1, 1.5, 2];
+        let currentSpeedIndex = 0;
+        let audioCharIndex = 0;
+        let isSpeedChange = false;
+        const tooltipFullText = "A blind man cannot directly perceive sight — it exists outside his physical abilities. Instead, sight must be translated into what is accessible: like touch or sound. The apple is round and smooth. Red feels like the sun's warmth. These descriptions act as bridges, but they never produce a true visual mental model. Core aspects of sight, like color, remain directly unreachable. This mirrors how our minds receive information about who we are. Identity is not directly observable to us. It is only inferred through signals that surface in our various experiences — emotions, desires, affinities, discomforts — which are translated from the constraints of our biological abilities: sight, smell, touch, taste, sound. There is no sixth sense for soul detection. Just as the blind man cannot see the vase yet can feel its form, texture, and resonance, and from that, still feel alignment with it, we sense our deeper self through indirect articulations. These moments of resonance are not full comprehension, but they are the closest approximation available within a finite body.";
+
+        function speakFromIndex(startIndex) {
+            const text = tooltipFullText.substring(startIndex);
+            if (!text) return;
+            tooltipUtterance = new SpeechSynthesisUtterance(text);
+            tooltipUtterance.rate = speeds[currentSpeedIndex];
+            const voices = speechSynthesis.getVoices();
+            if (voiceSelect.value && voices[voiceSelect.value]) {
+                tooltipUtterance.voice = voices[voiceSelect.value];
+            }
+            tooltipUtterance.onboundary = (e) => {
+                audioCharIndex = startIndex + e.charIndex;
+            };
+            tooltipUtterance.onend = () => {
+                if (!isSpeedChange) {
+                    document.getElementById('tooltip-audio-btn').classList.remove('playing');
+                    audioCharIndex = 0;
+                }
+                isSpeedChange = false;
+            };
+            speechSynthesis.speak(tooltipUtterance);
+        }
+
+        function cycleSpeed(btn) {
+            currentSpeedIndex = (currentSpeedIndex + 1) % speeds.length;
+            btn.textContent = speeds[currentSpeedIndex] + 'x';
+            if (speechSynthesis.speaking) {
+                isSpeedChange = true;
+                speechSynthesis.cancel();
+                speakFromIndex(audioCharIndex);
+            }
+        }
+
+        function populateVoices() {
+            const voices = speechSynthesis.getVoices();
+            voiceSelect.innerHTML = '';
+            const preferred = ['Samantha', 'Alex', 'Tom', 'Daniel', 'Karen', 'Google US English', 'Google UK English Female', 'Google UK English Male', 'Fred', 'Moira', 'Tessa', 'Fiona'];
+            const english = voices
+                .map((v, i) => ({ voice: v, index: i }))
+                .filter(v => v.voice.lang.startsWith('en'));
+            english.sort((a, b) => {
+                const aIdx = preferred.findIndex(p => a.voice.name.includes(p));
+                const bIdx = preferred.findIndex(p => b.voice.name.includes(p));
+                const aRank = aIdx === -1 ? 999 : aIdx;
+                const bRank = bIdx === -1 ? 999 : bIdx;
+                return aRank - bRank;
+            });
+            english.slice(0, 4).forEach((v, i) => {
+                const opt = document.createElement('option');
+                opt.value = v.index;
+                opt.textContent = v.voice.name;
+                if (i === 0) opt.selected = true;
+                voiceSelect.appendChild(opt);
+            });
+        }
+        populateVoices();
+        speechSynthesis.onvoiceschanged = populateVoices;
+
+        function toggleTooltipAudio(btn) {
+            if (speechSynthesis.speaking) {
+                isSpeedChange = false;
+                speechSynthesis.cancel();
+                btn.classList.remove('playing');
+                audioCharIndex = 0;
+                return;
+            }
+            audioCharIndex = 0;
+            btn.classList.add('playing');
+            speakFromIndex(0);
+        }
+
+        // Stop audio when mouse leaves tooltip trigger
+        document.querySelector('.tooltip-trigger.highlight').addEventListener('mouseleave', () => {
+            if (speechSynthesis.speaking) {
+                speechSynthesis.cancel();
+                document.getElementById('tooltip-audio-btn').classList.remove('playing');
+            }
+        });
+
         // ========== INTERACTIVE KEYWORD HOVER EFFECT ==========
         // Keywords follow the mouse when hovered
 
@@ -1333,26 +1585,6 @@
             });
         });
 
-        // ========== CARD FAN - CLICK TO FRONT ==========
-        // Click any card to bring it to the front
-
-        const cardStack = document.getElementById('card-stack');
-        const cards = cardStack.querySelectorAll('.example-card');
-
-        // Set first card as active initially
-        cards[0].classList.add('active');
-
-        cardStack.addEventListener('click', (e) => {
-            const clickedCard = e.target.closest('.example-card');
-            if (!clickedCard) return;
-
-            // Remove active from all cards
-            cards.forEach(card => card.classList.remove('active'));
-
-            // Add active to clicked card
-            clickedCard.classList.add('active');
-        });
-
         // ========== GAP KEYWORD CLICK ANIMATION ==========
         // Click on "gap" to draw arrow to diagram and flash fill
 
@@ -1361,11 +1593,13 @@
         let arrowSvg = null;
 
         // ========== SEQUENCE TRACKING ==========
-        // Order: limited -> infinite -> gap
+        // Order: limited -> infinite -> mind -> gap -> do
         const sequenceState = {
             limitedTriggered: false,
             infiniteTriggered: false,
-            gapTriggered: false
+            mindTriggered: false,
+            gapTriggered: false,
+            animationInProgress: false
         };
 
         // Flash a keyword while triggering
@@ -1515,7 +1749,12 @@
 
         limitedKeyword.addEventListener('click', (e) => {
             e.stopPropagation();
+            sequenceState.animationInProgress = true;
             triggerLimited(false);
+            // Clear flag after limited animation completes
+            setTimeout(() => {
+                sequenceState.animationInProgress = false;
+            }, limitedDuration + 500);
         });
 
         // ========== IDENTITY KEYWORD CLICK ANIMATION ==========
@@ -1615,27 +1854,73 @@
         function triggerInfinite(isAutomatic = false) {
             flashKeyword(infiniteKeyword);
 
-            // Add grow animation if auto-triggered - stay big during animation
+            // Add grow animation if auto-triggered
             if (isAutomatic) {
                 infiniteKeyword.classList.remove('auto-trigger', 'auto-trigger-shrink');
-                void infiniteKeyword.offsetWidth; // Force reflow
+                void infiniteKeyword.offsetWidth;
                 infiniteKeyword.classList.add('auto-trigger');
 
-                // Shrink back when animation completes
                 setTimeout(() => {
                     infiniteKeyword.classList.remove('auto-trigger');
                     infiniteKeyword.classList.add('auto-trigger-shrink');
                     setTimeout(() => infiniteKeyword.classList.remove('auto-trigger-shrink'), 300);
-                }, infiniteDuration);
+                }, 600);
+            }
+
+            sequenceState.infiniteTriggered = true;
+        }
+
+        infiniteKeyword.addEventListener('click', (e) => {
+            e.stopPropagation();
+            sequenceState.animationInProgress = true;
+
+            // Check if limited needs to be triggered first
+            if (!sequenceState.limitedTriggered) {
+                triggerLimited(true);
+                setTimeout(() => {
+                    triggerInfinite(false);
+                    setTimeout(() => {
+                        sequenceState.animationInProgress = false;
+                    }, 800);
+                }, limitedDuration + 200);
+            } else {
+                triggerInfinite(false);
+                setTimeout(() => {
+                    sequenceState.animationInProgress = false;
+                }, 800);
+            }
+        });
+
+        // ========== MIND KEYWORD CLICK ANIMATION ==========
+        // Click on "mind" to draw arrow to orb and reveal it
+        const mindKeyword = document.getElementById('mind-keyword');
+        let mindArrowSvg = null;
+
+        const mindDuration = 2600; // same as infinite
+
+        function triggerMind(isAutomatic = false) {
+            flashKeyword(mindKeyword);
+
+            // Add grow animation if auto-triggered
+            if (isAutomatic) {
+                mindKeyword.classList.remove('auto-trigger', 'auto-trigger-shrink');
+                void mindKeyword.offsetWidth;
+                mindKeyword.classList.add('auto-trigger');
+
+                setTimeout(() => {
+                    mindKeyword.classList.remove('auto-trigger');
+                    mindKeyword.classList.add('auto-trigger-shrink');
+                    setTimeout(() => mindKeyword.classList.remove('auto-trigger-shrink'), 300);
+                }, mindDuration);
             }
 
             // Remove any existing arrow
-            if (infiniteArrowSvg) {
-                infiniteArrowSvg.remove();
+            if (mindArrowSvg) {
+                mindArrowSvg.remove();
             }
 
             // Get positions with scroll offset
-            const keywordRect = infiniteKeyword.getBoundingClientRect();
+            const keywordRect = mindKeyword.getBoundingClientRect();
             const diagramRect = bodyDiagram.getBoundingClientRect();
             const scrollX = window.scrollX;
             const scrollY = window.scrollY;
@@ -1649,11 +1934,11 @@
             const endY = diagramRect.top - 10 + scrollY;
 
             // Create SVG for the arrow
-            infiniteArrowSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-            infiniteArrowSvg.classList.add('gap-arrow-svg');
-            infiniteArrowSvg.style.width = document.documentElement.scrollWidth + 'px';
-            infiniteArrowSvg.style.height = document.documentElement.scrollHeight + 'px';
-            infiniteArrowSvg.setAttribute('viewBox', `0 0 ${document.documentElement.scrollWidth} ${document.documentElement.scrollHeight}`);
+            mindArrowSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+            mindArrowSvg.classList.add('gap-arrow-svg');
+            mindArrowSvg.style.width = document.documentElement.scrollWidth + 'px';
+            mindArrowSvg.style.height = document.documentElement.scrollHeight + 'px';
+            mindArrowSvg.setAttribute('viewBox', `0 0 ${document.documentElement.scrollWidth} ${document.documentElement.scrollHeight}`);
 
             // Create curved path
             const midY = (startY + endY) / 2;
@@ -1668,9 +1953,9 @@
             arrowHead.classList.add('gap-arrow-head');
             arrowHead.setAttribute('points', `${endX},${endY + 5} ${endX - 8},${endY - 8} ${endX + 8},${endY - 8}`);
 
-            infiniteArrowSvg.appendChild(path);
-            infiniteArrowSvg.appendChild(arrowHead);
-            document.body.appendChild(infiniteArrowSvg);
+            mindArrowSvg.appendChild(path);
+            mindArrowSvg.appendChild(arrowHead);
+            document.body.appendChild(mindArrowSvg);
 
             // Trigger animation
             requestAnimationFrame(() => {
@@ -1678,7 +1963,7 @@
                 arrowHead.classList.add('animating');
             });
 
-            // Reveal the bubble after arrow reaches (just the orb, no flash)
+            // Reveal the orb after arrow reaches
             setTimeout(() => {
                 if (!bodyDiagram.classList.contains('revealed')) {
                     bodyDiagram.classList.add('revealed');
@@ -1687,31 +1972,51 @@
 
                 // Remove arrow after a delay
                 setTimeout(() => {
-                    if (infiniteArrowSvg) {
-                        infiniteArrowSvg.style.opacity = '0';
-                        infiniteArrowSvg.style.transition = 'opacity 0.5s ease';
+                    if (mindArrowSvg) {
+                        mindArrowSvg.style.opacity = '0';
+                        mindArrowSvg.style.transition = 'opacity 0.5s ease';
                         setTimeout(() => {
-                            infiniteArrowSvg.remove();
-                            infiniteArrowSvg = null;
+                            if (mindArrowSvg) {
+                                mindArrowSvg.remove();
+                                mindArrowSvg = null;
+                            }
                         }, 500);
                     }
                 }, 1500);
             }, 600);
 
-            sequenceState.infiniteTriggered = true;
+            sequenceState.mindTriggered = true;
         }
 
-        infiniteKeyword.addEventListener('click', (e) => {
+        mindKeyword.addEventListener('click', (e) => {
             e.stopPropagation();
+            sequenceState.animationInProgress = true;
 
-            // Check if limited needs to be triggered first
-            if (!sequenceState.limitedTriggered) {
+            // Check sequence: need limited and infinite first
+            if (!sequenceState.limitedTriggered && !sequenceState.infiniteTriggered) {
                 triggerLimited(true);
                 setTimeout(() => {
-                    triggerInfinite(false);
+                    triggerInfinite(true);
+                    setTimeout(() => {
+                        triggerMind(false);
+                        setTimeout(() => {
+                            sequenceState.animationInProgress = false;
+                        }, mindDuration + 500);
+                    }, infiniteDuration + 200);
                 }, limitedDuration + 200);
+            } else if (!sequenceState.infiniteTriggered) {
+                triggerInfinite(true);
+                setTimeout(() => {
+                    triggerMind(false);
+                    setTimeout(() => {
+                        sequenceState.animationInProgress = false;
+                    }, mindDuration + 500);
+                }, infiniteDuration + 200);
             } else {
-                triggerInfinite(false);
+                triggerMind(false);
+                setTimeout(() => {
+                    sequenceState.animationInProgress = false;
+                }, mindDuration + 500);
             }
         });
 
@@ -1814,26 +2119,47 @@
 
         gapKeyword.addEventListener('click', (e) => {
             e.stopPropagation();
+            sequenceState.animationInProgress = true;
 
-            // Check sequence: need limited and infinite first
-            if (!sequenceState.limitedTriggered && !sequenceState.infiniteTriggered) {
-                // Neither triggered - trigger both then gap
+            // Check sequence: need limited, infinite, and mind first
+            if (!sequenceState.limitedTriggered && !sequenceState.infiniteTriggered && !sequenceState.mindTriggered) {
                 triggerLimited(true);
                 setTimeout(() => {
                     triggerInfinite(true);
                     setTimeout(() => {
-                        triggerGap(false);
+                        triggerMind(true);
+                        setTimeout(() => {
+                            triggerGap(false);
+                            setTimeout(() => {
+                                sequenceState.animationInProgress = false;
+                            }, 3000);
+                        }, mindDuration + 200);
                     }, infiniteDuration + 200);
                 }, limitedDuration + 200);
-            } else if (!sequenceState.infiniteTriggered) {
-                // Limited done, need infinite then gap
+            } else if (!sequenceState.infiniteTriggered && !sequenceState.mindTriggered) {
                 triggerInfinite(true);
                 setTimeout(() => {
-                    triggerGap(false);
+                    triggerMind(true);
+                    setTimeout(() => {
+                        triggerGap(false);
+                        setTimeout(() => {
+                            sequenceState.animationInProgress = false;
+                        }, 3000);
+                    }, mindDuration + 200);
                 }, infiniteDuration + 200);
+            } else if (!sequenceState.mindTriggered) {
+                triggerMind(true);
+                setTimeout(() => {
+                    triggerGap(false);
+                    setTimeout(() => {
+                        sequenceState.animationInProgress = false;
+                    }, 3000);
+                }, mindDuration + 200);
             } else {
-                // Both done, just trigger gap
                 triggerGap(false);
+                setTimeout(() => {
+                    sequenceState.animationInProgress = false;
+                }, 3000);
             }
         });
 
@@ -1884,6 +2210,114 @@
 
         // Path debug mode disabled - waypoints captured
 
+        // ========== ROOM ORB POSITIONS ==========
+        // Orb 1: appears in scene7, persists through scene10
+        // Orb 2: appears in scene8, persists through scene10
+        // Orb 3: appears in scene9, persists through scene10
+        // Orb 4: appears in scene9, persists through scene10
+        // Orb 5: appears in scene10
+        const roomOrbPositions = {
+            1: { x: 29.5, y: 48.3 },  // room1/scene7
+            2: { x: 70.2, y: 48.4 },  // room2/scene8
+            3: { x: 56.3, y: 46.4 },  // room3/scene9
+            4: { x: 80.0, y: 44.9 },  // room3/scene9
+            5: { x: 43.4, y: 47.6 },  // room4/scene10
+            6: { x: 50.2, y: 59.7 }   // head orb - all scenes
+        };
+
+        const roomOrbs = document.querySelectorAll('.room-orb');
+
+        function updateRoomOrbs() {
+            roomOrbs.forEach(orb => {
+                const orbNum = orb.dataset.roomOrb;
+                const pos = roomOrbPositions[orbNum];
+                if (pos) {
+                    orb.style.left = pos.x + '%';
+                    orb.style.top = pos.y + '%';
+                }
+            });
+        }
+
+        // ========== CLICK DESTINATION DEBUG MODE ==========
+        // Click anywhere on the body diagram to get destination coordinates
+        const DEBUG_DESTINATION = false;
+
+        if (DEBUG_DESTINATION) {
+            const destDebugPanel = document.createElement('div');
+            destDebugPanel.style.cssText = 'position: fixed; top: 10px; left: 10px; background: rgba(0,0,0,0.9); color: #86efac; padding: 15px; border-radius: 8px; font-family: monospace; font-size: 14px; z-index: 9999; min-width: 280px;';
+            destDebugPanel.innerHTML = `<strong>CLICK DEBUG</strong><br><br>Click anywhere to get coordinates.<br>A marker will appear where you click.<br><br><div id="click-coords" style="color: #fef08a; font-size: 16px;">Click to get coords...</div>`;
+            document.body.appendChild(destDebugPanel);
+
+            // Create a marker element
+            const marker = document.createElement('div');
+            marker.style.cssText = 'position: absolute; width: 20px; height: 20px; background: red; border-radius: 50%; z-index: 9999; display: none; transform: translate(-50%, -50%); pointer-events: none;';
+            bodyDiagram.appendChild(marker);
+
+            bodyDiagram.addEventListener('click', (e) => {
+                const rect = bodyDiagram.getBoundingClientRect();
+                const x = ((e.clientX - rect.left) / rect.width * 100).toFixed(1);
+                const y = ((e.clientY - rect.top) / rect.height * 100).toFixed(1);
+
+                // Show marker at click position
+                marker.style.display = 'block';
+                marker.style.left = x + '%';
+                marker.style.top = y + '%';
+
+                document.getElementById('click-coords').innerHTML = `<strong>x: ${x}, y: ${y}</strong>`;
+                console.log(`Destination: { x: ${x}, y: ${y} }`);
+            }, true);
+        }
+
+        // ========== ROOM ORB DEBUG MODE ==========
+        const DEBUG_ROOM_ORBS = false;
+        const DEBUG_ROOM_SCENE = 'scene6'; // 'scene6', 'scene7', 'scene8', 'scene9', 'scene10'
+        let debugRoomOrbNumber = 6; // which orb to position (1-6, 6=head)
+
+        if (DEBUG_ROOM_ORBS) {
+            // Add CSS to make room orbs draggable
+            const roomDebugStyle = document.createElement('style');
+            roomDebugStyle.textContent = `
+                .room-orb {
+                    cursor: grab !important;
+                    pointer-events: auto !important;
+                }
+            `;
+            document.head.appendChild(roomDebugStyle);
+
+            // Create debug panel
+            const roomDebugPanel = document.createElement('div');
+            roomDebugPanel.style.cssText = 'position: fixed; top: 10px; left: 10px; background: rgba(0,0,0,0.9); color: #86efac; padding: 15px; border-radius: 8px; font-family: monospace; font-size: 12px; z-index: 9999; min-width: 300px;';
+            roomDebugPanel.innerHTML = `<strong>ROOM ORB DEBUG</strong><br>Scene: ${DEBUG_ROOM_SCENE}<br>Orb #: ${debugRoomOrbNumber} (HEAD)<br><br>Click to position orb.<br>Press 1-6 to switch (6=head).<br><br><div id="room-orb-coords">Click to get coords</div>`;
+            document.body.appendChild(roomDebugPanel);
+
+            bodyDiagram.addEventListener('click', (e) => {
+                const currentScene = DEBUG_ROOM_SCENE;
+                if (!bodyDiagram.classList.contains(currentScene)) return;
+
+                const rect = bodyDiagram.getBoundingClientRect();
+                const x = ((e.clientX - rect.left) / rect.width * 100).toFixed(1);
+                const y = ((e.clientY - rect.top) / rect.height * 100).toFixed(1);
+
+                // Position the current debug orb
+                const orb = document.querySelector(`.room-orb[data-room-orb="${debugRoomOrbNumber}"]`);
+                if (orb) {
+                    orb.style.left = x + '%';
+                    orb.style.top = y + '%';
+                    orb.style.opacity = '1';
+                }
+
+                document.getElementById('room-orb-coords').innerHTML = `Orb ${debugRoomOrbNumber}: { x: ${x}, y: ${y} }`;
+                console.log(`${debugRoomOrbNumber}: { x: ${x}, y: ${y} }`);
+            }, true);
+
+            document.addEventListener('keydown', (e) => {
+                if (e.key >= '1' && e.key <= '6') {
+                    debugRoomOrbNumber = parseInt(e.key);
+                    roomDebugPanel.innerHTML = `<strong>ROOM ORB DEBUG</strong><br>Scene: ${DEBUG_ROOM_SCENE}<br>Orb #: ${debugRoomOrbNumber} ${debugRoomOrbNumber === 6 ? '(HEAD)' : ''}<br><br>Click to position orb.<br>Press 1-6 to switch (6=head).<br><br><div id="room-orb-coords">Click to get coords</div>`;
+                }
+            });
+        }
+
         function updateScene4Orbs() {
             scene4Orbs.forEach(orb => {
                 const orbNum = orb.dataset.orb;
@@ -1932,7 +2366,109 @@
         const scene3Text = "When the person receives a diagnosis of autism, nothing about their reality changes. They are the same before and after. What changes is alignment. The diagnosis gives language to an otherwise inexpressible identity, making their inner experience legible to themselves and to the world.";
         const scene4Text = "The relief in a diagnosis does not come from correction or cure, but from reducing the gap between identity and reality.";
 
+        // Keyboard navigation - left arrow to go back
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft' && bodyDiagram.classList.contains('expanded')) {
+                e.preventDefault();
+                // Go back to previous scene
+                if (bodyDiagram.classList.contains('scene13')) {
+                    // Go back through car slides first
+                    if (bodyDiagram.classList.contains('slide-2')) {
+                        bodyDiagram.classList.remove('slide-2');
+                        // Back to default (car1)
+                        return;
+                    }
+                    // Default state (car1), go back to scene12 slide-6
+                    bodyDiagram.classList.remove('scene13');
+                    bodyDiagram.classList.add('slide-6');
+                    return;
+                }
+                if (bodyDiagram.classList.contains('scene12')) {
+                    // Go back through slides first
+                    if (bodyDiagram.classList.contains('slide-6')) {
+                        bodyDiagram.classList.remove('slide-6');
+                        bodyDiagram.classList.add('slide-5');
+                        return;
+                    }
+                    if (bodyDiagram.classList.contains('slide-5')) {
+                        bodyDiagram.classList.remove('slide-5');
+                        bodyDiagram.classList.add('slide-4');
+                        return;
+                    }
+                    if (bodyDiagram.classList.contains('slide-4')) {
+                        bodyDiagram.classList.remove('slide-4');
+                        bodyDiagram.classList.add('slide-3');
+                        return;
+                    }
+                    if (bodyDiagram.classList.contains('slide-3')) {
+                        bodyDiagram.classList.remove('slide-3');
+                        bodyDiagram.classList.add('slide-2');
+                        return;
+                    }
+                    if (bodyDiagram.classList.contains('slide-2')) {
+                        bodyDiagram.classList.remove('slide-2');
+                        // Back to default (read1)
+                        return;
+                    }
+                    // Default state (read1), go back to scene11
+                    bodyDiagram.classList.remove('scene12');
+                    return;
+                }
+                if (bodyDiagram.classList.contains('scene11')) {
+                    bodyDiagram.classList.remove('scene11');
+                    bodyDiagram.classList.remove('animation-complete');
+                    updateRoomOrbs();
+                    return;
+                }
+                if (bodyDiagram.classList.contains('scene10')) {
+                    bodyDiagram.classList.remove('scene10');
+                    return;
+                }
+                if (bodyDiagram.classList.contains('scene9')) {
+                    bodyDiagram.classList.remove('scene9');
+                    return;
+                }
+                if (bodyDiagram.classList.contains('scene8')) {
+                    bodyDiagram.classList.remove('scene8');
+                    return;
+                }
+                if (bodyDiagram.classList.contains('scene7')) {
+                    bodyDiagram.classList.remove('scene7');
+                    return;
+                }
+                if (bodyDiagram.classList.contains('scene6')) {
+                    bodyDiagram.classList.remove('scene6');
+                    return;
+                }
+                if (bodyDiagram.classList.contains('scene5')) {
+                    bodyDiagram.classList.remove('scene5');
+                    return;
+                }
+                if (bodyDiagram.classList.contains('scene4')) {
+                    bodyDiagram.classList.remove('scene4');
+                    orbText.textContent = scene3Text;
+                    return;
+                }
+                if (bodyDiagram.classList.contains('scene3')) {
+                    bodyDiagram.classList.remove('scene3');
+                    orbText.textContent = scene2Text;
+                    return;
+                }
+                if (bodyDiagram.classList.contains('scene2')) {
+                    bodyDiagram.classList.remove('scene2');
+                    orbText.textContent = scene1Text;
+                    updateOrbPosition('scene1');
+                    return;
+                }
+            }
+        });
+
         bodyDiagram.addEventListener('click', (e) => {
+            // Block clicks during keyword animations
+            if (sequenceState.animationInProgress) {
+                return;
+            }
+
             // Determine current scene
             let currentScene = null;
             if (bodyDiagram.classList.contains('expanded') && bodyDiagram.classList.contains('scene4')) {
@@ -2020,12 +2556,9 @@
                 return;
             }
 
-            // If expanded but not scene2, advance to scene2
-            if (bodyDiagram.classList.contains('expanded') && !bodyDiagram.classList.contains('scene2') && !bodyDiagram.classList.contains('scene3') && !bodyDiagram.classList.contains('scene4') && !bodyDiagram.classList.contains('scene5')) {
-                bodyDiagram.classList.add('scene2');
-                orbText.textContent = scene2Text;
-                updateOrbPosition('scene2');
-                updateScene2Orbs();
+            // If expanded but no scene yet (initial state), ignore clicks
+            if (bodyDiagram.classList.contains('expanded') && !bodyDiagram.classList.contains('scene2') && !bodyDiagram.classList.contains('scene3') && !bodyDiagram.classList.contains('scene4') && !bodyDiagram.classList.contains('scene5') && !bodyDiagram.classList.contains('scene6') && !bodyDiagram.classList.contains('scene7') && !bodyDiagram.classList.contains('scene8') && !bodyDiagram.classList.contains('scene9') && !bodyDiagram.classList.contains('scene10') && !bodyDiagram.classList.contains('scene11') && !bodyDiagram.classList.contains('scene12') && !bodyDiagram.classList.contains('scene13')) {
+                // Don't trigger anything before the first text scene
                 return;
             }
 
@@ -2052,11 +2585,116 @@
             if (bodyDiagram.classList.contains('expanded') && bodyDiagram.classList.contains('scene4') && !bodyDiagram.classList.contains('scene5')) {
                 bodyDiagram.classList.add('scene5');
                 orbText.textContent = "";
+                // Auto-advance to scene6 after animations complete
+                setTimeout(() => {
+                    if (bodyDiagram.classList.contains('scene5') && !bodyDiagram.classList.contains('scene6')) {
+                        bodyDiagram.classList.add('scene6');
+                        updateRoomOrbs();
+                    }
+                }, 3000);
                 return;
             }
 
-            // Scene 5 is the final scene - do nothing if clicked
-            if (bodyDiagram.classList.contains('expanded') && bodyDiagram.classList.contains('scene5')) {
+            // Scene 5 - wait for auto-advance
+            if (bodyDiagram.classList.contains('expanded') && bodyDiagram.classList.contains('scene5') && !bodyDiagram.classList.contains('scene6')) {
+                return;
+            }
+
+            // Scene 6 -> Scene 7 (room1 with 1 orb)
+            if (bodyDiagram.classList.contains('expanded') && bodyDiagram.classList.contains('scene6') && !bodyDiagram.classList.contains('scene7')) {
+                bodyDiagram.classList.add('scene7');
+                updateRoomOrbs();
+                return;
+            }
+
+            // Scene 7 -> Scene 8 (room2 with 2 orbs)
+            if (bodyDiagram.classList.contains('expanded') && bodyDiagram.classList.contains('scene7') && !bodyDiagram.classList.contains('scene8')) {
+                bodyDiagram.classList.add('scene8');
+                updateRoomOrbs();
+                return;
+            }
+
+            // Scene 8 -> Scene 9 (room3 with 4 orbs)
+            if (bodyDiagram.classList.contains('expanded') && bodyDiagram.classList.contains('scene8') && !bodyDiagram.classList.contains('scene9')) {
+                bodyDiagram.classList.add('scene9');
+                updateRoomOrbs();
+                return;
+            }
+
+            // Scene 9 -> Scene 10 (room4 with 5 orbs)
+            if (bodyDiagram.classList.contains('expanded') && bodyDiagram.classList.contains('scene9') && !bodyDiagram.classList.contains('scene10')) {
+                bodyDiagram.classList.add('scene10');
+                updateRoomOrbs();
+                return;
+            }
+
+            // Scene 10 -> Scene 11 (orbs animate, then room5 appears)
+            if (bodyDiagram.classList.contains('expanded') && bodyDiagram.classList.contains('scene10') && !bodyDiagram.classList.contains('scene11')) {
+                // Clear inline styles so CSS animations can work (except orb 6 - head orb stays in place)
+                roomOrbs.forEach(orb => {
+                    if (orb.dataset.roomOrb !== '6') {
+                        orb.style.left = '';
+                        orb.style.top = '';
+                    }
+                });
+                bodyDiagram.classList.add('scene11');
+                // After animation completes (1s), show room5
+                setTimeout(() => {
+                    if (bodyDiagram.classList.contains('scene11')) {
+                        bodyDiagram.classList.add('animation-complete');
+                    }
+                }, 1000);
+                return;
+            }
+
+            // Scene 11 -> Scene 12 (new text)
+            if (bodyDiagram.classList.contains('expanded') && bodyDiagram.classList.contains('scene11') && !bodyDiagram.classList.contains('scene12')) {
+                bodyDiagram.classList.add('scene12');
+                return;
+            }
+
+            // Scene 12 slideshow - advance through slides
+            // Default state shows read1, slides 2-6 advance through rest
+            if (bodyDiagram.classList.contains('expanded') && bodyDiagram.classList.contains('scene12') && !bodyDiagram.classList.contains('scene13')) {
+                if (bodyDiagram.classList.contains('slide-6')) {
+                    // slide-6 -> scene13
+                    bodyDiagram.classList.remove('slide-2', 'slide-3', 'slide-4', 'slide-5', 'slide-6');
+                    bodyDiagram.classList.add('scene13');
+                    return;
+                }
+                if (bodyDiagram.classList.contains('slide-5')) {
+                    bodyDiagram.classList.remove('slide-5');
+                    bodyDiagram.classList.add('slide-6');
+                    return;
+                }
+                if (bodyDiagram.classList.contains('slide-4')) {
+                    bodyDiagram.classList.remove('slide-4');
+                    bodyDiagram.classList.add('slide-5');
+                    return;
+                }
+                if (bodyDiagram.classList.contains('slide-3')) {
+                    bodyDiagram.classList.remove('slide-3');
+                    bodyDiagram.classList.add('slide-4');
+                    return;
+                }
+                if (bodyDiagram.classList.contains('slide-2')) {
+                    bodyDiagram.classList.remove('slide-2');
+                    bodyDiagram.classList.add('slide-3');
+                    return;
+                }
+                // Default (read1 showing) -> slide-2 (read2)
+                bodyDiagram.classList.add('slide-2');
+                return;
+            }
+
+            // Scene 13 slideshow - car images
+            if (bodyDiagram.classList.contains('expanded') && bodyDiagram.classList.contains('scene13')) {
+                if (bodyDiagram.classList.contains('slide-2')) {
+                    // Final state - do nothing for now
+                    return;
+                }
+                // Default (car1 showing) -> slide-2 (car2)
+                bodyDiagram.classList.add('slide-2');
                 return;
             }
 
@@ -2069,9 +2707,31 @@
             bodyDiagram.classList.remove('scene3');
             bodyDiagram.classList.remove('scene4');
             bodyDiagram.classList.remove('scene5');
+            bodyDiagram.classList.remove('scene6');
+            bodyDiagram.classList.remove('scene7');
+            bodyDiagram.classList.remove('scene8');
+            bodyDiagram.classList.remove('scene9');
+            bodyDiagram.classList.remove('scene10');
+            bodyDiagram.classList.remove('scene11');
+            bodyDiagram.classList.remove('scene12');
+            bodyDiagram.classList.remove('scene13');
+            bodyDiagram.classList.remove('animation-complete');
+            bodyDiagram.classList.remove('slide-2');
+            bodyDiagram.classList.remove('slide-3');
+            bodyDiagram.classList.remove('slide-4');
+            bodyDiagram.classList.remove('slide-5');
+            bodyDiagram.classList.remove('slide-6');
 
             // Reset orb text
             orbText.textContent = scene1Text;
+
+            // Reset body element visibility (clear inline styles set by JS)
+            const bodyImg = bodyDiagram.querySelector('.body-image');
+            const bodyFill = bodyDiagram.querySelector('.body-fill-overlay');
+            const headOrbEl = bodyDiagram.querySelector('.head-orb');
+            if (bodyImg) bodyImg.style.display = '';
+            if (bodyFill) bodyFill.style.display = '';
+            if (headOrbEl) headOrbEl.style.display = '';
 
             // Hide all body images
             bodyImages.forEach(img => img.classList.remove('visible'));
@@ -2082,7 +2742,9 @@
             // Reset sequence state so animations can be triggered again
             sequenceState.limitedTriggered = false;
             sequenceState.infiniteTriggered = false;
+            sequenceState.mindTriggered = false;
             sequenceState.gapTriggered = false;
+            sequenceState.animationInProgress = false;
         });
 
         // ========== DO KEYWORD CLICK - EXPAND ORB WITH TEXT ==========
@@ -2172,36 +2834,62 @@
                         }, 500);
                     }
                 }, 2000);
+
+                // Auto-advance to scene2 after expansion
+                setTimeout(() => {
+                    if (bodyDiagram.classList.contains('expanded') && !bodyDiagram.classList.contains('scene2')) {
+                        bodyDiagram.classList.add('scene2');
+                        orbText.textContent = scene2Text;
+                        updateOrbPosition('scene2');
+                        updateScene2Orbs();
+                    }
+                    // Allow clicks now that animations are done
+                    sequenceState.animationInProgress = false;
+                }, 2500);
             }, 400);
         }
 
         doKeyword.addEventListener('click', (e) => {
             e.stopPropagation();
 
-            // Check sequence: need limited, infinite, and gap first
-            if (!sequenceState.limitedTriggered && !sequenceState.infiniteTriggered && !sequenceState.gapTriggered) {
-                // None triggered - trigger all then do
+            // Block clicks during animations
+            sequenceState.animationInProgress = true;
+
+            // Check sequence: need limited, infinite, mind, and gap first
+            if (!sequenceState.limitedTriggered && !sequenceState.infiniteTriggered && !sequenceState.mindTriggered && !sequenceState.gapTriggered) {
                 triggerLimited(true);
                 setTimeout(() => {
                     triggerInfinite(true);
+                    setTimeout(() => {
+                        triggerMind(true);
+                        setTimeout(() => {
+                            triggerGap(true);
+                            setTimeout(() => {
+                                triggerDo(true);
+                            }, 2800);
+                        }, mindDuration + 200);
+                    }, infiniteDuration + 200);
+                }, limitedDuration + 200);
+            } else if (!sequenceState.infiniteTriggered && !sequenceState.mindTriggered && !sequenceState.gapTriggered) {
+                triggerInfinite(true);
+                setTimeout(() => {
+                    triggerMind(true);
                     setTimeout(() => {
                         triggerGap(true);
                         setTimeout(() => {
                             triggerDo(true);
                         }, 2800);
-                    }, infiniteDuration + 200);
-                }, limitedDuration + 200);
-            } else if (!sequenceState.infiniteTriggered && !sequenceState.gapTriggered) {
-                // Limited done, need infinite and gap then do
-                triggerInfinite(true);
+                    }, mindDuration + 200);
+                }, infiniteDuration + 200);
+            } else if (!sequenceState.mindTriggered && !sequenceState.gapTriggered) {
+                triggerMind(true);
                 setTimeout(() => {
                     triggerGap(true);
                     setTimeout(() => {
                         triggerDo(true);
                     }, 2800);
-                }, infiniteDuration + 200);
+                }, mindDuration + 200);
             } else if (!sequenceState.gapTriggered) {
-                // Limited and infinite done, need gap then do
                 triggerGap(true);
                 setTimeout(() => {
                     triggerDo(true);
@@ -2210,20 +2898,6 @@
                 // All done, just trigger do
                 triggerDo(false);
             }
-        });
-
-        // ========== BIPOLAR DIAGRAM CLICK TOGGLE ==========
-        // Click to cycle through scenes 1, 2, 3
-
-        const bipolarDiagram = document.getElementById('bipolar-diagram');
-        const bipolarScenes = bipolarDiagram.querySelectorAll('.bipolar-scene');
-        let currentScene = 1;
-
-        bipolarDiagram.addEventListener('click', (e) => {
-            e.stopPropagation();
-            bipolarScenes.forEach(scene => scene.classList.remove('active'));
-            currentScene = currentScene >= 3 ? 1 : currentScene + 1;
-            bipolarDiagram.querySelector(`.bipolar-scene-${currentScene}`).classList.add('active');
         });
 
         // ========== REALITY KEYWORD CLICK ANIMATION ==========
