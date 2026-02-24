@@ -929,8 +929,16 @@
             visibility: hidden;
             transition: opacity 0.3s ease, visibility 0.3s ease;
             z-index: 100;
-            margin-bottom: 10px;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        .tooltip-content::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 0;
+            width: 100%;
+            height: 15px;
         }
 
         .tooltip-trigger:hover .tooltip-content {
@@ -1277,6 +1285,70 @@
             transform: translateX(0);
         }
 
+        /* Collapsed widget */
+        .collapsed-widget {
+            position: relative;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 30px;
+            padding: 14px 32px;
+            margin: 30px auto;
+            max-width: 500px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            opacity: 0;
+            transform: translateY(-10px);
+        }
+
+        .collapsed-widget.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .collapsed-widget:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(134, 239, 172, 0.4);
+        }
+
+        .collapsed-widget-label {
+            font-family: 'EB Garamond', Georgia, serif;
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.7);
+            font-style: italic;
+            letter-spacing: 0.02em;
+        }
+
+        .widget-popup {
+            position: absolute;
+            top: -40px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(30, 30, 40, 0.95);
+            border: 1px solid rgba(255, 100, 100, 0.5);
+            border-radius: 8px;
+            padding: 8px 16px;
+            font-family: 'EB Garamond', Georgia, serif;
+            font-size: 0.9rem;
+            color: rgba(255, 100, 100, 0.9);
+            white-space: nowrap;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .widget-popup.show {
+            opacity: 1;
+        }
+
+
+
+        /* Section collapse/expand transitions */
+        .section-collapsing {
+            overflow: hidden;
+            transition: max-height 0.6s ease, opacity 0.4s ease;
+        }
+
     </style>
 </head>
 <body>
@@ -1285,6 +1357,11 @@
         <!-- ========== SECTION 1 ========== -->
         <section class="section" id="section-1">
 
+            <div class="collapsed-widget visible" id="soul-search-widget" onclick="toggleSection1()">
+                <div class="collapsed-widget-label"><b><u>SECTION I:</u></b> Soul searching is the core of human motivation</div>
+            </div>
+
+            <div id="section-1-content">
             <h3 class="main-thesis">
                 It is my general belief that all human motivation has one source: the desire to shorten the gap between who we are (our identity) and how we live (our reality).
             </h3>
@@ -1424,35 +1501,39 @@
             </div>
 
             <p class="paragraph">
-                Tactically, this means we are always looking for pieces of ourselves in the physical world - consciously or subconsciously, directly or indirectly. When we find a bit of ourselves in the world - whether it's in a song, a perfume, an outfit that feels like you - we have successfully channeled a bit more of us into our lived reality. Our world bends a bit more in alignment of our identity.
+                So we search for pieces of ourselves in the world. When we find or create something that gives us that ineffable yes feeling - a song, a scent, an outfit that just feels like you, a meaningful conversation, a newfound passion, a subject matter - something clicks. The quiet discomfort that always lingers as you navigate a world only partially embodying who you are is momentarily silenced. A bit of yourself has been channeled into the world around you. Your reality bends to closer resemble a bit of your soul. We feel the euphoria of greater alignment.
             </p>
 
             <p class="paragraph">
-                Things, knowledge, relationships, and experiences facilitate this process, acting as vessels that bridge our intangible identity into the finite reality we live in:
+                Things, knowledge, relationships, and experiences facilitate this process, acting as vessel that channels your soul into the tangible world.
             </p>
+
+            <p class="paragraph">
+                The instinct to perpetually soul search (consciously or subconsciously, directly or indirectly), is the core of human motivation behind <span class="tooltip-trigger">everything<span class="tooltip-content">*everything meaning after our survival needs are met. Our primary motivation is food, shelter, reproduction (survival). It could be argued that our core desire to survive exists to spend more time channeling more of ourselves into the world, and reproduce to continue this process after death - but that is more of a philosophical thought experiment than what is intended in this essay which is more philosophy for the purpose of practical implementation. Anyway… Our discussion is assuming these needs are met.</span></span> we do.
+            </p>
+
+            <p class="paragraph">
+                Though <span class="tooltip-trigger highlight" id="gap-tooltip-trigger">the gap between our identity and our world can never be fully closed<span class="tooltip-content">The gap can never fully close because we can't directly perceive our "soul" and understand it through lived experience the way that we can directly experience a song, a color, a food. Our soul is not something that can be seen, touched, smelled, or heard… But it can be felt.<br><br>Take listening to your favorite song "Bohemian Rhapsody" for example:<br><br>Listening to "Bohemian Rhapsody" is technically a physical experience: sound waves passing through your ears. But some people feel a surge of euphoria listening, while others hit skip… even though they're hearing the same thing. For that first group, something in the song resonates with their soul. They can't explain why. It just hits. Contrast that with our direct experience of the physical sound - the lyrics, notes, the volume - that's the part we can fully comprehend. We know the exact words being sung, we can identify the exact string of notes. But whether you belt that song out on your morning commute or hit skip and roll your eyes - that's our soul sending us a signal of affinity or repulsion through emotions that are inexplainable. They're inexplainable because, unlike our direct ability to hear (and see, taste, touch, smell), we don't have a sixth sense for soul detection.<br><br>This imperfect process - translating something intangible (your soul) into the tangible world - is like trying to describe what a vase looks like to a blind man.<br><br>Obviously… he can't see it. Sight exists outside his reality. So he uses what he can perceive directly: the smooth curve under his fingers, the clink of ceramic against the table, the smell of fresh glaze. He builds a picture through touch, sound, smell. It's real. It's useful. But it's built through secondary means - it will never be sight.<br><br>Still, he's drawn to certain objects and repelled by others. He develops taste, preference, even passion - all without ever actually seeing the thing in front of him.<br><br>This is what we do when we soul-search. We use the tools of our perceivable reality (touch, taste, smell, sight, sound) to make sense of something that exists beyond it. We feel our way toward who we are through songs, words, places, food, clothing - building an indirect picture of our identity that we will never directly comprehend like we could a color.<br><br>And that's why the gap never fully closes. We don't have a sixth sense for soul detection. You can't completely embody something that lives outside your reality - the same way the blind man will never form a perfectly accurate aesthetic taste. It's simply not in his world. The soul is simply not in ours.<span class="tooltip-audio-controls" onclick="event.stopPropagation()"><select class="tooltip-voice-select" id="gap-tooltip-voice-select"></select><button class="tooltip-speed-btn" id="gap-tooltip-speed-btn" onclick="cycleGapSpeed(this)">1x</button><button class="tooltip-audio-btn" id="gap-tooltip-audio-btn" onclick="toggleGapTooltipAudio(this)"><svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg></button></span></span></span>, the process of closing it - embodying more of our infinite self within the finite world - is the human experience.
+            </p>
+
+            <p class="paragraph">
+                The extent of our ability to "close this gap", or channel our identity into the world around us relies on ACCESS: to things, knowledge, people, and experiences.
+            </p>
+            </div>
 
         </section>
 
-        <!-- ========== SECTION 2: WORDS BOX ========== -->
-        <section class="section" id="section-2">
-            <div class="shaded-box">
-                <h4 class="shaded-box-title">example</h4>
-                <div class="diagram-placeholder">
-                    <!-- Interactive diagram will go here -->
-                </div>
-
+        <!-- ========== SECTION ACCESS ========== -->
+        <section class="section" id="section-access">
+            <div class="collapsed-widget visible access-widget" id="access-widget" onclick="toggleAccessSection()">
+                <div class="collapsed-widget-label"><b><u>SECTION II:</u></b> Access allows us to soul-search</div>
+                <div class="widget-popup" id="access-popup">read section I first!!</div>
+            </div>
+            <div id="access-content">
                 <p class="paragraph">
-                    Imagine there was one word in the english language: happy. I therefore would only be able to express a general feeling of happiness. So much of who I am would be left in my own head. Now imagine there were two words: happy, and very. I could more accurately express a feeling of general happiness then: am I happy or (drumroll please)… <em>very</em> happy? If there was a third word, I could more accurately pull my inner state into my reality through articulate. Today, its estimated that there are no more than ~1,000,000 words in the english language.
-                </p>
-
-                <p class="paragraph">
-                    My lived reality provides me with 1 million words to articulate myself - that's the hard limit. With those words, I express who I am, what I need, how I'm feeling… but only to the extent that I can using my one million available words. But my soul, my inner state is infinite - there could never be enough words to absolutely capture all that I am. The more words you add, the better I can channel myself in the world through articulation, but infinite can never be reached in a finite way. There will never be a finite number of words that equal infinite. And therefore, who you are in totality is bigger than words can describe. Who you are is bigger than art than the art you create, the clothing you express yourself through, your career, your home, your passions. All these elements of your reality channel bits of you, but ultimately your reality is limited to what you can directly see, taste, smell, touch and hear. And who you are is unlimited, invisible, and felt. You can never fit infinite into a finite jar… You can only collect bits of it.
+                    You need access to channel who you are into the world: specifically in availability (the things that exist) and accessibility (the ability to reach and leverage it).
                 </p>
             </div>
-
-            <p class="paragraph">
-                So TLDR: the discomfort in the gap between our identity and lived reality is the birth of human motivation. <span class="tooltip-trigger">Everything<span class="tooltip-content">*everything meaning after our survival needs are met. Our primary motivation is food, shelter, reproduction (survival). It could be argued that our core desire to survive exists to spend more time channeling more of ourselves into the world, and reproduce to continue this process after death - but that is more of a philosophical thought experiment than what is intended in this essay which is more philosophy for the purpose of practical implementation. Anyway… Our discussion is assuming these needs are met.</span></span> we do is directly or indirectly, consciously or subconsciously, working to alleviate this unease by shortening the gap between identity and lived reality:
-            </p>
         </section>
 
         <!-- Add more sections below -->
@@ -1475,8 +1556,9 @@
             tooltipUtterance = new SpeechSynthesisUtterance(text);
             tooltipUtterance.rate = speeds[currentSpeedIndex];
             const voices = speechSynthesis.getVoices();
-            if (voiceSelect.value && voices[voiceSelect.value]) {
-                tooltipUtterance.voice = voices[voiceSelect.value];
+            const selectedVoice = voices.find(v => v.voiceURI === voiceSelect.value);
+            if (selectedVoice) {
+                tooltipUtterance.voice = selectedVoice;
             }
             tooltipUtterance.onboundary = (e) => {
                 audioCharIndex = startIndex + e.charIndex;
@@ -1517,14 +1599,13 @@
             });
             english.slice(0, 4).forEach((v, i) => {
                 const opt = document.createElement('option');
-                opt.value = v.index;
+                opt.value = v.voice.voiceURI;
                 opt.textContent = v.voice.name;
                 if (i === 0) opt.selected = true;
                 voiceSelect.appendChild(opt);
             });
         }
         populateVoices();
-        speechSynthesis.onvoiceschanged = populateVoices;
 
         function toggleTooltipAudio(btn) {
             if (speechSynthesis.speaking) {
@@ -1544,6 +1625,93 @@
             if (speechSynthesis.speaking) {
                 speechSynthesis.cancel();
                 document.getElementById('tooltip-audio-btn').classList.remove('playing');
+            }
+        });
+
+        // ========== GAP TOOLTIP AUDIO ==========
+        let gapTooltipUtterance = null;
+        const gapVoiceSelect = document.getElementById('gap-tooltip-voice-select');
+        const gapSpeeds = [1, 1.5, 2];
+        let gapCurrentSpeedIndex = 0;
+        let gapAudioCharIndex = 0;
+        let gapIsSpeedChange = false;
+        const gapTooltipFullText = `The gap can never fully close because we can't directly perceive our "soul" and understand it through lived experience the way that we can directly experience a song, a color, a food. Our soul is not something that can be seen, touched, smelled, or heard… But it can be felt. Take listening to your favorite song "Bohemian Rhapsody" for example: Listening to "Bohemian Rhapsody" is technically a physical experience: sound waves passing through your ears. But some people feel a surge of euphoria listening, while others hit skip… even though they're hearing the same thing. For that first group, something in the song resonates with their soul. They can't explain why. It just hits. Contrast that with our direct experience of the physical sound - the lyrics, notes, the volume - that's the part we can fully comprehend. We know the exact words being sung, we can identify the exact string of notes. But whether you belt that song out on your morning commute or hit skip and roll your eyes - that's our soul sending us a signal of affinity or repulsion through emotions that are inexplainable. They're inexplainable because, unlike our direct ability to hear (and see, taste, touch, smell), we don't have a sixth sense for soul detection. This imperfect process - translating something intangible (your soul) into the tangible world - is like trying to describe what a vase looks like to a blind man. Obviously… he can't see it. Sight exists outside his reality. So he uses what he can perceive directly: the smooth curve under his fingers, the clink of ceramic against the table, the smell of fresh glaze. He builds a picture through touch, sound, smell. It's real. It's useful. But it's built through secondary means - it will never be sight. Still, he's drawn to certain objects and repelled by others. He develops taste, preference, even passion - all without ever actually seeing the thing in front of him. This is what we do when we soul-search. We use the tools of our perceivable reality (touch, taste, smell, sight, sound) to make sense of something that exists beyond it. We feel our way toward who we are through songs, words, places, food, clothing - building an indirect picture of our identity that we will never directly comprehend like we could a color. And that's why the gap never fully closes. We don't have a sixth sense for soul detection. You can't completely embody something that lives outside your reality - the same way the blind man will never form a perfectly accurate aesthetic taste. It's simply not in his world. The soul is simply not in ours.`;
+
+        function gapSpeakFromIndex(startIndex) {
+            const text = gapTooltipFullText.substring(startIndex);
+            if (!text) return;
+            gapTooltipUtterance = new SpeechSynthesisUtterance(text);
+            gapTooltipUtterance.rate = gapSpeeds[gapCurrentSpeedIndex];
+            const voices = speechSynthesis.getVoices();
+            const selectedVoice = voices.find(v => v.voiceURI === gapVoiceSelect.value);
+            if (selectedVoice) {
+                gapTooltipUtterance.voice = selectedVoice;
+            }
+            gapTooltipUtterance.onboundary = (e) => {
+                gapAudioCharIndex = startIndex + e.charIndex;
+            };
+            gapTooltipUtterance.onend = () => {
+                if (!gapIsSpeedChange) {
+                    document.getElementById('gap-tooltip-audio-btn').classList.remove('playing');
+                    gapAudioCharIndex = 0;
+                }
+                gapIsSpeedChange = false;
+            };
+            speechSynthesis.speak(gapTooltipUtterance);
+        }
+
+        function cycleGapSpeed(btn) {
+            gapCurrentSpeedIndex = (gapCurrentSpeedIndex + 1) % gapSpeeds.length;
+            btn.textContent = gapSpeeds[gapCurrentSpeedIndex] + 'x';
+            if (speechSynthesis.speaking) {
+                gapIsSpeedChange = true;
+                speechSynthesis.cancel();
+                gapSpeakFromIndex(gapAudioCharIndex);
+            }
+        }
+
+        function populateGapVoices() {
+            const voices = speechSynthesis.getVoices();
+            gapVoiceSelect.innerHTML = '';
+            const preferred = ['Samantha', 'Alex', 'Tom', 'Daniel', 'Karen', 'Google US English', 'Google UK English Female', 'Google UK English Male', 'Fred', 'Moira', 'Tessa', 'Fiona'];
+            const english = voices
+                .map((v, i) => ({ voice: v, index: i }))
+                .filter(v => v.voice.lang.startsWith('en'));
+            english.sort((a, b) => {
+                const aIdx = preferred.findIndex(p => a.voice.name.includes(p));
+                const bIdx = preferred.findIndex(p => b.voice.name.includes(p));
+                const aRank = aIdx === -1 ? 999 : aIdx;
+                const bRank = bIdx === -1 ? 999 : bIdx;
+                return aRank - bRank;
+            });
+            english.slice(0, 4).forEach((v, i) => {
+                const opt = document.createElement('option');
+                opt.value = v.voice.voiceURI;
+                opt.textContent = v.voice.name;
+                if (i === 0) opt.selected = true;
+                gapVoiceSelect.appendChild(opt);
+            });
+        }
+        populateGapVoices();
+        speechSynthesis.onvoiceschanged = () => { populateVoices(); populateGapVoices(); };
+
+        function toggleGapTooltipAudio(btn) {
+            if (speechSynthesis.speaking) {
+                gapIsSpeedChange = false;
+                speechSynthesis.cancel();
+                btn.classList.remove('playing');
+                gapAudioCharIndex = 0;
+                return;
+            }
+            gapAudioCharIndex = 0;
+            btn.classList.add('playing');
+            gapSpeakFromIndex(0);
+        }
+
+        document.getElementById('gap-tooltip-trigger').addEventListener('mouseleave', () => {
+            if (speechSynthesis.speaking) {
+                speechSynthesis.cancel();
+                document.getElementById('gap-tooltip-audio-btn').classList.remove('playing');
             }
         });
 
@@ -1864,8 +2032,79 @@
                     infiniteKeyword.classList.remove('auto-trigger');
                     infiniteKeyword.classList.add('auto-trigger-shrink');
                     setTimeout(() => infiniteKeyword.classList.remove('auto-trigger-shrink'), 300);
-                }, 600);
+                }, infiniteDuration);
             }
+
+            // Remove any existing arrow
+            if (infiniteArrowSvg) {
+                infiniteArrowSvg.remove();
+            }
+
+            // Get positions with scroll offset
+            const keywordRect = infiniteKeyword.getBoundingClientRect();
+            const diagramRect = bodyDiagram.getBoundingClientRect();
+            const scrollX = window.scrollX;
+            const scrollY = window.scrollY;
+
+            // Start point: bottom center of keyword
+            const startX = keywordRect.left + keywordRect.width / 2 + scrollX;
+            const startY = keywordRect.bottom + 5 + scrollY;
+
+            // End point: top edge of body diagram (head area)
+            const endX = diagramRect.left + diagramRect.width / 2 + scrollX;
+            const endY = diagramRect.top - 10 + scrollY;
+
+            // Create SVG for the arrow
+            infiniteArrowSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+            infiniteArrowSvg.classList.add('gap-arrow-svg');
+            infiniteArrowSvg.style.width = document.documentElement.scrollWidth + 'px';
+            infiniteArrowSvg.style.height = document.documentElement.scrollHeight + 'px';
+            infiniteArrowSvg.setAttribute('viewBox', `0 0 ${document.documentElement.scrollWidth} ${document.documentElement.scrollHeight}`);
+
+            // Create curved path
+            const midY = (startY + endY) / 2;
+            const pathD = `M ${startX} ${startY} Q ${startX} ${midY}, ${endX} ${endY}`;
+
+            const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+            path.classList.add('gap-arrow-line');
+            path.setAttribute('d', pathD);
+
+            // Create arrow head pointing down
+            const arrowHead = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
+            arrowHead.classList.add('gap-arrow-head');
+            arrowHead.setAttribute('points', `${endX},${endY + 5} ${endX - 8},${endY - 8} ${endX + 8},${endY - 8}`);
+
+            infiniteArrowSvg.appendChild(path);
+            infiniteArrowSvg.appendChild(arrowHead);
+            document.body.appendChild(infiniteArrowSvg);
+
+            // Trigger animation
+            requestAnimationFrame(() => {
+                path.classList.add('animating');
+                arrowHead.classList.add('animating');
+            });
+
+            // Reveal the orb after arrow reaches
+            setTimeout(() => {
+                if (!bodyDiagram.classList.contains('revealed')) {
+                    bodyDiagram.classList.add('revealed');
+                    updateOrbPosition('infinite');
+                }
+
+                // Remove arrow after a delay
+                setTimeout(() => {
+                    if (infiniteArrowSvg) {
+                        infiniteArrowSvg.style.opacity = '0';
+                        infiniteArrowSvg.style.transition = 'opacity 0.5s ease';
+                        setTimeout(() => {
+                            if (infiniteArrowSvg) {
+                                infiniteArrowSvg.remove();
+                                infiniteArrowSvg = null;
+                            }
+                        }, 500);
+                    }
+                }, 1500);
+            }, 600);
 
             sequenceState.infiniteTriggered = true;
         }
@@ -2984,6 +3223,98 @@
                 }, 1500);
             }, 600);
         });
+        // ========== SECTION 1 TOGGLE VIA WIDGET ==========
+        const section1Content = document.getElementById('section-1-content');
+        let section1Collapsed = false;
+
+        function toggleSection1() {
+            if (!section1Collapsed) {
+                section1Content.style.overflow = 'hidden';
+                section1Content.style.maxHeight = section1Content.scrollHeight + 'px';
+                section1Content.offsetHeight;
+                section1Content.style.transition = 'max-height 0.6s ease, opacity 0.4s ease';
+                section1Content.style.maxHeight = '0px';
+                section1Content.style.opacity = '0';
+                setTimeout(() => {
+                    section1Content.style.display = 'none';
+                }, 600);
+                section1Collapsed = true;
+            } else {
+                section1Content.style.display = '';
+                section1Content.style.maxHeight = '0px';
+                section1Content.style.opacity = '0';
+                section1Content.offsetHeight;
+                section1Content.style.transition = 'max-height 0.6s ease, opacity 0.4s ease';
+                section1Content.style.maxHeight = section1Content.scrollHeight + 'px';
+                section1Content.style.opacity = '1';
+                setTimeout(() => {
+                    section1Content.style.maxHeight = '';
+                    section1Content.style.overflow = '';
+                    section1Content.style.transition = '';
+                    section1Collapsed = false;
+                }, 600);
+            }
+        }
+
+        // ========== SECTION 1 SCROLL TRACKING ==========
+        let hasReadSection1 = false;
+
+        window.addEventListener('scroll', () => {
+            if (hasReadSection1) return;
+            const section1 = document.getElementById('section-1');
+            const rect = section1.getBoundingClientRect();
+            // User has scrolled past the bottom of section-1
+            if (rect.bottom <= window.innerHeight) {
+                hasReadSection1 = true;
+            }
+        });
+
+        // ========== ACCESS SECTION TOGGLE ==========
+        const accessContent = document.getElementById('access-content');
+        const accessPopup = document.getElementById('access-popup');
+        let accessCollapsed = true;
+        // Start with access content hidden
+        accessContent.style.display = 'none';
+
+        function toggleAccessSection() {
+            if (!hasReadSection1) {
+                // Show popup
+                accessPopup.classList.add('show');
+                setTimeout(() => {
+                    accessPopup.classList.remove('show');
+                }, 2000);
+                return;
+            }
+
+            if (accessCollapsed) {
+                accessContent.style.display = '';
+                accessContent.style.maxHeight = '0px';
+                accessContent.style.opacity = '0';
+                accessContent.style.overflow = 'hidden';
+                accessContent.offsetHeight;
+                accessContent.style.transition = 'max-height 0.6s ease, opacity 0.4s ease';
+                accessContent.style.maxHeight = accessContent.scrollHeight + 'px';
+                accessContent.style.opacity = '1';
+                setTimeout(() => {
+                    accessContent.style.maxHeight = '';
+                    accessContent.style.overflow = '';
+                    accessContent.style.transition = '';
+                    accessCollapsed = false;
+                }, 600);
+            } else {
+                accessContent.style.overflow = 'hidden';
+                accessContent.style.maxHeight = accessContent.scrollHeight + 'px';
+                accessContent.offsetHeight;
+                accessContent.style.transition = 'max-height 0.6s ease, opacity 0.4s ease';
+                accessContent.style.maxHeight = '0px';
+                accessContent.style.opacity = '0';
+                setTimeout(() => {
+                    accessContent.style.display = 'none';
+                    accessCollapsed = true;
+                }, 600);
+            }
+        }
+
     </script>
 </body>
 </html>
