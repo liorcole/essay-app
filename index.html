@@ -1293,8 +1293,9 @@
             border-radius: 30px;
             padding: 14px 32px;
             margin: 30px auto;
-            max-width: 500px;
+            max-width: fit-content;
             text-align: center;
+            white-space: nowrap;
             cursor: pointer;
             transition: all 0.4s ease;
             opacity: 0;
@@ -1314,6 +1315,7 @@
         .collapsed-widget-label {
             font-family: 'EB Garamond', Georgia, serif;
             font-size: 1rem;
+            font-weight: normal;
             color: rgba(255, 255, 255, 0.7);
             font-style: italic;
             letter-spacing: 0.02em;
@@ -1347,6 +1349,59 @@
         .section-collapsing {
             overflow: hidden;
             transition: max-height 0.6s ease, opacity 0.4s ease;
+        }
+
+        /* ========== DOTS FIELD (Section II) ========== */
+        .dots-field {
+            position: relative;
+            width: 100%;
+            height: 240px;
+            margin-top: 25px;
+            margin-bottom: 10px;
+        }
+
+        .dots-field .orb {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0;
+            transition: opacity 0.8s ease;
+        }
+
+        .dots-field.visible .orb {
+            opacity: var(--orb-opacity, 1);
+        }
+
+        .dots-field .orb.green {
+            background: radial-gradient(circle, #86efac 0%, rgba(134, 239, 172, 0.3) 70%, transparent 100%);
+            box-shadow: 0 0 10px rgba(134, 239, 172, 0.5);
+        }
+
+        .dots-field .orb.white {
+            background: radial-gradient(circle, #ffffff 0%, rgba(255, 255, 255, 0.4) 60%, transparent 100%);
+            box-shadow: 0 0 4px rgba(255, 255, 255, 0.5);
+        }
+
+        .dots-field .orb.clickable {
+            cursor: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="84" height="22"><rect x="0" y="0" width="84" height="22" rx="4" fill="%230a0a0f" stroke="%2386efac" stroke-width="1"/><text x="42" y="15" font-family="Georgia, serif" font-size="11" font-weight="bold" fill="%2386efac" text-anchor="middle">CLICK ME!!</text></svg>') 42 11, pointer;
+            z-index: 2;
+        }
+
+        .dot-text {
+            position: absolute;
+            opacity: 0;
+            font-family: Georgia, 'Times New Roman', serif;
+            font-style: italic;
+            color: #86efac;
+            font-size: 0.8em;
+            text-align: center;
+            width: 130px;
+            pointer-events: none;
+            transform: translateX(-50%);
+            transition: opacity 0.4s ease;
+        }
+
+        .dot-text.revealed {
+            opacity: 1;
         }
 
     </style>
@@ -1391,7 +1446,7 @@
             </p>
 
             <p class="paragraph">
-                The discomfort of living in a reality that doesn't fully reflect who we are is the source of human motivation. We are motivated to reduce this <span class="keyword keyword-gap" data-keyword id="gap-keyword">gap</span>. The more our reality captures our true identity, the more that discomfort fades. This is the core driver behind everything we <span class="keyword keyword-gap" data-keyword id="do-keyword">do</span>:
+                The perpetual discomfort of living in a reality that doesn't fully reflect who we are is the source of human motivation. We are motivated to reduce this <span class="keyword keyword-gap" data-keyword id="gap-keyword">gap</span>. The more our reality captures our true identity, the more that discomfort fades. This is the core driver behind everything we <span class="keyword keyword-gap" data-keyword id="do-keyword">do</span>:
             </p>
 
             <div class="body-diagram-container">
@@ -1501,23 +1556,31 @@
             </div>
 
             <p class="paragraph">
-                So we search for pieces of ourselves in the world. When we find or create something that gives us that ineffable yes feeling - a song, a scent, an outfit that just feels like you, a meaningful conversation, a newfound passion, a subject matter - something clicks. The quiet discomfort that always lingers as you navigate a world only partially embodying who you are is momentarily silenced. A bit of yourself has been channeled into the world around you. Your reality bends to closer resemble a bit of your soul. We feel the euphoria of greater alignment.
+                We search for pieces of ourselves in the world.
             </p>
 
             <p class="paragraph">
-                Things, knowledge, relationships, and experiences facilitate this process, acting as vessel that channels your soul into the tangible world.
+                When something gives us that ineffable "yes" feeling - a song, a scent, an outfit, a conversation, a new obsession, a person - something clicks.
             </p>
 
             <p class="paragraph">
-                The instinct to perpetually soul search (consciously or subconsciously, directly or indirectly), is the core of human motivation behind <span class="tooltip-trigger">everything<span class="tooltip-content">*everything meaning after our survival needs are met. Our primary motivation is food, shelter, reproduction (survival). It could be argued that our core desire to survive exists to spend more time channeling more of ourselves into the world, and reproduce to continue this process after death - but that is more of a philosophical thought experiment than what is intended in this essay which is more philosophy for the purpose of practical implementation. Anyway… Our discussion is assuming these needs are met.</span></span> we do.
+                The lingering discomfort of living in a world that only partly embodies who you are is momentarily silenced.
             </p>
 
             <p class="paragraph">
-                Though <span class="tooltip-trigger highlight" id="gap-tooltip-trigger">the gap between our identity and our world can never be fully closed<span class="tooltip-content">The gap can never fully close because we can't directly perceive our "soul" and understand it through lived experience the way that we can directly experience a song, a color, a food. Our soul is not something that can be seen, touched, smelled, or heard… But it can be felt.<br><br>Take listening to your favorite song "Bohemian Rhapsody" for example:<br><br>Listening to "Bohemian Rhapsody" is technically a physical experience: sound waves passing through your ears. But some people feel a surge of euphoria listening, while others hit skip… even though they're hearing the same thing. For that first group, something in the song resonates with their soul. They can't explain why. It just hits. Contrast that with our direct experience of the physical sound - the lyrics, notes, the volume - that's the part we can fully comprehend. We know the exact words being sung, we can identify the exact string of notes. But whether you belt that song out on your morning commute or hit skip and roll your eyes - that's our soul sending us a signal of affinity or repulsion through emotions that are inexplainable. They're inexplainable because, unlike our direct ability to hear (and see, taste, touch, smell), we don't have a sixth sense for soul detection.<br><br>This imperfect process - translating something intangible (your soul) into the tangible world - is like trying to describe what a vase looks like to a blind man.<br><br>Obviously… he can't see it. Sight exists outside his reality. So he uses what he can perceive directly: the smooth curve under his fingers, the clink of ceramic against the table, the smell of fresh glaze. He builds a picture through touch, sound, smell. It's real. It's useful. But it's built through secondary means - it will never be sight.<br><br>Still, he's drawn to certain objects and repelled by others. He develops taste, preference, even passion - all without ever actually seeing the thing in front of him.<br><br>This is what we do when we soul-search. We use the tools of our perceivable reality (touch, taste, smell, sight, sound) to make sense of something that exists beyond it. We feel our way toward who we are through songs, words, places, food, clothing - building an indirect picture of our identity that we will never directly comprehend like we could a color.<br><br>And that's why the gap never fully closes. We don't have a sixth sense for soul detection. You can't completely embody something that lives outside your reality - the same way the blind man will never form a perfectly accurate aesthetic taste. It's simply not in his world. The soul is simply not in ours.<span class="tooltip-audio-controls" onclick="event.stopPropagation()"><select class="tooltip-voice-select" id="gap-tooltip-voice-select"></select><button class="tooltip-speed-btn" id="gap-tooltip-speed-btn" onclick="cycleGapSpeed(this)">1x</button><button class="tooltip-audio-btn" id="gap-tooltip-audio-btn" onclick="toggleGapTooltipAudio(this)"><svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg></button></span></span></span>, the process of closing it - embodying more of our infinite self within the finite world - is the human experience.
+                A bit of yourself has been channeled into the world around you, and you feel the euphoria of that greater alignment between body and soul.
             </p>
 
             <p class="paragraph">
-                The extent of our ability to "close this gap", or channel our identity into the world around us relies on ACCESS: to things, knowledge, people, and experiences.
+                Things, knowledge, and relationships facilitate this process - they are the vessel in your reality that your soul can channel bits of itself within.
+            </p>
+
+            <p class="paragraph">
+                The gap between our identity and our world <span class="tooltip-trigger highlight" id="gap-tooltip-trigger">can never be fully closed<span class="tooltip-content">The gap can never fully close because we can't directly perceive our "soul" and understand it through lived experience the way that we can directly experience a song, a color, a food. Our soul is not something that can be seen, touched, smelled, or heard… But it can be felt.<br><br>Take listening to your favorite song "Bohemian Rhapsody" for example:<br><br>Listening to "Bohemian Rhapsody" is technically a physical experience: sound waves passing through your ears. But some people feel a surge of euphoria listening, while others hit skip… even though they're hearing the same thing. For that first group, something in the song resonates with their soul. They can't explain why. It just hits. Contrast that with our direct experience of the physical sound - the lyrics, notes, the volume - that's the part we can fully comprehend. We know the exact words being sung, we can identify the exact string of notes. But whether you belt that song out on your morning commute or hit skip and roll your eyes - that's our soul sending us a signal of affinity or repulsion through emotions that are inexplainable. They're inexplainable because, unlike our direct ability to hear (and see, taste, touch, smell), we don't have a sixth sense for soul detection.<br><br>This imperfect process - translating something intangible (your soul) into the tangible world - is like trying to describe what a vase looks like to a blind man.<br><br>Obviously… he can't see it. Sight exists outside his reality. So he uses what he can perceive directly: the smooth curve under his fingers, the clink of ceramic against the table, the smell of fresh glaze. He builds a picture through touch, sound, smell. It's real. It's useful. But it's built through secondary means - it will never be sight.<br><br>Still, he's drawn to certain objects and repelled by others. He develops taste, preference, even passion - all without ever actually seeing the thing in front of him.<br><br>This is what we do when we soul-search. We use the tools of our perceivable reality (touch, taste, smell, sight, sound) to make sense of something that exists beyond it. We feel our way toward who we are through songs, words, places, food, clothing - building an indirect picture of our identity that we will never directly comprehend like we could a color.<br><br>And that's why the gap never fully closes. We don't have a sixth sense for soul detection. You can't completely embody something that lives outside your reality - the same way the blind man will never form a perfectly accurate aesthetic taste. It's simply not in his world. The soul is simply not in ours.<span class="tooltip-audio-controls" onclick="event.stopPropagation()"><select class="tooltip-voice-select" id="gap-tooltip-voice-select"></select><button class="tooltip-speed-btn" id="gap-tooltip-speed-btn" onclick="cycleGapSpeed(this)">1x</button><button class="tooltip-audio-btn" id="gap-tooltip-audio-btn" onclick="toggleGapTooltipAudio(this)"><svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg></button></span></span></span>. It's the process of closing that gap - embodying more of our infinite self within the finite world - is the human experience. It's the motivation behind <span class="tooltip-trigger">everything<span class="tooltip-content">*everything meaning after our survival needs are met. Our primary motivation is food, shelter, reproduction (survival). It could be argued that our core desire to survive exists to spend more time channeling more of ourselves into the world, and reproduce to continue this process after death - but that is more of a philosophical thought experiment than what is intended in this essay which is more philosophy for the purpose of practical implementation. Anyway… Our discussion is assuming these needs are met.</span></span> we do - consciously or not.
+            </p>
+
+            <p class="paragraph">
+                So, we are always soul searching. And there is a science to how well we can soul search. It relies entirely on the nature of our access to things, knowledge, and people.
             </p>
             </div>
 
@@ -1526,13 +1589,17 @@
         <!-- ========== SECTION ACCESS ========== -->
         <section class="section" id="section-access">
             <div class="collapsed-widget visible access-widget" id="access-widget" onclick="toggleAccessSection()">
-                <div class="collapsed-widget-label">SECTION II: Access allows us to soul-search</div>
+                <div class="collapsed-widget-label">SECTION II: Access to resources allows us to soul-search</div>
                 <div class="widget-popup" id="access-popup">Read &nbsp;&nbsp;<b><u>SECTION I</u></b>&nbsp;&nbsp; first!!</div>
             </div>
             <div id="access-content">
                 <p class="paragraph">
                     You need access to channel who you are into the world: specifically in availability (the things that exist) and accessibility (the ability to reach and leverage it).
                 </p>
+                <p class="paragraph">
+                    Of everything that exists in the world, there is a most aligned path for you. A song that stops you mid-step. A career that doesn't feel like work. A sport, a diet, a game, a city — each one precisely tuned to who you are. Most of these things, you haven't found yet. Some, you never will.
+                </p>
+                <div class="dots-field" id="dots-field"></div>
             </div>
         </section>
 
@@ -3287,6 +3354,8 @@
             }
 
             if (accessCollapsed) {
+                // Scroll section-access widget to top of page
+                window.scrollTo({ top: document.getElementById('access-widget').offsetTop, behavior: 'smooth' });
                 accessContent.style.display = '';
                 accessContent.style.maxHeight = '0px';
                 accessContent.style.opacity = '0';
@@ -3300,8 +3369,10 @@
                     accessContent.style.overflow = '';
                     accessContent.style.transition = '';
                     accessCollapsed = false;
+                    document.getElementById('dots-field').classList.add('visible');
                 }, 600);
             } else {
+                document.getElementById('dots-field').classList.remove('visible');
                 accessContent.style.overflow = 'hidden';
                 accessContent.style.maxHeight = accessContent.scrollHeight + 'px';
                 accessContent.offsetHeight;
@@ -3314,6 +3385,100 @@
                 }, 600);
             }
         }
+
+        // ========== DOTS FIELD ==========
+        (function() {
+            const field = document.getElementById('dots-field');
+            const revealTexts = [
+                "A documentary that reshapes how you see the world",
+                "The city you'd thrive in most",
+                "The most aligned life partner for you",
+                "A career that most energizes you",
+                "The most optimized diet for your body and mind"
+            ];
+
+            // Large green orbs (clickable, with reveal text)
+            const greenOrbs = [
+                { x: 5, y: 20, size: 32 },
+                { x: 22, y: 55, size: 28 },
+                { x: 42, y: 25, size: 35 },
+                { x: 62, y: 50, size: 30 },
+                { x: 82, y: 30, size: 26 }
+            ];
+
+            let orbIndex = 0;
+
+            greenOrbs.forEach((orb, i) => {
+                const el = document.createElement('div');
+                el.className = 'orb green clickable';
+                el.style.left = orb.x + '%';
+                el.style.top = orb.y + '%';
+                el.style.width = orb.size + 'px';
+                el.style.height = orb.size + 'px';
+                el.style.transitionDelay = (orbIndex * 0.05) + 's';
+                orbIndex++;
+
+                const text = document.createElement('div');
+                text.className = 'dot-text';
+                text.textContent = revealTexts[i];
+                text.style.left = orb.x + '%';
+                text.style.top = 'calc(' + orb.y + '% + ' + (orb.size + 8) + 'px)';
+
+                el.addEventListener('click', () => text.classList.toggle('revealed'));
+
+                field.appendChild(el);
+                field.appendChild(text);
+            });
+
+            // Smaller green orbs (decorative)
+            const smallGreen = [
+                { x: 14, y: 40, size: 18 }, { x: 33, y: 65, size: 15 },
+                { x: 52, y: 15, size: 16 }, { x: 72, y: 65, size: 20 },
+                { x: 90, y: 45, size: 14 }, { x: 48, y: 70, size: 12 },
+                { x: 8, y: 70, size: 13 }, { x: 76, y: 15, size: 17 }
+            ];
+
+            smallGreen.forEach((orb) => {
+                const el = document.createElement('div');
+                el.className = 'orb green';
+                el.style.left = orb.x + '%';
+                el.style.top = orb.y + '%';
+                el.style.width = orb.size + 'px';
+                el.style.height = orb.size + 'px';
+                el.style.setProperty('--orb-opacity', (0.5 + Math.random() * 0.4).toFixed(2));
+                el.style.transitionDelay = (orbIndex * 0.05) + 's';
+                orbIndex++;
+                field.appendChild(el);
+            });
+
+            // White dots (small, scattered)
+            const whiteDots = [
+                { x: 3, y: 50 }, { x: 10, y: 15 }, { x: 17, y: 70 },
+                { x: 20, y: 30 }, { x: 25, y: 80 }, { x: 28, y: 45 },
+                { x: 31, y: 15 }, { x: 36, y: 55 }, { x: 39, y: 75 },
+                { x: 44, y: 45 }, { x: 47, y: 85 }, { x: 50, y: 35 },
+                { x: 55, y: 65 }, { x: 58, y: 20 }, { x: 60, y: 80 },
+                { x: 65, y: 40 }, { x: 68, y: 70 }, { x: 71, y: 25 },
+                { x: 74, y: 55 }, { x: 78, y: 75 }, { x: 80, y: 10 },
+                { x: 84, y: 50 }, { x: 87, y: 30 }, { x: 91, y: 65 },
+                { x: 94, y: 20 }, { x: 96, y: 50 }, { x: 13, y: 55 },
+                { x: 38, y: 30 }, { x: 57, y: 55 }, { x: 85, y: 75 }
+            ];
+
+            whiteDots.forEach(dot => {
+                const el = document.createElement('div');
+                el.className = 'orb white';
+                const size = 3 + Math.random() * 6;
+                el.style.left = dot.x + '%';
+                el.style.top = dot.y + '%';
+                el.style.width = size + 'px';
+                el.style.height = size + 'px';
+                el.style.setProperty('--orb-opacity', (0.5 + Math.random() * 0.5).toFixed(2));
+                el.style.transitionDelay = (orbIndex * 0.05) + 's';
+                orbIndex++;
+                field.appendChild(el);
+            });
+        })();
 
     </script>
 </body>
