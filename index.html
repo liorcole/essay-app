@@ -2064,6 +2064,16 @@
             </div>
         </section>
 
+        <!-- ========== SECTION IV ========== -->
+        <section class="section" id="section-ari">
+            <div class="collapsed-widget visible" id="ari-widget" onclick="toggleAriSection()">
+                <div class="collapsed-widget-label">SECTION IV: How this applies to ARI</div>
+                <div class="widget-popup" id="ari-popup">Read &nbsp;&nbsp;<b><u>SECTION III</u></b>&nbsp;&nbsp; first!!</div>
+            </div>
+            <div id="ari-content">
+            </div>
+        </section>
+
         <!-- Add more sections below -->
 
     </div>
@@ -3900,6 +3910,63 @@
                 setTimeout(() => {
                     innovationContent.style.display = 'none';
                     innovationCollapsed = true;
+                }, 600);
+            }
+        }
+
+        // ========== SECTION III SCROLL TRACKING ==========
+        let hasReadSection3 = false;
+
+        window.addEventListener('scroll', () => {
+            if (hasReadSection3) return;
+            const section3 = document.getElementById('section-innovation');
+            const rect = section3.getBoundingClientRect();
+            if (rect.bottom <= window.innerHeight) {
+                hasReadSection3 = true;
+            }
+        });
+
+        // ========== ARI SECTION TOGGLE ==========
+        const ariContent = document.getElementById('ari-content');
+        const ariPopup = document.getElementById('ari-popup');
+        let ariCollapsed = true;
+        ariContent.style.display = 'none';
+
+        function toggleAriSection() {
+            if (!hasReadSection3) {
+                ariPopup.classList.add('show');
+                setTimeout(() => {
+                    ariPopup.classList.remove('show');
+                }, 2000);
+                return;
+            }
+
+            if (ariCollapsed) {
+                window.scrollTo({ top: document.getElementById('ari-widget').offsetTop, behavior: 'smooth' });
+                ariContent.style.display = '';
+                ariContent.style.maxHeight = '0px';
+                ariContent.style.opacity = '0';
+                ariContent.style.overflow = 'hidden';
+                ariContent.offsetHeight;
+                ariContent.style.transition = 'max-height 0.6s ease, opacity 0.4s ease';
+                ariContent.style.maxHeight = ariContent.scrollHeight + 'px';
+                ariContent.style.opacity = '1';
+                setTimeout(() => {
+                    ariContent.style.maxHeight = '';
+                    ariContent.style.overflow = '';
+                    ariContent.style.transition = '';
+                    ariCollapsed = false;
+                }, 600);
+            } else {
+                ariContent.style.overflow = 'hidden';
+                ariContent.style.maxHeight = ariContent.scrollHeight + 'px';
+                ariContent.offsetHeight;
+                ariContent.style.transition = 'max-height 0.6s ease, opacity 0.4s ease';
+                ariContent.style.maxHeight = '0px';
+                ariContent.style.opacity = '0';
+                setTimeout(() => {
+                    ariContent.style.display = 'none';
+                    ariCollapsed = true;
                 }, 600);
             }
         }
