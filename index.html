@@ -2041,7 +2041,26 @@
                     <p class="paragraph">
                         Two forces govern how much access a person has: <span class="access-force-keyword" id="availability-keyword">Availability</span> : the ability to retrieve the things that exist. <span class="access-force-keyword" id="accessibility-keyword">Accessibility</span> : the ability to reach and leverage resources.
                     </p>
+                    <p class="paragraph">
+                        There's a book that would reshape how you see yourself. Availability is whether you have internet access to find and purchase it, and if it will ship to your country. Accessibility is whether it's written in a language you understand.
+                    </p>
+                    <p class="paragraph">
+                        There's a nutritional balance in food that would make your body feel its best. Availability is whether that food even gets produced in the world, and if there's a way you can actually get it to your door. Accessibility is whether you have the knowledge about your body and nutrition to even recognize the value of this food in your diet, and your ability to actually prepare it in a meal.
+                    </p>
+                    <p class="paragraph">
+                        Our instinct to soul-search not only drives our individual human motivation, but also our drive to innovate as a species. Together, humanity has always been driven to innovate, which at its core is defined by building instruments that maximize our access to the world's resources.
+                    </p>
                 </div>
+            </div>
+        </section>
+
+        <!-- ========== SECTION III ========== -->
+        <section class="section" id="section-innovation">
+            <div class="collapsed-widget visible" id="innovation-widget" onclick="toggleInnovationSection()">
+                <div class="collapsed-widget-label">SECTION III: Innovation expands our access to resources, and thus, our ability to soul-search</div>
+                <div class="widget-popup" id="innovation-popup">Read &nbsp;&nbsp;<b><u>SECTION II</u></b>&nbsp;&nbsp; first!!</div>
+            </div>
+            <div id="innovation-content">
             </div>
         </section>
 
@@ -3824,6 +3843,63 @@
                 setTimeout(() => {
                     accessContent.style.display = 'none';
                     accessCollapsed = true;
+                }, 600);
+            }
+        }
+
+        // ========== SECTION II SCROLL TRACKING ==========
+        let hasReadSection2 = false;
+
+        window.addEventListener('scroll', () => {
+            if (hasReadSection2) return;
+            const section2 = document.getElementById('section-access');
+            const rect = section2.getBoundingClientRect();
+            if (rect.bottom <= window.innerHeight) {
+                hasReadSection2 = true;
+            }
+        });
+
+        // ========== INNOVATION SECTION TOGGLE ==========
+        const innovationContent = document.getElementById('innovation-content');
+        const innovationPopup = document.getElementById('innovation-popup');
+        let innovationCollapsed = true;
+        innovationContent.style.display = 'none';
+
+        function toggleInnovationSection() {
+            if (!hasReadSection2) {
+                innovationPopup.classList.add('show');
+                setTimeout(() => {
+                    innovationPopup.classList.remove('show');
+                }, 2000);
+                return;
+            }
+
+            if (innovationCollapsed) {
+                window.scrollTo({ top: document.getElementById('innovation-widget').offsetTop, behavior: 'smooth' });
+                innovationContent.style.display = '';
+                innovationContent.style.maxHeight = '0px';
+                innovationContent.style.opacity = '0';
+                innovationContent.style.overflow = 'hidden';
+                innovationContent.offsetHeight;
+                innovationContent.style.transition = 'max-height 0.6s ease, opacity 0.4s ease';
+                innovationContent.style.maxHeight = innovationContent.scrollHeight + 'px';
+                innovationContent.style.opacity = '1';
+                setTimeout(() => {
+                    innovationContent.style.maxHeight = '';
+                    innovationContent.style.overflow = '';
+                    innovationContent.style.transition = '';
+                    innovationCollapsed = false;
+                }, 600);
+            } else {
+                innovationContent.style.overflow = 'hidden';
+                innovationContent.style.maxHeight = innovationContent.scrollHeight + 'px';
+                innovationContent.offsetHeight;
+                innovationContent.style.transition = 'max-height 0.6s ease, opacity 0.4s ease';
+                innovationContent.style.maxHeight = '0px';
+                innovationContent.style.opacity = '0';
+                setTimeout(() => {
+                    innovationContent.style.display = 'none';
+                    innovationCollapsed = true;
                 }, 600);
             }
         }
