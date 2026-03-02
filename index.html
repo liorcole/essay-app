@@ -1352,12 +1352,434 @@
         }
 
         /* ========== DOTS FIELD (Section II) ========== */
-        .dots-field {
-            position: relative;
-            width: 100%;
-            height: 240px;
+        .dots-field-row {
+            display: flex;
+            align-items: center;
             margin-top: 25px;
             margin-bottom: 10px;
+        }
+
+        .dots-field {
+            position: relative;
+            flex: 1;
+            height: 240px;
+        }
+
+        .dots-field-label-wrap {
+            display: flex;
+            align-items: center;
+            align-self: stretch;
+            gap: 10px;
+            padding: 30px 0;
+            flex-shrink: 0;
+        }
+
+        .dots-field-bracket {
+            width: 50px;
+            height: 100%;
+            border-top: 1px solid rgba(255, 255, 255, 0.35);
+            border-right: 1px solid rgba(255, 255, 255, 0.35);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.35);
+        }
+
+        .dots-field-label {
+            font-family: Georgia, 'Times New Roman', serif;
+            font-style: italic;
+            color: rgba(255, 255, 255, 0.55);
+            font-size: 0.85em;
+            line-height: 1.5;
+            width: 110px;
+        }
+
+        .body-intro-row {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            margin-top: 20px;
+        }
+
+        .body-intro-img {
+            width: 90px;
+            filter: invert(1);
+            opacity: 0.85;
+            flex-shrink: 0;
+            cursor: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="72" height="22"><rect x="0" y="0" width="72" height="22" rx="4" fill="%230a0a0f" stroke="%2386efac" stroke-width="1"/><text x="36" y="15" font-family="Georgia, serif" font-size="11" font-weight="bold" fill="%2386efac" text-anchor="middle">DRAG ME</text></svg>') 36 11, grab;
+            user-select: none;
+            touch-action: none;
+        }
+
+        .body-intro-img.dragging {
+            position: fixed;
+            z-index: 1000;
+            cursor: grabbing;
+            width: 90px;
+            filter: invert(1);
+            opacity: 0.85;
+            pointer-events: none;
+        }
+
+        .body-intro-img.returning {
+            position: fixed;
+            z-index: 1000;
+            width: 90px;
+            filter: invert(1);
+            opacity: 0.85;
+            pointer-events: none;
+            transition: left 0.5s ease, top 0.5s ease;
+        }
+
+        .body-img-placeholder {
+            width: 90px;
+            flex-shrink: 0;
+        }
+
+        .body-intro-text.filled {
+            color: #86efac;
+        }
+
+        .body-intro-text-wrap {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .body-intro-text {
+            font-family: Georgia, 'Times New Roman', serif;
+            font-style: italic;
+            color: rgba(255, 255, 255, 0.55);
+            font-size: 0.85em;
+            line-height: 1.5;
+            margin: 0;
+            transition: opacity 1.2s ease, color 1.2s ease;
+        }
+
+        .body-intro-text.fading {
+            opacity: 0;
+        }
+
+        .body-filled-note {
+            font-family: Georgia, 'Times New Roman', serif;
+            font-style: italic;
+            color: rgba(255, 80, 80, 0.75);
+            font-size: 0.95em;
+            line-height: 1.5;
+            margin-top: 8px;
+            cursor: pointer;
+            position: relative;
+            display: none;
+            background: rgba(255, 50, 50, 0.08);
+            border: 1px solid rgba(255, 80, 80, 0.15);
+            border-radius: 5px;
+            padding: 8px 12px;
+            max-width: 50%;
+        }
+
+        .body-filled-note.visible {
+            display: block;
+        }
+
+        .body-filled-note:hover {
+            color: rgba(255, 80, 80, 1);
+        }
+
+        .body-filled-note.fading {
+            opacity: 0;
+            transition: opacity 1.2s ease;
+        }
+
+        .body-filled-note .note-hover-tip {
+            position: absolute;
+            bottom: calc(100% + 6px);
+            left: 0;
+            background: #0a0a0f;
+            border: 1px solid rgba(255, 80, 80, 0.5);
+            color: rgba(255, 80, 80, 0.9);
+            font-size: 0.85em;
+            font-style: normal;
+            padding: 4px 10px;
+            border-radius: 4px;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s ease;
+        }
+
+        .body-filled-note:hover .note-hover-tip {
+            opacity: 1;
+        }
+
+        .tooltip-trigger.highlight-flash {
+            background: rgba(255, 80, 80, 0.25);
+            border-radius: 2px;
+            transition: background 0.3s ease;
+        }
+
+        .body-reset-btn {
+            display: none;
+            background: rgba(80, 180, 120, 0.15);
+            border: 1px solid rgba(80, 180, 120, 0.5);
+            color: #5cb88a;
+            font-family: Georgia, 'Times New Roman', serif;
+            font-size: 0.85em;
+            padding: 2px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-left: 8px;
+            vertical-align: middle;
+            transition: background 0.2s ease, border-color 0.2s ease;
+        }
+
+        .body-reset-btn:hover {
+            background: rgba(80, 180, 120, 0.25);
+            border-color: #5cb88a;
+        }
+
+        .body-reset-btn.visible {
+            display: inline;
+        }
+
+        .section-reveal {
+            transition: filter 1s ease, opacity 1s ease;
+        }
+
+        #after-body-reveal {
+            margin-top: 30px;
+        }
+
+
+        .section-reveal.blurred {
+            filter: blur(6px);
+            opacity: 0.3;
+            pointer-events: none;
+            user-select: none;
+            cursor: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="180" height="22"><rect x="0" y="0" width="180" height="22" rx="4" fill="%230a0a0f" stroke="%23ff5050" stroke-width="1"/><text x="90" y="15" font-family="Georgia, serif" font-size="10" fill="%23ff5050" text-anchor="middle">COMPLETE ACTION TO REVEAL</text></svg>') 90 11, not-allowed;
+        }
+
+        .body-intro-img-wrap {
+            flex-shrink: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .body-hover-parent {
+            position: relative;
+            cursor: help;
+        }
+
+        .body-hover-popup {
+            position: absolute;
+            left: 50%;
+            bottom: calc(100% + 10px);
+            transform: translateX(-50%);
+            width: 280px;
+            padding: 12px 14px;
+            background: #1a1a1f;
+            border: 1px solid rgba(134, 239, 172, 0.2);
+            border-radius: 8px;
+            font-family: Georgia, 'Times New Roman', serif;
+            font-style: italic;
+            font-size: 0.8em;
+            line-height: 1.5;
+            color: #86efac;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+            pointer-events: none;
+            z-index: 50;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+        }
+
+        .body-hover-parent.completed:hover .body-hover-popup {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .body-filled-static {
+            width: 90px;
+            filter: invert(1);
+            opacity: 0.85;
+            flex-shrink: 0;
+        }
+
+        .access-force-keyword {
+            font-weight: bold;
+            color: #86efac;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .access-force-keyword:hover {
+            color: #a8f5c8;
+        }
+
+        .access-force-keyword.active {
+            color: #86efac;
+        }
+
+        .scrub-bar-container {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 8px;
+            min-width: 320px;
+        }
+
+        .scrub-bar-wrap {
+            display: none;
+            flex-direction: column;
+            gap: 4px;
+            position: relative;
+        }
+
+        .scrub-bar-wrap.visible {
+            display: flex;
+        }
+
+        .scrub-bar-tooltip {
+            position: absolute;
+            bottom: calc(100% + 6px);
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(10, 10, 15, 0.95);
+            border: 1px solid rgba(134, 239, 172, 0.3);
+            border-radius: 6px;
+            padding: 6px 12px;
+            font-family: Georgia, 'Times New Roman', serif;
+            font-style: italic;
+            font-size: 0.75em;
+            color: rgba(255, 255, 255, 0.8);
+            white-space: nowrap;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 10;
+        }
+
+        .scrub-bar-wrap:hover .scrub-bar-tooltip {
+            opacity: 1;
+        }
+
+        .scrub-bar-label {
+            font-family: Georgia, 'Times New Roman', serif;
+            font-style: italic;
+            font-size: 0.75em;
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .scrub-bar {
+            position: relative;
+            width: 100%;
+            height: 24px;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(134, 239, 172, 0.2);
+            border-radius: 4px;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .scrub-bar-fill {
+            height: 100%;
+            width: 50%;
+            background: linear-gradient(90deg, rgba(134, 239, 172, 0.4), rgba(134, 239, 172, 0.7));
+            border-radius: 3px 0 0 3px;
+            transition: width 0.15s ease;
+            pointer-events: none;
+        }
+
+        .scrub-bar-thumb {
+            position: absolute;
+            top: 2px;
+            width: 4px;
+            height: 20px;
+            background: #86efac;
+            border-radius: 2px;
+            left: 50%;
+            transition: left 0.15s ease;
+            pointer-events: none;
+        }
+
+        .body-full-label {
+            text-align: center;
+            font-family: Georgia, 'Times New Roman', serif;
+            font-style: italic;
+            color: #86efac;
+            font-size: 0.75em;
+            margin-top: 4px;
+            opacity: 0;
+            transition: opacity 0.8s ease;
+        }
+
+        .body-full-label.visible {
+            opacity: 1;
+        }
+
+        .gap-arrow-line.red-line {
+            stroke: #ff6b6b;
+        }
+
+        .gap-arrow-head.red-line {
+            fill: #ff6b6b;
+        }
+
+        .gap-arrow-svg.fade-out {
+            opacity: 0;
+            transition: opacity 1.5s ease;
+        }
+
+        .dot-text.no-access-text {
+            color: #ff6b6b !important;
+        }
+
+        .access-keyword {
+            font-weight: bold;
+            color: #86efac;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .access-keyword:hover {
+            color: #a8f5c8;
+        }
+
+        .dots-field .orb.no-access {
+            background: radial-gradient(circle, #ff6b6b 0%, rgba(255, 107, 107, 0.3) 70%, transparent 100%) !important;
+            box-shadow: 0 0 10px rgba(255, 107, 107, 0.5) !important;
+            filter: none !important;
+            transition: background 0.8s ease, box-shadow 0.8s ease;
+        }
+
+        body.body-dragging .dots-field .orb.clickable {
+            cursor: default;
+            pointer-events: none;
+        }
+
+        .drag-arrow {
+            position: fixed;
+            z-index: 999;
+            font-size: 22px;
+            color: #86efac;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s ease;
+            text-shadow: 0 0 6px rgba(134, 239, 172, 0.6);
+            animation: arrow-bounce 0.8s ease-in-out infinite;
+        }
+
+        .drag-arrow.visible {
+            opacity: 0.85;
+        }
+
+        @keyframes arrow-bounce {
+            0%, 100% { transform: var(--arrow-rotate) translateX(0); }
+            50% { transform: var(--arrow-rotate) translateX(6px); }
+        }
+
+        .dots-field .orb.consumed {
+            opacity: 1 !important;
+            filter: brightness(1.4) saturate(1.5);
+            box-shadow: 0 0 14px rgba(134, 239, 172, 0.8), 0 0 30px rgba(134, 239, 172, 0.4);
+            transition: opacity 0.3s ease, filter 0.3s ease, box-shadow 0.3s ease;
         }
 
         .dots-field .orb {
@@ -1556,23 +1978,11 @@
             </div>
 
             <p class="paragraph">
-                We search for pieces of ourselves in the world.
+                So we search for pieces of ourselves in the world. When something gives us that ineffable "yes" feeling - a song, a scent, an outfit, a conversation, a new obsession, a person - something clicks. The lingering discomfort of living in a world that only partly embodies who you are is momentarily silenced. A bit of yourself has been channeled into the world around you, and you feel the euphoria of that greater alignment between body and soul.
             </p>
 
             <p class="paragraph">
-                When something gives us that ineffable "yes" feeling - a song, a scent, an outfit, a conversation, a new obsession, a person - something clicks.
-            </p>
-
-            <p class="paragraph">
-                The lingering discomfort of living in a world that only partly embodies who you are is momentarily silenced.
-            </p>
-
-            <p class="paragraph">
-                A bit of yourself has been channeled into the world around you, and you feel the euphoria of that greater alignment between body and soul.
-            </p>
-
-            <p class="paragraph">
-                Things, knowledge, and relationships facilitate this process - they are the vessel in your reality that your soul can channel bits of itself within.
+                And there is a science to how well we can soul search, which relies entirely
             </p>
 
             <p class="paragraph">
@@ -1594,12 +2004,44 @@
             </div>
             <div id="access-content">
                 <p class="paragraph">
-                    You need access to channel who you are into the world: specifically in availability (the things that exist) and accessibility (the ability to reach and leverage it).
-                </p>
-                <p class="paragraph">
                     Of everything that exists in the world, there is a most aligned path for you. A song that stops you mid-step. A career that doesn't feel like work. A sport, a diet, a game, a city — each one precisely tuned to who you are. Most of these things, you haven't found yet. Some, you never will.
                 </p>
-                <div class="dots-field" id="dots-field"></div>
+                <div class="dots-field-row">
+                    <div class="dots-field" id="dots-field"></div>
+                    <div class="dots-field-label-wrap">
+                        <div class="dots-field-bracket"></div>
+                        <div class="dots-field-label">All things, information, and people in the world</div>
+                    </div>
+                </div>
+                <div class="section-reveal blurred" id="after-orbs-reveal">
+                    <p class="paragraph">
+                        If you could fill your life with only these things - the ones precisely tuned to who you are - you'd exist in the closest possible alignment between identity and reality.
+                    </p>
+                    <div class="body-intro-row" id="body-intro-row">
+                        <div class="body-intro-img-wrap body-hover-parent" id="body-img-wrap">
+                            <img src="body1.png" alt="Empty body outline" class="body-intro-img" />
+                            <div class="body-full-label" id="body-full-label">Person living in full alignment</div>
+                            <div class="body-hover-popup">The person has discovered everything in the world that most aligns with who they are &mdash; strongest passions, most compatible friendships, most energizing career, etc. Their world is a completely accurate reflection of their soul &mdash; allowing them to live a life of full alignment.</div>
+                        </div>
+                        <div class="body-intro-text-wrap">
+                            <p class="body-intro-text">This is the person before they find anything in the world that reflects who they are. No passions discovered, no compatible friendships or energizing career. Drag them toward what fits.<span class="body-reset-btn" id="body-reset-btn">&#x21bb; Reset</span></p>
+                            <div class="body-filled-note" id="body-filled-note">(As discussed in Section I, <u>full</u> alignment is impossible to achieve, this is just theoretical.)<span class="note-hover-tip">CLICK FOR THE EXPLANATION FROM SECTION I</span></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="section-reveal blurred" id="after-body-reveal">
+                    <p class="paragraph">
+                        But this isn't reality. Maybe this person never had a car to make it to their dream city. Maybe they weren't aware of the foods that would best nourish their body. The city and the diet exist - they just <span class="access-keyword" id="access-keyword">didn't have access</span> to it.
+                    </p>
+                </div>
+                <div class="section-reveal blurred" id="after-limited-reveal" style="display:none">
+                    <p class="paragraph">
+                        How much of yourself you can channel into your reality depends entirely on your access to the things, knowledge, and people in the world.
+                    </p>
+                    <p class="paragraph">
+                        Two forces govern how much access a person has: <span class="access-force-keyword" id="availability-keyword">Availability</span> : the ability to retrieve the things that exist. <span class="access-force-keyword" id="accessibility-keyword">Accessibility</span> : the ability to reach and leverage resources.
+                    </p>
+                </div>
             </div>
         </section>
 
@@ -3393,7 +3835,7 @@
                 "A documentary that reshapes how you see the world",
                 "The city you'd thrive in most",
                 "The most aligned life partner for you",
-                "A career that most energizes you",
+                "A career that most energizes you, etc.",
                 "The most optimized diet for your body and mind"
             ];
 
@@ -3411,6 +3853,7 @@
             greenOrbs.forEach((orb, i) => {
                 const el = document.createElement('div');
                 el.className = 'orb green clickable';
+                el.dataset.orbIndex = i;
                 el.style.left = orb.x + '%';
                 el.style.top = orb.y + '%';
                 el.style.width = orb.size + 'px';
@@ -3420,11 +3863,20 @@
 
                 const text = document.createElement('div');
                 text.className = 'dot-text';
+                text.dataset.orbIndex = i;
                 text.textContent = revealTexts[i];
                 text.style.left = orb.x + '%';
                 text.style.top = 'calc(' + orb.y + '% + ' + (orb.size + 8) + 'px)';
 
-                el.addEventListener('click', () => text.classList.toggle('revealed'));
+                el.addEventListener('click', () => {
+                    text.classList.toggle('revealed');
+                    // Check if all clickable orbs have been revealed
+                    const allTexts = field.querySelectorAll('.dot-text');
+                    const allRevealed = Array.from(allTexts).every(t => t.classList.contains('revealed'));
+                    if (allRevealed) {
+                        document.getElementById('after-orbs-reveal').classList.remove('blurred');
+                    }
+                });
 
                 field.appendChild(el);
                 field.appendChild(text);
@@ -3479,6 +3931,738 @@
                 field.appendChild(el);
             });
         })();
+
+        // ========== DRAGGABLE BODY WITH ORB COLLISION ==========
+        (function() {
+            const bodyImg = document.querySelector('.body-intro-img');
+            if (!bodyImg) return;
+
+            const bodySequence = ['body1.png', 'body2_green.png', 'body3_green.png', 'body4_green.png', 'body5_green.png', 'body6_green.png'];
+            const bodyTextEl = document.querySelector('.body-intro-text');
+            let resetBtn = document.getElementById('body-reset-btn');
+            const filledNote = document.getElementById('body-filled-note');
+            const originalText = bodyTextEl.textContent;
+            const filledText = "The person has discovered everything in the world that most aligns with who they are \u2014 strongest passions, most compatible friendships, most energizing career, etc. Their world is a completely accurate reflection of their soul \u2014 allowing them to live a life of full alignment.";
+            let bodyLevel = 0;
+            let isDragging = false;
+            let isReturning = false;
+            let offsetX = 0, offsetY = 0;
+            let originalRect = null;
+            let placeholder = null;
+            const consumedOrbs = new Set();
+
+            // Create arrow elements
+            const arrowEl = document.createElement('div');
+            arrowEl.className = 'drag-arrow';
+            arrowEl.textContent = '\u279C';
+            document.body.appendChild(arrowEl);
+
+            function getOrbs() {
+                return Array.from(document.querySelectorAll('#dots-field .orb.green.clickable'));
+            }
+
+            function getNearestUnconsumedOrb(cx, cy) {
+                let nearest = null;
+                let minDist = Infinity;
+                getOrbs().forEach(orb => {
+                    if (consumedOrbs.has(orb)) return;
+                    const r = orb.getBoundingClientRect();
+                    const ox = r.left + r.width / 2;
+                    const oy = r.top + r.height / 2;
+                    const d = Math.hypot(ox - cx, oy - cy);
+                    if (d < minDist) { minDist = d; nearest = { el: orb, x: ox, y: oy }; }
+                });
+                return nearest;
+            }
+
+            function updateArrow(cx, cy) {
+                const target = getNearestUnconsumedOrb(cx, cy);
+                if (!target) {
+                    arrowEl.classList.remove('visible');
+                    return;
+                }
+                const angle = Math.atan2(target.y - cy, target.x - cx);
+                const dist = 55;
+                arrowEl.style.left = (cx + Math.cos(angle) * dist) + 'px';
+                arrowEl.style.top = (cy + Math.sin(angle) * dist) + 'px';
+                arrowEl.style.setProperty('--arrow-rotate', 'rotate(' + (angle * 180 / Math.PI) + 'deg)');
+                arrowEl.classList.add('visible');
+            }
+
+            function checkCollisions(cx, cy) {
+                getOrbs().forEach(orb => {
+                    if (consumedOrbs.has(orb)) return;
+                    const r = orb.getBoundingClientRect();
+                    const padding = 12;
+                    const orbLeft = r.left - padding;
+                    const orbRight = r.right + padding;
+                    const orbTop = r.top - padding;
+                    const orbBottom = r.bottom + padding;
+
+                    if (cx >= orbLeft && cx <= orbRight && cy >= orbTop && cy <= orbBottom) {
+                        consumedOrbs.add(orb);
+                        orb.classList.add('consumed');
+                        // Reveal this orb's dot-text via data attribute
+                        const idx = orb.dataset.orbIndex;
+                        const matchingText = document.querySelector('#dots-field .dot-text[data-orb-index="' + idx + '"]');
+                        if (matchingText) {
+                            matchingText.classList.add('revealed');
+                        }
+                        // Check if all orbs revealed
+                        const allTexts = document.querySelectorAll('#dots-field .dot-text');
+                        const allRevealed = Array.from(allTexts).every(t => t.classList.contains('revealed'));
+                        if (allRevealed) {
+                            document.getElementById('after-orbs-reveal').classList.remove('blurred');
+                        }
+                        // Advance body image
+                        if (bodyLevel < bodySequence.length - 1) {
+                            bodyLevel++;
+                            bodyImg.src = bodySequence[bodyLevel];
+                        }
+                    }
+                });
+            }
+
+            function startDrag(e) {
+                if (isReturning) return;
+                e.preventDefault();
+                isDragging = true;
+                const pos = e.touches ? e.touches[0] : e;
+                const rect = bodyImg.getBoundingClientRect();
+                originalRect = { left: rect.left, top: rect.top };
+                offsetX = pos.clientX - rect.left;
+                offsetY = pos.clientY - rect.top;
+
+                // Insert placeholder to keep text in place
+                placeholder = document.createElement('div');
+                placeholder.className = 'body-img-placeholder';
+                placeholder.style.height = rect.height + 'px';
+                bodyImg.parentNode.insertBefore(placeholder, bodyImg);
+
+                bodyImg.classList.add('dragging');
+                document.body.classList.add('body-dragging');
+                bodyImg.style.left = (pos.clientX - offsetX) + 'px';
+                bodyImg.style.top = (pos.clientY - offsetY) + 'px';
+            }
+
+            function onMove(e) {
+                if (!isDragging) return;
+                e.preventDefault();
+                const pos = e.touches ? e.touches[0] : e;
+                const x = pos.clientX - offsetX;
+                const y = pos.clientY - offsetY;
+                bodyImg.style.left = x + 'px';
+                bodyImg.style.top = y + 'px';
+
+                const cx = pos.clientX - offsetX + 45;
+                const cy = pos.clientY - offsetY + 45;
+                checkCollisions(cx, cy);
+                updateArrow(cx, cy);
+            }
+
+            function endDrag() {
+                if (!isDragging) return;
+                isDragging = false;
+                isReturning = true;
+                arrowEl.classList.remove('visible');
+                document.body.classList.remove('body-dragging');
+
+                // Switch from dragging to returning (enables CSS transition)
+                bodyImg.classList.remove('dragging');
+                bodyImg.classList.add('returning');
+
+                // Animate back to original position
+                requestAnimationFrame(() => {
+                    bodyImg.style.left = originalRect.left + 'px';
+                    bodyImg.style.top = originalRect.top + 'px';
+                });
+
+                bodyImg.addEventListener('transitionend', function onReturn() {
+                    bodyImg.removeEventListener('transitionend', onReturn);
+                    bodyImg.classList.remove('returning');
+                    bodyImg.style.left = '';
+                    bodyImg.style.top = '';
+                    if (placeholder) {
+                        placeholder.remove();
+                        placeholder = null;
+                    }
+                    isReturning = false;
+
+                    // Check if fully filled — fade out, swap text, fade in
+                    if (bodyLevel >= bodySequence.length - 1) {
+                        bodyTextEl.classList.add('fading');
+                        setTimeout(() => {
+                            bodyTextEl.innerHTML = filledText + '<span class="body-reset-btn visible" id="body-reset-btn">&#x21bb; Reset</span>';
+                            bodyTextEl.classList.add('filled');
+                            bodyTextEl.classList.remove('fading');
+                            filledNote.classList.add('visible');
+                            // Re-bind reset button
+                            resetBtn = document.getElementById('body-reset-btn');
+                            resetBtn.addEventListener('click', resetBody);
+                            // Reveal next section and show body label
+                            document.getElementById('after-body-reveal').classList.remove('blurred');
+                            document.getElementById('body-full-label').classList.add('visible');
+                            document.getElementById('body-img-wrap').classList.add('completed');
+                            // Scroll to show the newly revealed content
+                            setTimeout(() => {
+                                document.getElementById('after-body-reveal').scrollIntoView({ behavior: 'smooth', block: 'center' });
+                            }, 300);
+                        }, 1200);
+                    }
+                }, { once: true });
+            }
+
+            function resetBody() {
+                bodyLevel = 0;
+                bodyImg.src = bodySequence[0];
+                bodyTextEl.classList.add('fading');
+                setTimeout(() => {
+                    bodyTextEl.innerHTML = originalText + '<span class="body-reset-btn" id="body-reset-btn">&#x21bb; Reset</span>';
+                    bodyTextEl.classList.remove('filled', 'fading');
+                    filledNote.classList.remove('visible');
+                    resetBtn = document.getElementById('body-reset-btn');
+                    resetBtn.addEventListener('click', resetBody);
+                }, 1200);
+                consumedOrbs.forEach(orb => orb.classList.remove('consumed'));
+                consumedOrbs.clear();
+                document.querySelectorAll('#dots-field .dot-text.revealed').forEach(t => t.classList.remove('revealed'));
+                document.getElementById('body-full-label').classList.remove('visible');
+                document.getElementById('body-img-wrap').classList.remove('completed');
+                document.getElementById('after-body-reveal').classList.add('blurred');
+            }
+
+            resetBtn.addEventListener('click', resetBody);
+
+            filledNote.addEventListener('click', function() {
+                const gapTrigger = document.getElementById('gap-tooltip-trigger');
+                if (!gapTrigger) return;
+                gapTrigger.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                gapTrigger.classList.add('highlight-flash');
+                // Force-show tooltip briefly by simulating hover state
+                const tooltipContent = gapTrigger.querySelector('.tooltip-content');
+                if (tooltipContent) {
+                    tooltipContent.style.opacity = '1';
+                    tooltipContent.style.visibility = 'visible';
+                }
+                setTimeout(() => gapTrigger.classList.remove('highlight-flash'), 3000);
+            });
+
+            bodyImg.addEventListener('mousedown', startDrag);
+            bodyImg.addEventListener('touchstart', startDrag, { passive: false });
+            document.addEventListener('mousemove', onMove);
+            document.addEventListener('touchmove', onMove, { passive: false });
+            document.addEventListener('mouseup', endDrag);
+            document.addEventListener('touchend', endDrag);
+
+            // "didn't have access" keyword click — draw lines to leftmost & rightmost orbs, fade them red
+            let accessArrowSvg = null;
+            const accessKeyword = document.getElementById('access-keyword');
+            if (accessKeyword) {
+                accessKeyword.addEventListener('click', function() {
+                    // Remove previous arrows if any
+                    if (accessArrowSvg) accessArrowSvg.remove();
+
+                    const orbs = getOrbs();
+                    if (orbs.length < 2) return;
+                    const leftOrb = orbs[0];
+                    const rightOrb = orbs[orbs.length - 1];
+
+                    const scrollX = window.scrollX;
+                    const scrollY = window.scrollY;
+                    const kwRect = accessKeyword.getBoundingClientRect();
+                    const startX = kwRect.left + kwRect.width / 2 + scrollX;
+                    const startY = kwRect.top - 5 + scrollY;
+
+                    // Create SVG
+                    accessArrowSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+                    accessArrowSvg.classList.add('gap-arrow-svg');
+                    accessArrowSvg.style.width = document.documentElement.scrollWidth + 'px';
+                    accessArrowSvg.style.height = document.documentElement.scrollHeight + 'px';
+                    accessArrowSvg.setAttribute('viewBox', '0 0 ' + document.documentElement.scrollWidth + ' ' + document.documentElement.scrollHeight);
+
+                    // Line to left orb
+                    const leftRect = leftOrb.getBoundingClientRect();
+                    const leftEndX = leftRect.left + leftRect.width / 2 + scrollX;
+                    const leftEndY = leftRect.bottom + 5 + scrollY;
+                    const leftMidY = (startY + leftEndY) / 2;
+                    const leftPath = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+                    leftPath.classList.add('gap-arrow-line', 'red-line');
+                    leftPath.setAttribute('d', 'M ' + startX + ' ' + startY + ' Q ' + (leftEndX + 40) + ' ' + leftMidY + ', ' + leftEndX + ' ' + leftEndY);
+
+                    const leftHead = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
+                    leftHead.classList.add('gap-arrow-head', 'red-line');
+                    leftHead.setAttribute('points', leftEndX + ',' + (leftEndY + 5) + ' ' + (leftEndX - 6) + ',' + (leftEndY - 8) + ' ' + (leftEndX + 6) + ',' + (leftEndY - 8));
+
+                    // Line to right orb
+                    const rightRect = rightOrb.getBoundingClientRect();
+                    const rightEndX = rightRect.left + rightRect.width / 2 + scrollX;
+                    const rightEndY = rightRect.bottom + 5 + scrollY;
+                    const rightMidY = (startY + rightEndY) / 2;
+                    const rightPath = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+                    rightPath.classList.add('gap-arrow-line', 'red-line');
+                    rightPath.setAttribute('d', 'M ' + startX + ' ' + startY + ' Q ' + (rightEndX - 40) + ' ' + rightMidY + ', ' + rightEndX + ' ' + rightEndY);
+
+                    const rightHead = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
+                    rightHead.classList.add('gap-arrow-head', 'red-line');
+                    rightHead.setAttribute('points', rightEndX + ',' + (rightEndY + 5) + ' ' + (rightEndX - 6) + ',' + (rightEndY - 8) + ' ' + (rightEndX + 6) + ',' + (rightEndY - 8));
+
+                    accessArrowSvg.appendChild(leftPath);
+                    accessArrowSvg.appendChild(leftHead);
+                    accessArrowSvg.appendChild(rightPath);
+                    accessArrowSvg.appendChild(rightHead);
+                    document.body.appendChild(accessArrowSvg);
+
+                    // Animate lines
+                    requestAnimationFrame(() => {
+                        leftPath.classList.add('animating');
+                        leftHead.classList.add('animating');
+                        rightPath.classList.add('animating');
+                        rightHead.classList.add('animating');
+                    });
+
+                    // Fade orbs and their texts to red after lines finish drawing
+                    setTimeout(() => {
+                        leftOrb.classList.add('no-access');
+                        rightOrb.classList.add('no-access');
+                        const leftText = document.querySelector('#dots-field .dot-text[data-orb-index="' + leftOrb.dataset.orbIndex + '"]');
+                        const rightText = document.querySelector('#dots-field .dot-text[data-orb-index="' + rightOrb.dataset.orbIndex + '"]');
+                        if (leftText) leftText.classList.add('no-access-text');
+                        if (rightText) rightText.classList.add('no-access-text');
+                    }, 600);
+
+                    // Fade lines away after a few seconds, then trigger next phase
+                    setTimeout(() => {
+                        if (accessArrowSvg) {
+                            accessArrowSvg.classList.add('fade-out');
+                            setTimeout(() => {
+                                if (accessArrowSvg) { accessArrowSvg.remove(); accessArrowSvg = null; }
+                            }, 1500);
+                        }
+                        // Fade away filled text and red note from first body row
+                        bodyTextEl.classList.add('fading');
+                        filledNote.classList.add('fading');
+                        setTimeout(() => {
+                            bodyTextEl.style.display = 'none';
+                            filledNote.style.display = 'none';
+                            // Inject limited body into existing row
+                            window.initLimitedBodyDrag();
+                        }, 1200);
+                    }, 3000);
+                });
+            }
+        })();
+
+        // ========== LIMITED BODY DRAG (second drag, injected into existing row) ==========
+        (function() {
+            const bodyRow = document.getElementById('body-intro-row');
+            const bodyImgWrap = document.getElementById('body-img-wrap');
+            if (!bodyRow || !bodyImgWrap) return;
+            const bodyTextWrap = bodyRow.querySelector('.body-intro-text-wrap');
+
+            const limitedSequence = ['body1.png', 'body2_green.png', 'body3_green.png', 'body4_green.png'];
+            let limitedLevel = 0;
+            let isDragging = false;
+            let isReturning = false;
+            let offsetX = 0, offsetY = 0;
+            let originalRect = null;
+            let placeholder = null;
+            let limitedImg = null;
+            let limitedWrap = null;
+            let limitedLabel = null;
+            let limitedTextEl = null;
+            const consumedOrbs = new Set();
+            let initialized = false;
+
+            const arrowEl = document.createElement('div');
+            arrowEl.className = 'drag-arrow';
+            arrowEl.textContent = '\u279C';
+            document.body.appendChild(arrowEl);
+
+            // Called after "didn't have access" sequence completes
+            window.initLimitedBodyDrag = function() {
+                if (initialized) return;
+                initialized = true;
+
+                // Create the limited body wrap + image + label
+                limitedWrap = document.createElement('div');
+                limitedWrap.className = 'body-intro-img-wrap';
+                limitedWrap.id = 'limited-body-wrap';
+
+                limitedImg = document.createElement('img');
+                limitedImg.src = 'body1.png';
+                limitedImg.alt = 'Empty body outline';
+                limitedImg.className = 'body-intro-img';
+                limitedImg.id = 'limited-body-img';
+
+                limitedLabel = document.createElement('div');
+                limitedLabel.className = 'body-full-label';
+                limitedLabel.id = 'limited-body-label';
+                limitedLabel.textContent = 'Person living in limited alignment';
+
+                limitedWrap.appendChild(limitedImg);
+                limitedWrap.appendChild(limitedLabel);
+
+                // Create text element
+                limitedTextEl = document.createElement('p');
+                limitedTextEl.className = 'body-intro-text';
+                limitedTextEl.id = 'limited-body-text';
+                limitedTextEl.textContent = 'Help the person live a more aligned life again by discovering things in the world that reflect who they are.';
+
+                // Replace the existing text wrap content
+                bodyTextWrap.innerHTML = '';
+                bodyTextWrap.appendChild(limitedTextEl);
+
+                // Insert the limited body wrap after the body6 wrap
+                bodyImgWrap.after(limitedWrap);
+
+                // Fade in, then clear inline styles so CSS classes work later
+                limitedWrap.style.opacity = '0';
+                limitedWrap.style.transition = 'opacity 0.8s ease';
+                limitedTextEl.style.opacity = '0';
+                limitedTextEl.style.transition = 'opacity 0.8s ease';
+                requestAnimationFrame(() => {
+                    limitedWrap.style.opacity = '1';
+                    limitedTextEl.style.opacity = '1';
+                });
+                setTimeout(() => {
+                    limitedWrap.style.opacity = '';
+                    limitedWrap.style.transition = '';
+                    limitedTextEl.style.opacity = '';
+                    limitedTextEl.style.transition = '';
+                }, 900);
+
+                // Bind drag events
+                limitedImg.addEventListener('mousedown', startDrag);
+                limitedImg.addEventListener('touchstart', startDrag, { passive: false });
+            };
+
+            function getMiddleOrbs() {
+                const all = Array.from(document.querySelectorAll('#dots-field .orb.green.clickable'));
+                return all.slice(1, -1);
+            }
+
+            function getRedOrbs() {
+                const all = Array.from(document.querySelectorAll('#dots-field .orb.green.clickable'));
+                return [all[0], all[all.length - 1]];
+            }
+
+            function getNearestUnconsumedOrb(cx, cy) {
+                let nearest = null;
+                let minDist = Infinity;
+                getMiddleOrbs().forEach(orb => {
+                    if (consumedOrbs.has(orb)) return;
+                    const r = orb.getBoundingClientRect();
+                    const ox = r.left + r.width / 2;
+                    const oy = r.top + r.height / 2;
+                    const d = Math.hypot(ox - cx, oy - cy);
+                    if (d < minDist) { minDist = d; nearest = { el: orb, x: ox, y: oy }; }
+                });
+                return nearest;
+            }
+
+            function updateArrow(cx, cy) {
+                const target = getNearestUnconsumedOrb(cx, cy);
+                if (!target) {
+                    arrowEl.classList.remove('visible');
+                    return;
+                }
+                const angle = Math.atan2(target.y - cy, target.x - cx);
+                const dist = 55;
+                arrowEl.style.left = (cx + Math.cos(angle) * dist) + 'px';
+                arrowEl.style.top = (cy + Math.sin(angle) * dist) + 'px';
+                arrowEl.style.setProperty('--arrow-rotate', 'rotate(' + (angle * 180 / Math.PI) + 'deg)');
+                arrowEl.classList.add('visible');
+            }
+
+            function softClamp(pos, redOrbs) {
+                const pushRadius = 60;
+                const pushStrength = 0.85;
+                let cx = pos.x + 45;
+                let cy = pos.y + 45;
+                redOrbs.forEach(orb => {
+                    if (!orb) return;
+                    const r = orb.getBoundingClientRect();
+                    const ox = r.left + r.width / 2;
+                    const oy = r.top + r.height / 2;
+                    const dx = cx - ox;
+                    const dy = cy - oy;
+                    const dist = Math.hypot(dx, dy);
+                    if (dist < pushRadius && dist > 0) {
+                        const force = (pushRadius - dist) / pushRadius * pushStrength;
+                        const nx = dx / dist;
+                        const ny = dy / dist;
+                        pos.x += nx * force * pushRadius;
+                        pos.y += ny * force * pushRadius;
+                    }
+                });
+                return pos;
+            }
+
+            let completionFired = false;
+
+            function triggerLimitedCompletion() {
+                if (completionFired) return;
+                completionFired = true;
+
+                // 1. Show label and hover popup
+                limitedLabel.classList.add('visible');
+                const hoverPopup = document.createElement('div');
+                hoverPopup.className = 'body-hover-popup';
+                hoverPopup.textContent = 'Without access to everything, alignment is limited \u2014 but still meaningful.';
+                limitedWrap.appendChild(hoverPopup);
+                limitedWrap.classList.add('body-hover-parent', 'completed');
+
+                // 2. Immediately reveal #after-limited-reveal
+                var limitedReveal = document.getElementById('after-limited-reveal');
+                if (limitedReveal) {
+                    limitedReveal.style.display = '';
+                    limitedReveal.style.filter = 'none';
+                    limitedReveal.style.opacity = '1';
+                    limitedReveal.style.pointerEvents = 'auto';
+                    limitedReveal.style.userSelect = 'auto';
+                    limitedReveal.style.cursor = 'auto';
+                    limitedReveal.classList.remove('blurred');
+                    setTimeout(() => {
+                        limitedReveal.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }, 500);
+                }
+
+                // 3. Fade out instruction text and replace with scrub bars
+                if (limitedTextEl) {
+                    limitedTextEl.style.opacity = '';
+                    limitedTextEl.style.transition = '';
+                    void limitedTextEl.offsetHeight;
+                    limitedTextEl.classList.add('fading');
+                    setTimeout(() => {
+                        bodyTextWrap.innerHTML = '';
+                        var container = document.createElement('div');
+                        container.className = 'scrub-bar-container';
+                        container.id = 'scrub-bar-container';
+
+                        window.availPct = 0.6;
+                        window.accessPct = 0.6;
+
+                        var availWrap = document.createElement('div');
+                        availWrap.className = 'scrub-bar-wrap';
+                        availWrap.id = 'availability-bar';
+                        availWrap.innerHTML = '<div class="scrub-bar-tooltip">The ability to retrieve the things that exist</div><div class="scrub-bar-label">Availability</div><div class="scrub-bar"><div class="scrub-bar-fill" style="width:60%"></div><div class="scrub-bar-thumb" style="left:60%"></div></div>';
+                        container.appendChild(availWrap);
+
+                        var accessWrap = document.createElement('div');
+                        accessWrap.className = 'scrub-bar-wrap';
+                        accessWrap.id = 'accessibility-bar';
+                        accessWrap.innerHTML = '<div class="scrub-bar-tooltip">The ability to reach and leverage resources</div><div class="scrub-bar-label">Accessibility</div><div class="scrub-bar"><div class="scrub-bar-fill" style="width:60%"></div><div class="scrub-bar-thumb" style="left:60%"></div></div>';
+                        container.appendChild(accessWrap);
+
+                        bodyTextWrap.appendChild(container);
+                        container.style.opacity = '0';
+                        container.style.transition = 'opacity 0.8s ease';
+                        requestAnimationFrame(() => container.style.opacity = '1');
+                    }, 1200);
+                }
+            }
+
+            function checkCollisions(cx, cy) {
+                if (!limitedImg) return;
+                getMiddleOrbs().forEach(orb => {
+                    if (consumedOrbs.has(orb)) return;
+                    const r = orb.getBoundingClientRect();
+                    const padding = 12;
+                    if (cx >= r.left - padding && cx <= r.right + padding &&
+                        cy >= r.top - padding && cy <= r.bottom + padding) {
+                        consumedOrbs.add(orb);
+                        orb.classList.add('consumed');
+                        const idx = orb.dataset.orbIndex;
+                        const matchingText = document.querySelector('#dots-field .dot-text[data-orb-index="' + idx + '"]');
+                        if (matchingText) matchingText.classList.add('revealed');
+                        if (limitedLevel < limitedSequence.length - 1) {
+                            limitedLevel++;
+                            limitedImg.src = limitedSequence[limitedLevel];
+                        }
+                        // When all 3 middle orbs consumed, trigger completion after a delay
+                        // (gives time for user to release and body to return)
+                        if (limitedLevel >= limitedSequence.length - 1 && !completionFired) {
+                            setTimeout(triggerLimitedCompletion, 2000);
+                        }
+                    }
+                });
+            }
+
+            function startDrag(e) {
+                if (isReturning || !limitedImg) return;
+                e.preventDefault();
+                isDragging = true;
+                const pos = e.touches ? e.touches[0] : e;
+                const rect = limitedImg.getBoundingClientRect();
+                originalRect = { left: rect.left, top: rect.top };
+                offsetX = pos.clientX - rect.left;
+                offsetY = pos.clientY - rect.top;
+
+                placeholder = document.createElement('div');
+                placeholder.className = 'body-img-placeholder';
+                placeholder.style.height = rect.height + 'px';
+                limitedImg.parentNode.insertBefore(placeholder, limitedImg);
+
+                limitedImg.classList.add('dragging');
+                document.body.classList.add('body-dragging');
+                limitedImg.style.left = (pos.clientX - offsetX) + 'px';
+                limitedImg.style.top = (pos.clientY - offsetY) + 'px';
+            }
+
+            function onMove(e) {
+                if (!isDragging) return;
+                e.preventDefault();
+                const pos = e.touches ? e.touches[0] : e;
+                let imgPos = { x: pos.clientX - offsetX, y: pos.clientY - offsetY };
+                imgPos = softClamp(imgPos, getRedOrbs());
+                limitedImg.style.left = imgPos.x + 'px';
+                limitedImg.style.top = imgPos.y + 'px';
+
+                const cx = imgPos.x + 45;
+                const cy = imgPos.y + 45;
+                checkCollisions(cx, cy);
+                updateArrow(cx, cy);
+            }
+
+            function endDrag() {
+                if (!isDragging) return;
+                isDragging = false;
+                isReturning = true;
+                arrowEl.classList.remove('visible');
+                document.body.classList.remove('body-dragging');
+
+                limitedImg.classList.remove('dragging');
+                limitedImg.classList.add('returning');
+
+                requestAnimationFrame(() => {
+                    limitedImg.style.left = originalRect.left + 'px';
+                    limitedImg.style.top = originalRect.top + 'px';
+                });
+
+                let returnHandled = false;
+                function handleReturn() {
+                    if (returnHandled) return;
+                    returnHandled = true;
+                    limitedImg.classList.remove('returning');
+                    limitedImg.style.left = '';
+                    limitedImg.style.top = '';
+                    if (placeholder) {
+                        placeholder.remove();
+                        placeholder = null;
+                    }
+                    isReturning = false;
+
+                    if (limitedLevel >= limitedSequence.length - 1) {
+                        triggerLimitedCompletion();
+                    }
+                }
+                limitedImg.addEventListener('transitionend', handleReturn, { once: true });
+                // Fallback if transitionend doesn't fire (transition is 500ms)
+                setTimeout(handleReturn, 800);
+            }
+
+            document.addEventListener('mousemove', onMove);
+            document.addEventListener('touchmove', onMove, { passive: false });
+            document.addEventListener('mouseup', endDrag);
+            document.addEventListener('touchend', endDrag);
+        })();
+
+        // ========== AVAILABILITY / ACCESSIBILITY KEYWORD CLICKS ==========
+        function drawKeywordArrow(keyword, barId) {
+            keyword.addEventListener('click', function() {
+                this.classList.toggle('active');
+                const bar = document.getElementById(barId);
+                if (bar) bar.classList.toggle('visible');
+
+                // Draw animated arrow from keyword to its scrub bar when showing
+                if (bar && bar.classList.contains('visible')) {
+                    const scrollX = window.scrollX;
+                    const scrollY = window.scrollY;
+                    const kwRect = keyword.getBoundingClientRect();
+                    const barRect = bar.getBoundingClientRect();
+
+                    const startX = kwRect.left + kwRect.width / 2 + scrollX;
+                    const startY = kwRect.bottom + 2 + scrollY;
+                    const endX = barRect.left + barRect.width / 2 + scrollX;
+                    const endY = barRect.top + scrollY;
+                    const midY = (startY + endY) / 2;
+
+                    const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+                    svg.classList.add('gap-arrow-svg');
+                    svg.style.width = document.documentElement.scrollWidth + 'px';
+                    svg.style.height = document.documentElement.scrollHeight + 'px';
+                    svg.setAttribute('viewBox', '0 0 ' + document.documentElement.scrollWidth + ' ' + document.documentElement.scrollHeight);
+
+                    const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+                    path.classList.add('gap-arrow-line');
+                    const cpx = startX + (endX - startX) * 0.3;
+                    path.setAttribute('d', 'M ' + startX + ' ' + startY + ' Q ' + cpx + ' ' + midY + ', ' + endX + ' ' + endY);
+
+                    const arrowHead = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
+                    arrowHead.classList.add('gap-arrow-head');
+                    arrowHead.setAttribute('points', endX + ',' + (endY + 5) + ' ' + (endX - 6) + ',' + (endY - 8) + ' ' + (endX + 6) + ',' + (endY - 8));
+
+                    svg.appendChild(path);
+                    svg.appendChild(arrowHead);
+                    document.body.appendChild(svg);
+
+                    requestAnimationFrame(() => {
+                        path.classList.add('animating');
+                        arrowHead.classList.add('animating');
+                    });
+
+                    setTimeout(() => {
+                        svg.classList.add('fade-out');
+                        setTimeout(() => svg.remove(), 1600);
+                    }, 2500);
+                }
+            });
+        }
+
+        const availabilityKw = document.getElementById('availability-keyword');
+        if (availabilityKw) drawKeywordArrow(availabilityKw, 'availability-bar');
+
+        const accessibilityKw = document.getElementById('accessibility-keyword');
+        if (accessibilityKw) drawKeywordArrow(accessibilityKw, 'accessibility-bar');
+
+        // Scrub bar interaction (drag to adjust) — controls limited body image
+        const limitedBodySrcs = ['body1.png', 'body2_green.png', 'body3_green.png', 'body4_green.png', 'body5_green.png', 'body6_green.png'];
+
+        function updateLimitedBodyFromBars() {
+            const combinedPct = ((window.availPct || 0) + (window.accessPct || 0)) / 2;
+            const index = Math.round(combinedPct * 5);
+            const img = document.getElementById('limited-body-img');
+            if (img) img.src = limitedBodySrcs[index];
+        }
+
+        document.addEventListener('mousedown', function(e) {
+            const bar = e.target.closest('.scrub-bar');
+            if (!bar) return;
+            const fill = bar.querySelector('.scrub-bar-fill');
+            const thumb = bar.querySelector('.scrub-bar-thumb');
+            const wrap = bar.closest('.scrub-bar-wrap');
+            const isAvail = wrap && wrap.id === 'availability-bar';
+
+            function updateBar(clientX) {
+                const rect = bar.getBoundingClientRect();
+                let pct = (clientX - rect.left) / rect.width;
+                pct = Math.max(0, Math.min(1, pct));
+                fill.style.width = (pct * 100) + '%';
+                thumb.style.left = (pct * 100) + '%';
+                if (isAvail) { window.availPct = pct; } else { window.accessPct = pct; }
+                updateLimitedBodyFromBars();
+            }
+
+            updateBar(e.clientX);
+
+            function onDrag(ev) { updateBar(ev.clientX); }
+            function onUp() {
+                document.removeEventListener('mousemove', onDrag);
+                document.removeEventListener('mouseup', onUp);
+            }
+            document.addEventListener('mousemove', onDrag);
+            document.addEventListener('mouseup', onUp);
+        });
 
     </script>
 </body>
