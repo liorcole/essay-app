@@ -91,11 +91,6 @@
             transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
 
-        .sticky-note:hover {
-            transform: rotate(0deg) scale(1.02);
-            box-shadow: 6px 6px 16px rgba(0, 0, 0, 0.4);
-        }
-
         .sticky-note-heading {
             font-weight: 700;
             font-size: 1.1rem;
@@ -154,6 +149,65 @@
 
         .shaded-box .paragraph:last-child {
             margin-bottom: 0;
+        }
+
+        .sticky-note {
+            font-size: 1.05rem;
+            line-height: 1.6;
+            padding: 18px 22px;
+            border-radius: 2px;
+            margin-bottom: 2.5em;
+            box-shadow: 2px 3px 8px rgba(0, 0, 0, 0.3);
+            transform: rotate(-1.8deg);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .sticky-note:hover {
+            transform: rotate(0deg) scale(1.02);
+            box-shadow: 6px 6px 16px rgba(0, 0, 0, 0.4);
+        }
+
+        .sticky-note + .sticky-note {
+            transform: rotate(1.5deg);
+        }
+
+        .sticky-note + .sticky-note:hover {
+            transform: rotate(0deg) scale(1.02);
+        }
+
+        #after-limited-reveal .sticky-note {
+            background: rgba(254, 249, 195, 0.12);
+            color: #c0c0b0;
+        }
+
+        .hover-image-trigger {
+            font-style: italic;
+            font-weight: bold;
+            cursor: pointer;
+            position: relative;
+            border-bottom: 2px dashed #1a1a1a;
+        }
+
+        .hover-image-trigger .hover-image-popup {
+            display: none;
+            position: absolute;
+            bottom: calc(100% + 10px);
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 100;
+            border-radius: 6px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+        }
+
+        .hover-image-trigger:hover .hover-image-popup {
+            display: block;
+        }
+
+        .hover-image-popup img {
+            display: block;
+            max-width: 320px;
+            height: auto;
         }
 
         .diagram-placeholder {
@@ -1864,7 +1918,7 @@
             </div>
 
             <p class="paragraph">
-                Because our lived reality is finite and <span class="keyword keyword-gap" data-keyword id="limited-keyword">limited</span> by nature, we simply can never capture the <span class="keyword keyword-gap" data-keyword id="infinite-keyword">infinite</span> totality of who we are in our daily lives. Our <span class="keyword keyword-gap" data-keyword id="mind-keyword">mind</span> receives signals that help inform us of our identity as we live our lives, though an <span class="tooltip-trigger highlight">abstract and encrypted<span class="tooltip-content">A blind man cannot directly perceive sight- it exists outside his physical abilities. Instead, sight must be translated into what is accessible: like touch or sound. "The apple is round and smooth." "Red feels like the sun's warmth." These descriptions act as bridges, but they never produce a true visual mental model. Core aspects of sight (like color) remain directly unreachable.<br><br>This mirrors how our minds receive information about who we are. Identity is not directly observable to us. It is only inferred through signals that surface in our various experiences (emotions, desires, affinities, discomforts) which are translated from the constraints of our biological abilities (sight, smell, touch, taste, sound). <span class="red-bold">There is no sixth sense for soul detection.</span><br><br>Just as the blind man cannot see the vase yet can feel its form, texture, and resonance (and from that, still feel alignment with it), we sense our deeper self through indirect articulations. These moments of resonance are not full comprehension, but they are the closest approximation available within a finite body.<span class="tooltip-audio-controls" onclick="event.stopPropagation()"><select class="tooltip-voice-select" id="tooltip-voice-select"></select><button class="tooltip-speed-btn" id="tooltip-speed-btn" onclick="cycleSpeed(this)">1x</button><button class="tooltip-audio-btn" id="tooltip-audio-btn" onclick="toggleTooltipAudio(this)"><svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg></button></span></span></span> modality.
+                Because our lived reality is finite and <span class="keyword keyword-gap" data-keyword id="limited-keyword">limited</span> by nature, we simply can never capture the <span class="keyword keyword-gap" data-keyword id="infinite-keyword">infinite</span> totality of who we are in our daily lives. It's in our <span class="keyword keyword-gap" data-keyword id="mind-keyword">mind</span> where we make sense of who we are and what elements in the world resonate with us, <span class="tooltip-trigger highlight">indirectly<span class="tooltip-content">A blind man cannot directly perceive sight- it exists outside his physical abilities. Instead, sight must be translated into what is accessible: like touch or sound. "The apple is round and smooth." "Red feels like the sun's warmth." These descriptions act as bridges, but they never produce a true visual mental model. Core aspects of sight (like color) remain directly unreachable.<br><br>This mirrors how our minds receive information about who we are. Identity is not directly observable to us. It is only inferred through signals that surface in our various experiences (emotions, desires, affinities, discomforts) which are translated from the constraints of our biological abilities (sight, smell, touch, taste, sound). <span class="red-bold">There is no sixth sense for soul detection.</span><br><br>Just as the blind man cannot see the vase yet can feel its form, texture, and resonance (and from that, still feel alignment with it), we sense our deeper self through indirect articulations. These moments of resonance are not full comprehension, but they are the closest approximation available within a finite body.<span class="tooltip-audio-controls" onclick="event.stopPropagation()"><select class="tooltip-voice-select" id="tooltip-voice-select"></select><button class="tooltip-speed-btn" id="tooltip-speed-btn" onclick="cycleSpeed(this)">1x</button><button class="tooltip-audio-btn" id="tooltip-audio-btn" onclick="toggleTooltipAudio(this)"><svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg></button></span></span></span> through emotion and intuition.
             </p>
 
             <p class="paragraph">
@@ -1982,10 +2036,6 @@
             </p>
 
             <p class="paragraph">
-                And there is a science to how well we can soul search, which relies entirely
-            </p>
-
-            <p class="paragraph">
                 The gap between our identity and our world <span class="tooltip-trigger highlight" id="gap-tooltip-trigger">can never be fully closed<span class="tooltip-content">The gap can never fully close because we can't directly perceive our "soul" and understand it through lived experience the way that we can directly experience a song, a color, a food. Our soul is not something that can be seen, touched, smelled, or heard… But it can be felt.<br><br>Take listening to your favorite song "Bohemian Rhapsody" for example:<br><br>Listening to "Bohemian Rhapsody" is technically a physical experience: sound waves passing through your ears. But some people feel a surge of euphoria listening, while others hit skip… even though they're hearing the same thing. For that first group, something in the song resonates with their soul. They can't explain why. It just hits. Contrast that with our direct experience of the physical sound - the lyrics, notes, the volume - that's the part we can fully comprehend. We know the exact words being sung, we can identify the exact string of notes. But whether you belt that song out on your morning commute or hit skip and roll your eyes - that's our soul sending us a signal of affinity or repulsion through emotions that are inexplainable. They're inexplainable because, unlike our direct ability to hear (and see, taste, touch, smell), we don't have a sixth sense for soul detection.<br><br>This imperfect process - translating something intangible (your soul) into the tangible world - is like trying to describe what a vase looks like to a blind man.<br><br>Obviously… he can't see it. Sight exists outside his reality. So he uses what he can perceive directly: the smooth curve under his fingers, the clink of ceramic against the table, the smell of fresh glaze. He builds a picture through touch, sound, smell. It's real. It's useful. But it's built through secondary means - it will never be sight.<br><br>Still, he's drawn to certain objects and repelled by others. He develops taste, preference, even passion - all without ever actually seeing the thing in front of him.<br><br>This is what we do when we soul-search. We use the tools of our perceivable reality (touch, taste, smell, sight, sound) to make sense of something that exists beyond it. We feel our way toward who we are through songs, words, places, food, clothing - building an indirect picture of our identity that we will never directly comprehend like we could a color.<br><br>And that's why the gap never fully closes. We don't have a sixth sense for soul detection. You can't completely embody something that lives outside your reality - the same way the blind man will never form a perfectly accurate aesthetic taste. It's simply not in his world. The soul is simply not in ours.<span class="tooltip-audio-controls" onclick="event.stopPropagation()"><select class="tooltip-voice-select" id="gap-tooltip-voice-select"></select><button class="tooltip-speed-btn" id="gap-tooltip-speed-btn" onclick="cycleGapSpeed(this)">1x</button><button class="tooltip-audio-btn" id="gap-tooltip-audio-btn" onclick="toggleGapTooltipAudio(this)"><svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg></button></span></span></span>. It's the process of closing that gap - embodying more of our infinite self within the finite world - is the human experience. It's the motivation behind <span class="tooltip-trigger">everything<span class="tooltip-content">*everything meaning after our survival needs are met. Our primary motivation is food, shelter, reproduction (survival). It could be argued that our core desire to survive exists to spend more time channeling more of ourselves into the world, and reproduce to continue this process after death - but that is more of a philosophical thought experiment than what is intended in this essay which is more philosophy for the purpose of practical implementation. Anyway… Our discussion is assuming these needs are met.</span></span> we do - consciously or not.
             </p>
 
@@ -2004,18 +2054,17 @@
             </div>
             <div id="access-content">
                 <p class="paragraph">
-                    Of everything that exists in the world, there is a most aligned path for you. A song that stops you mid-step. A career that doesn't feel like work. A sport, a diet, a game, a city — each one precisely tuned to who you are. Most of these things, you haven't found yet. Some, you never will.
+                    Out of everything that exists in the world, there is a most aligned path for you: a favorite song, a most fulfilling career, a strongest passion, an optimal diet, a game that makes you happiest, a city you thrive most in, a life partner you are most compatible with, the most flattering and aligned outfit… Most of these things you haven't found yet. Many you never will. You may have a song you love, passions, a defined diet, etc. But it's rare that these things are actually the most aligned. It's rare that the song you love is actually the one that would resonate strongest out of all songs that exist in the world, or that your passions are truly the most invigorating of every possible activity on earth… Why?
+                </p>
+                <p class="paragraph">
+                    Imagine these dots represent everything that exists in the world: every person, every piece of knowledge, every tangible thing. The highlighted dots represent your most aligned path:
                 </p>
                 <div class="dots-field-row">
                     <div class="dots-field" id="dots-field"></div>
-                    <div class="dots-field-label-wrap">
-                        <div class="dots-field-bracket"></div>
-                        <div class="dots-field-label">All things, information, and people in the world</div>
-                    </div>
                 </div>
                 <div class="section-reveal blurred" id="after-orbs-reveal">
                     <p class="paragraph">
-                        If you could fill your life with only these things - the ones precisely tuned to who you are - you'd exist in the closest possible alignment between identity and reality.
+                        If you could fill your life only with the most aligned people/knowledge/things, you'd exist in full alignment: all of who you are would be accurately and completely represented in the life around you.
                     </p>
                     <div class="body-intro-row" id="body-intro-row">
                         <div class="body-intro-img-wrap body-hover-parent" id="body-img-wrap">
@@ -2028,27 +2077,22 @@
                             <div class="body-filled-note" id="body-filled-note">(As discussed in Section I, <u>full</u> alignment is impossible to achieve, this is just theoretical.)<span class="note-hover-tip">CLICK FOR THE EXPLANATION FROM SECTION I</span></div>
                         </div>
                     </div>
-                </div>
-                <div class="section-reveal blurred" id="after-body-reveal">
-                    <p class="paragraph">
-                        But this isn't reality. Maybe this person never had a car to make it to their dream city. Maybe they weren't aware of the foods that would best nourish their body. The city and the diet exist - they just <span class="access-keyword" id="access-keyword">didn't have access</span> to it.
-                    </p>
+                    <p class="paragraph" id="body-reality-text" style="display:none; margin-top: 40px;">But this isn't reality. Maybe this person never had a car to make it to their dream city. Maybe they weren't aware of the foods that would best nourish their body. The city and the diet exist - they just <span class="access-keyword" id="access-keyword">didn't have access</span> to it.</p>
                 </div>
                 <div class="section-reveal blurred" id="after-limited-reveal" style="display:none">
                     <p class="paragraph">
-                        How much of yourself you can channel into your reality depends entirely on your access to the things, knowledge, and people in the world.
+                        Two forces govern how much "access" a person has to the stuff in the world:<br>
+                        1. <span class="access-force-keyword" id="availability-keyword">Availability</span>: the ability to retrieve the things that exist.<br>
+                        2. <span class="access-force-keyword" id="accessibility-keyword">Accessibility</span>: the ability to leverage the resources available to you.
                     </p>
+                    <div class="sticky-note">
+                        For example, let's say there's a specific book that would best help you figure something out about who you are, which will then lead you to having more fulfilling relationships with other people and a more fulfilling career (AKA a life lived in greater alignment between identity and lived experience). <u>Availability</u> is whether you have internet access to find and purchase the book and if it will ship to your country. <u>Accessibility</u> is whether it's written in a language you understand, and in a style you can fully grasp.
+                    </div>
+                    <div class="sticky-note">
+                        Another example- imagine you are a tech whiz and computers are your innate life passion, you just don't know it yet. <u>Availability</u> is if there is a computer store you're able to travel to + a computer you can afford to buy. <u>Accessibility</u> is to what extent you can figure out how to actually use that computer. (If this was the 1980s… there's a good chance that even if you could get your hands on a computer, you wouldn't ever realize your tech whiz abilities and passion given <span class="hover-image-trigger">THIS<span class="hover-image-popup"><img src="timeline_computers_1983.compaqportable.jpg" alt="1983 Compaq Portable computer"></span></span> is what you'd be working with. Poor <u>accessibility</u> would block your ability to channel a core part of your identity into the world around you → you live in less alignment).
+                    </div>
                     <p class="paragraph">
-                        Two forces govern how much access a person has: <span class="access-force-keyword" id="availability-keyword">Availability</span> : the ability to retrieve the things that exist. <span class="access-force-keyword" id="accessibility-keyword">Accessibility</span> : the ability to reach and leverage resources.
-                    </p>
-                    <p class="paragraph">
-                        There's a book that would reshape how you see yourself. Availability is whether you have internet access to find and purchase it, and if it will ship to your country. Accessibility is whether it's written in a language you understand.
-                    </p>
-                    <p class="paragraph">
-                        There's a nutritional balance in food that would make your body feel its best. Availability is whether that food even gets produced in the world, and if there's a way you can actually get it to your door. Accessibility is whether you have the knowledge about your body and nutrition to even recognize the value of this food in your diet, and your ability to actually prepare it in a meal.
-                    </p>
-                    <p class="paragraph">
-                        Our instinct to soul-search not only drives our individual human motivation, but also our drive to innovate as a species. Together, humanity has always been driven to innovate, which at its core is defined by building instruments that maximize our access to the world's resources.
+                        Our instinct to soul-search not only drives our individual human motivation, but also our drive to innovate as a species. From the printing press to AI and everything in between, all the technology we have ever produced is an instrument for soul-searching at its core: a way to expand how much of the world we can access, and therefore how much of ourselves we can find within it.
                     </p>
                 </div>
             </div>
@@ -2622,12 +2666,9 @@
                 arrowHead.classList.add('animating');
             });
 
-            // Reveal the orb after arrow reaches
+            // Arrow reaches the body diagram — no orb reveal
             setTimeout(() => {
-                if (!bodyDiagram.classList.contains('revealed')) {
-                    bodyDiagram.classList.add('revealed');
-                    updateOrbPosition('infinite');
-                }
+                updateOrbPosition('infinite');
 
                 // Remove arrow after a delay
                 setTimeout(() => {
@@ -4242,13 +4283,19 @@
                             // Re-bind reset button
                             resetBtn = document.getElementById('body-reset-btn');
                             resetBtn.addEventListener('click', resetBody);
-                            // Reveal next section and show body label
-                            document.getElementById('after-body-reveal').classList.remove('blurred');
+                            // Show body label and reality text
                             document.getElementById('body-full-label').classList.add('visible');
                             document.getElementById('body-img-wrap').classList.add('completed');
+                            var realityText = document.getElementById('body-reality-text');
+                            if (realityText) {
+                                realityText.style.display = '';
+                                realityText.style.opacity = '0';
+                                realityText.style.transition = 'opacity 0.8s ease';
+                                requestAnimationFrame(() => realityText.style.opacity = '1');
+                            }
                             // Scroll to show the newly revealed content
                             setTimeout(() => {
-                                document.getElementById('after-body-reveal').scrollIntoView({ behavior: 'smooth', block: 'center' });
+                                if (realityText) realityText.scrollIntoView({ behavior: 'smooth', block: 'center' });
                             }, 300);
                         }, 1200);
                     }
@@ -4271,7 +4318,8 @@
                 document.querySelectorAll('#dots-field .dot-text.revealed').forEach(t => t.classList.remove('revealed'));
                 document.getElementById('body-full-label').classList.remove('visible');
                 document.getElementById('body-img-wrap').classList.remove('completed');
-                document.getElementById('after-body-reveal').classList.add('blurred');
+                var realityText = document.getElementById('body-reality-text');
+                if (realityText) realityText.style.display = 'none';
             }
 
             resetBtn.addEventListener('click', resetBody);
@@ -4578,6 +4626,12 @@
                     limitedTextEl.classList.add('fading');
                     setTimeout(() => {
                         bodyTextWrap.innerHTML = '';
+                        var accessStatement = document.createElement('p');
+                        accessStatement.className = 'body-intro-text';
+                        accessStatement.style.marginBottom = '16px';
+                        accessStatement.textContent = 'Your access to things, knowledge, and people dictate how much of yourself you can channel into your reality.';
+                        bodyTextWrap.appendChild(accessStatement);
+
                         var container = document.createElement('div');
                         container.className = 'scrub-bar-container';
                         container.id = 'scrub-bar-container';
