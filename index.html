@@ -263,6 +263,7 @@
             align-items: center;
             justify-content: center;
             margin: 60px auto;
+            overflow: visible;
         }
 
         .body-sticky-wrapper .body-diagram-container {
@@ -275,6 +276,7 @@
             padding: 100px 0 30px 0;
             margin-top: 0;
             margin-bottom: 0;
+            transition: padding 0.6s ease-out;
         }
 
         .body-sticky-wrapper .body-diagram-container::after {
@@ -291,6 +293,15 @@
 
         .body-diagram {
             transition: all 0.6s ease-out;
+        }
+
+        .body-diagram.minimized {
+            transform: scale(0.5);
+            transform-origin: center center;
+        }
+
+        .body-sticky-wrapper .body-diagram-container.minimized-container {
+            padding: 5px 0 5px 0;
         }
 
         /* Expanded state when "do" is clicked */
@@ -1201,6 +1212,42 @@
         .keyword.auto-trigger-shrink {
             transform: scale(1);
             transition: transform 0.3s ease-out;
+        }
+
+        /* ========== KEYWORD ECHO PANEL ========== */
+        .keyword-echo {
+            position: absolute;
+            right: -480px;
+            top: 50%;
+            transform: translateY(-50%) scale(1.5);
+            transform-origin: left center;
+            width: 280px;
+            padding: 16px 20px;
+            background: rgba(10, 10, 15, 0.95);
+            border: 1px solid rgba(134, 239, 172, 0.3);
+            border-radius: 8px;
+            font-size: 0.85rem;
+            line-height: 1.6;
+            color: #999;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            pointer-events: none;
+            z-index: 20;
+        }
+
+        .keyword-echo.visible {
+            opacity: 1;
+        }
+
+        .keyword-echo .echo-keyword {
+            color: #86efac;
+            font-weight: 600;
+            animation: echoKeywordPulse 0.6s ease-in-out infinite alternate;
+        }
+
+        @keyframes echoKeywordPulse {
+            0% { opacity: 0.5; text-shadow: none; }
+            100% { opacity: 1; text-shadow: 0 0 8px rgba(134, 239, 172, 0.6); }
         }
 
         /* ========== GAP ARROW ANIMATION ========== */
@@ -2144,15 +2191,20 @@
                 <div class="room-orb" data-room-orb="4"></div>
                 <div class="room-orb" data-room-orb="5"></div>
                 <div class="room-orb" data-room-orb="6"></div>
+                <div class="keyword-echo" id="keyword-echo"></div>
                 </div>
             </div>
 
             <p class="paragraph" style="margin-top: 6em;">
-                Your reality - your lived experience made up of your stuff, career, favorite song, passions, friends, actions, knowledge, opinions&hellip; reflects parts of you, but could never capture the <u>full</u> depth of who you are. (look at all that <span class="keyword keyword-gap" data-keyword id="look-keyword">uncaptured soul</span>) The posters on my wall reflect a part of me, my self identification as a &ldquo;MINIMALIST MAXIMALIST&rdquo; reflect another part, but no amount of decor or words could ever capture the <u>full</u> depth of my soul. Reflect parts - yes. Full picture - impossible. Who you are is bigger than all the words or stuff or knowledge or people or anything else that exists on this Earth. Your soul is infinite, this world is finite.
+                Your reality (your lived experience made up of your stuff, career, favorite song, passions, friends, actions, knowledge, opinions), reflects parts of you, but could never capture the <u>full</u> depth of who you are&hellip; Look at all the <span class="keyword keyword-gap" data-keyword id="look-keyword">uncaptured soul</span>!
             </p>
 
             <p class="paragraph">
-                In contrast, if I look at an apple - I know it&rsquo;s red. It&rsquo;s observable fact so there&rsquo;s nothing to interpret, it just is. Our identity is so much more complex for us to grasp because you can&rsquo;t touch, taste, smell, see, or hear your soul - it exists somewhere beyond our observable reality. We don&rsquo;t have a sixth sense for soul detection, so we can only understand and channel who we are <span class="keyword keyword-identity" data-keyword id="indirectly-keyword">indirectly</span>.
+                The posters on my wall reflect a part of me, my self identification as a &ldquo;MINIMALIST MAXIMALIST&rdquo; reflect another part, but no amount of decor or words could ever capture the <u>full</u> depth of who I am. Reflect parts - yes. Full picture - impossible. Your soul is more than all the words or stuff or knowledge or people or anything else that exists on this Earth. Your soul is infinite, this world is finite.
+            </p>
+
+            <p class="paragraph">
+                In contrast, if I look at a red apple - I know it&rsquo;s red. It&rsquo;s observable fact so there&rsquo;s nothing to interpret, it just is. Our identity is so much more complex for us to grasp because you can&rsquo;t touch, taste, smell, see, or hear your soul - it exists somewhere beyond our observable reality. We don&rsquo;t have a sixth sense for soul detection, so we can only understand and channel who we are <span class="keyword keyword-identity" data-keyword id="indirectly-keyword">indirectly</span>.
             </p>
             <div class="sticky-note indirectly-note-full" id="indirectly-note" onclick="this.classList.toggle('revealed')">
                 <div class="sticky-note-heading">indirectly</div>
@@ -2519,6 +2571,57 @@
             setTimeout(() => keyword.classList.remove('flashing'), 500);
         }
 
+        // ========== KEYWORD ECHO (out-of-frame indicator) ==========
+        const keywordEchoEl = document.getElementById('keyword-echo');
+        let echoTimeout = null;
+
+        // Sentence context + position/rotation for each keyword echo
+        const keywordEchoData = {
+            limited:  { text: '...our reality is finite and <span class="echo-keyword">limited</span> by nature...', offsetY: -60, rotate: 3 },
+            infinite: { text: '...can never capture the <span class="echo-keyword">infinite</span> totality of who we are...', offsetY: 20, rotate: -2.5 },
+            look:     { text: '...Look at all the <span class="echo-keyword">uncaptured soul</span>!', offsetY: -30, rotate: 2 },
+            mind:     { text: '...Our <span class="echo-keyword">mind</span> helps us understand and embody our identity...', offsetY: 50, rotate: -3 },
+            gap:      { text: '...We are motivated to reduce this <span class="echo-keyword">gap</span>...', offsetY: -45, rotate: 2.5 },
+            do:       { text: '...the core driver behind everything we <span class="echo-keyword">do</span>...', offsetY: 35, rotate: -2 }
+        };
+
+        function isKeywordInView(keywordName) {
+            const el = document.getElementById(keywordName === 'look' ? 'look-keyword' : keywordName + '-keyword');
+            if (!el) return true;
+            const rect = el.getBoundingClientRect();
+            return rect.top >= 0 && rect.bottom <= window.innerHeight;
+        }
+
+        function showKeywordEcho(keywordName, duration) {
+            // Get the keyword element
+            const keywordEl = document.getElementById(keywordName === 'look' ? 'look-keyword' : keywordName + '-keyword');
+            if (!keywordEl) return false;
+
+            // Check if keyword is visible in viewport
+            if (isKeywordInView(keywordName)) return false; // visible, no echo needed
+
+            const data = keywordEchoData[keywordName];
+            if (!data) return false;
+
+            // Double duration when out of frame
+            const echoDuration = duration * 2;
+
+            // Show echo panel with unique position and rotation
+            if (echoTimeout) clearTimeout(echoTimeout);
+            keywordEchoEl.innerHTML = data.text;
+            keywordEchoEl.style.top = 'calc(50% + ' + data.offsetY + 'px)';
+            keywordEchoEl.style.transform = 'translateY(-50%) scale(1.5) rotate(' + data.rotate + 'deg)';
+            keywordEchoEl.classList.add('visible');
+
+            // Hide after doubled duration
+            echoTimeout = setTimeout(() => {
+                keywordEchoEl.classList.remove('visible');
+                echoTimeout = null;
+            }, echoDuration);
+
+            return true; // echo was shown (out of frame)
+        }
+
         // ========== LIMITED KEYWORD ANIMATION ==========
         const limitedKeyword = document.getElementById('limited-keyword');
         const senseBlocks = document.querySelectorAll('.sense-block');
@@ -2536,9 +2639,12 @@
 
         function triggerLimited(isAutomatic = false) {
             flashKeyword(limitedKeyword);
+            bodyDiagram.classList.remove('minimized');
+            bodyDiagramContainer.classList.remove('minimized-container');
 
             // Add grow animation if auto-triggered - stay big during animation
             if (isAutomatic) {
+                showKeywordEcho('limited', limitedDuration);
                 limitedKeyword.classList.remove('auto-trigger', 'auto-trigger-shrink');
                 void limitedKeyword.offsetWidth; // Force reflow
                 limitedKeyword.classList.add('auto-trigger');
@@ -2849,9 +2955,12 @@
 
         function triggerInfinite(isAutomatic = false) {
             flashKeyword(infiniteKeyword);
+            bodyDiagram.classList.remove('minimized');
+            bodyDiagramContainer.classList.remove('minimized-container');
 
             // Add grow animation if auto-triggered
             if (isAutomatic) {
+                showKeywordEcho('infinite', infiniteDuration);
                 infiniteKeyword.classList.remove('auto-trigger', 'auto-trigger-shrink');
                 void infiniteKeyword.offsetWidth;
                 infiniteKeyword.classList.add('auto-trigger');
@@ -2943,13 +3052,15 @@
 
             // Check if limited needs to be triggered first
             if (!sequenceState.limitedTriggered) {
+                var limitedDelay = limitedDuration;
+                if (!isKeywordInView('limited')) limitedDelay *= 2;
                 triggerLimited(true);
                 setTimeout(() => {
                     triggerInfinite(false);
                     setTimeout(() => {
                         sequenceState.animationInProgress = false;
                     }, 800);
-                }, limitedDuration + 200);
+                }, limitedDelay + 200);
             } else {
                 triggerInfinite(false);
                 setTimeout(() => {
@@ -2967,9 +3078,12 @@
 
         function triggerMind(isAutomatic = false) {
             flashKeyword(mindKeyword);
+            bodyDiagram.classList.remove('minimized');
+            bodyDiagramContainer.classList.remove('minimized-container');
 
             // Add grow animation if auto-triggered
             if (isAutomatic) {
+                showKeywordEcho('mind', mindDuration);
                 mindKeyword.classList.remove('auto-trigger', 'auto-trigger-shrink');
                 void mindKeyword.offsetWidth;
                 mindKeyword.classList.add('auto-trigger');
@@ -3072,23 +3186,25 @@
             // Build chain: limited -> infinite -> look -> mind
             var steps = [];
             if (!sequenceState.limitedTriggered)
-                steps.push({ fn: function() { triggerLimited(true); }, dur: limitedDuration });
+                steps.push({ fn: function() { triggerLimited(true); }, dur: limitedDuration, kw: 'limited' });
             if (!sequenceState.infiniteTriggered)
-                steps.push({ fn: function() { triggerInfinite(true); }, dur: infiniteDuration });
+                steps.push({ fn: function() { triggerInfinite(true); }, dur: infiniteDuration, kw: 'infinite' });
             if (!sequenceState.lookTriggered)
-                steps.push({ fn: function() { triggerLook(true); }, dur: lookDuration });
-            steps.push({ fn: function() { triggerMind(false); }, dur: mindDuration + 500 });
+                steps.push({ fn: function() { triggerLook(true); }, dur: lookDuration, kw: 'look' });
+            steps.push({ fn: function() { triggerMind(false); }, dur: mindDuration + 500, kw: 'mind' });
 
             function runStep(i) {
                 if (i >= steps.length) {
                     sequenceState.animationInProgress = false;
                     return;
                 }
+                var actualDur = steps[i].dur;
+                if (steps[i].kw && !isKeywordInView(steps[i].kw)) actualDur *= 2;
                 steps[i].fn();
                 if (i < steps.length - 1) {
-                    setTimeout(function() { runStep(i + 1); }, steps[i].dur + 200);
+                    setTimeout(function() { runStep(i + 1); }, actualDur + 200);
                 } else {
-                    setTimeout(function() { sequenceState.animationInProgress = false; }, steps[i].dur);
+                    setTimeout(function() { sequenceState.animationInProgress = false; }, actualDur);
                 }
             }
             runStep(0);
@@ -3100,8 +3216,11 @@
 
         function triggerLook(isAutomatic = false) {
             flashKeyword(lookKeyword);
+            bodyDiagram.classList.remove('minimized');
+            bodyDiagramContainer.classList.remove('minimized-container');
 
             if (isAutomatic) {
+                showKeywordEcho('look', lookDuration);
                 lookKeyword.classList.remove('auto-trigger', 'auto-trigger-shrink');
                 void lookKeyword.offsetWidth;
                 lookKeyword.classList.add('auto-trigger');
@@ -3190,9 +3309,12 @@
         // ========== GAP TRIGGER FUNCTION ==========
         function triggerGap(isAutomatic = false) {
             flashKeyword(gapKeyword);
+            bodyDiagram.classList.remove('minimized');
+            bodyDiagramContainer.classList.remove('minimized-container');
 
             // Add grow animation if auto-triggered
             if (isAutomatic) {
+                showKeywordEcho('gap', 2500);
                 gapKeyword.classList.remove('auto-trigger', 'auto-trigger-shrink');
                 void gapKeyword.offsetWidth; // Force reflow
                 gapKeyword.classList.add('auto-trigger');
@@ -3291,14 +3413,14 @@
             // Build the remaining chain: limited -> infinite -> look -> mind -> gap
             var steps = [];
             if (startFrom <= 0 && !sequenceState.limitedTriggered)
-                steps.push({ fn: function() { triggerLimited(true); }, dur: limitedDuration });
+                steps.push({ fn: function() { triggerLimited(true); }, dur: limitedDuration, kw: 'limited' });
             if (startFrom <= 1 && !sequenceState.infiniteTriggered)
-                steps.push({ fn: function() { triggerInfinite(true); }, dur: infiniteDuration });
+                steps.push({ fn: function() { triggerInfinite(true); }, dur: infiniteDuration, kw: 'infinite' });
             if (startFrom <= 2 && !sequenceState.lookTriggered)
-                steps.push({ fn: function() { triggerLook(true); }, dur: lookDuration });
+                steps.push({ fn: function() { triggerLook(true); }, dur: lookDuration, kw: 'look' });
             if (startFrom <= 3 && !sequenceState.mindTriggered)
-                steps.push({ fn: function() { triggerMind(true); }, dur: mindDuration });
-            steps.push({ fn: function() { triggerGap(false); }, dur: 3000 });
+                steps.push({ fn: function() { triggerMind(true); }, dur: mindDuration, kw: 'mind' });
+            steps.push({ fn: function() { triggerGap(false); }, dur: 3000, kw: 'gap' });
 
             // Execute chain with delays
             function runStep(i) {
@@ -3306,11 +3428,13 @@
                     sequenceState.animationInProgress = false;
                     return;
                 }
+                var actualDur = steps[i].dur;
+                if (steps[i].kw && !isKeywordInView(steps[i].kw)) actualDur *= 2;
                 steps[i].fn();
                 if (i < steps.length - 1) {
-                    setTimeout(function() { runStep(i + 1); }, steps[i].dur + 200);
+                    setTimeout(function() { runStep(i + 1); }, actualDur + 200);
                 } else {
-                    setTimeout(function() { sequenceState.animationInProgress = false; }, steps[i].dur);
+                    setTimeout(function() { sequenceState.animationInProgress = false; }, actualDur);
                 }
             }
             runStep(0);
@@ -3332,21 +3456,23 @@
 
             var steps = [];
             if (!sequenceState.limitedTriggered)
-                steps.push({ fn: function() { triggerLimited(true); }, dur: limitedDuration });
+                steps.push({ fn: function() { triggerLimited(true); }, dur: limitedDuration, kw: 'limited' });
             if (!sequenceState.infiniteTriggered)
-                steps.push({ fn: function() { triggerInfinite(true); }, dur: infiniteDuration });
-            steps.push({ fn: function() { triggerLook(false); }, dur: lookDuration });
+                steps.push({ fn: function() { triggerInfinite(true); }, dur: infiniteDuration, kw: 'infinite' });
+            steps.push({ fn: function() { triggerLook(false); }, dur: lookDuration, kw: 'look' });
 
             function runStep(i) {
                 if (i >= steps.length) {
                     sequenceState.animationInProgress = false;
                     return;
                 }
+                var actualDur = steps[i].dur;
+                if (steps[i].kw && !isKeywordInView(steps[i].kw)) actualDur *= 2;
                 steps[i].fn();
                 if (i < steps.length - 1) {
-                    setTimeout(function() { runStep(i + 1); }, steps[i].dur + 200);
+                    setTimeout(function() { runStep(i + 1); }, actualDur + 200);
                 } else {
-                    setTimeout(function() { sequenceState.animationInProgress = false; }, steps[i].dur);
+                    setTimeout(function() { sequenceState.animationInProgress = false; }, actualDur);
                 }
             }
             runStep(0);
@@ -3887,11 +4013,18 @@
                 return;
             }
 
-            // Reset all visual states
+            // If any trigger has been fired, don't reset — just minimize instead
+            if (sequenceState.limitedTriggered || sequenceState.infiniteTriggered || sequenceState.lookTriggered || sequenceState.mindTriggered || sequenceState.gapTriggered) {
+                return;
+            }
+
+            // Reset all visual states (only reachable if no triggers have fired)
             bodyDiagram.classList.remove('revealed');
             bodyDiagram.classList.remove('limited-active');
             bodyDiagram.classList.remove('flash-fill');
             bodyDiagram.classList.remove('expanded');
+            bodyDiagram.classList.remove('minimized');
+            bodyDiagramContainer.classList.remove('minimized-container');
             bodyDiagram.classList.remove('scene2');
             bodyDiagram.classList.remove('scene3');
             bodyDiagram.classList.remove('scene4');
@@ -3931,9 +4064,27 @@
             // Reset sequence state so animations can be triggered again
             sequenceState.limitedTriggered = false;
             sequenceState.infiniteTriggered = false;
+            sequenceState.lookTriggered = false;
             sequenceState.mindTriggered = false;
             sequenceState.gapTriggered = false;
             sequenceState.animationInProgress = false;
+        });
+
+        // ========== BODY DIAGRAM MINIMIZE ON CLICK ==========
+        const bodyDiagramContainer = document.querySelector('.body-diagram-container');
+        bodyDiagramContainer.addEventListener('click', (e) => {
+            // Don't minimize if animation is in progress
+            if (sequenceState.animationInProgress) return;
+            // Don't minimize if in expanded/scene mode
+            if (bodyDiagram.classList.contains('expanded')) return;
+            // Toggle minimize
+            if (bodyDiagram.classList.contains('minimized')) {
+                bodyDiagram.classList.remove('minimized');
+                bodyDiagramContainer.classList.remove('minimized-container');
+            } else {
+                bodyDiagram.classList.add('minimized');
+                bodyDiagramContainer.classList.add('minimized-container');
+            }
         });
 
         // ========== DO KEYWORD CLICK - EXPAND ORB WITH TEXT ==========
@@ -3942,9 +4093,12 @@
 
         function triggerDo(isAutomatic = false) {
             flashKeyword(doKeyword);
+            bodyDiagram.classList.remove('minimized');
+            bodyDiagramContainer.classList.remove('minimized-container');
 
             // Add grow animation if auto-triggered
             if (isAutomatic) {
+                showKeywordEcho('do', 600);
                 doKeyword.classList.remove('auto-trigger', 'auto-trigger-shrink');
                 void doKeyword.offsetWidth; // Force reflow
                 doKeyword.classList.add('auto-trigger');
@@ -4045,27 +4199,29 @@
             // Chain: limited -> infinite -> look -> mind -> gap -> do
             var steps = [];
             if (!sequenceState.limitedTriggered)
-                steps.push({ fn: function() { triggerLimited(true); }, dur: limitedDuration });
+                steps.push({ fn: function() { triggerLimited(true); }, dur: limitedDuration, kw: 'limited' });
             if (!sequenceState.infiniteTriggered)
-                steps.push({ fn: function() { triggerInfinite(true); }, dur: infiniteDuration });
+                steps.push({ fn: function() { triggerInfinite(true); }, dur: infiniteDuration, kw: 'infinite' });
             if (!sequenceState.lookTriggered)
-                steps.push({ fn: function() { triggerLook(true); }, dur: lookDuration });
+                steps.push({ fn: function() { triggerLook(true); }, dur: lookDuration, kw: 'look' });
             if (!sequenceState.mindTriggered)
-                steps.push({ fn: function() { triggerMind(true); }, dur: mindDuration });
+                steps.push({ fn: function() { triggerMind(true); }, dur: mindDuration, kw: 'mind' });
             if (!sequenceState.gapTriggered)
-                steps.push({ fn: function() { triggerGap(true); }, dur: 2800 });
-            steps.push({ fn: function() { triggerDo(false); }, dur: 3000 });
+                steps.push({ fn: function() { triggerGap(true); }, dur: 2800, kw: 'gap' });
+            steps.push({ fn: function() { triggerDo(false); }, dur: 3000, kw: 'do' });
 
             function runStep(i) {
                 if (i >= steps.length) {
                     sequenceState.animationInProgress = false;
                     return;
                 }
+                var actualDur = steps[i].dur;
+                if (steps[i].kw && !isKeywordInView(steps[i].kw)) actualDur *= 2;
                 steps[i].fn();
                 if (i < steps.length - 1) {
-                    setTimeout(function() { runStep(i + 1); }, steps[i].dur + 200);
+                    setTimeout(function() { runStep(i + 1); }, actualDur + 200);
                 } else {
-                    setTimeout(function() { sequenceState.animationInProgress = false; }, steps[i].dur);
+                    setTimeout(function() { sequenceState.animationInProgress = false; }, actualDur);
                 }
             }
             runStep(0);
