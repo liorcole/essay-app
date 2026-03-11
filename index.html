@@ -125,6 +125,13 @@
             background: #bfdbfe;
         }
 
+        .indirectly-note-full {
+            flex: none;
+            width: 100%;
+            background: #bfdbfe;
+            box-sizing: border-box;
+        }
+
         /* ========== SHADED BOX ========== */
 
         .shaded-box {
@@ -227,11 +234,12 @@
             position: relative;
             width: 240px;
             height: 320px;
-            margin: 40px auto;
+            margin: 0 auto;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
+            zoom: 0.667;
         }
 
         .body-click-hint {
@@ -255,6 +263,30 @@
             align-items: center;
             justify-content: center;
             margin: 60px auto;
+        }
+
+        .body-sticky-wrapper .body-diagram-container {
+            position: sticky;
+            top: 0;
+            z-index: 5;
+            background: #0a0a0f;
+            width: 100vw;
+            margin-left: calc(-50vw + 50%);
+            padding: 100px 0 30px 0;
+            margin-top: 0;
+            margin-bottom: 0;
+        }
+
+        .body-sticky-wrapper .body-diagram-container::after {
+            content: '';
+            position: absolute;
+            bottom: -120px;
+            left: 0;
+            right: 0;
+            height: 120px;
+            background: linear-gradient(to bottom, #0a0a0f, transparent);
+            pointer-events: none;
+            z-index: 5;
         }
 
         .body-diagram {
@@ -835,8 +867,21 @@
             }
         }
 
-        /* Orb appears when revealed (infinite) or expanded (do) - position controlled by JavaScript */
-        .body-diagram.revealed .head-orb,
+        @keyframes orbEntrancePulse {
+            0% { transform: translate(-50%, -50%) scale(1); box-shadow: 0 0 10px rgba(134, 239, 172, 0.5); }
+            12.5% { transform: translate(-50%, -50%) scale(10); box-shadow: 0 0 80px rgba(134, 239, 172, 1); }
+            25% { transform: translate(-50%, -50%) scale(1); box-shadow: 0 0 10px rgba(134, 239, 172, 0.5); }
+            37.5% { transform: translate(-50%, -50%) scale(10); box-shadow: 0 0 80px rgba(134, 239, 172, 1); }
+            50% { transform: translate(-50%, -50%) scale(1); box-shadow: 0 0 10px rgba(134, 239, 172, 0.5); }
+            100% { transform: translate(-50%, -50%) scale(1); box-shadow: 0 0 10px rgba(134, 239, 172, 0.5); }
+        }
+
+        .head-orb.entrance-pulse {
+            animation: orbEntrancePulse 3.2s ease-in-out 1;
+        }
+
+        /* Head orb only appears when mind-revealed or expanded - NOT on infinite reveal */
+        .body-diagram.mind-revealed .head-orb,
         .body-diagram.expanded .head-orb {
             opacity: 1;
         }
@@ -1880,10 +1925,84 @@
             opacity: 1;
         }
 
+        /* ========== MANIFESTO TITLE ========== */
+        .manifesto-title-outer {
+            perspective: 800px;
+            margin-top: 40px;
+            margin-bottom: 0;
+        }
+
+        .manifesto-title-wrapper {
+            position: relative;
+            text-align: center;
+            height: 150px;
+            transform-style: preserve-3d;
+            will-change: transform;
+            transition: transform 0.1s ease-out;
+        }
+
+        .manifesto-title-text {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            opacity: 0;
+            transition: opacity 0.8s ease;
+        }
+
+        .manifesto-title-text.revealed {
+            opacity: 1;
+        }
+
+        .manifesto-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            letter-spacing: 0.25em;
+            color: #e8e8e8;
+            white-space: nowrap;
+            user-select: none;
+            margin: 0;
+        }
+
+        .manifesto-byline {
+            font-size: 0.85rem;
+            font-weight: 400;
+            color: #888;
+            letter-spacing: 0.1em;
+            margin: 0;
+        }
+
+        #manifesto-particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 9999;
+            transition: opacity 0.8s ease;
+        }
+
     </style>
 </head>
 <body>
+    <canvas id="manifesto-particles"></canvas>
     <div class="essay-container">
+
+        <div class="manifesto-title-outer">
+        <div class="manifesto-title-wrapper">
+            <div class="manifesto-title-text">
+                <h1 class="manifesto-title">THE MANIFESTO</h1>
+                <p class="manifesto-byline">– Lior Cole</p>
+            </div>
+        </div>
+        </div>
 
         <!-- ========== SECTION 1 ========== -->
         <section class="section" id="section-1">
@@ -1894,12 +2013,12 @@
 
             <div id="section-1-content">
             <h3 class="main-thesis">
-                It is my general belief that all human motivation has one source: the desire to shorten the gap between who we are (our identity) and how we live (our reality).
+                It is my general belief that all human motivation has one core source: the desire to shorten the gap between who we are (our identity) and how we live (our reality).
             </h3>
 
             <div class="identity-container">
                 <p class="paragraph">
-                    The gap exists because our <span class="keyword keyword-identity" data-keyword id="identity-keyword">identity</span> (our mind, soul, spirit) is <strong>infinite</strong> and abstract—you can't touch, taste, smell, see, or hear it. You can only <span class="emphasis">feel</span> it.
+                    The gap exists because our <span class="keyword keyword-identity" data-keyword id="identity-keyword">identity</span> (our mind, soul, spirit) is <strong>infinite</strong> and abstract - you can't touch, taste, smell, see, or hear it. You can only <span class="emphasis">feel</span> it.
                 </p>
                 <div class="sticky-note" id="identity-note" onclick="this.classList.toggle('revealed')">
                     <div class="sticky-note-heading">identity</div>
@@ -1918,13 +2037,10 @@
             </div>
 
             <p class="paragraph">
-                Because our lived reality is finite and <span class="keyword keyword-gap" data-keyword id="limited-keyword">limited</span> by nature, we simply can never capture the <span class="keyword keyword-gap" data-keyword id="infinite-keyword">infinite</span> totality of who we are in our daily lives. It's in our <span class="keyword keyword-gap" data-keyword id="mind-keyword">mind</span> where we make sense of who we are and what elements in the world resonate with us, <span class="tooltip-trigger highlight">indirectly<span class="tooltip-content">A blind man cannot directly perceive sight- it exists outside his physical abilities. Instead, sight must be translated into what is accessible: like touch or sound. "The apple is round and smooth." "Red feels like the sun's warmth." These descriptions act as bridges, but they never produce a true visual mental model. Core aspects of sight (like color) remain directly unreachable.<br><br>This mirrors how our minds receive information about who we are. Identity is not directly observable to us. It is only inferred through signals that surface in our various experiences (emotions, desires, affinities, discomforts) which are translated from the constraints of our biological abilities (sight, smell, touch, taste, sound). <span class="red-bold">There is no sixth sense for soul detection.</span><br><br>Just as the blind man cannot see the vase yet can feel its form, texture, and resonance (and from that, still feel alignment with it), we sense our deeper self through indirect articulations. These moments of resonance are not full comprehension, but they are the closest approximation available within a finite body.<span class="tooltip-audio-controls" onclick="event.stopPropagation()"><select class="tooltip-voice-select" id="tooltip-voice-select"></select><button class="tooltip-speed-btn" id="tooltip-speed-btn" onclick="cycleSpeed(this)">1x</button><button class="tooltip-audio-btn" id="tooltip-audio-btn" onclick="toggleTooltipAudio(this)"><svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg></button></span></span></span> through emotion and intuition.
+                Because our reality is finite and <span class="keyword keyword-gap" data-keyword id="limited-keyword">limited</span> by nature, our lives around us simply can never capture the <span class="keyword keyword-gap" data-keyword id="infinite-keyword">infinite</span> totality of who we are...
             </p>
 
-            <p class="paragraph">
-                The perpetual discomfort of living in a reality that doesn't fully reflect who we are is the source of human motivation. We are motivated to reduce this <span class="keyword keyword-gap" data-keyword id="gap-keyword">gap</span>. The more our reality captures our true identity, the more that discomfort fades. This is the core driver behind everything we <span class="keyword keyword-gap" data-keyword id="do-keyword">do</span>:
-            </p>
-
+            <div class="body-sticky-wrapper">
             <div class="body-diagram-container">
                 <div class="body-diagram" id="body-diagram">
                     <img src="Human_body_outline.png" alt="Human body outline" class="body-image">
@@ -2030,6 +2146,49 @@
                 <div class="room-orb" data-room-orb="6"></div>
                 </div>
             </div>
+
+            <p class="paragraph" style="margin-top: 6em;">
+                Your reality - your lived experience made up of your stuff, career, favorite song, passions, friends, actions, knowledge, opinions&hellip; reflects parts of you, but could never capture the <u>full</u> depth of who you are. (look at all that <span class="keyword keyword-gap" data-keyword id="look-keyword">uncaptured soul</span>) The posters on my wall reflect a part of me, my self identification as a &ldquo;MINIMALIST MAXIMALIST&rdquo; reflect another part, but no amount of decor or words could ever capture the <u>full</u> depth of my soul. Reflect parts - yes. Full picture - impossible. Who you are is bigger than all the words or stuff or knowledge or people or anything else that exists on this Earth. Your soul is infinite, this world is finite.
+            </p>
+
+            <p class="paragraph">
+                In contrast, if I look at an apple - I know it&rsquo;s red. It&rsquo;s observable fact so there&rsquo;s nothing to interpret, it just is. Our identity is so much more complex for us to grasp because you can&rsquo;t touch, taste, smell, see, or hear your soul - it exists somewhere beyond our observable reality. We don&rsquo;t have a sixth sense for soul detection, so we can only understand and channel who we are <span class="keyword keyword-identity" data-keyword id="indirectly-keyword">indirectly</span>.
+            </p>
+            <div class="sticky-note indirectly-note-full" id="indirectly-note" onclick="this.classList.toggle('revealed')">
+                <div class="sticky-note-heading">indirectly</div>
+                <div class="sticky-note-content">A blind man cannot directly perceive sight- it exists outside his physical abilities. Instead, sight must be translated into what is accessible: like touch or sound. &ldquo;The apple is round and smooth.&rdquo; &ldquo;Red feels like the sun&rsquo;s warmth.&rdquo; These descriptions act as bridges, but they never produce a true visual mental model. Core aspects of sight (like color) remain directly unreachable.<br><br>This mirrors how our minds receive information about who we are. Identity is not directly observable to us. It is only inferred through signals that surface in our various experiences (emotions, desires, affinities, discomforts) which are translated from the constraints of our biological abilities (sight, smell, touch, taste, sound). <span class="red-bold">There is no sixth sense for soul detection.</span><br><br>Just as the blind man cannot see the vase yet can feel its form, texture, and resonance (and from that, still feel alignment with it), we sense our deeper self through indirect articulations. These moments of resonance are not full comprehension, but they are the closest approximation available within a finite body.<span class="tooltip-audio-controls" onclick="event.stopPropagation()"><select class="tooltip-voice-select" id="tooltip-voice-select"></select><button class="tooltip-speed-btn" id="tooltip-speed-btn" onclick="cycleSpeed(this)">1x</button><button class="tooltip-audio-btn" id="tooltip-audio-btn" onclick="toggleTooltipAudio(this)"><svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg></button></span></div>
+            </div>
+
+            <p class="paragraph">
+                Our <span class="keyword keyword-gap" data-keyword id="mind-keyword">mind</span> helps us understand and embody our identity by translating this other-worldly thing that is our soul into signals we can understand in our reality. It gives us signals that outline who we are through emotion and intuition as we experience things in the world... Repulsed by that shirt, obsessed with that song, gut feeling about that person, interested in that subject. We may not ever grasp our identity the way we grasp the color red, but over time our mind helps us paint a picture of who we are through the indirect modality of what we are drawn to and repelled from within our world... Just as the blind man develops aesthetic taste indirectly through touch, smell, sound, and taste.
+            </p>
+            </div>
+
+            <p class="paragraph">
+                There&rsquo;s no actual logical explanation to preference why you like that t shirt over this one, that subject in school over the other&hellip; it&rsquo;s just your mind pulling you in the direction that best reflects your soul. The more we experience, the more our life bends in the direction of who we are.
+            </p>
+
+            <p class="paragraph">
+                Growing up, we do things like redecorate our rooms a million times over, until the posters on our walls better reflect who we are. We had to experience the discomfort of all the wrong aesthetics until we eventually hit enough &ldquo;yes&rdquo; signals to find ourselves in a space we feel more at peace in - because our mind led us to a place where we are more aligned. We search for labels that help articulate who we are- maybe it&rsquo;s a diagnosis, personality type, sexuality, or belief system. Over time, our mind signals which labels feel right, and we can feel relief from pulling our nebulous identity into our lived reality through definitions and articulation. We chase the ineffable &ldquo;yes&rdquo; feeling at concerts, festivals, museums- a bit of our indescribable identity is channeled belting your favorite song in the car.
+            </p>
+
+            <p class="paragraph">
+                On top of experiences, we seek out knowledge to help our mind better decipher who we are: we go to school, read books and articles, we have deep conversation and experiences. Knowledge gives us insight to better understand the world and sub-sequentially ourselves within it- what do we like? What do we agree with? What do we desire?
+            </p>
+
+            <p class="paragraph">
+                But why?
+            </p>
+
+            <p class="paragraph">
+                There&rsquo;s no tactical use for art, no real reason to have 50 different shirt styles in your closet, no actual use for music or even knowledge outside of that related to food and shelter. Every other species on Earth seems to understand this - lions are out hunting prey, beavers are building dams, butterflies finding nectar to drink&hellip; None are spending time or resources decorating their homes with funky colors.
+            </p>
+
+            <hr style="border: 1px solid #333; margin: 2em 0;">
+
+            <p class="paragraph">
+                The perpetual discomfort of living in a reality that doesn't fully reflect who we are is the source of human motivation. We are motivated to reduce this <span class="keyword keyword-gap" data-keyword id="gap-keyword">gap</span>. The more our reality captures our true identity, the more that discomfort fades. This is the core driver behind everything we <span class="keyword keyword-gap" data-keyword id="do-keyword">do</span>:
+            </p>
 
             <p class="paragraph">
                 So we search for pieces of ourselves in the world. When something gives us that ineffable "yes" feeling - a song, a scent, an outfit, a conversation, a new obsession, a person - something clicks. The lingering discomfort of living in a world that only partly embodies who you are is momentarily silenced. A bit of yourself has been channeled into the world around you, and you feel the euphoria of that greater alignment between body and soul.
@@ -2339,14 +2498,16 @@
         // Click on "gap" to draw arrow to diagram and flash fill
 
         const gapKeyword = document.getElementById('gap-keyword');
+        const lookKeyword = document.getElementById('look-keyword');
         const bodyDiagram = document.getElementById('body-diagram');
         let arrowSvg = null;
 
         // ========== SEQUENCE TRACKING ==========
-        // Order: limited -> infinite -> mind -> gap -> do
+        // Order: limited -> infinite -> look -> mind -> gap -> do
         const sequenceState = {
             limitedTriggered: false,
             infiniteTriggered: false,
+            lookTriggered: false,
             mindTriggered: false,
             gapTriggered: false,
             animationInProgress: false
@@ -2592,6 +2753,91 @@
             }, 600);
         });
 
+        // ========== INDIRECTLY KEYWORD CLICK ANIMATION ==========
+        // Click on "indirectly" to draw arrow to sticky note and reveal it
+
+        const indirectlyKeyword = document.getElementById('indirectly-keyword');
+        const indirectlyNote = document.getElementById('indirectly-note');
+        let indirectlyArrowSvg = null;
+
+        indirectlyKeyword.addEventListener('click', (e) => {
+            e.stopPropagation();
+
+            // If already revealed, just close it
+            if (indirectlyNote.classList.contains('revealed')) {
+                indirectlyNote.classList.remove('revealed');
+                return;
+            }
+
+            // Remove any existing arrow
+            if (indirectlyArrowSvg) {
+                indirectlyArrowSvg.remove();
+            }
+
+            // Get positions with scroll offset for absolute positioning
+            const keywordRect = indirectlyKeyword.getBoundingClientRect();
+            const noteRect = indirectlyNote.getBoundingClientRect();
+            const scrollX = window.scrollX;
+            const scrollY = window.scrollY;
+
+            // Start point: bottom of keyword
+            const startX = keywordRect.left + keywordRect.width / 2 + scrollX;
+            const startY = keywordRect.bottom + 5 + scrollY;
+
+            // End point: top center of sticky note
+            const endX = noteRect.left + noteRect.width / 2 + scrollX;
+            const endY = noteRect.top - 5 + scrollY;
+
+            // Create SVG for the arrow
+            indirectlyArrowSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+            indirectlyArrowSvg.classList.add('gap-arrow-svg');
+            indirectlyArrowSvg.style.width = document.documentElement.scrollWidth + 'px';
+            indirectlyArrowSvg.style.height = document.documentElement.scrollHeight + 'px';
+            indirectlyArrowSvg.setAttribute('viewBox', `0 0 ${document.documentElement.scrollWidth} ${document.documentElement.scrollHeight}`);
+
+            // Create curved path going downward
+            const midY = (startY + endY) / 2;
+            const pathD = `M ${startX} ${startY} Q ${startX + 40} ${midY}, ${endX} ${endY}`;
+
+            const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+            path.classList.add('gap-arrow-line');
+            path.setAttribute('d', pathD);
+            path.style.stroke = '#60a5fa'; // Blue
+
+            // Create arrow head pointing down
+            const arrowHead = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
+            arrowHead.classList.add('gap-arrow-head');
+            arrowHead.setAttribute('points', `${endX},${endY + 5} ${endX - 6},${endY - 8} ${endX + 6},${endY - 8}`);
+            arrowHead.style.fill = '#60a5fa'; // Blue
+
+            indirectlyArrowSvg.appendChild(path);
+            indirectlyArrowSvg.appendChild(arrowHead);
+            document.body.appendChild(indirectlyArrowSvg);
+
+            // Trigger animation
+            requestAnimationFrame(() => {
+                path.classList.add('animating');
+                arrowHead.classList.add('animating');
+            });
+
+            // Reveal the sticky note after arrow reaches
+            setTimeout(() => {
+                indirectlyNote.classList.add('revealed');
+
+                // Remove arrow after a delay
+                setTimeout(() => {
+                    if (indirectlyArrowSvg) {
+                        indirectlyArrowSvg.style.opacity = '0';
+                        indirectlyArrowSvg.style.transition = 'opacity 0.5s ease';
+                        setTimeout(() => {
+                            indirectlyArrowSvg.remove();
+                            indirectlyArrowSvg = null;
+                        }, 500);
+                    }
+                }, 1500);
+            }, 600);
+        });
+
         // ========== INFINITE KEYWORD CLICK ANIMATION ==========
         // Click on "infinite" to draw arrow to orb and reveal it
 
@@ -2666,9 +2912,12 @@
                 arrowHead.classList.add('animating');
             });
 
-            // Arrow reaches the body diagram — no orb reveal
+            // Arrow reaches the body diagram — show green circle but not head orb
             setTimeout(() => {
-                updateOrbPosition('infinite');
+                if (!bodyDiagram.classList.contains('revealed')) {
+                    bodyDiagram.classList.add('revealed');
+                    updateOrbPosition('infinite');
+                }
 
                 // Remove arrow after a delay
                 setTimeout(() => {
@@ -2781,11 +3030,21 @@
                 arrowHead.classList.add('animating');
             });
 
-            // Reveal the orb after arrow reaches
+            // Reveal the head orb after arrow reaches
             setTimeout(() => {
                 if (!bodyDiagram.classList.contains('revealed')) {
                     bodyDiagram.classList.add('revealed');
-                    updateOrbPosition('infinite');
+                }
+                bodyDiagram.classList.add('mind-revealed');
+                updateOrbPosition('infinite');
+
+                // Entrance pulse on head orb
+                const headOrb = document.querySelector('.head-orb');
+                if (headOrb) {
+                    headOrb.classList.add('entrance-pulse');
+                    headOrb.addEventListener('animationend', () => {
+                        headOrb.classList.remove('entrance-pulse');
+                    }, { once: true });
                 }
 
                 // Remove arrow after a delay
@@ -2810,33 +3069,123 @@
             e.stopPropagation();
             sequenceState.animationInProgress = true;
 
-            // Check sequence: need limited and infinite first
-            if (!sequenceState.limitedTriggered && !sequenceState.infiniteTriggered) {
-                triggerLimited(true);
-                setTimeout(() => {
-                    triggerInfinite(true);
-                    setTimeout(() => {
-                        triggerMind(false);
-                        setTimeout(() => {
-                            sequenceState.animationInProgress = false;
-                        }, mindDuration + 500);
-                    }, infiniteDuration + 200);
-                }, limitedDuration + 200);
-            } else if (!sequenceState.infiniteTriggered) {
-                triggerInfinite(true);
-                setTimeout(() => {
-                    triggerMind(false);
-                    setTimeout(() => {
-                        sequenceState.animationInProgress = false;
-                    }, mindDuration + 500);
-                }, infiniteDuration + 200);
-            } else {
-                triggerMind(false);
-                setTimeout(() => {
+            // Build chain: limited -> infinite -> look -> mind
+            var steps = [];
+            if (!sequenceState.limitedTriggered)
+                steps.push({ fn: function() { triggerLimited(true); }, dur: limitedDuration });
+            if (!sequenceState.infiniteTriggered)
+                steps.push({ fn: function() { triggerInfinite(true); }, dur: infiniteDuration });
+            if (!sequenceState.lookTriggered)
+                steps.push({ fn: function() { triggerLook(true); }, dur: lookDuration });
+            steps.push({ fn: function() { triggerMind(false); }, dur: mindDuration + 500 });
+
+            function runStep(i) {
+                if (i >= steps.length) {
                     sequenceState.animationInProgress = false;
-                }, mindDuration + 500);
+                    return;
+                }
+                steps[i].fn();
+                if (i < steps.length - 1) {
+                    setTimeout(function() { runStep(i + 1); }, steps[i].dur + 200);
+                } else {
+                    setTimeout(function() { sequenceState.animationInProgress = false; }, steps[i].dur);
+                }
             }
+            runStep(0);
         });
+
+        // ========== LOOK TRIGGER FUNCTION ==========
+        const lookDuration = 2600;
+        let lookArrowSvg = null;
+
+        function triggerLook(isAutomatic = false) {
+            flashKeyword(lookKeyword);
+
+            if (isAutomatic) {
+                lookKeyword.classList.remove('auto-trigger', 'auto-trigger-shrink');
+                void lookKeyword.offsetWidth;
+                lookKeyword.classList.add('auto-trigger');
+
+                setTimeout(() => {
+                    lookKeyword.classList.remove('auto-trigger');
+                    lookKeyword.classList.add('auto-trigger-shrink');
+                    setTimeout(() => lookKeyword.classList.remove('auto-trigger-shrink'), 300);
+                }, lookDuration);
+            }
+
+            // Remove any existing arrow
+            if (lookArrowSvg) {
+                lookArrowSvg.remove();
+            }
+
+            // Get positions with scroll offset
+            const lookRect = lookKeyword.getBoundingClientRect();
+            const diagramRect = bodyDiagram.getBoundingClientRect();
+            const scrollX = window.scrollX;
+            const scrollY = window.scrollY;
+
+            // Start: bottom center of "look"
+            const startX = lookRect.left + lookRect.width / 2 + scrollX;
+            const startY = lookRect.bottom + 5 + scrollY;
+
+            // End: top edge of body diagram
+            const endX = diagramRect.left + diagramRect.width / 2 + scrollX;
+            const endY = diagramRect.top - 10 + scrollY;
+
+            // Create SVG arrow
+            lookArrowSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+            lookArrowSvg.classList.add('gap-arrow-svg');
+            lookArrowSvg.style.width = document.documentElement.scrollWidth + 'px';
+            lookArrowSvg.style.height = document.documentElement.scrollHeight + 'px';
+            lookArrowSvg.setAttribute('viewBox', `0 0 ${document.documentElement.scrollWidth} ${document.documentElement.scrollHeight}`);
+
+            const midY = (startY + endY) / 2;
+            const pathD = `M ${startX} ${startY} Q ${startX} ${midY}, ${endX} ${endY}`;
+
+            const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+            path.classList.add('gap-arrow-line');
+            path.setAttribute('d', pathD);
+
+            const arrowHead = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
+            arrowHead.classList.add('gap-arrow-head');
+            arrowHead.setAttribute('points', `${endX},${endY + 5} ${endX - 8},${endY - 8} ${endX + 8},${endY - 8}`);
+
+            lookArrowSvg.appendChild(path);
+            lookArrowSvg.appendChild(arrowHead);
+            document.body.appendChild(lookArrowSvg);
+
+            requestAnimationFrame(() => {
+                path.classList.add('animating');
+                arrowHead.classList.add('animating');
+            });
+
+            // Reveal the body diagram if not already
+            if (!bodyDiagram.classList.contains('revealed')) {
+                bodyDiagram.classList.add('revealed');
+            }
+
+            // Flash fill after arrow reaches
+            setTimeout(() => {
+                bodyDiagram.classList.add('flash-fill');
+
+                setTimeout(() => {
+                    bodyDiagram.classList.remove('flash-fill');
+                }, 2000);
+
+                setTimeout(() => {
+                    if (lookArrowSvg) {
+                        lookArrowSvg.style.opacity = '0';
+                        lookArrowSvg.style.transition = 'opacity 0.5s ease';
+                        setTimeout(() => {
+                            lookArrowSvg.remove();
+                            lookArrowSvg = null;
+                        }, 500);
+                    }
+                }, 2200);
+            }, 600);
+
+            sequenceState.lookTriggered = true;
+        }
 
         // ========== GAP TRIGGER FUNCTION ==========
         function triggerGap(isAutomatic = false) {
@@ -2935,50 +3284,72 @@
             sequenceState.gapTriggered = true;
         }
 
+        // Chains remaining sequence steps from the first untriggered keyword onward
+        function runSequenceFrom(startFrom) {
+            sequenceState.animationInProgress = true;
+
+            // Build the remaining chain: limited -> infinite -> look -> mind -> gap
+            var steps = [];
+            if (startFrom <= 0 && !sequenceState.limitedTriggered)
+                steps.push({ fn: function() { triggerLimited(true); }, dur: limitedDuration });
+            if (startFrom <= 1 && !sequenceState.infiniteTriggered)
+                steps.push({ fn: function() { triggerInfinite(true); }, dur: infiniteDuration });
+            if (startFrom <= 2 && !sequenceState.lookTriggered)
+                steps.push({ fn: function() { triggerLook(true); }, dur: lookDuration });
+            if (startFrom <= 3 && !sequenceState.mindTriggered)
+                steps.push({ fn: function() { triggerMind(true); }, dur: mindDuration });
+            steps.push({ fn: function() { triggerGap(false); }, dur: 3000 });
+
+            // Execute chain with delays
+            function runStep(i) {
+                if (i >= steps.length) {
+                    sequenceState.animationInProgress = false;
+                    return;
+                }
+                steps[i].fn();
+                if (i < steps.length - 1) {
+                    setTimeout(function() { runStep(i + 1); }, steps[i].dur + 200);
+                } else {
+                    setTimeout(function() { sequenceState.animationInProgress = false; }, steps[i].dur);
+                }
+            }
+            runStep(0);
+        }
+
         gapKeyword.addEventListener('click', (e) => {
+            e.stopPropagation();
+            if (!sequenceState.limitedTriggered) runSequenceFrom(0);
+            else if (!sequenceState.infiniteTriggered) runSequenceFrom(1);
+            else if (!sequenceState.lookTriggered) runSequenceFrom(2);
+            else if (!sequenceState.mindTriggered) runSequenceFrom(3);
+            else runSequenceFrom(4);
+        });
+
+        // "look" keyword click: triggers limited -> infinite -> look (stops there)
+        lookKeyword.addEventListener('click', (e) => {
             e.stopPropagation();
             sequenceState.animationInProgress = true;
 
-            // Check sequence: need limited, infinite, and mind first
-            if (!sequenceState.limitedTriggered && !sequenceState.infiniteTriggered && !sequenceState.mindTriggered) {
-                triggerLimited(true);
-                setTimeout(() => {
-                    triggerInfinite(true);
-                    setTimeout(() => {
-                        triggerMind(true);
-                        setTimeout(() => {
-                            triggerGap(false);
-                            setTimeout(() => {
-                                sequenceState.animationInProgress = false;
-                            }, 3000);
-                        }, mindDuration + 200);
-                    }, infiniteDuration + 200);
-                }, limitedDuration + 200);
-            } else if (!sequenceState.infiniteTriggered && !sequenceState.mindTriggered) {
-                triggerInfinite(true);
-                setTimeout(() => {
-                    triggerMind(true);
-                    setTimeout(() => {
-                        triggerGap(false);
-                        setTimeout(() => {
-                            sequenceState.animationInProgress = false;
-                        }, 3000);
-                    }, mindDuration + 200);
-                }, infiniteDuration + 200);
-            } else if (!sequenceState.mindTriggered) {
-                triggerMind(true);
-                setTimeout(() => {
-                    triggerGap(false);
-                    setTimeout(() => {
-                        sequenceState.animationInProgress = false;
-                    }, 3000);
-                }, mindDuration + 200);
-            } else {
-                triggerGap(false);
-                setTimeout(() => {
+            var steps = [];
+            if (!sequenceState.limitedTriggered)
+                steps.push({ fn: function() { triggerLimited(true); }, dur: limitedDuration });
+            if (!sequenceState.infiniteTriggered)
+                steps.push({ fn: function() { triggerInfinite(true); }, dur: infiniteDuration });
+            steps.push({ fn: function() { triggerLook(false); }, dur: lookDuration });
+
+            function runStep(i) {
+                if (i >= steps.length) {
                     sequenceState.animationInProgress = false;
-                }, 3000);
+                    return;
+                }
+                steps[i].fn();
+                if (i < steps.length - 1) {
+                    setTimeout(function() { runStep(i + 1); }, steps[i].dur + 200);
+                } else {
+                    setTimeout(function() { sequenceState.animationInProgress = false; }, steps[i].dur);
+                }
             }
+            runStep(0);
         });
 
         // ========== DEBUG MODE FOR ORB POSITIONING ==========
@@ -3669,53 +4040,35 @@
 
         doKeyword.addEventListener('click', (e) => {
             e.stopPropagation();
-
-            // Block clicks during animations
             sequenceState.animationInProgress = true;
 
-            // Check sequence: need limited, infinite, mind, and gap first
-            if (!sequenceState.limitedTriggered && !sequenceState.infiniteTriggered && !sequenceState.mindTriggered && !sequenceState.gapTriggered) {
-                triggerLimited(true);
-                setTimeout(() => {
-                    triggerInfinite(true);
-                    setTimeout(() => {
-                        triggerMind(true);
-                        setTimeout(() => {
-                            triggerGap(true);
-                            setTimeout(() => {
-                                triggerDo(true);
-                            }, 2800);
-                        }, mindDuration + 200);
-                    }, infiniteDuration + 200);
-                }, limitedDuration + 200);
-            } else if (!sequenceState.infiniteTriggered && !sequenceState.mindTriggered && !sequenceState.gapTriggered) {
-                triggerInfinite(true);
-                setTimeout(() => {
-                    triggerMind(true);
-                    setTimeout(() => {
-                        triggerGap(true);
-                        setTimeout(() => {
-                            triggerDo(true);
-                        }, 2800);
-                    }, mindDuration + 200);
-                }, infiniteDuration + 200);
-            } else if (!sequenceState.mindTriggered && !sequenceState.gapTriggered) {
-                triggerMind(true);
-                setTimeout(() => {
-                    triggerGap(true);
-                    setTimeout(() => {
-                        triggerDo(true);
-                    }, 2800);
-                }, mindDuration + 200);
-            } else if (!sequenceState.gapTriggered) {
-                triggerGap(true);
-                setTimeout(() => {
-                    triggerDo(true);
-                }, 2800);
-            } else {
-                // All done, just trigger do
-                triggerDo(false);
+            // Chain: limited -> infinite -> look -> mind -> gap -> do
+            var steps = [];
+            if (!sequenceState.limitedTriggered)
+                steps.push({ fn: function() { triggerLimited(true); }, dur: limitedDuration });
+            if (!sequenceState.infiniteTriggered)
+                steps.push({ fn: function() { triggerInfinite(true); }, dur: infiniteDuration });
+            if (!sequenceState.lookTriggered)
+                steps.push({ fn: function() { triggerLook(true); }, dur: lookDuration });
+            if (!sequenceState.mindTriggered)
+                steps.push({ fn: function() { triggerMind(true); }, dur: mindDuration });
+            if (!sequenceState.gapTriggered)
+                steps.push({ fn: function() { triggerGap(true); }, dur: 2800 });
+            steps.push({ fn: function() { triggerDo(false); }, dur: 3000 });
+
+            function runStep(i) {
+                if (i >= steps.length) {
+                    sequenceState.animationInProgress = false;
+                    return;
+                }
+                steps[i].fn();
+                if (i < steps.length - 1) {
+                    setTimeout(function() { runStep(i + 1); }, steps[i].dur + 200);
+                } else {
+                    setTimeout(function() { sequenceState.animationInProgress = false; }, steps[i].dur);
+                }
             }
+            runStep(0);
         });
 
         // ========== REALITY KEYWORD CLICK ANIMATION ==========
@@ -4860,6 +5213,214 @@
             document.addEventListener('mousemove', onDrag);
             document.addEventListener('mouseup', onUp);
         });
+
+    // ========== MANIFESTO PARTICLE REVEAL ==========
+    (function() {
+        var outer = document.querySelector('.manifesto-title-outer');
+        var wrapper = document.querySelector('.manifesto-title-wrapper');
+        var textEl = document.querySelector('.manifesto-title-text');
+        var canvas = document.getElementById('manifesto-particles');
+        var ctx = canvas.getContext('2d');
+        var ANIM_DURATION = 3;
+        var FADE_START = 2.6;
+        var FADE_DUR = 0.8;
+        var particles = [];
+        var startTime = -1;
+        var animDone = false;
+
+        function noise2d(x, y) {
+            var s = Math.sin(x * 127.1 + y * 311.7) * 43758.5453;
+            return s - Math.floor(s);
+        }
+
+        // Measure each character's exact DOM position, draw on canvas at those coords
+        function drawFromDOM(oc, el, fillStyle, offX, offY) {
+            var text = el.textContent;
+            var style = getComputedStyle(el);
+            var font = style.fontWeight + ' ' + parseFloat(style.fontSize) + 'px ' + style.fontFamily;
+            oc.font = font;
+            oc.fillStyle = fillStyle;
+            oc.textBaseline = 'alphabetic';
+
+            // Temporarily wrap each character in a span to measure exact position
+            var original = el.innerHTML;
+            var spans = '';
+            for (var c = 0; c < text.length; c++) {
+                var ch = text[c] === ' ' ? '&nbsp;' : text[c].replace(/</g, '&lt;');
+                spans += '<span data-mc="' + c + '">' + ch + '</span>';
+            }
+            el.innerHTML = spans;
+
+            var spanEls = el.querySelectorAll('[data-mc]');
+            var charPositions = [];
+            for (var c = 0; c < spanEls.length; c++) {
+                var rect = spanEls[c].getBoundingClientRect();
+                charPositions.push({
+                    x: rect.left - offX,
+                    y: rect.bottom - offY,  // alphabetic baseline ~ bottom of rect
+                    ch: text[c]
+                });
+            }
+
+            // Restore original content
+            el.innerHTML = original;
+
+            // Draw each character at its exact measured position
+            for (var c = 0; c < charPositions.length; c++) {
+                var cp = charPositions[c];
+                // Adjust y: getBoundingClientRect bottom includes descenders,
+                // shift up slightly to match alphabetic baseline
+                var baselineOffset = parseFloat(style.fontSize) * 0.15;
+                oc.fillText(cp.ch, cp.x, cp.y - baselineOffset);
+            }
+        }
+
+        function sampleText() {
+            var vw = window.innerWidth;
+            var vh = window.innerHeight;
+            canvas.width = vw;
+            canvas.height = vh;
+
+            // Briefly show HTML text to measure exact positions
+            textEl.style.transition = 'none';
+            textEl.style.opacity = '1';
+            var titleEl = wrapper.querySelector('.manifesto-title');
+            var bylineEl = wrapper.querySelector('.manifesto-byline');
+            var wrapperRect = wrapper.getBoundingClientRect();
+
+            // Draw text on offscreen canvas the size of the wrapper
+            var tw = Math.ceil(wrapperRect.width);
+            var th = Math.ceil(wrapperRect.height);
+            var off = document.createElement('canvas');
+            off.width = tw;
+            off.height = th;
+            var oc = off.getContext('2d');
+
+            // Draw each character at its exact DOM-measured position
+            drawFromDOM(oc, titleEl, '#e8e8e8', wrapperRect.left, wrapperRect.top);
+            drawFromDOM(oc, bylineEl, '#888888', wrapperRect.left, wrapperRect.top);
+
+            // Hide text again
+            textEl.style.opacity = '0';
+            textEl.style.transition = '';
+            textEl.classList.remove('revealed');
+
+            // Offset to map wrapper-local coords to viewport coords
+            var offX = wrapperRect.left;
+            var offY = wrapperRect.top;
+
+            var data = oc.getImageData(0, 0, tw, th).data;
+            particles = [];
+
+            for (var py = 0; py < th; py++) {
+                for (var px = 0; px < tw; px++) {
+                    var i = (py * tw + px) * 4;
+                    var r = data[i], g = data[i + 1], b = data[i + 2], a = data[i + 3];
+                    if (a < 25) continue;
+                    if (Math.random() > 0.55) continue;
+
+                    var brightness = (r + g + b) / 3 / 255;
+                    var n = noise2d(px * 0.01, py * 0.01);
+
+                    var sizeRoll = Math.random();
+                    var radius;
+                    if (sizeRoll < 0.5) radius = 0.3 + Math.random() * 0.4;
+                    else if (sizeRoll < 0.8) radius = 0.7 + Math.random() * 0.5;
+                    else if (sizeRoll < 0.95) radius = 1.2 + Math.random() * 0.4;
+                    else radius = 1.6 + Math.random() * 0.4;
+
+                    // Scatter from all over the viewport
+                    var sx = Math.random() * vw;
+                    var sy = Math.random() * vh;
+
+                    // Target is wrapper-local + offset to viewport
+                    particles.push({
+                        sx: sx, sy: sy,
+                        tx: px + offX, ty: py + offY,
+                        x: sx, y: sy,
+                        r: radius,
+                        alpha: a / 255,
+                        cr: r, cg: g, cb: b,
+                        delay: n * 0.6
+                    });
+                }
+            }
+
+            animDone = false;
+            canvas.style.opacity = '1';
+            textEl.classList.remove('revealed');
+            startTime = performance.now() / 1000;
+        }
+
+        function easeOutQuart(t) {
+            return 1 - Math.pow(1 - t, 4);
+        }
+
+        function animate() {
+            if (animDone) return;
+
+            var now = performance.now() / 1000;
+            var elapsed = startTime >= 0 ? now - startTime : 0;
+
+            // Cross-fade: canvas out, HTML text in
+            if (elapsed > FADE_START) {
+                var fp = (elapsed - FADE_START) / FADE_DUR;
+                if (fp >= 1) {
+                    canvas.style.opacity = '0';
+                    textEl.classList.add('revealed');
+                    animDone = true;
+                    return;
+                }
+                canvas.style.opacity = String(1 - fp);
+                textEl.style.opacity = String(fp);
+            }
+
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            for (var i = 0; i < particles.length; i++) {
+                var p = particles[i];
+
+                var pt = (elapsed - p.delay * ANIM_DURATION) / (ANIM_DURATION * (1 - p.delay));
+                var progress = pt < 0 ? 0 : pt > 1 ? 1 : easeOutQuart(pt);
+
+                p.x = p.sx + (p.tx - p.sx) * progress;
+                p.y = p.sy + (p.ty - p.sy) * progress;
+
+                var fadeAlpha = progress < 0.05 ? progress / 0.05 : 1;
+                var a = p.alpha * fadeAlpha;
+
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+                ctx.fillStyle = 'rgba(' + p.cr + ',' + p.cg + ',' + p.cb + ',' + a.toFixed(3) + ')';
+                ctx.fill();
+            }
+
+            requestAnimationFrame(animate);
+        }
+
+        sampleText();
+        animate();
+
+        // Mouse perspective tilt
+        outer.addEventListener('mousemove', function(e) {
+            var rect = outer.getBoundingClientRect();
+            var cx = (e.clientX - rect.left) / rect.width - 0.5;
+            var cy = (e.clientY - rect.top) / rect.height - 0.5;
+            var rotY = cx * 20;
+            var rotX = -cy * 15;
+            wrapper.style.transform = 'rotateX(' + rotX + 'deg) rotateY(' + rotY + 'deg)';
+        });
+
+        outer.addEventListener('mouseleave', function() {
+            wrapper.style.transform = 'rotateX(0deg) rotateY(0deg)';
+        });
+
+        var resizeTimer;
+        window.addEventListener('resize', function() {
+            clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(sampleText, 200);
+        });
+    })();
 
     </script>
 </body>
