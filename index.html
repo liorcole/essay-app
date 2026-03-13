@@ -17,7 +17,7 @@
         }
 
         html, body {
-            overflow-x: hidden;
+            overflow-x: clip;
         }
         body {
             font-family: 'Georgia', serif;
@@ -2256,7 +2256,9 @@
             .body-diagram {
                 width: 160px;
                 height: 213px;
-                zoom: 0.5;
+            }
+            .sense-blocks-container {
+                right: -70px;
             }
             .body-sticky-wrapper .body-diagram-container {
                 padding: 20px 0 10px 0;
@@ -2265,9 +2267,55 @@
                 padding: 2px 0;
             }
             .body-diagram.expanded {
-                width: 100%;
-                max-width: 350px;
-                height: auto;
+                width: 350px;
+                max-width: 90vw;
+                height: 328px;
+            }
+            .body-diagram.expanded .infinity-bubble {
+                width: 350px;
+                max-width: 90vw;
+                height: 328px;
+            }
+            /* Expanded scene scaling for mobile */
+            .body-diagram.expanded .body-image {
+                transform: translateY(66px);
+            }
+            .body-diagram.expanded .limited-body-image {
+                transform: translate(-50%, -50%) translateY(66px);
+            }
+            .body-diagram.expanded.scene4 .body-image,
+            .body-diagram.expanded.scene5 .body-image {
+                transform: translateY(66px);
+            }
+            .orb-text {
+                top: 53px;
+                font-size: 0.75rem;
+            }
+            .scene6-text,
+            .scene12-text,
+            .scene13-text {
+                top: 57px;
+                font-size: 0.7rem;
+            }
+            .do-scene2-image,
+            .do-scene3-image {
+                transform: translate(-50%, -50%) translateY(26px);
+                width: 220px;
+            }
+            .do-scene4-image {
+                transform: translateY(-50%) translateY(66px);
+            }
+            .room-image,
+            .room1-image, .room2-image, .room3-image, .room4-image, .room5-image {
+                transform: translate(-50%, -50%) translateY(35px);
+                width: 220px;
+            }
+            .slide-image {
+                transform: translate(-50%, -50%) translateY(35px);
+                width: 220px;
+            }
+            .body-diagram.expanded.scene5 .body-fill-overlay {
+                transform: translate(-50%, -50%) translateY(66px);
             }
 
             /* Popups — Centered & Visible */
@@ -2344,6 +2392,17 @@
             /* SVG Arrows — hide on mobile */
             .gap-arrow-svg {
                 display: none;
+            }
+
+            /* Identity/Reality containers — stack vertically */
+            .identity-container,
+            .reality-container {
+                flex-direction: column;
+                align-items: center;
+            }
+            .identity-container .paragraph,
+            .reality-container .paragraph {
+                flex: unset;
             }
 
             /* Sticky Notes */
