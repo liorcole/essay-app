@@ -4389,7 +4389,15 @@
         // Start with access content hidden
         accessContent.style.display = 'none';
 
+        var isPublicSite = window.location.hostname.indexOf('github.io') !== -1;
+
         function toggleAccessSection() {
+            if (isPublicSite) {
+                accessPopup.textContent = 'Coming soon';
+                accessPopup.classList.add('show');
+                setTimeout(() => accessPopup.classList.remove('show'), 2000);
+                return;
+            }
             if (!hasReadSection1) {
                 // Show popup
                 accessPopup.classList.add('show');
@@ -4451,6 +4459,12 @@
         innovationContent.style.display = 'none';
 
         function toggleInnovationSection() {
+            if (isPublicSite) {
+                innovationPopup.textContent = 'Coming soon';
+                innovationPopup.classList.add('show');
+                setTimeout(() => innovationPopup.classList.remove('show'), 2000);
+                return;
+            }
             if (!hasReadSection2) {
                 innovationPopup.classList.add('show');
                 setTimeout(() => {
@@ -4508,6 +4522,12 @@
         ariContent.style.display = 'none';
 
         function toggleAriSection() {
+            if (isPublicSite) {
+                ariPopup.textContent = 'Coming soon';
+                ariPopup.classList.add('show');
+                setTimeout(() => ariPopup.classList.remove('show'), 2000);
+                return;
+            }
             if (!hasReadSection3) {
                 ariPopup.classList.add('show');
                 setTimeout(() => {
