@@ -125,11 +125,57 @@
             background: #bfdbfe;
         }
 
-        .indirectly-note-full {
-            flex: none;
-            width: 100%;
-            background: #bfdbfe;
-            box-sizing: border-box;
+        .history-tangent {
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 6px;
+            padding: 24px 28px;
+            margin: 2em 0;
+            background: rgba(255, 255, 255, 0.05);
+            position: relative;
+        }
+
+        .history-tangent::before {
+            content: 'Relevant Evolution Tangent';
+            position: absolute;
+            top: -10px;
+            left: 20px;
+            background: #0a0a0f;
+            padding: 0 10px;
+            font-size: 0.7rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: #666;
+        }
+
+        .history-tangent .paragraph {
+            color: #bbb;
+            font-size: 1rem;
+        }
+
+        .history-tangent .paragraph:last-child {
+            margin-bottom: 0;
+        }
+
+        .indented-block {
+            border-left: 2px solid rgba(255, 255, 255, 0.2);
+            margin: 1.5em 0 1.5em 1.5em;
+            padding-left: 1.5em;
+            color: #bbb;
+            font-size: 1.05rem;
+            line-height: 1.8;
+        }
+
+        .indented-block p {
+            margin: 0;
+        }
+
+        .indented-block.pulse {
+            animation: indentedPulse 0.6s ease-in-out 2;
+        }
+
+        @keyframes indentedPulse {
+            0%, 100% { border-left-color: rgba(255, 255, 255, 0.2); background: transparent; box-shadow: none; color: #bbb; }
+            50% { border-left-color: #86efac; background: rgba(134, 239, 172, 0.15); box-shadow: 0 0 20px rgba(134, 239, 172, 0.3), inset 0 0 20px rgba(134, 239, 172, 0.08); color: #e8e8e8; }
         }
 
         /* ========== SHADED BOX ========== */
@@ -2025,6 +2071,113 @@
             margin: 0;
         }
 
+        .manifesto-title.thesis-flash {
+            animation: thesisFlash 0.5s ease-in-out 3;
+        }
+
+        @keyframes thesisFlash {
+            0%, 100% { color: #e8e8e8; text-shadow: none; }
+            50% { color: #86efac; text-shadow: 0 0 20px rgba(134, 239, 172, 0.6), 0 0 40px rgba(134, 239, 172, 0.3); }
+        }
+
+        .thesis-popup {
+            position: fixed;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(10, 10, 15, 0.97);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 6px;
+            padding: 28px 36px 22px;
+            color: #e8e8e8;
+            text-align: center;
+            max-width: 520px;
+            z-index: 9999;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            pointer-events: none;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.6);
+        }
+
+        .thesis-popup.visible {
+            opacity: 1;
+        }
+
+        .thesis-popup .popup-title {
+            font-size: 1.6rem;
+            font-weight: 700;
+            letter-spacing: 0.25em;
+            color: #e8e8e8;
+            margin: 0 0 10px;
+        }
+
+        .thesis-popup .popup-byline {
+            font-size: 0.75rem;
+            font-weight: 400;
+            color: #888;
+            letter-spacing: 0.1em;
+            margin: 0 0 14px;
+        }
+
+        .thesis-popup .popup-divider {
+            width: 40px;
+            border: none;
+            border-top: 1px solid rgba(255, 255, 255, 0.15);
+            margin: 12px auto;
+        }
+
+        .thesis-popup .popup-quote {
+            font-size: 0.85rem;
+            line-height: 1.7;
+            color: #bbb;
+            font-style: italic;
+            margin: 0;
+        }
+
+        .thesis-popup .popup-arrows {
+            position: absolute;
+            top: -18px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 6px;
+        }
+
+        .thesis-popup .popup-arrows span {
+            width: 0;
+            height: 0;
+            border-left: 6px solid transparent;
+            border-right: 6px solid transparent;
+            border-bottom: 6px solid rgba(255, 255, 255, 0.25);
+        }
+
+        .species-hover {
+            cursor: pointer;
+            border-bottom: 1px dotted rgba(255, 255, 255, 0.3);
+            transition: color 0.2s ease;
+        }
+
+        .species-hover:hover {
+            color: #ccc;
+        }
+
+        .species-popup-img {
+            position: fixed;
+            z-index: 9998;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.25s ease;
+            border-radius: 6px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.7);
+            max-width: 240px;
+            max-height: 240px;
+            object-fit: cover;
+        }
+
+        .species-popup-img.visible {
+            opacity: 1;
+        }
+
         .manifesto-byline {
             font-size: 0.85rem;
             font-weight: 400;
@@ -2048,6 +2201,15 @@
 </head>
 <body>
     <canvas id="manifesto-particles"></canvas>
+
+    <div class="thesis-popup" id="thesis-popup">
+        <div class="popup-arrows"><span></span><span></span><span></span></div>
+        <p class="popup-title">THE MANIFESTO</p>
+        <p class="popup-byline">&ndash; Lior Cole</p>
+        <hr class="popup-divider">
+        <p class="popup-quote">It is my general belief that all human motivation has one core source: the desire to align who we are (our identity) with how we live (our reality).</p>
+    </div>
+
     <div class="essay-container">
 
         <div class="manifesto-title-outer">
@@ -2068,7 +2230,7 @@
 
             <div id="section-1-content">
             <h3 class="main-thesis">
-                It is my general belief that all human motivation has one core source: the desire to shorten the gap between who we are (our identity) and how we live (our reality).
+                It is my general belief that all human motivation has one core source: the desire to align who we are (our identity) with how we live (our reality).
             </h3>
 
             <div class="identity-container">
@@ -2204,36 +2366,33 @@
             </div>
 
             <p class="paragraph" style="margin-top: 6em;">
-                Your reality (your lived experience made up of your stuff, career, favorite song, passions, friends, actions, knowledge, opinions), reflects parts of you, but could never capture the <u>full</u> depth of who you are&hellip; Look at all the <span class="keyword keyword-gap" data-keyword id="look-keyword">uncaptured soul</span>!
+                Your lived experience made up of your stuff, career, favorite song, passions, friends, actions, knowledge, opinions is your reality. It reflects parts of you, but could never capture the <u>full</u> depth of who you are&hellip; Look at all the <span class="keyword keyword-gap" data-keyword id="look-keyword">uncaptured identity</span>!
             </p>
 
             <p class="paragraph">
-                The posters on my wall reflect a part of me, my self identification as a &ldquo;MINIMALIST MAXIMALIST&rdquo; reflect another part, but no amount of decor or words could ever capture the <u>full</u> depth of who I am. Reflect parts - yes. Full picture - impossible. Your soul is more than all the words or stuff or knowledge or people or anything else that exists on this Earth. Your soul is infinite, this world is finite.
+                The posters on my wall say something about me, my self identification as a &ldquo;MINIMALIST MAXIMALIST&rdquo; reflects part of me, but no amount of decor or words could ever capture the <u>full</u> depth of who I am. Reflect parts - yes. Full picture - impossible. Your soul is greater than all the words or stuff or knowledge or people or anything else that exists on this Earth. Your soul is infinite, this world is finite.
             </p>
 
             <p class="paragraph">
-                In contrast, if I look at a red apple - I know it&rsquo;s red. It&rsquo;s observable fact so there&rsquo;s nothing to interpret, it just is. Our identity is so much more complex for us to grasp because you can&rsquo;t touch, taste, smell, see, or hear your soul - it exists somewhere beyond our observable reality. We don&rsquo;t have a sixth sense for soul detection, so we can only understand and channel who we are <span class="keyword keyword-identity" data-keyword id="indirectly-keyword">indirectly</span>.
+                In contrast, if I look at a red apple - I know it&rsquo;s red. It&rsquo;s observable fact that exists in reality. Our identity is so complex for us to grasp because you can&rsquo;t touch, taste, smell, see, or hear your soul - it exists somewhere beyond our lived experience. We don&rsquo;t have a sixth sense for soul detection. Because of this, we understand and channel who we are <u class="indirectly-trigger" id="indirectly-trigger" style="cursor:pointer">indirectly</u>:
             </p>
-            <div class="sticky-note indirectly-note-full" id="indirectly-note" onclick="this.classList.toggle('revealed')">
-                <div class="sticky-note-heading">indirectly</div>
-                <div class="sticky-note-content">A blind man cannot directly perceive sight- it exists outside his physical abilities. Instead, sight must be translated into what is accessible: like touch or sound. &ldquo;The apple is round and smooth.&rdquo; &ldquo;Red feels like the sun&rsquo;s warmth.&rdquo; These descriptions act as bridges, but they never produce a true visual mental model. Core aspects of sight (like color) remain directly unreachable.<br><br>This mirrors how our minds receive information about who we are. Identity is not directly observable to us. It is only inferred through signals that surface in our various experiences (emotions, desires, affinities, discomforts) which are translated from the constraints of our biological abilities (sight, smell, touch, taste, sound). <span class="red-bold">There is no sixth sense for soul detection.</span><br><br>Just as the blind man cannot see the vase yet can feel its form, texture, and resonance (and from that, still feel alignment with it), we sense our deeper self through indirect articulations. These moments of resonance are not full comprehension, but they are the closest approximation available within a finite body.<span class="tooltip-audio-controls" onclick="event.stopPropagation()"><select class="tooltip-voice-select" id="tooltip-voice-select"></select><button class="tooltip-speed-btn" id="tooltip-speed-btn" onclick="cycleSpeed(this)">1x</button><button class="tooltip-audio-btn" id="tooltip-audio-btn" onclick="toggleTooltipAudio(this)"><svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg></button></span></div>
+
+            <div class="indented-block" id="indirectly-block">
+                <p>A blind man cannot directly perceive sight &ndash; the visual world exists outside his reality. So to get a sense of what something &ldquo;looks&rdquo; like, he relies on what he can experience, like touch or sound: he can feel a vase that is round and smooth, the sound it makes when he taps it with his finger, he can interpret anecdotes like &ldquo;its red color feels like the sun&rsquo;s warmth&rdquo;. He can choose which vase he likes best of all the options at a pottery shop without ever seeing any of them, based on his indirect experiences.</p>
             </div>
 
             <p class="paragraph">
-                Our <span class="keyword keyword-gap" data-keyword id="mind-keyword">mind</span> helps us understand and embody our identity by translating this other-worldly thing that is our soul into signals we can understand in our reality. It gives us signals that outline who we are through emotion and intuition as we experience things in the world... Repulsed by that shirt, obsessed with that song, gut feeling about that person, interested in that subject. We may not ever grasp our identity the way we grasp the color red, but over time our mind helps us paint a picture of who we are through the indirect modality of what we are drawn to and repelled from within our world... Just as the blind man develops aesthetic taste indirectly through touch, smell, sound, and taste.
+                This indirect modality is how we shape our sense of self since our soul exists beyond our lived reality. Our <span class="keyword keyword-gap" data-keyword id="mind-keyword">mind</span> does this for us by sending us signals through emotion and intuition as we navigate the world: obsessed with that song, gut feeling about that person, interested in that subject, repulsed by that shirt... We may not ever grasp our identity the way we can directly and fully grasp the color red, but over time our mind helps us paint a picture of who we are through what we are drawn to and repelled by within our direct world... Just as the blind man develops aesthetic taste indirectly through touch, smell, sound, and taste.
             </p>
+
             </div>
 
             <p class="paragraph">
-                There&rsquo;s no actual logical explanation to preference why you like that t shirt over this one, that subject in school over the other&hellip; it&rsquo;s just your mind pulling you in the direction that best reflects your soul. The more we experience, the more our life bends in the direction of who we are.
+                The process of finding ourselves in the world through experiences, knowledge, and stuff is always happening. We feel a pressing, underlying discomfort when we live in a way that doesn&rsquo;t match who we are - that feeling of knowing you&rsquo;re in the wrong career, wearing a shirt you hate, putting on a persona for certain family members or friends that simply isn&rsquo;t you. And because our lived reality is too limited to ever fully embody all of who we are, that discomfort never goes away&hellip; Because who we are will never fully align with our world. Consciously or subconsciously, we are always chasing relief from that discomfort, which comes from momentary alignment when we define and channel a bit more of ourselves into the world around us. <span style="font-weight:500"><u class="thesis-trigger" id="thesis-trigger" style="cursor:pointer">All human motivation has one core source: the desire to align who we are with how we live.</u></span> It drives everything that we <span class="keyword keyword-gap" data-keyword id="do-keyword">do</span>:
             </p>
 
             <p class="paragraph">
-                Growing up, we do things like redecorate our rooms a million times over, until the posters on our walls better reflect who we are. We had to experience the discomfort of all the wrong aesthetics until we eventually hit enough &ldquo;yes&rdquo; signals to find ourselves in a space we feel more at peace in - because our mind led us to a place where we are more aligned. We search for labels that help articulate who we are- maybe it&rsquo;s a diagnosis, personality type, sexuality, or belief system. Over time, our mind signals which labels feel right, and we can feel relief from pulling our nebulous identity into our lived reality through definitions and articulation. We chase the ineffable &ldquo;yes&rdquo; feeling at concerts, festivals, museums- a bit of our indescribable identity is channeled belting your favorite song in the car.
-            </p>
-
-            <p class="paragraph">
-                On top of experiences, we seek out knowledge to help our mind better decipher who we are: we go to school, read books and articles, we have deep conversation and experiences. Knowledge gives us insight to better understand the world and sub-sequentially ourselves within it- what do we like? What do we agree with? What do we desire?
+                Growing up, we do things like redecorate our rooms a million times over, until the posters on our walls feel like us. We get a better sense of who we are when we can feel ourselves in the space we design around us. We search for labels that help articulate who we are: a diagnosis, personality type, sexuality, a belief system. Every label that fits pulls a bit of our nebulous, out-of-reach identity into concrete reality through language. We chase the ineffable &ldquo;yes&rdquo; feeling at concerts, festivals, museums- that moment belting our favorite song in the car where something unnamed inside us is briefly captured. We buy new clothes to reflect our ever evolving inner state. We seek out knowledge to help our mind better decipher who we are: we go to school, read books and articles, we have deep conversation and experiences. Knowledge gives us insight to better understand the world and sub-sequentially ourselves within it- what do we like? What do we agree with? What do we desire?
             </p>
 
             <p class="paragraph">
@@ -2241,13 +2400,23 @@
             </p>
 
             <p class="paragraph">
-                There&rsquo;s no tactical use for art, no real reason to have 50 different shirt styles in your closet, no actual use for music or even knowledge outside of that related to food and shelter. Every other species on Earth seems to understand this - lions are out hunting prey, beavers are building dams, butterflies finding nectar to drink&hellip; None are spending time or resources decorating their homes with funky colors.
+                There&rsquo;s no tactical use for decor, no real reason to have 50 different shirt styles, no actual need for music or even knowledge beyond information related to food and shelter. Every other species seems to understand this: lions are out hunting prey, beavers are building dams, butterflies finding nectar&hellip; None are spending time or resources decorating their homes with funky colors or writing a thesis on shakespearean theatrical semiotics. So why did we evolve past the universal drive to survive into this complex and seemingly unnecessary universe of soul searching and identity formation?
             </p>
+
+            <div class="history-tangent">
+                <p class="paragraph">
+                    My personal theory begins at the genesis of our species. Homo sapiens were not the only humans - there were <span class="species-hover" data-species-img="neanderthals.webp">Neanderthals</span>, <span class="species-hover" data-species-img="denisovans.webp">Denisovans</span>, <span class="species-hover" data-species-img="homo-erectus.jpg">Homo erectus</span>, <span class="species-hover" data-species-img="homo-floresiensis.webp">Homo floresiensis</span>, among others. Research suggests that due to differences in brain structure, Homo sapiens were the only species capable of conceptualizing the intangible (early belief systems, ideologies, mathematical and scientific concepts). Every other human species was confined to what was right in front of them: eat the berry on the tree, run from the predator behind me.
+                </p>
+
+                <p class="paragraph">
+                    This was a huge distinction. Humans can maintain roughly 150 interpersonal relationships - you may know more people, but the cognitive load of trust, dynamics, and reciprocity caps us there. Without anything larger than personal bonds to organize groups of people, every tribe was limited in size: you can only be in the tribe if there&rsquo;s a personal relationship, and the number of those we can handle at once is limited. However, Homo sapiens didn&rsquo;t need to rely on personal connection. They could congregate around shared identity because their brains could handle the intangible concept of identity - religion, mythology, belief - the size of their tribes became limitless. Today this looks like - if you are a Jew and I am a Jew, we don&rsquo;t need to know each other to belong to the same group. The sheer imbalance in tribal size was enough for Homo sapiens to wipe everyone else out.
+                </p>
+            </div>
 
             <hr style="border: 1px solid #333; margin: 2em 0;">
 
             <p class="paragraph">
-                The perpetual discomfort of living in a reality that doesn't fully reflect who we are is the source of human motivation. We are motivated to reduce this <span class="keyword keyword-gap" data-keyword id="gap-keyword">gap</span>. The more our reality captures our true identity, the more that discomfort fades. This is the core driver behind everything we <span class="keyword keyword-gap" data-keyword id="do-keyword">do</span>:
+                The perpetual discomfort of living in a reality that doesn't fully reflect who we are is the source of human motivation. We are motivated to reduce this <span class="keyword keyword-gap" data-keyword id="gap-keyword">gap</span>. The more our reality captures our true identity, the more that discomfort fades. This is the core driver behind everything we do:
             </p>
 
             <p class="paragraph">
@@ -2261,7 +2430,6 @@
             <p class="paragraph">
                 So, we are always soul searching. And there is a science to how well we can soul search. It relies entirely on the nature of our access to things, knowledge, and people.
             </p>
-            </div>
 
         </section>
 
@@ -2342,93 +2510,6 @@
     </div>
 
     <script>
-        // ========== TOOLTIP AUDIO ==========
-        let tooltipUtterance = null;
-        const voiceSelect = document.getElementById('tooltip-voice-select');
-        const speeds = [1, 1.5, 2];
-        let currentSpeedIndex = 0;
-        let audioCharIndex = 0;
-        let isSpeedChange = false;
-        const tooltipFullText = "A blind man cannot directly perceive sight — it exists outside his physical abilities. Instead, sight must be translated into what is accessible: like touch or sound. The apple is round and smooth. Red feels like the sun's warmth. These descriptions act as bridges, but they never produce a true visual mental model. Core aspects of sight, like color, remain directly unreachable. This mirrors how our minds receive information about who we are. Identity is not directly observable to us. It is only inferred through signals that surface in our various experiences — emotions, desires, affinities, discomforts — which are translated from the constraints of our biological abilities: sight, smell, touch, taste, sound. There is no sixth sense for soul detection. Just as the blind man cannot see the vase yet can feel its form, texture, and resonance, and from that, still feel alignment with it, we sense our deeper self through indirect articulations. These moments of resonance are not full comprehension, but they are the closest approximation available within a finite body.";
-
-        function speakFromIndex(startIndex) {
-            const text = tooltipFullText.substring(startIndex);
-            if (!text) return;
-            tooltipUtterance = new SpeechSynthesisUtterance(text);
-            tooltipUtterance.rate = speeds[currentSpeedIndex];
-            const voices = speechSynthesis.getVoices();
-            const selectedVoice = voices.find(v => v.voiceURI === voiceSelect.value);
-            if (selectedVoice) {
-                tooltipUtterance.voice = selectedVoice;
-            }
-            tooltipUtterance.onboundary = (e) => {
-                audioCharIndex = startIndex + e.charIndex;
-            };
-            tooltipUtterance.onend = () => {
-                if (!isSpeedChange) {
-                    document.getElementById('tooltip-audio-btn').classList.remove('playing');
-                    audioCharIndex = 0;
-                }
-                isSpeedChange = false;
-            };
-            speechSynthesis.speak(tooltipUtterance);
-        }
-
-        function cycleSpeed(btn) {
-            currentSpeedIndex = (currentSpeedIndex + 1) % speeds.length;
-            btn.textContent = speeds[currentSpeedIndex] + 'x';
-            if (speechSynthesis.speaking) {
-                isSpeedChange = true;
-                speechSynthesis.cancel();
-                speakFromIndex(audioCharIndex);
-            }
-        }
-
-        function populateVoices() {
-            const voices = speechSynthesis.getVoices();
-            voiceSelect.innerHTML = '';
-            const preferred = ['Samantha', 'Alex', 'Tom', 'Daniel', 'Karen', 'Google US English', 'Google UK English Female', 'Google UK English Male', 'Fred', 'Moira', 'Tessa', 'Fiona'];
-            const english = voices
-                .map((v, i) => ({ voice: v, index: i }))
-                .filter(v => v.voice.lang.startsWith('en'));
-            english.sort((a, b) => {
-                const aIdx = preferred.findIndex(p => a.voice.name.includes(p));
-                const bIdx = preferred.findIndex(p => b.voice.name.includes(p));
-                const aRank = aIdx === -1 ? 999 : aIdx;
-                const bRank = bIdx === -1 ? 999 : bIdx;
-                return aRank - bRank;
-            });
-            english.slice(0, 4).forEach((v, i) => {
-                const opt = document.createElement('option');
-                opt.value = v.voice.voiceURI;
-                opt.textContent = v.voice.name;
-                if (i === 0) opt.selected = true;
-                voiceSelect.appendChild(opt);
-            });
-        }
-        populateVoices();
-
-        function toggleTooltipAudio(btn) {
-            if (speechSynthesis.speaking) {
-                isSpeedChange = false;
-                speechSynthesis.cancel();
-                btn.classList.remove('playing');
-                audioCharIndex = 0;
-                return;
-            }
-            audioCharIndex = 0;
-            btn.classList.add('playing');
-            speakFromIndex(0);
-        }
-
-        // Stop audio when mouse leaves tooltip trigger
-        document.querySelector('.tooltip-trigger.highlight').addEventListener('mouseleave', () => {
-            if (speechSynthesis.speaking) {
-                speechSynthesis.cancel();
-                document.getElementById('tooltip-audio-btn').classList.remove('playing');
-            }
-        });
-
         // ========== GAP TOOLTIP AUDIO ==========
         let gapTooltipUtterance = null;
         const gapVoiceSelect = document.getElementById('gap-tooltip-voice-select');
@@ -2494,7 +2575,7 @@
             });
         }
         populateGapVoices();
-        speechSynthesis.onvoiceschanged = () => { populateVoices(); populateGapVoices(); };
+        speechSynthesis.onvoiceschanged = () => { populateGapVoices(); };
 
         function toggleGapTooltipAudio(btn) {
             if (speechSynthesis.speaking) {
@@ -2587,7 +2668,7 @@
         const keywordEchoData = {
             limited:  { text: '...our reality is finite and <span class="echo-keyword">limited</span> by nature...', offsetY: -60, rotate: 3 },
             infinite: { text: '...can never capture the <span class="echo-keyword">infinite</span> totality of who we are...', offsetY: 20, rotate: -2.5 },
-            look:     { text: '...Look at all the <span class="echo-keyword">uncaptured soul</span>!', offsetY: -30, rotate: 2 },
+            look:     { text: '...Look at all the <span class="echo-keyword">uncaptured identity</span>!', offsetY: -30, rotate: 2 },
             mind:     { text: '...Our <span class="echo-keyword">mind</span> helps us understand and embody our identity...', offsetY: 50, rotate: -3 },
             gap:      { text: '...We are motivated to reduce this <span class="echo-keyword">gap</span>...', offsetY: -45, rotate: 2.5 },
             do:       { text: '...the core driver behind everything we <span class="echo-keyword">do</span>...', offsetY: 35, rotate: -2 }
@@ -2782,6 +2863,73 @@
             }, limitedDuration + 500);
         });
 
+        // ========== INDIRECTLY TRIGGER - PULSE INDENTED BLOCK ==========
+        document.getElementById('indirectly-trigger').addEventListener('click', (e) => {
+            e.stopPropagation();
+            const block = document.getElementById('indirectly-block');
+            block.classList.remove('pulse');
+            void block.offsetWidth;
+            block.classList.add('pulse');
+            block.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            setTimeout(() => block.classList.remove('pulse'), 1200);
+        });
+
+        // ========== THESIS TRIGGER - SHOW POPUP REMINDER ==========
+        document.getElementById('thesis-trigger').addEventListener('click', (e) => {
+            e.stopPropagation();
+            const popup = document.getElementById('thesis-popup');
+            const triggerRect = e.currentTarget.getBoundingClientRect();
+            const midpoint = triggerRect.top / 2;
+            popup.style.top = Math.max(10, midpoint) + 'px';
+            popup.classList.remove('visible');
+            void popup.offsetWidth;
+            popup.classList.add('visible');
+
+            var timerDone = false;
+            var scrollDone = false;
+
+            function dismiss() {
+                if (timerDone && scrollDone) {
+                    popup.classList.remove('visible');
+                    window.removeEventListener('scroll', onScroll);
+                }
+            }
+
+            setTimeout(function() {
+                timerDone = true;
+                dismiss();
+            }, 5000);
+
+            function onScroll() {
+                scrollDone = true;
+                dismiss();
+            }
+            window.addEventListener('scroll', onScroll);
+        });
+
+        // ========== SPECIES HOVER IMAGE POPUPS ==========
+        (function() {
+            var popupImg = document.createElement('img');
+            popupImg.className = 'species-popup-img';
+            document.body.appendChild(popupImg);
+
+            document.querySelectorAll('.species-hover').forEach(function(el) {
+                el.addEventListener('mouseenter', function(e) {
+                    popupImg.src = el.getAttribute('data-species-img');
+                    popupImg.classList.add('visible');
+                });
+
+                el.addEventListener('mousemove', function(e) {
+                    popupImg.style.left = (e.clientX + 16) + 'px';
+                    popupImg.style.top = (e.clientY - 130) + 'px';
+                });
+
+                el.addEventListener('mouseleave', function() {
+                    popupImg.classList.remove('visible');
+                });
+            });
+        })();
+
         // ========== IDENTITY KEYWORD CLICK ANIMATION ==========
         // Click on "identity" to draw arrow to sticky note and reveal it
 
@@ -2867,90 +3015,6 @@
             }, 600);
         });
 
-        // ========== INDIRECTLY KEYWORD CLICK ANIMATION ==========
-        // Click on "indirectly" to draw arrow to sticky note and reveal it
-
-        const indirectlyKeyword = document.getElementById('indirectly-keyword');
-        const indirectlyNote = document.getElementById('indirectly-note');
-        let indirectlyArrowSvg = null;
-
-        indirectlyKeyword.addEventListener('click', (e) => {
-            e.stopPropagation();
-
-            // If already revealed, just close it
-            if (indirectlyNote.classList.contains('revealed')) {
-                indirectlyNote.classList.remove('revealed');
-                return;
-            }
-
-            // Remove any existing arrow
-            if (indirectlyArrowSvg) {
-                indirectlyArrowSvg.remove();
-            }
-
-            // Get positions with scroll offset for absolute positioning
-            const keywordRect = indirectlyKeyword.getBoundingClientRect();
-            const noteRect = indirectlyNote.getBoundingClientRect();
-            const scrollX = window.scrollX;
-            const scrollY = window.scrollY;
-
-            // Start point: bottom of keyword
-            const startX = keywordRect.left + keywordRect.width / 2 + scrollX;
-            const startY = keywordRect.bottom + 5 + scrollY;
-
-            // End point: top center of sticky note
-            const endX = noteRect.left + noteRect.width / 2 + scrollX;
-            const endY = noteRect.top - 5 + scrollY;
-
-            // Create SVG for the arrow
-            indirectlyArrowSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-            indirectlyArrowSvg.classList.add('gap-arrow-svg');
-            indirectlyArrowSvg.style.width = document.documentElement.scrollWidth + 'px';
-            indirectlyArrowSvg.style.height = document.documentElement.scrollHeight + 'px';
-            indirectlyArrowSvg.setAttribute('viewBox', `0 0 ${document.documentElement.scrollWidth} ${document.documentElement.scrollHeight}`);
-
-            // Create curved path going downward
-            const midY = (startY + endY) / 2;
-            const pathD = `M ${startX} ${startY} Q ${startX + 40} ${midY}, ${endX} ${endY}`;
-
-            const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-            path.classList.add('gap-arrow-line');
-            path.setAttribute('d', pathD);
-            path.style.stroke = '#60a5fa'; // Blue
-
-            // Create arrow head pointing down
-            const arrowHead = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
-            arrowHead.classList.add('gap-arrow-head');
-            arrowHead.setAttribute('points', `${endX},${endY + 5} ${endX - 6},${endY - 8} ${endX + 6},${endY - 8}`);
-            arrowHead.style.fill = '#60a5fa'; // Blue
-
-            indirectlyArrowSvg.appendChild(path);
-            indirectlyArrowSvg.appendChild(arrowHead);
-            document.body.appendChild(indirectlyArrowSvg);
-
-            // Trigger animation
-            requestAnimationFrame(() => {
-                path.classList.add('animating');
-                arrowHead.classList.add('animating');
-            });
-
-            // Reveal the sticky note after arrow reaches
-            setTimeout(() => {
-                indirectlyNote.classList.add('revealed');
-
-                // Remove arrow after a delay
-                setTimeout(() => {
-                    if (indirectlyArrowSvg) {
-                        indirectlyArrowSvg.style.opacity = '0';
-                        indirectlyArrowSvg.style.transition = 'opacity 0.5s ease';
-                        setTimeout(() => {
-                            indirectlyArrowSvg.remove();
-                            indirectlyArrowSvg = null;
-                        }, 500);
-                    }
-                }, 1500);
-            }, 600);
-        });
 
         // ========== INFINITE KEYWORD CLICK ANIMATION ==========
         // Click on "infinite" to draw arrow to orb and reveal it
@@ -3309,6 +3373,12 @@
                         }, 500);
                     }
                 }, 2200);
+
+                // Minimize body after flash completes
+                setTimeout(() => {
+                    bodyDiagram.classList.add('minimized');
+                    bodyDiagramContainer.classList.add('minimized-container');
+                }, 2500);
             }, 600);
 
             sequenceState.lookTriggered = true;
