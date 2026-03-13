@@ -2254,11 +2254,19 @@
 
             /* Body Diagram */
             .body-diagram {
-                width: 160px;
-                height: 213px;
+                width: 120px;
+                height: 160px;
+            }
+            .body-image {
+                width: 100px;
             }
             .sense-blocks-container {
-                right: -70px;
+                right: -60px;
+                font-size: 0.65rem;
+            }
+            .sense-block {
+                padding: 3px 8px;
+                font-size: 0.6rem;
             }
             .body-sticky-wrapper .body-diagram-container {
                 padding: 20px 0 10px 0;
@@ -2397,18 +2405,20 @@
             /* Identity/Reality containers — stack vertically */
             .identity-container,
             .reality-container {
-                flex-direction: column;
-                align-items: center;
+                flex-direction: column !important;
+                align-items: center !important;
+                gap: 16px;
             }
             .identity-container .paragraph,
             .reality-container .paragraph {
-                flex: unset;
+                flex: 1 1 auto !important;
             }
 
             /* Sticky Notes */
             .sticky-note {
-                flex: unset;
-                width: 100%;
+                flex: 1 1 auto !important;
+                width: 100% !important;
+                max-width: 280px;
             }
 
             /* Keyword font size */
