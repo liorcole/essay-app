@@ -3,7 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Gap</title>
+    <title>THE MANIFESTO</title>
+    <link rel="icon" type="image/png" href="manifesto-preview.png">
+    <meta property="og:title" content="THE MANIFESTO">
+    <meta property="og:site_name" content="THE MANIFESTO">
+    <meta property="og:image" content="manifesto-preview.png">
+    <meta property="og:type" content="website">
     <style>
         * {
             margin: 0;
@@ -11,6 +16,9 @@
             box-sizing: border-box;
         }
 
+        html, body {
+            overflow-x: hidden;
+        }
         body {
             font-family: 'Georgia', serif;
             background: #0a0a0f;
@@ -2205,6 +2213,151 @@
             transition: opacity 0.8s ease;
         }
 
+        /* ========== MOBILE RESPONSIVE ========== */
+        @media (max-width: 768px) {
+            /* Container & Text Centering */
+            .essay-container {
+                padding: 40px 16px;
+                text-align: center;
+            }
+            .paragraph {
+                text-align: center;
+                font-size: 1.05rem;
+            }
+            .main-thesis {
+                font-size: 1.3rem;
+                text-align: center;
+            }
+            .indented-block {
+                margin-left: 0.5em;
+                text-align: left;
+            }
+            .history-tangent {
+                padding: 16px 16px;
+                text-align: left;
+            }
+            .shaded-box {
+                padding: 20px 16px;
+            }
+
+            /* Manifesto Title */
+            .manifesto-title {
+                font-size: 1.5rem;
+                letter-spacing: 0.15em;
+            }
+            .manifesto-byline {
+                font-size: 0.7rem;
+            }
+            .manifesto-title-wrapper {
+                height: 100px;
+            }
+
+            /* Body Diagram */
+            .body-diagram {
+                width: 160px;
+                height: 213px;
+                zoom: 0.5;
+            }
+            .body-sticky-wrapper .body-diagram-container {
+                padding: 20px 0 10px 0;
+            }
+            .body-sticky-wrapper .body-diagram-container.minimized-container {
+                padding: 2px 0;
+            }
+            .body-diagram.expanded {
+                width: 100%;
+                max-width: 350px;
+                height: auto;
+            }
+
+            /* Popups — Centered & Visible */
+            .thesis-popup {
+                max-width: 90vw;
+                padding: 16px 20px;
+                left: 50%;
+                transform: translateX(-50%);
+            }
+            .tooltip-content {
+                width: 90vw;
+                left: 50% !important;
+                transform: translateX(-50%) !important;
+                position: fixed;
+                bottom: auto;
+                top: 10%;
+                z-index: 10000;
+            }
+            .species-popup-img {
+                max-width: 70vw !important;
+                max-height: 50vh !important;
+                left: 50% !important;
+                top: 50% !important;
+                transform: translate(-50%, -50%);
+            }
+            .widget-popup {
+                left: 50%;
+                transform: translateX(-50%);
+                white-space: nowrap;
+            }
+
+            /* Keyword Echo Panel — hide on mobile */
+            .keyword-echo {
+                display: none;
+            }
+
+            /* Section Widgets */
+            .collapsed-widget-label {
+                font-size: 0.85rem;
+            }
+            .collapsed-widget {
+                padding: 12px 14px;
+            }
+
+            /* Slide Images & Body Intro */
+            .slide-image {
+                max-width: 100%;
+                width: auto;
+            }
+            .body-intro-row {
+                flex-direction: column;
+                text-align: center;
+            }
+            .body-intro-img {
+                width: 70px;
+            }
+            .scrub-bar-container {
+                min-width: unset;
+                width: 100%;
+            }
+
+            /* Dots Field */
+            .dots-field {
+                height: 160px;
+            }
+            .dots-field-bracket {
+                width: 30px;
+            }
+            .dots-field-label {
+                width: 80px;
+                font-size: 0.7rem;
+            }
+
+            /* SVG Arrows — hide on mobile */
+            .gap-arrow-svg {
+                display: none;
+            }
+
+            /* Sticky Notes */
+            .sticky-note {
+                flex: unset;
+                width: 100%;
+            }
+
+            /* Keyword font size */
+            .keyword {
+                font-size: 1.2rem;
+            }
+        }
+
     </style>
 </head>
 <body>
@@ -2865,8 +3018,15 @@
                 });
 
                 el.addEventListener('mousemove', function(e) {
-                    popupImg.style.left = (e.clientX + 16) + 'px';
-                    popupImg.style.top = (e.clientY - 130) + 'px';
+                    if (window.innerWidth <= 768) {
+                        popupImg.style.left = '50%';
+                        popupImg.style.top = '50%';
+                        popupImg.style.transform = 'translate(-50%, -50%)';
+                    } else {
+                        popupImg.style.left = (e.clientX + 16) + 'px';
+                        popupImg.style.top = (e.clientY - 130) + 'px';
+                        popupImg.style.transform = 'none';
+                    }
                 });
 
                 el.addEventListener('mouseleave', function() {
