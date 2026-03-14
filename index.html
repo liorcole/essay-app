@@ -2213,6 +2213,41 @@
             transition: opacity 0.8s ease;
         }
 
+        .examples-postits {
+            position: relative;
+            width: 100%;
+            max-width: 680px;
+            height: 540px;
+            margin: 40px auto;
+        }
+
+        .examples-postits .example-note {
+            position: absolute;
+            font-size: 0.9rem;
+            text-align: left;
+            cursor: grab;
+            user-select: none;
+            z-index: 1;
+            transition: box-shadow 0.15s ease;
+        }
+
+        .examples-postits .example-note.dragging {
+            cursor: grabbing;
+            z-index: 10;
+            box-shadow: 8px 10px 24px rgba(0, 0, 0, 0.35);
+        }
+
+        .examples-postits .example-note .sticky-note-content {
+            display: block;
+        }
+
+        /* Clustered layout */
+        .examples-postits .example-note:nth-child(1) { width: 200px; top: 0;    left: 20px;  transform: rotate(-2deg); background: #fef08a; z-index: 1; }
+        .examples-postits .example-note:nth-child(2) { width: 220px; top: 40px;  left: 430px; transform: rotate(1.5deg); background: #bfdbfe; z-index: 2; }
+        .examples-postits .example-note:nth-child(3) { width: 230px; top: 25px;  left: 220px; transform: rotate(-1deg); background: #bbf7d0; z-index: 3; }
+        .examples-postits .example-note:nth-child(4) { width: 240px; top: 340px; left: 20px;  transform: rotate(2deg);  background: #fecaca; z-index: 2; }
+        .examples-postits .example-note:nth-child(5) { width: 310px; top: 310px; left: 260px; transform: rotate(-1.5deg); background: #e9d5ff; z-index: 1; }
+
         /* ========== MOBILE RESPONSIVE ========== */
         @media (max-width: 768px) {
             /* Container & Text */
@@ -2262,6 +2297,8 @@
             .reality-container > .paragraph { flex: 1 1 auto !important; width: 100%; }
             .identity-container > .sticky-note,
             .reality-container > .sticky-note { flex: 1 1 auto !important; width: 100% !important; max-width: 280px; }
+            .examples-postits { position: static; height: auto; display: flex; flex-direction: column; align-items: center; gap: 16px; padding: 20px 0; }
+            .examples-postits .example-note { position: static !important; width: 85% !important; max-width: 280px; font-size: 0.85rem; cursor: default; transform: none !important; }
 
             /* Font sizes */
             .keyword { font-size: 1.2rem; }
@@ -2465,9 +2502,23 @@
                 Our lived reality is too limited to ever fully embody all of who we are, our internal misalignment discomfort never goes away&hellip; Because all of who we are will never fully align with our world. Consciously or subconsciously, we are always chasing relief from that discomfort, which comes from momentary alignment when we define and channel a bit more of ourselves into the world around us. <span style="font-weight:500"><u class="thesis-trigger" id="thesis-trigger" style="cursor:pointer">All human motivation has one core source: the desire to align who we are with how we live.</u></span> It drives everything that we do:
             </p>
 
-            <p class="paragraph">
-                Growing up, we do things like redecorate our rooms a million times over, until the posters on our walls feel like us. We get a better sense of who we are when we can feel ourselves in the space we design around us. We search for labels that help articulate who we are: a diagnosis, personality type, sexuality, a belief system. Every label that fits pulls a bit of our nebulous, out-of-reach identity into concrete reality through language. We chase the ineffable &ldquo;yes&rdquo; feeling at concerts, festivals, museums- that moment belting our favorite song in the car where something unnamed inside us is briefly captured. We buy new clothes to reflect our ever evolving inner state. We seek out knowledge to help our mind better decipher who we are: we go to school, read books and articles, we have deep conversation and experiences. Knowledge gives us insight to better understand the world and sub-sequentially ourselves within it- what do we like? What do we agree with? What do we desire?
-            </p>
+            <div class="examples-postits">
+                <div class="sticky-note example-note">
+                    <div class="sticky-note-content">We redecorate our rooms a million times over, until the posters on our walls feel like us. We get a better sense of who we are when we can feel ourselves in the space we design around us.</div>
+                </div>
+                <div class="sticky-note example-note">
+                    <div class="sticky-note-content">We search for labels that help articulate who we are: a diagnosis, personality type, sexuality, a belief system. Every label that fits pulls a bit of our nebulous, out-of-reach identity into concrete reality through language.</div>
+                </div>
+                <div class="sticky-note example-note">
+                    <div class="sticky-note-content">We chase the ineffable &ldquo;yes&rdquo; feeling at concerts, festivals, museums&mdash; that moment belting our favorite song in the car where something unnamed inside us is briefly captured.</div>
+                </div>
+                <div class="sticky-note example-note">
+                    <div class="sticky-note-content">We buy new clothes to reflect our ever evolving inner state.</div>
+                </div>
+                <div class="sticky-note example-note">
+                    <div class="sticky-note-content">We seek out knowledge to help our mind better decipher who we are: we go to school, read books and articles, we have deep conversation and experiences. Knowledge gives us insight to better understand the world and subsequently ourselves within it&mdash; what do we like? What do we agree with? What do we desire?</div>
+                </div>
+            </div>
 
             <p class="paragraph">
                 But why?
@@ -2483,7 +2534,7 @@
                 </p>
 
                 <p class="paragraph">
-                    This was a huge distinction. Humans can maintain about <a href="https://www.sciencedirect.com/science/article/abs/pii/004724849290081J" target="_blank">150 stable relationships</a>. Not acquaintances - relationships where you track trust, history, and reciprocity. Without anything larger than personal bonds to organize groups of people, every tribe was limited in size: you can only be in the tribe if there&rsquo;s a personal relationship, and the number of those we can handle at once is limited. However, Homo sapiens didn&rsquo;t need to rely on personal connection to establish trust. They could congregate around shared identity because their brains could handle the intangible concept of identity - religion, mythology, belief - the size of their tribes became limitless. Today this looks like - if you are a Jew and I am a Jew, we don&rsquo;t need to know each other to belong to the same group. Whereas a friend circle reliant on personal bonds is drastically limited in size. The sheer imbalance in tribal size was enough for Homo sapiens to <span class="species-hover" data-species-img="wipe-everyone-else-out.png">wipe everyone else out</span>.
+                    This was a huge distinction. Humans can maintain about <a href="https://doi.org/10.1016/0047-2484(92)90081-J" target="_blank">150 stable relationships</a>. Not acquaintances - relationships where you track trust, history, and reciprocity. Without anything larger than personal bonds to organize groups of people, every tribe was limited in size: you can only be in the tribe if there&rsquo;s a personal relationship, and the number of those we can handle at once is limited. However, Homo sapiens didn&rsquo;t need to rely on personal connection to establish trust. They could congregate around shared identity because their brains could handle the intangible concept of identity - religion, mythology, belief - the size of their tribes became limitless. Today this looks like - if you are a Jew and I am a Jew, we don&rsquo;t need to know each other to belong to the same group. Whereas a friend circle reliant on personal bonds is drastically limited in size. The sheer imbalance in tribal size was enough for Homo sapiens to <span class="species-hover" data-species-img="wipe-everyone-else-out.png">wipe everyone else out</span>.
                 </p>
 
                 <p class="paragraph">
@@ -5685,6 +5736,46 @@
             wrapper.style.transform = 'rotateX(0deg) rotateY(0deg)';
         });
 
+    })();
+
+    /* ===== Draggable post-its (desktop only) ===== */
+    (function() {
+        if (window.matchMedia('(max-width: 768px)').matches) return;
+        var container = document.querySelector('.examples-postits');
+        if (!container) return;
+        var notes = container.querySelectorAll('.example-note');
+        var dragging = null, offsetX, offsetY, startLeft, startTop;
+
+        notes.forEach(function(note) {
+            note.addEventListener('mousedown', function(e) {
+                dragging = note;
+                var rect = note.getBoundingClientRect();
+                var containerRect = container.getBoundingClientRect();
+                offsetX = e.clientX - rect.left;
+                offsetY = e.clientY - rect.top;
+                startLeft = rect.left - containerRect.left;
+                startTop = rect.top - containerRect.top;
+                note.classList.add('dragging');
+                note.style.left = startLeft + 'px';
+                note.style.top = startTop + 'px';
+                note.style.right = 'auto';
+                e.preventDefault();
+            });
+        });
+
+        document.addEventListener('mousemove', function(e) {
+            if (!dragging) return;
+            var containerRect = container.getBoundingClientRect();
+            dragging.style.left = (e.clientX - containerRect.left - offsetX) + 'px';
+            dragging.style.top = (e.clientY - containerRect.top - offsetY) + 'px';
+        });
+
+        document.addEventListener('mouseup', function() {
+            if (dragging) {
+                dragging.classList.remove('dragging');
+                dragging = null;
+            }
+        });
     })();
 
     </script>
