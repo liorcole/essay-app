@@ -2934,8 +2934,16 @@
                     <div class="sec2-fullscreen-dots" id="sec2-fullscreen-dots">
                         <div class="sec2-dots-close" id="sec2-dots-close">&times;</div>
                         <svg class="sec2-dots-curves" id="sec2-dots-curves" viewBox="0 0 100 100" preserveAspectRatio="none">
-                            <path d="M 50 3 C 48 55, 10 75, 3 75" />
-                            <path d="M 50 3 C 52 55, 90 75, 97 75" />
+                            <defs>
+                                <marker id="sec2-arrow-left" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+                                    <polygon points="8 0, 0 3, 8 6" fill="rgba(255,255,255,0.6)" />
+                                </marker>
+                                <marker id="sec2-arrow-right" markerWidth="8" markerHeight="6" refX="0" refY="3" orient="auto">
+                                    <polygon points="0 0, 8 3, 0 6" fill="rgba(255,255,255,0.6)" />
+                                </marker>
+                            </defs>
+                            <path d="M 50 3 C 48 55, 10 75, 3 75" marker-end="url(#sec2-arrow-left)" />
+                            <path d="M 50 3 C 52 55, 90 75, 97 75" marker-end="url(#sec2-arrow-right)" />
                         </svg>
                     </div>
                 </div>
