@@ -2007,18 +2007,26 @@
         }
 
         .dots-field .orb.green {
-            background: radial-gradient(circle, #86efac 0%, rgba(134, 239, 172, 0.3) 70%, transparent 100%);
-            box-shadow: 0 0 10px rgba(134, 239, 172, 0.5);
+            background: #86efac;
         }
 
         .dots-field .orb.white {
-            background: radial-gradient(circle, #ffffff 0%, rgba(255, 255, 255, 0.4) 60%, transparent 100%);
-            box-shadow: 0 0 4px rgba(255, 255, 255, 0.5);
+            background: #ffffff;
         }
 
         .dots-field .orb.clickable {
             cursor: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="84" height="22"><rect x="0" y="0" width="84" height="22" rx="4" fill="%230a0a0f" stroke="%2386efac" stroke-width="1"/><text x="42" y="15" font-family="Georgia, serif" font-size="11" font-weight="bold" fill="%2386efac" text-anchor="middle">CLICK ME!!</text></svg>') 42 11, pointer;
             z-index: 2;
+            animation: orb-pulse 1.5s ease-in-out infinite;
+        }
+
+        .dots-field .orb.clickable.consumed {
+            animation: none;
+        }
+
+        @keyframes orb-pulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(134, 239, 172, 0.5); }
+            50% { box-shadow: 0 0 0 16px rgba(134, 239, 172, 0); }
         }
 
         .dot-text {
@@ -2247,6 +2255,94 @@
         .examples-postits .example-note:nth-child(3) { width: 230px; top: 25px;  left: 220px; transform: rotate(-1deg); background: #bbf7d0; z-index: 3; }
         .examples-postits .example-note:nth-child(4) { width: 240px; top: 340px; left: 20px;  transform: rotate(2deg);  background: #fecaca; z-index: 2; }
         .examples-postits .example-note:nth-child(5) { width: 310px; top: 310px; left: 260px; transform: rotate(-1.5deg); background: #e9d5ff; z-index: 1; }
+
+        .sec2-dots-sticky-wrapper {
+            position: relative;
+        }
+
+        .sec2-dots-sticky-wrapper .dots-field-row {
+            position: sticky;
+            top: 0;
+            z-index: 5;
+            background: #0a0a0f;
+            width: 100vw;
+            margin-left: calc(-50vw + 50%);
+            padding: 30px 0 15px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .sec2-dots-sticky-wrapper .dots-field-row .dots-field {
+            flex: 1;
+            transition: flex 0.6s ease;
+        }
+
+        .sec2-dots-sticky-wrapper .dots-field-row.has-body .dots-field {
+            flex: 0 1 calc(100% - 160px);
+        }
+
+        .sec2-dots-sticky-wrapper .dots-field-row::after {
+            content: '';
+            position: absolute;
+            bottom: -120px;
+            left: 0;
+            right: 0;
+            height: 120px;
+            background: linear-gradient(to bottom, #0a0a0f, transparent);
+            pointer-events: none;
+            z-index: 5;
+        }
+
+        .sec2-body-area { margin: 30px 0; }
+        .sec2-body-intro { display: flex; align-items: flex-start; gap: 20px; }
+        .sec2-body-img-wrap { flex-shrink: 0; }
+        .sec2-body-img-wrap img { width: 90px; filter: invert(1); opacity: 0.85; cursor: grab; }
+        .sec2-completed-wrap {
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            width: 0;
+            margin-right: 0;
+            opacity: 0;
+            overflow: hidden;
+            transition: width 0.6s ease, margin 0.6s ease, opacity 0.6s ease 0.3s;
+        }
+        .sec2-completed-wrap.visible { display: flex; width: 140px; margin-right: 40px; opacity: 1; }
+        .sec2-completed-body { position: relative; text-align: center; cursor: pointer; }
+        .sec2-popup {
+            position: absolute;
+            right: calc(100% + 14px);
+            top: 50%;
+            transform: translateY(-50%);
+            width: 300px;
+            padding: 14px 16px;
+            background: #1a1a1f;
+            border: 1px solid rgba(134, 239, 172, 0.2);
+            border-radius: 8px;
+            font-family: Georgia, 'Times New Roman', serif;
+            font-style: italic;
+            font-size: 0.8em;
+            line-height: 1.5;
+            color: #86efac;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+            z-index: 50;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+            pointer-events: none;
+        }
+        .sec2-popup.visible { opacity: 1; visibility: visible; pointer-events: auto; }
+        .sec2-completed-body:hover .sec2-popup { opacity: 1; visibility: visible; pointer-events: auto; }
+        .sec2-popup-countdown {
+            position: absolute;
+            top: 6px;
+            right: 8px;
+            font-size: 0.7em;
+            font-style: normal;
+            color: rgba(134, 239, 172, 0.4);
+        }
 
         /* ========== MOBILE RESPONSIVE ========== */
         @media (max-width: 768px) {
@@ -2591,8 +2687,39 @@
                     <span class="hover-image-trigger" style="font-weight:normal; color:#fff; border-bottom:1px solid rgba(255,255,255,0.5);"><u>(Imagine Ozzy Osbourne was born before the electric guitar was invented! So much soul left unrealized&hellip;)</u><span class="hover-image-popup"><img src="ozzy.gif" alt="Ozzy Osbourne shredding guitar"></span></span>
                 </p>
                 <p class="paragraph">
-                    So, let&rsquo;s say these dots represent everything that exists in the world: all people, knowledge, and stuff.
+                    So, let&rsquo;s say these dots represent everything that exists in the world: every person, every piece of knowledge, every tangible thing.
                 </p>
+                <div class="sec2-dots-sticky-wrapper">
+                <div class="dots-field-row">
+                    <div class="dots-field" id="sec2-dots-field"></div>
+                    <div class="sec2-completed-wrap" id="sec2-completed-wrap">
+                        <div class="sec2-completed-body body-hover-parent" id="sec2-completed-body">
+                            <img src="body6_green.png" alt="Person in full alignment" style="width:60px; filter:invert(1); opacity:0.85;" />
+                            <div class="body-full-label visible">Person living in full alignment</div>
+                            <div class="sec2-popup" id="sec2-popup">
+                                <span class="sec2-popup-countdown" id="sec2-countdown"></span>
+                                <p style="margin:0 0 8px 0;">The person has discovered everything in the world that most aligns with who they are &mdash; strongest passions, most compatible friendships, most energizing career, etc. Their world is a completely accurate reflection of their soul &mdash; allowing them to live a life of full alignment.</p>
+                                <p style="margin:0; color:rgba(255,80,80,0.85); cursor:pointer;" id="sec2-theoretical-link">(As discussed in Section I, <u>full</u> alignment is impossible to achieve, this is just theoretical.)</p>
+                            </div>
+                        </div>
+                        <span class="body-reset-btn visible" id="sec2-completed-reset" style="margin-top:8px; display:inline-block;">&#x21bb; Reset</span>
+                    </div>
+                </div>
+                <p class="paragraph" style="margin-top: 3em;">
+                    Out of everything that exists in the world, there is a most aligned path for you: a favorite song, a most fulfilling career, a strongest passion, an optimal diet, a game that makes you happiest, a city you thrive most in, a life partner you are most compatible with, the most flattering and aligned outfit&hellip; this path of maximum alignment is indicated by the green dots (click them).
+                </p>
+                <p class="paragraph">
+                    If you could fill your life only with the most aligned people/knowledge/things, you&rsquo;d exist in full alignment: all of who you are would be accurately and completely represented in the life around you.
+                </p>
+                <div class="sec2-body-area">
+                    <div class="sec2-body-intro" id="sec2-body-intro">
+                        <div class="sec2-body-img-wrap" id="sec2-body-img-wrap">
+                            <img src="body1.png" alt="Empty body outline" class="body-intro-img" id="sec2-body-img" />
+                        </div>
+                        <p class="body-intro-text" id="sec2-body-text">This is the person before they find anything in the world that reflects who they are. No passions discovered, no compatible friendships or energizing career. Drag them toward what fits.<span class="body-reset-btn" id="sec2-reset-btn">&#x21bb; Reset</span></p>
+                    </div>
+                </div>
+                </div>
             </div>
         </section>
 
@@ -4798,6 +4925,272 @@
                 orbIndex++;
                 field.appendChild(el);
             });
+        })();
+
+        // ========== SECTION II DOTS FIELD ==========
+        (function() {
+            var field = document.getElementById('sec2-dots-field');
+            if (!field) return;
+            var whiteDotSize = 6;
+            var greenDotSize = 12;
+            var orbIdx = 0;
+
+            var revealTexts = [
+                "A documentary that reshapes how you see the world",
+                "The city you'd thrive in most",
+                "The most aligned life partner for you",
+                "A career that most energizes you",
+                "The most optimized diet for your body and mind"
+            ];
+
+            // Green orbs (clickable)
+            var greenOrbs = [
+                { x: 5, y: 20 }, { x: 22, y: 55 }, { x: 42, y: 25 },
+                { x: 62, y: 50 }, { x: 82, y: 30 }
+            ];
+            greenOrbs.forEach(function(orb, i) {
+                var el = document.createElement('div');
+                el.className = 'orb green clickable';
+                el.dataset.orbIndex = 's2-' + i;
+                el.style.left = orb.x + '%';
+                el.style.top = orb.y + '%';
+                el.style.width = greenDotSize + 'px';
+                el.style.height = greenDotSize + 'px';
+                el.style.transitionDelay = (orbIdx * 0.02) + 's';
+                orbIdx++;
+
+                var text = document.createElement('div');
+                text.className = 'dot-text';
+                text.dataset.orbIndex = 's2-' + i;
+                text.textContent = revealTexts[i];
+                text.style.left = orb.x + '%';
+                text.style.top = 'calc(' + orb.y + '% + ' + (greenDotSize + 8) + 'px)';
+
+                el.addEventListener('click', function() {
+                    text.classList.toggle('revealed');
+                    if (text.classList.contains('revealed')) {
+                        el.classList.add('consumed');
+                    } else {
+                        el.classList.remove('consumed');
+                    }
+                });
+
+                field.appendChild(el);
+                field.appendChild(text);
+            });
+
+            // Decorative small green
+            var smallGreen = [
+                { x: 14, y: 40 }, { x: 33, y: 65 }, { x: 52, y: 15 },
+                { x: 72, y: 65 }, { x: 90, y: 45 }, { x: 48, y: 70 },
+                { x: 8, y: 70 }, { x: 76, y: 15 }
+            ];
+            smallGreen.forEach(function(orb) {
+                var el = document.createElement('div');
+                el.className = 'orb green';
+                el.style.left = orb.x + '%';
+                el.style.top = orb.y + '%';
+                el.style.width = greenDotSize + 'px';
+                el.style.height = greenDotSize + 'px';
+                el.style.setProperty('--orb-opacity', (0.5 + Math.random() * 0.4).toFixed(2));
+                el.style.transitionDelay = (orbIdx * 0.02) + 's';
+                orbIdx++;
+                field.appendChild(el);
+            });
+
+            // White dots — 10x density, all same size
+            for (var i = 0; i < 300; i++) {
+                var el = document.createElement('div');
+                el.className = 'orb white';
+                el.style.left = (Math.random() * 98) + '%';
+                el.style.top = (Math.random() * 90) + '%';
+                el.style.width = whiteDotSize + 'px';
+                el.style.height = whiteDotSize + 'px';
+                el.style.setProperty('--orb-opacity', (0.4 + Math.random() * 0.5).toFixed(2));
+                el.style.transitionDelay = (orbIdx * 0.005) + 's';
+                orbIdx++;
+                field.appendChild(el);
+            }
+
+            field.classList.add('visible');
+        })();
+
+        // ========== SECTION II DRAGGABLE BODY ==========
+        (function() {
+            var bodyImg = document.getElementById('sec2-body-img');
+            if (!bodyImg) return;
+
+            var bodySequence = ['body1.png', 'body2_green.png', 'body3_green.png', 'body4_green.png', 'body5_green.png', 'body6_green.png'];
+            var bodyTextEl = document.getElementById('sec2-body-text');
+            var resetBtn = document.getElementById('sec2-reset-btn');
+            var completedWrap = document.getElementById('sec2-completed-wrap');
+            var introWrap = document.getElementById('sec2-body-intro');
+            var popup = document.getElementById('sec2-popup');
+            var theoreticalLink = document.getElementById('sec2-theoretical-link');
+            var originalText = bodyTextEl.innerHTML;
+            var bodyLevel = 0;
+            var isDragging = false;
+            var isReturning = false;
+            var offsetX = 0, offsetY = 0;
+            var originalRect = null;
+            var placeholder = null;
+            var consumedOrbs = new Set();
+
+            var arrowEl = document.createElement('div');
+            arrowEl.className = 'drag-arrow';
+            arrowEl.textContent = '\u279C';
+            document.body.appendChild(arrowEl);
+
+            function getOrbs() {
+                return Array.from(document.querySelectorAll('#sec2-dots-field .orb.green.clickable'));
+            }
+
+            function getNearestUnconsumedOrb(cx, cy) {
+                var nearest = null, minDist = Infinity;
+                getOrbs().forEach(function(orb) {
+                    if (consumedOrbs.has(orb)) return;
+                    var r = orb.getBoundingClientRect();
+                    var ox = r.left + r.width / 2;
+                    var oy = r.top + r.height / 2;
+                    var d = Math.hypot(ox - cx, oy - cy);
+                    if (d < minDist) { minDist = d; nearest = { el: orb, x: ox, y: oy }; }
+                });
+                return nearest;
+            }
+
+            function updateArrow(cx, cy) {
+                var target = getNearestUnconsumedOrb(cx, cy);
+                if (!target) { arrowEl.classList.remove('visible'); return; }
+                var angle = Math.atan2(target.y - cy, target.x - cx);
+                var dist = 55;
+                arrowEl.style.left = (cx + Math.cos(angle) * dist) + 'px';
+                arrowEl.style.top = (cy + Math.sin(angle) * dist) + 'px';
+                arrowEl.style.setProperty('--arrow-rotate', 'rotate(' + (angle * 180 / Math.PI) + 'deg)');
+                arrowEl.classList.add('visible');
+            }
+
+            function checkCollisions(cx, cy) {
+                getOrbs().forEach(function(orb) {
+                    if (consumedOrbs.has(orb)) return;
+                    var r = orb.getBoundingClientRect();
+                    var padding = 12;
+                    if (cx >= r.left - padding && cx <= r.right + padding && cy >= r.top - padding && cy <= r.bottom + padding) {
+                        consumedOrbs.add(orb);
+                        orb.classList.add('consumed');
+                        var idx = orb.dataset.orbIndex;
+                        var matchingText = document.querySelector('#sec2-dots-field .dot-text[data-orb-index="' + idx + '"]');
+                        if (matchingText) matchingText.classList.add('revealed');
+                        if (bodyLevel < bodySequence.length - 1) {
+                            bodyLevel++;
+                            bodyImg.src = bodySequence[bodyLevel];
+                        }
+                    }
+                });
+            }
+
+            function startDrag(e) {
+                if (isReturning) return;
+                e.preventDefault();
+                isDragging = true;
+                var pos = e.touches ? e.touches[0] : e;
+                var rect = bodyImg.getBoundingClientRect();
+                originalRect = { left: rect.left, top: rect.top };
+                offsetX = pos.clientX - rect.left;
+                offsetY = pos.clientY - rect.top;
+                placeholder = document.createElement('div');
+                placeholder.className = 'body-img-placeholder';
+                placeholder.style.height = rect.height + 'px';
+                bodyImg.parentNode.insertBefore(placeholder, bodyImg);
+                bodyImg.classList.add('dragging');
+                bodyImg.style.left = (pos.clientX - offsetX) + 'px';
+                bodyImg.style.top = (pos.clientY - offsetY) + 'px';
+            }
+
+            function onMove(e) {
+                if (!isDragging) return;
+                e.preventDefault();
+                var pos = e.touches ? e.touches[0] : e;
+                bodyImg.style.left = (pos.clientX - offsetX) + 'px';
+                bodyImg.style.top = (pos.clientY - offsetY) + 'px';
+                var cx = pos.clientX - offsetX + 45;
+                var cy = pos.clientY - offsetY + 45;
+                checkCollisions(cx, cy);
+                updateArrow(cx, cy);
+            }
+
+            function endDrag() {
+                if (!isDragging) return;
+                isDragging = false;
+                isReturning = true;
+                arrowEl.classList.remove('visible');
+                bodyImg.classList.remove('dragging');
+                bodyImg.classList.add('returning');
+                requestAnimationFrame(function() {
+                    bodyImg.style.left = originalRect.left + 'px';
+                    bodyImg.style.top = originalRect.top + 'px';
+                });
+                bodyImg.addEventListener('transitionend', function onReturn() {
+                    bodyImg.removeEventListener('transitionend', onReturn);
+                    bodyImg.classList.remove('returning');
+                    bodyImg.style.left = '';
+                    bodyImg.style.top = '';
+                    if (placeholder) { placeholder.remove(); placeholder = null; }
+                    isReturning = false;
+
+                    if (bodyLevel >= bodySequence.length - 1) {
+                        // Hide intro, show completed body to right of dots
+                        introWrap.style.display = 'none';
+                        var dotsRow = document.querySelector('.sec2-dots-sticky-wrapper .dots-field-row');
+                        dotsRow.classList.add('has-body');
+                        completedWrap.classList.add('visible');
+                        // Show popup for 5 seconds with countdown
+                        popup.classList.add('visible');
+                        var countdownEl = document.getElementById('sec2-countdown');
+                        var remaining = 5;
+                        countdownEl.textContent = remaining;
+                        var countdownTimer = setInterval(function() {
+                            remaining--;
+                            if (remaining > 0) {
+                                countdownEl.textContent = remaining;
+                            } else {
+                                clearInterval(countdownTimer);
+                                countdownEl.textContent = '';
+                                popup.classList.remove('visible');
+                            }
+                        }, 1000);
+                    }
+                }, { once: true });
+            }
+
+            function resetBody() {
+                bodyLevel = 0;
+                bodyImg.src = bodySequence[0];
+                consumedOrbs.forEach(function(orb) { orb.classList.remove('consumed'); });
+                consumedOrbs.clear();
+                document.querySelectorAll('#sec2-dots-field .dot-text.revealed').forEach(function(t) { t.classList.remove('revealed'); });
+                completedWrap.classList.remove('visible');
+                var dotsRow = document.querySelector('.sec2-dots-sticky-wrapper .dots-field-row');
+                dotsRow.classList.remove('has-body');
+                introWrap.style.display = 'flex';
+            }
+
+            resetBtn.addEventListener('click', resetBody);
+            document.getElementById('sec2-completed-reset').addEventListener('click', resetBody);
+
+            theoreticalLink.addEventListener('click', function() {
+                var gapTrigger = document.getElementById('gap-tooltip-trigger');
+                if (!gapTrigger) return;
+                gapTrigger.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                gapTrigger.classList.add('highlight-flash');
+                setTimeout(function() { gapTrigger.classList.remove('highlight-flash'); }, 3000);
+            });
+
+            bodyImg.addEventListener('mousedown', startDrag);
+            bodyImg.addEventListener('touchstart', startDrag, { passive: false });
+            document.addEventListener('mousemove', onMove);
+            document.addEventListener('touchmove', onMove, { passive: false });
+            document.addEventListener('mouseup', endDrag);
+            document.addEventListener('touchend', endDrag);
         })();
 
         // ========== DRAGGABLE BODY WITH ORB COLLISION ==========
