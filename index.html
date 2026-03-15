@@ -2429,20 +2429,34 @@
         .sec2-noteworthy.visible {
             opacity: 1;
         }
-        .sec2-fullscreen-dots {
+        .sec2-dots-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100vw;
             height: 100vh;
-            background: #0a0a0f;
+            background: rgba(30, 30, 35, 0.75);
             z-index: 9999;
             display: none;
             opacity: 0;
-            transition: opacity 0.8s ease;
+            transition: opacity 0.6s ease;
+            cursor: pointer;
         }
-        .sec2-fullscreen-dots.visible {
+        .sec2-dots-overlay.visible {
             opacity: 1;
+        }
+        .sec2-fullscreen-dots {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80vw;
+            height: 80vh;
+            background: #0a0a0f;
+            border-radius: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            overflow: hidden;
+            cursor: default;
         }
         .sec2-fullscreen-dots .orb {
             position: absolute;
@@ -2450,7 +2464,7 @@
             opacity: 0;
             transition: opacity 0.6s ease;
         }
-        .sec2-fullscreen-dots.visible .orb {
+        .sec2-dots-overlay.visible .sec2-fullscreen-dots .orb {
             opacity: var(--orb-opacity, 0.6);
         }
         .sec2-fullscreen-dots .orb.white {
@@ -2459,6 +2473,28 @@
         .sec2-fullscreen-dots .orb.green {
             background: #86efac;
             box-shadow: 0 0 6px rgba(134, 239, 172, 0.4);
+        }
+        .sec2-dots-close {
+            position: absolute;
+            top: 14px;
+            left: 14px;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 10;
+            transition: background 0.2s ease, color 0.2s ease;
+        }
+        .sec2-dots-close:hover {
+            background: rgba(255, 255, 255, 0.15);
+            color: rgba(255, 255, 255, 0.8);
         }
 
         /* ========== MOBILE RESPONSIVE ========== */
@@ -2873,7 +2909,11 @@
                 <p class="sec2-noteworthy" id="sec2-noteworthy" style="display:none;">
                     noteworthy mention&hellip; the following is grossly oversimplified for purpose of getting a point across rather than an exhaustive historical exploration of our technological evolution
                 </p>
-                <div class="sec2-fullscreen-dots" id="sec2-fullscreen-dots"></div>
+                <div class="sec2-dots-overlay" id="sec2-dots-overlay">
+                    <div class="sec2-fullscreen-dots" id="sec2-fullscreen-dots">
+                        <div class="sec2-dots-close" id="sec2-dots-close">&times;</div>
+                    </div>
+                </div>
                 </div>
             </div>
         </section>
@@ -5833,6 +5873,16 @@
                 }
             }
 
+            var overlay = document.getElementById('sec2-dots-overlay');
+            var closeBtn = document.getElementById('sec2-dots-close');
+
+            function dismissOverlay() {
+                overlay.classList.remove('visible');
+                setTimeout(function() {
+                    overlay.style.display = 'none';
+                }, 600);
+            }
+
             trigger.addEventListener('click', function() {
                 // Show noteworthy text
                 noteworthy.style.display = '';
@@ -5841,24 +5891,28 @@
                         noteworthy.classList.add('visible');
                     });
                 });
-                // After noteworthy fades in, show fullscreen dots
+                // After noteworthy fades in, show overlay with dots
                 setTimeout(function() {
                     generateDots();
-                    container.style.display = 'block';
+                    overlay.style.display = 'block';
                     requestAnimationFrame(function() {
                         requestAnimationFrame(function() {
-                            container.classList.add('visible');
+                            overlay.classList.add('visible');
                         });
                     });
                 }, 1200);
             });
 
-            // Click anywhere on fullscreen dots to dismiss
-            container.addEventListener('click', function() {
-                container.classList.remove('visible');
-                setTimeout(function() {
-                    container.style.display = 'none';
-                }, 800);
+            // Click backdrop (outside dots panel) to dismiss
+            overlay.addEventListener('click', function(e) {
+                if (e.target === overlay) {
+                    dismissOverlay();
+                }
+            });
+
+            // Click X button to dismiss
+            closeBtn.addEventListener('click', function() {
+                dismissOverlay();
             });
         })();
 
