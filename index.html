@@ -2406,6 +2406,61 @@
             100% { transform: scale(1); border-color: rgba(134, 239, 172, 0.4); }
         }
 
+        /* ========== SECTION III FULLSCREEN DOTS ========== */
+        .sec3-beginning-trigger {
+            color: #86efac;
+            cursor: pointer;
+            border-bottom: 1px solid rgba(134, 239, 172, 0.4);
+            transition: border-color 0.3s ease;
+        }
+        .sec3-beginning-trigger:hover {
+            border-color: #86efac;
+        }
+        .sec3-noteworthy {
+            font-family: Georgia, 'Times New Roman', serif;
+            font-style: italic;
+            font-size: 0.75em;
+            color: rgba(255, 255, 255, 0.4);
+            line-height: 1.6;
+            margin-top: 1em;
+            opacity: 0;
+            transition: opacity 0.6s ease;
+        }
+        .sec3-noteworthy.visible {
+            opacity: 1;
+        }
+        .sec3-fullscreen-dots {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: #0a0a0f;
+            z-index: 9999;
+            display: none;
+            opacity: 0;
+            transition: opacity 0.8s ease;
+        }
+        .sec3-fullscreen-dots.visible {
+            opacity: 1;
+        }
+        .sec3-fullscreen-dots .orb {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0;
+            transition: opacity 0.6s ease;
+        }
+        .sec3-fullscreen-dots.visible .orb {
+            opacity: var(--orb-opacity, 0.6);
+        }
+        .sec3-fullscreen-dots .orb.white {
+            background: rgba(255, 255, 255, 0.7);
+        }
+        .sec3-fullscreen-dots .orb.green {
+            background: #86efac;
+            box-shadow: 0 0 6px rgba(134, 239, 172, 0.4);
+        }
+
         /* ========== MOBILE RESPONSIVE ========== */
         @media (max-width: 768px) {
             /* Container & Text */
@@ -2864,6 +2919,13 @@
                     <p class="paragraph">
                         Our instinct to soul-search not only drives our individual human motivation, but also our drive to innovate as a species. From the printing press to AI and everything in between, all the technology we have ever produced is an instrument for soul-searching at its core: a way to expand how much of the world we can access, and therefore how much of ourselves we can find within it.
                     </p>
+                    <p class="paragraph">
+                        Throughout history, the human innovative drive has created a world of expanding access. <span class="sec3-beginning-trigger" id="sec3-beginning-trigger">Starting from the beginning&hellip;</span>
+                    </p>
+                    <p class="sec3-noteworthy" id="sec3-noteworthy" style="display:none;">
+                        noteworthy mention&hellip; the following is grossly oversimplified for purpose of getting a point across rather than an exhaustive historical exploration of our technological evolution
+                    </p>
+                    <div class="sec3-fullscreen-dots" id="sec3-fullscreen-dots"></div>
                 </div>
             </div>
         </section>
@@ -5707,6 +5769,74 @@
 
             document.getElementById('sec2-partial-reset-btn').addEventListener('click', resetPartialBody);
             document.getElementById('sec2-partial-completed-reset').addEventListener('click', resetPartialBody);
+        })();
+
+        // ========== SECTION III FULLSCREEN DOTS ==========
+        (function() {
+            var trigger = document.getElementById('sec3-beginning-trigger');
+            if (!trigger) return;
+            var noteworthy = document.getElementById('sec3-noteworthy');
+            var container = document.getElementById('sec3-fullscreen-dots');
+            var dotsGenerated = false;
+
+            function generateDots() {
+                if (dotsGenerated) return;
+                dotsGenerated = true;
+                var whiteDotSize = 6;
+                var greenDotSize = 12;
+                // White dots filling the screen
+                for (var i = 0; i < 600; i++) {
+                    var el = document.createElement('div');
+                    el.className = 'orb white';
+                    el.style.left = (Math.random() * 98) + '%';
+                    el.style.top = (Math.random() * 98) + '%';
+                    el.style.width = whiteDotSize + 'px';
+                    el.style.height = whiteDotSize + 'px';
+                    el.style.setProperty('--orb-opacity', (0.3 + Math.random() * 0.5).toFixed(2));
+                    el.style.transitionDelay = (i * 0.003) + 's';
+                    container.appendChild(el);
+                }
+                // Green dots scattered throughout
+                for (var j = 0; j < 30; j++) {
+                    var gel = document.createElement('div');
+                    gel.className = 'orb green';
+                    gel.style.left = (Math.random() * 96 + 2) + '%';
+                    gel.style.top = (Math.random() * 96 + 2) + '%';
+                    gel.style.width = greenDotSize + 'px';
+                    gel.style.height = greenDotSize + 'px';
+                    gel.style.setProperty('--orb-opacity', (0.5 + Math.random() * 0.4).toFixed(2));
+                    gel.style.transitionDelay = (j * 0.02) + 's';
+                    container.appendChild(gel);
+                }
+            }
+
+            trigger.addEventListener('click', function() {
+                // Show noteworthy text
+                noteworthy.style.display = '';
+                requestAnimationFrame(function() {
+                    requestAnimationFrame(function() {
+                        noteworthy.classList.add('visible');
+                    });
+                });
+                // After noteworthy fades in, show fullscreen dots
+                setTimeout(function() {
+                    generateDots();
+                    container.style.display = 'block';
+                    requestAnimationFrame(function() {
+                        requestAnimationFrame(function() {
+                            container.classList.add('visible');
+                        });
+                    });
+                }, 1200);
+            });
+
+            // Click anywhere on fullscreen dots to dismiss
+            container.addEventListener('click', function() {
+                container.classList.remove('visible');
+                setTimeout(function() {
+                    container.style.display = 'none';
+                }, 800);
+            });
         })();
 
         // ========== DRAGGABLE BODY WITH ORB COLLISION ==========
