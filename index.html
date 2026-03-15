@@ -4693,7 +4693,8 @@
         });
         // ========== SECTION 1 TOGGLE VIA WIDGET ==========
         const section1Content = document.getElementById('section-1-content');
-        let section1Collapsed = false;
+        section1Content.style.display = 'none';
+        let section1Collapsed = true;
 
         function toggleSection1() {
             if (!section1Collapsed) {
