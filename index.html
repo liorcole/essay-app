@@ -1955,6 +1955,33 @@
             color: #a8f5c8;
         }
 
+        .dot-link {
+            color: #fff;
+            text-decoration: underline;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+
+        .dot-link:hover {
+            color: #86efac;
+        }
+
+        .dot-link-arrow {
+            font-size: 0.75em;
+            margin-left: 2px;
+            display: inline;
+        }
+
+        .dot-link-list {
+            list-style: none;
+            padding: 0;
+            margin: 10px 0 30px 40px;
+            font-family: Georgia, 'Times New Roman', serif;
+            font-size: 1.05rem;
+            line-height: 2.2;
+            color: rgba(255, 255, 255, 0.85);
+        }
+
         .dots-field .orb.no-access {
             background: radial-gradient(circle, #ff6b6b 0%, rgba(255, 107, 107, 0.3) 70%, transparent 100%) !important;
             box-shadow: 0 0 10px rgba(255, 107, 107, 0.5) !important;
@@ -1993,6 +2020,16 @@
             filter: brightness(1.4) saturate(1.5);
             box-shadow: 0 0 14px rgba(134, 239, 172, 0.8), 0 0 30px rgba(134, 239, 172, 0.4);
             transition: opacity 0.3s ease, filter 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .dots-field .orb.consumed-pulse {
+            animation: orb-consumed-pulse 0.5s ease-out forwards !important;
+        }
+
+        @keyframes orb-consumed-pulse {
+            0% { transform: scale(1); }
+            40% { transform: scale(5); }
+            100% { transform: scale(1); }
         }
 
         .dots-field .orb {
@@ -2295,13 +2332,11 @@
         }
 
         .sec2-body-area { margin: 30px 0; }
-        .sec2-body-intro { display: flex; align-items: flex-start; gap: 20px; }
+        .sec2-body-intro { display: flex; align-items: flex-start; gap: 20px; transition: opacity 0.5s ease; }
+        .sec2-body-intro.fading-out { opacity: 0; }
         .sec2-body-img-wrap { flex-shrink: 0; }
         .sec2-body-img-wrap img { width: 90px; filter: invert(1); opacity: 0.85; cursor: grab; }
         .sec2-completed-wrap {
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
             flex-shrink: 0;
             width: 0;
             margin-right: 0;
@@ -2309,7 +2344,17 @@
             overflow: hidden;
             transition: width 0.6s ease, margin 0.6s ease, opacity 0.6s ease 0.3s;
         }
-        .sec2-completed-wrap.visible { display: flex; width: 140px; margin-right: 40px; opacity: 1; }
+        .sec2-completed-wrap.visible { width: 140px; margin-right: 40px; opacity: 1; overflow: visible; }
+        .sec2-completed-scroll {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            max-height: 240px;
+            overflow-y: auto;
+            overflow-x: visible;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(134,239,172,0.3) transparent;
+        }
         .sec2-completed-body { position: relative; text-align: center; cursor: pointer; }
         .sec2-popup {
             position: absolute;
@@ -2337,11 +2382,27 @@
         .sec2-completed-body:hover .sec2-popup { opacity: 1; visibility: visible; pointer-events: auto; }
         .sec2-popup-countdown {
             position: absolute;
-            top: 6px;
-            right: 8px;
+            top: -10px;
+            right: -10px;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: #1a1a1f;
+            border: 1px solid rgba(134, 239, 172, 0.4);
             font-size: 0.7em;
             font-style: normal;
-            color: rgba(134, 239, 172, 0.4);
+            color: #86efac;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 51;
+        }
+        .sec2-popup-countdown.pulse {
+            animation: countdown-pulse 0.4s ease-out;
+        }
+        @keyframes countdown-pulse {
+            0% { transform: scale(1.4); border-color: rgba(134, 239, 172, 0.8); }
+            100% { transform: scale(1); border-color: rgba(134, 239, 172, 0.4); }
         }
 
         /* ========== MOBILE RESPONSIVE ========== */
@@ -2661,7 +2722,7 @@
         <!-- ========== SECTION ACCESS ========== -->
         <section class="section" id="section-access">
             <div class="collapsed-widget visible access-widget" id="access-widget" onclick="toggleAccessSection()">
-                <div class="collapsed-widget-label">SECTION II: Human innovation is our instrument for soul searching (DRAFT)</div>
+                <div class="collapsed-widget-label">SECTION II: Innovation is how we soul search at scale (DRAFT)</div>
                 <div class="widget-popup" id="access-popup">Read &nbsp;&nbsp;<b><u>SECTION I</u></b>&nbsp;&nbsp; first!!</div>
             </div>
             <div id="access-content">
@@ -2672,16 +2733,16 @@
                     This drive powers everything - not only our individual behaviors, but also the way humanity functions at large. Humankind has progressed not because of our physical strength but because of the innovation we consistently create around ourselves, and, at its core, <span class="tooltip-trigger"><u>all</u><span class="tooltip-content">*all meaning after our survival needs are met.</span></span> human innovation is fundamentally an instrument to help us soul search: the <span class="hover-image-trigger" style="font-weight:normal; font-style:normal; color:#fff; border-bottom:1px solid rgba(255,255,255,0.5);"><u>printing press</u><span class="hover-image-popup"><img src="printing_press.webp" alt="Printing press"></span></span> was born out of our chase for knowledge. The cascade of new product variations, clothing styles, and decor that poured out of the factories developed in the <span class="hover-image-trigger" style="font-weight:normal; font-style:normal; color:#fff; border-bottom:1px solid rgba(255,255,255,0.5);"><u>Industrial Revolution</u><span class="hover-image-popup"><img src="industrial_revolution.png" alt="Industrial Revolution"></span></span> helps satisfy our need to see ourselves reflected in the design of the world around us. <span class="hover-image-trigger" style="font-weight:normal; font-style:normal; color:#fff; border-bottom:1px solid rgba(255,255,255,0.5);"><u>Communication tools</u><span class="hover-image-popup"><img src="communication_tools.png" alt="Communication tools"></span></span> - from the postal system to the telephone to the internet - to spread the ideas and knowledge we use to understand ourselves and each other.
                 </p>
                 <p class="paragraph">
-                    We are personally be driven to seek new experiences, people, things, and knowledge, and the technology we&rsquo;ve built allows us do that in a perpetually increasing capacity. Innovation isn&rsquo;t just about solving individual problems; it&rsquo;s about building an instrument to externalize our identity.
+                    So while we are personally be driven to seek new experiences, people, things, and knowledge, the technology we&rsquo;ve built allows us do that in a perpetually increasing capacity. Innovation isn&rsquo;t just about solving individual problems; it&rsquo;s about building an instrument to externalize our identity.
                 </p>
                 <p class="paragraph" style="font-weight: 600; font-size: 1.2em;">
                     Before the internet, the limiting factor to channeling yourself in the world was access: to information, people, and things.
                 </p>
                 <p class="paragraph">
-                    &hellip;If you lived in a small village in 4000 BCE, your access to stuff would be limited by what the local craftsman created. So even if your inner spirit was screaming for a punk rock and gothic aesthetic, that part of yourself would never be realized or expressed because your clothing choices were either a wool cloak or a linen tunic. You&rsquo;d live out your life with this lingering feeling that something was missing without access to knowledge or resources that aligns with a part of who you are.
+                    &hellip;If you lived in a small village in 4000 BCE, your access to stuff would be limited by what the local craftsman created. So even if your inner spirit was screaming for a punk rock and gothic aesthetic, that part of yourself would never be realized or expressed because your clothing choices were either a wool <span class="hover-image-trigger" style="font-weight:normal; color:#fff; border-bottom:1px solid rgba(255,255,255,0.5);"><u>cloak</u><span class="hover-image-popup"><img src="cloak.jpg" alt="Wool cloak"></span></span> or a linen <span class="hover-image-trigger" style="font-weight:normal; color:#fff; border-bottom:1px solid rgba(255,255,255,0.5);"><u>tunic</u><span class="hover-image-popup"><img src="tunic.jpg" alt="Linen tunic"></span></span>. You&rsquo;d live out your life with this lingering feeling that something was missing without access to the knowledge or resources that aligns with a part of who you are.
                 </p>
                 <p class="paragraph">
-                    Your home would be whatever the carpenter was able to build, your knowledge limited to stories passed down, food was what the farmer and land produced, job options limited to a handful of roles - craftsman, trade, agriculture, etc. Every person has an innate identity inside of them, and we all share a desire to live in alignment with that spirit. But we can only embody who we are to the extent of our access to the knowledge, people, or stuff that aligns with us.
+                    Your home would be whatever the carpenter was able to build, your knowledge confined to stories passed down, food was what the farmer and land produced, job options limited to a handful of roles - craftsman, trade, agriculture, etc. Every person has an innate identity inside of them, and we all share a desire to live in alignment with that spirit. But we can only embody who we are to the extent of our access to the knowledge, people, or stuff that aligns with us.
                 </p>
                 <p class="paragraph" style="font-style: italic;">
                     <span class="hover-image-trigger" style="font-weight:normal; color:#fff; border-bottom:1px solid rgba(255,255,255,0.5);"><u>(Imagine Ozzy Osbourne was born before the electric guitar was invented! So much soul left unrealized&hellip;)</u><span class="hover-image-popup"><img src="ozzy.gif" alt="Ozzy Osbourne shredding guitar"></span></span>
@@ -2693,23 +2754,39 @@
                 <div class="dots-field-row">
                     <div class="dots-field" id="sec2-dots-field"></div>
                     <div class="sec2-completed-wrap" id="sec2-completed-wrap">
-                        <div class="sec2-completed-body body-hover-parent" id="sec2-completed-body">
-                            <img src="body6_green.png" alt="Person in full alignment" style="width:60px; filter:invert(1); opacity:0.85;" />
-                            <div class="body-full-label visible">Person living in full alignment</div>
-                            <div class="sec2-popup" id="sec2-popup">
-                                <span class="sec2-popup-countdown" id="sec2-countdown"></span>
-                                <p style="margin:0 0 8px 0;">The person has discovered everything in the world that most aligns with who they are &mdash; strongest passions, most compatible friendships, most energizing career, etc. Their world is a completely accurate reflection of their soul &mdash; allowing them to live a life of full alignment.</p>
-                                <p style="margin:0; color:rgba(255,80,80,0.85); cursor:pointer;" id="sec2-theoretical-link">(As discussed in Section I, <u>full</u> alignment is impossible to achieve, this is just theoretical.)</p>
+                        <div class="sec2-completed-scroll">
+                            <div class="sec2-completed-body body-hover-parent" id="sec2-completed-body">
+                                <img src="body6_green.png" alt="Person in full alignment" style="width:60px; filter:invert(1); opacity:0.85;" />
+                                <div class="body-full-label visible">Person living in full alignment</div>
+                                <div class="sec2-popup" id="sec2-popup">
+                                    <span class="sec2-popup-countdown" id="sec2-countdown"></span>
+                                    <p style="margin:0 0 8px 0;">The person has discovered everything in the world that most aligns with who they are &mdash; strongest passions, most compatible friendships, most energizing career, etc. Their world is a completely accurate reflection of their soul &mdash; allowing them to live a life of full alignment.</p>
+                                </div>
                             </div>
+                            <span class="body-reset-btn visible" id="sec2-completed-reset" style="margin-top:8px; display:inline-block;">&#x21bb; Reset</span>
+                            <div class="sec2-completed-body body-hover-parent" id="sec2-partial-completed" style="display:none; margin-top: 20px;">
+                                <img src="body4_green.png" alt="Person in partial alignment" style="width:60px; filter:invert(1); opacity:0.85;" />
+                                <div class="body-full-label visible">Person living in partial alignment</div>
+                                <div class="sec2-popup">
+                                    <p style="margin:0;">The person has discovered everything in the world (<u>that they had access to</u>) that most aligns with who they are. Their world is a partial reflection of their soul &mdash; they live in partial alignment.</p>
+                                </div>
+                            </div>
+                            <span class="body-reset-btn" id="sec2-partial-completed-reset" style="margin-top:8px; display:none;">&#x21bb; Reset</span>
                         </div>
-                        <span class="body-reset-btn visible" id="sec2-completed-reset" style="margin-top:8px; display:inline-block;">&#x21bb; Reset</span>
                     </div>
                 </div>
                 <p class="paragraph" style="margin-top: 3em;">
-                    Out of everything that exists in the world, there is a most aligned path for you: a favorite song, a most fulfilling career, a strongest passion, an optimal diet, a game that makes you happiest, a city you thrive most in, a life partner you are most compatible with, the most flattering and aligned outfit&hellip; this path of maximum alignment is indicated by the green dots (click them).
+                    Out of everything that exists in the world, there is a most aligned path for you (this path of maximum alignment is indicated by the green dots):
                 </p>
+                <ul class="dot-link-list">
+                    <li><span class="dot-link" data-dot="0">a strongest passion<span class="dot-link-arrow">&hairsp;&#x2197;</span></span></li>
+                    <li><span class="dot-link" data-dot="1">an optimal diet<span class="dot-link-arrow">&hairsp;&#x2197;</span></span></li>
+                    <li><span class="dot-link" data-dot="2">a city you thrive most in<span class="dot-link-arrow">&hairsp;&#x2197;</span></span></li>
+                    <li><span class="dot-link" data-dot="3">a life partner you are most compatible with<span class="dot-link-arrow">&hairsp;&#x2197;</span></span></li>
+                    <li><span class="dot-link" data-dot="4">the most flattering and aligned outfit<span class="dot-link-arrow">&hairsp;&#x2197;</span></span></li>
+                </ul>
                 <p class="paragraph">
-                    If you could fill your life only with the most aligned people/knowledge/things, you&rsquo;d exist in full alignment: all of who you are would be accurately and completely represented in the life around you.
+                    If you could fill your life with all the most aligned people/knowledge/things, <span class="tooltip-trigger" style="color:#fff; border-bottom:1px solid rgba(255,255,255,0.5); cursor:pointer;"><u>you&rsquo;d exist in full alignment</u><span class="tooltip-content" style="color:rgba(255,80,80,0.85);">As discussed in Section I, <u>full</u> alignment is impossible to achieve, this is just theoretical.</span></span>: all of who you are would be known as well as completely represented in the life around you.
                 </p>
                 <div class="sec2-body-area">
                     <div class="sec2-body-intro" id="sec2-body-intro">
@@ -2717,6 +2794,21 @@
                             <img src="body1.png" alt="Empty body outline" class="body-intro-img" id="sec2-body-img" />
                         </div>
                         <p class="body-intro-text" id="sec2-body-text">This is the person before they find anything in the world that reflects who they are. No passions discovered, no compatible friendships or energizing career. Drag them toward what fits.<span class="body-reset-btn" id="sec2-reset-btn">&#x21bb; Reset</span></p>
+                    </div>
+                </div>
+                <p class="paragraph" id="sec2-reality-text" style="margin-top: 40px; display:none;">
+                    But this isn&rsquo;t reality. Maybe this person never had a car to make it to their dream city. Maybe they weren&rsquo;t aware of the foods that would best nourish their body. The city and the diet exist &mdash; they just
+                    <span style="color:#ff6b6b; cursor:pointer; text-decoration:underline;" id="sec2-access-keyword">didn&rsquo;t have access</span> to it.
+                </p>
+                <div class="sec2-body-area" id="sec2-partial-body-area" style="display:none;">
+                    <div class="sec2-body-intro" id="sec2-partial-intro">
+                        <div class="sec2-body-img-wrap">
+                            <img src="body1.png" alt="Empty body outline" class="body-intro-img" id="sec2-partial-body-img" />
+                        </div>
+                        <p class="body-intro-text" id="sec2-partial-body-text">
+                            This is the person before they find anything in the world that reflects who they are. No passions discovered, no compatible friendships or energizing career. Drag them toward what fits.
+                            <span class="body-reset-btn" id="sec2-partial-reset-btn">&#x21bb; Reset</span>
+                        </p>
                     </div>
                 </div>
                 </div>
@@ -2739,24 +2831,24 @@
                 <div class="dots-field-row">
                     <div class="dots-field" id="dots-field"></div>
                 </div>
-                <div class="section-reveal blurred" id="after-orbs-reveal">
+                <div class="section-reveal" id="after-orbs-reveal">
                     <p class="paragraph">
-                        If you could fill your life only with the most aligned people/knowledge/things, you'd exist in full alignment: all of who you are would be accurately and completely represented in the life around you.
+                        If you could fill your life with all the most aligned people/knowledge/things, you'd exist in full alignment: all of who you are would be known as well as completely represented in the life around you.
                     </p>
                     <div class="body-intro-row" id="body-intro-row">
-                        <div class="body-intro-img-wrap body-hover-parent" id="body-img-wrap">
-                            <img src="body1.png" alt="Empty body outline" class="body-intro-img" />
-                            <div class="body-full-label" id="body-full-label">Person living in full alignment</div>
+                        <div class="body-intro-img-wrap body-hover-parent completed" id="body-img-wrap">
+                            <img src="body6_green.png" alt="Person in full alignment" class="body-intro-img" />
+                            <div class="body-full-label visible" id="body-full-label">Person living in full alignment</div>
                             <div class="body-hover-popup">The person has discovered everything in the world that most aligns with who they are &mdash; strongest passions, most compatible friendships, most energizing career, etc. Their world is a completely accurate reflection of their soul &mdash; allowing them to live a life of full alignment.</div>
                         </div>
                         <div class="body-intro-text-wrap">
-                            <p class="body-intro-text">This is the person before they find anything in the world that reflects who they are. No passions discovered, no compatible friendships or energizing career. Drag them toward what fits.<span class="body-reset-btn" id="body-reset-btn">&#x21bb; Reset</span></p>
-                            <div class="body-filled-note" id="body-filled-note">(As discussed in Section I, <u>full</u> alignment is impossible to achieve, this is just theoretical.)<span class="note-hover-tip">CLICK FOR THE EXPLANATION FROM SECTION I</span></div>
+                            <p class="body-intro-text filled">The person has discovered everything in the world that most aligns with who they are &mdash; strongest passions, most compatible friendships, most energizing career, etc. Their world is a completely accurate reflection of their soul &mdash; allowing them to live a life of full alignment.</p>
+                            <div class="body-filled-note visible" id="body-filled-note">(As discussed in Section I, <u>full</u> alignment is impossible to achieve, this is just theoretical.)<span class="note-hover-tip">CLICK FOR THE EXPLANATION FROM SECTION I</span></div>
                         </div>
                     </div>
-                    <p class="paragraph" id="body-reality-text" style="display:none; margin-top: 40px;">But this isn't reality. Maybe this person never had a car to make it to their dream city. Maybe they weren't aware of the foods that would best nourish their body. The city and the diet exist - they just <span class="access-keyword" id="access-keyword">didn't have access</span> to it.</p>
+                    <p class="paragraph" id="body-reality-text" style="margin-top: 40px;">But this isn't reality. Maybe this person never had a car to make it to their dream city. Maybe they weren't aware of the foods that would best nourish their body. The city and the diet exist - they just <span class="access-keyword" id="access-keyword">didn't have access</span> to it.</p>
                 </div>
-                <div class="section-reveal blurred" id="after-limited-reveal" style="display:none">
+                <div class="section-reveal" id="after-limited-reveal">
                     <p class="paragraph">
                         Two forces govern how much "access" a person has to the stuff in the world:<br>
                         1. <span class="access-force-keyword" id="availability-keyword">Availability</span>: the ability to retrieve the things that exist.<br>
@@ -4936,17 +5028,17 @@
             var orbIdx = 0;
 
             var revealTexts = [
-                "A documentary that reshapes how you see the world",
-                "The city you'd thrive in most",
-                "The most aligned life partner for you",
-                "A career that most energizes you",
-                "The most optimized diet for your body and mind"
+                "a strongest passion",
+                "an optimal diet",
+                "a city you thrive most in",
+                "a life partner you are most compatible with",
+                "the most flattering and aligned outfit"
             ];
 
             // Green orbs (clickable)
             var greenOrbs = [
-                { x: 5, y: 20 }, { x: 22, y: 55 }, { x: 42, y: 25 },
-                { x: 62, y: 50 }, { x: 82, y: 30 }
+                { x: 28, y: 55 }, { x: 8, y: 20 }, { x: 88, y: 25 },
+                { x: 68, y: 55 }, { x: 48, y: 25 }
             ];
             greenOrbs.forEach(function(orb, i) {
                 var el = document.createElement('div');
@@ -5013,6 +5105,65 @@
             }
 
             field.classList.add('visible');
+
+            // Dot-link click handlers: clicking a word draws an arrow to matching green dot and reveals its text
+            document.querySelectorAll('.dot-link').forEach(function(link) {
+                link.addEventListener('click', function() {
+                    var dotIndex = link.getAttribute('data-dot');
+                    var matchingOrb = field.querySelector('.orb.green.clickable[data-orb-index="s2-' + dotIndex + '"]');
+                    var matchingText = field.querySelector('.dot-text[data-orb-index="s2-' + dotIndex + '"]');
+
+                    if (matchingOrb) {
+                        // Draw arrow from word to green dot
+                        var scrollX = window.scrollX;
+                        var scrollY = window.scrollY;
+                        var kwRect = link.getBoundingClientRect();
+                        var orbRect = matchingOrb.getBoundingClientRect();
+
+                        var startX = kwRect.left + kwRect.width / 2 + scrollX;
+                        var startY = kwRect.bottom + 2 + scrollY;
+                        var endX = orbRect.left + orbRect.width / 2 + scrollX;
+                        var endY = orbRect.top + orbRect.height / 2 + scrollY;
+                        var midY = (startY + endY) / 2;
+
+                        var svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+                        svg.classList.add('gap-arrow-svg');
+                        svg.style.width = document.documentElement.scrollWidth + 'px';
+                        svg.style.height = document.documentElement.scrollHeight + 'px';
+                        svg.setAttribute('viewBox', '0 0 ' + document.documentElement.scrollWidth + ' ' + document.documentElement.scrollHeight);
+
+                        var path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+                        path.classList.add('gap-arrow-line');
+                        var cpx = startX + (endX - startX) * 0.3;
+                        path.setAttribute('d', 'M ' + startX + ' ' + startY + ' Q ' + cpx + ' ' + midY + ', ' + endX + ' ' + endY);
+
+                        var arrowHead = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
+                        arrowHead.classList.add('gap-arrow-head');
+                        arrowHead.setAttribute('points', endX + ',' + (endY + 5) + ' ' + (endX - 6) + ',' + (endY - 8) + ' ' + (endX + 6) + ',' + (endY - 8));
+
+                        svg.appendChild(path);
+                        svg.appendChild(arrowHead);
+                        document.body.appendChild(svg);
+
+                        requestAnimationFrame(function() {
+                            path.classList.add('animating');
+                            arrowHead.classList.add('animating');
+                        });
+
+                        // Reveal dot text and mark consumed after arrow arrives
+                        setTimeout(function() {
+                            matchingOrb.classList.add('consumed');
+                            if (matchingText) matchingText.classList.add('revealed');
+                        }, 600);
+
+                        // Fade out arrow
+                        setTimeout(function() {
+                            svg.classList.add('fade-out');
+                            setTimeout(function() { svg.remove(); }, 1600);
+                        }, 2500);
+                    }
+                });
+            });
         })();
 
         // ========== SECTION II DRAGGABLE BODY ==========
@@ -5077,9 +5228,12 @@
                     if (cx >= r.left - padding && cx <= r.right + padding && cy >= r.top - padding && cy <= r.bottom + padding) {
                         consumedOrbs.add(orb);
                         orb.classList.add('consumed');
+                        orb.classList.add('consumed-pulse');
+                        orb.addEventListener('animationend', function() { orb.classList.remove('consumed-pulse'); }, { once: true });
                         var idx = orb.dataset.orbIndex;
                         var matchingText = document.querySelector('#sec2-dots-field .dot-text[data-orb-index="' + idx + '"]');
                         if (matchingText) matchingText.classList.add('revealed');
+                        // 5 orbs = 5 body level-ups: advance on every orb
                         if (bodyLevel < bodySequence.length - 1) {
                             bodyLevel++;
                             bodyImg.src = bodySequence[bodyLevel];
@@ -5148,14 +5302,20 @@
                         var countdownEl = document.getElementById('sec2-countdown');
                         var remaining = 5;
                         countdownEl.textContent = remaining;
+                        countdownEl.classList.add('pulse');
                         var countdownTimer = setInterval(function() {
                             remaining--;
                             if (remaining > 0) {
                                 countdownEl.textContent = remaining;
+                                countdownEl.classList.remove('pulse');
+                                void countdownEl.offsetWidth;
+                                countdownEl.classList.add('pulse');
                             } else {
                                 clearInterval(countdownTimer);
                                 countdownEl.textContent = '';
+                                countdownEl.classList.remove('pulse');
                                 popup.classList.remove('visible');
+                                document.getElementById('sec2-reality-text').style.display = '';
                             }
                         }, 1000);
                     }
@@ -5172,18 +5332,45 @@
                 var dotsRow = document.querySelector('.sec2-dots-sticky-wrapper .dots-field-row');
                 dotsRow.classList.remove('has-body');
                 introWrap.style.display = 'flex';
+                // Clean up partial alignment state
+                document.getElementById('sec2-reality-text').style.display = 'none';
+                document.getElementById('sec2-partial-body-area').style.display = 'none';
+                var pc = document.getElementById('sec2-partial-completed');
+                if (pc) { pc.style.display = 'none'; pc.style.opacity = ''; pc.style.transition = ''; }
+                var pcr = document.getElementById('sec2-partial-completed-reset');
+                if (pcr) { pcr.style.display = 'none'; pcr.style.opacity = ''; pcr.style.transition = ''; }
+                var partialIntro = document.getElementById('sec2-partial-intro');
+                if (partialIntro) { partialIntro.classList.remove('fading-out'); partialIntro.style.display = 'flex'; }
+                var partialImg = document.getElementById('sec2-partial-body-img');
+                if (partialImg) partialImg.src = 'body1.png';
+                // Remove no-access from diet/city dots
+                var allOrbs = getOrbs();
+                if (allOrbs[1]) { allOrbs[1].classList.remove('no-access'); }
+                if (allOrbs[2]) { allOrbs[2].classList.remove('no-access'); }
+                var dietText = document.querySelector('#sec2-dots-field .dot-text[data-orb-index="1"]');
+                var cityText = document.querySelector('#sec2-dots-field .dot-text[data-orb-index="2"]');
+                if (dietText) dietText.classList.remove('no-access-text');
+                if (cityText) cityText.classList.remove('no-access-text');
+                // Remove any lingering red arrow SVGs
+                document.querySelectorAll('.sec2-red-arrow-svg').forEach(function(el) { el.remove(); });
+                // Reset partial consumed tracking
+                if (typeof partialConsumedOrbs !== 'undefined') partialConsumedOrbs.clear();
+                if (typeof partialBodyLevel !== 'undefined') partialBodyLevel = 0;
+                partialAccessClicked = false;
             }
 
             resetBtn.addEventListener('click', resetBody);
             document.getElementById('sec2-completed-reset').addEventListener('click', resetBody);
 
-            theoreticalLink.addEventListener('click', function() {
-                var gapTrigger = document.getElementById('gap-tooltip-trigger');
-                if (!gapTrigger) return;
-                gapTrigger.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                gapTrigger.classList.add('highlight-flash');
-                setTimeout(function() { gapTrigger.classList.remove('highlight-flash'); }, 3000);
-            });
+            if (theoreticalLink) {
+                theoreticalLink.addEventListener('click', function() {
+                    var gapTrigger = document.getElementById('gap-tooltip-trigger');
+                    if (!gapTrigger) return;
+                    gapTrigger.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    gapTrigger.classList.add('highlight-flash');
+                    setTimeout(function() { gapTrigger.classList.remove('highlight-flash'); }, 3000);
+                });
+            }
 
             bodyImg.addEventListener('mousedown', startDrag);
             bodyImg.addEventListener('touchstart', startDrag, { passive: false });
@@ -5191,6 +5378,327 @@
             document.addEventListener('touchmove', onMove, { passive: false });
             document.addEventListener('mouseup', endDrag);
             document.addEventListener('touchend', endDrag);
+
+            // ========== PARTIAL ALIGNMENT PHASE ==========
+            var partialAccessClicked = false;
+            var partialBodyLevel = 0;
+            var partialConsumedOrbs = new Set();
+            var partialIsDragging = false;
+            var partialIsReturning = false;
+            var partialOffsetX = 0, partialOffsetY = 0;
+            var partialOriginalRect = null;
+            var partialPlaceholder = null;
+            var partialBodySequence = ['body1.png', 'body2_green.png', 'body3_green.png', 'body4_green.png'];
+
+            var partialArrowEl = document.createElement('div');
+            partialArrowEl.className = 'drag-arrow';
+            partialArrowEl.textContent = '\u279C';
+            document.body.appendChild(partialArrowEl);
+
+            // "didn't have access" click handler
+            document.getElementById('sec2-access-keyword').addEventListener('click', function() {
+                if (partialAccessClicked) return;
+                partialAccessClicked = true;
+
+                var keyword = document.getElementById('sec2-access-keyword');
+                var keyRect = keyword.getBoundingClientRect();
+                var allOrbs = getOrbs();
+                var dietOrb = allOrbs[1];
+                var cityOrb = allOrbs[2];
+                if (!dietOrb || !cityOrb) return;
+
+                // Draw red arrow SVGs from keyword to diet and city dots
+                [dietOrb, cityOrb].forEach(function(orb) {
+                    var orbRect = orb.getBoundingClientRect();
+                    var sx = keyRect.left + keyRect.width / 2;
+                    var sy = keyRect.top + keyRect.height / 2;
+                    var ex = orbRect.left + orbRect.width / 2;
+                    var ey = orbRect.top + orbRect.height / 2;
+
+                    var svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+                    svg.classList.add('sec2-red-arrow-svg');
+                    svg.style.cssText = 'position:fixed; top:0; left:0; width:100vw; height:100vh; pointer-events:none; z-index:9999;';
+                    svg.setAttribute('viewBox', '0 0 ' + window.innerWidth + ' ' + window.innerHeight);
+
+                    var defs = document.createElementNS('http://www.w3.org/2000/svg', 'defs');
+                    var marker = document.createElementNS('http://www.w3.org/2000/svg', 'marker');
+                    var markerId = 'sec2-arrowhead-' + Math.random().toString(36).substr(2, 9);
+                    marker.setAttribute('id', markerId);
+                    marker.setAttribute('markerWidth', '10');
+                    marker.setAttribute('markerHeight', '7');
+                    marker.setAttribute('refX', '10');
+                    marker.setAttribute('refY', '3.5');
+                    marker.setAttribute('orient', 'auto');
+                    var polygon = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
+                    polygon.setAttribute('points', '0 0, 10 3.5, 0 7');
+                    polygon.setAttribute('fill', '#ff6b6b');
+                    marker.appendChild(polygon);
+                    defs.appendChild(marker);
+                    svg.appendChild(defs);
+
+                    var line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                    line.setAttribute('x1', sx);
+                    line.setAttribute('y1', sy);
+                    line.setAttribute('x2', sx);
+                    line.setAttribute('y2', sy);
+                    line.setAttribute('stroke', '#ff6b6b');
+                    line.setAttribute('stroke-width', '2');
+                    line.setAttribute('marker-end', 'url(#' + markerId + ')');
+                    svg.appendChild(line);
+                    document.body.appendChild(svg);
+
+                    // Animate line to target
+                    requestAnimationFrame(function() {
+                        line.style.transition = 'none';
+                        setTimeout(function() {
+                            line.setAttribute('x2', ex);
+                            line.setAttribute('y2', ey);
+                            // Use CSS transition on SVG via animate
+                            var animDuration = 500;
+                            var startTime = performance.now();
+                            var startX = sx, startY = sy;
+                            function animateLine(now) {
+                                var elapsed = now - startTime;
+                                var t = Math.min(elapsed / animDuration, 1);
+                                t = t * (2 - t); // ease-out
+                                line.setAttribute('x2', startX + (ex - startX) * t);
+                                line.setAttribute('y2', startY + (ey - startY) * t);
+                                if (t < 1) requestAnimationFrame(animateLine);
+                            }
+                            requestAnimationFrame(animateLine);
+                        }, 50);
+                    });
+                });
+
+                // After 600ms: turn dots red
+                setTimeout(function() {
+                    dietOrb.classList.add('no-access');
+                    cityOrb.classList.add('no-access');
+                    var dietText = document.querySelector('#sec2-dots-field .dot-text[data-orb-index="1"]');
+                    var cityText = document.querySelector('#sec2-dots-field .dot-text[data-orb-index="2"]');
+                    if (dietText) dietText.classList.add('no-access-text');
+                    if (cityText) cityText.classList.add('no-access-text');
+                }, 600);
+
+                // After 2500ms: fade arrows and show partial body area
+                setTimeout(function() {
+                    document.querySelectorAll('.sec2-red-arrow-svg').forEach(function(el) {
+                        el.style.transition = 'opacity 1.5s ease';
+                        el.style.opacity = '0';
+                        setTimeout(function() { el.remove(); }, 1600);
+                    });
+                    document.getElementById('sec2-partial-body-area').style.display = '';
+                }, 2500);
+            });
+
+            // Partial alignment drag functions
+            function getPartialOrbs() {
+                return Array.from(document.querySelectorAll('#sec2-dots-field .orb.green.clickable'));
+            }
+
+            function getPartialNearestUnconsumedOrb(cx, cy) {
+                var nearest = null, minDist = Infinity;
+                getPartialOrbs().forEach(function(orb) {
+                    if (partialConsumedOrbs.has(orb)) return;
+                    if (orb.classList.contains('no-access')) return;
+                    var r = orb.getBoundingClientRect();
+                    var ox = r.left + r.width / 2;
+                    var oy = r.top + r.height / 2;
+                    var d = Math.hypot(ox - cx, oy - cy);
+                    if (d < minDist) { minDist = d; nearest = { el: orb, x: ox, y: oy }; }
+                });
+                return nearest;
+            }
+
+            function updatePartialArrow(cx, cy) {
+                var target = getPartialNearestUnconsumedOrb(cx, cy);
+                if (!target) { partialArrowEl.classList.remove('visible'); return; }
+                var angle = Math.atan2(target.y - cy, target.x - cx);
+                var dist = 55;
+                partialArrowEl.style.left = (cx + Math.cos(angle) * dist) + 'px';
+                partialArrowEl.style.top = (cy + Math.sin(angle) * dist) + 'px';
+                partialArrowEl.style.setProperty('--arrow-rotate', 'rotate(' + (angle * 180 / Math.PI) + 'deg)');
+                partialArrowEl.classList.add('visible');
+            }
+
+            function getRedOrbs() {
+                return getPartialOrbs().filter(function(orb) { return orb.classList.contains('no-access'); });
+            }
+
+            function partialSoftClamp(pos) {
+                var pushRadius = 60;
+                var pushStrength = 0.85;
+                var cx = pos.x + 45;
+                var cy = pos.y + 45;
+                getRedOrbs().forEach(function(orb) {
+                    if (!orb) return;
+                    var r = orb.getBoundingClientRect();
+                    var ox = r.left + r.width / 2;
+                    var oy = r.top + r.height / 2;
+                    var dx = cx - ox;
+                    var dy = cy - oy;
+                    var dist = Math.hypot(dx, dy);
+                    if (dist < pushRadius && dist > 0) {
+                        var force = (pushRadius - dist) / pushRadius * pushStrength;
+                        var nx = dx / dist;
+                        var ny = dy / dist;
+                        pos.x += nx * force * pushRadius;
+                        pos.y += ny * force * pushRadius;
+                    }
+                });
+                return pos;
+            }
+
+            function checkPartialCollisions(cx, cy) {
+                getPartialOrbs().forEach(function(orb) {
+                    if (partialConsumedOrbs.has(orb)) return;
+                    if (orb.classList.contains('no-access')) return;
+                    var r = orb.getBoundingClientRect();
+                    var padding = 12;
+                    if (cx >= r.left - padding && cx <= r.right + padding && cy >= r.top - padding && cy <= r.bottom + padding) {
+                        partialConsumedOrbs.add(orb);
+                        orb.classList.add('consumed');
+                        orb.classList.add('consumed-pulse');
+                        orb.addEventListener('animationend', function() { orb.classList.remove('consumed-pulse'); }, { once: true });
+                        var idx = orb.dataset.orbIndex;
+                        var matchingText = document.querySelector('#sec2-dots-field .dot-text[data-orb-index="' + idx + '"]');
+                        if (matchingText) matchingText.classList.add('revealed');
+                        if (partialBodyLevel < partialBodySequence.length - 1) {
+                            partialBodyLevel++;
+                            var partialImg = document.getElementById('sec2-partial-body-img');
+                            partialImg.src = partialBodySequence[partialBodyLevel];
+                        }
+                    }
+                });
+            }
+
+            function partialStartDrag(e) {
+                if (partialIsReturning) return;
+                var partialImg = document.getElementById('sec2-partial-body-img');
+                if (!partialImg) return;
+                e.preventDefault();
+                partialIsDragging = true;
+                var pos = e.touches ? e.touches[0] : e;
+                var rect = partialImg.getBoundingClientRect();
+                partialOriginalRect = { left: rect.left, top: rect.top };
+                partialOffsetX = pos.clientX - rect.left;
+                partialOffsetY = pos.clientY - rect.top;
+                partialPlaceholder = document.createElement('div');
+                partialPlaceholder.className = 'body-img-placeholder';
+                partialPlaceholder.style.height = rect.height + 'px';
+                partialImg.parentNode.insertBefore(partialPlaceholder, partialImg);
+                partialImg.classList.add('dragging');
+                partialImg.style.left = (pos.clientX - partialOffsetX) + 'px';
+                partialImg.style.top = (pos.clientY - partialOffsetY) + 'px';
+            }
+
+            function partialOnMove(e) {
+                if (!partialIsDragging) return;
+                e.preventDefault();
+                var partialImg = document.getElementById('sec2-partial-body-img');
+                var pos = e.touches ? e.touches[0] : e;
+                var newPos = partialSoftClamp({ x: pos.clientX - partialOffsetX, y: pos.clientY - partialOffsetY });
+                partialImg.style.left = newPos.x + 'px';
+                partialImg.style.top = newPos.y + 'px';
+                var cx = newPos.x + 45;
+                var cy = newPos.y + 45;
+                checkPartialCollisions(cx, cy);
+                updatePartialArrow(cx, cy);
+            }
+
+            function partialEndDrag() {
+                if (!partialIsDragging) return;
+                partialIsDragging = false;
+                partialIsReturning = true;
+                var partialImg = document.getElementById('sec2-partial-body-img');
+                partialArrowEl.classList.remove('visible');
+                partialImg.classList.remove('dragging');
+                partialImg.classList.add('returning');
+                requestAnimationFrame(function() {
+                    partialImg.style.left = partialOriginalRect.left + 'px';
+                    partialImg.style.top = partialOriginalRect.top + 'px';
+                });
+                partialImg.addEventListener('transitionend', function onReturn() {
+                    partialImg.removeEventListener('transitionend', onReturn);
+                    partialImg.classList.remove('returning');
+                    partialImg.style.left = '';
+                    partialImg.style.top = '';
+                    if (partialPlaceholder) { partialPlaceholder.remove(); partialPlaceholder = null; }
+                    partialIsReturning = false;
+
+                    if (partialBodyLevel >= partialBodySequence.length - 1) {
+                        // Partial completion: smooth fade out intro, then fade in completed body
+                        var partialIntro = document.getElementById('sec2-partial-intro');
+                        partialIntro.classList.add('fading-out');
+                        setTimeout(function() {
+                            partialIntro.style.display = 'none';
+                            var partialCompleted = document.getElementById('sec2-partial-completed');
+                            var partialCompletedReset = document.getElementById('sec2-partial-completed-reset');
+                            partialCompleted.style.opacity = '0';
+                            partialCompletedReset.style.opacity = '0';
+                            partialCompleted.style.display = '';
+                            partialCompletedReset.style.display = 'inline-block';
+                            requestAnimationFrame(function() {
+                                requestAnimationFrame(function() {
+                                    partialCompleted.style.transition = 'opacity 0.5s ease';
+                                    partialCompletedReset.style.transition = 'opacity 0.5s ease';
+                                    partialCompleted.style.opacity = '1';
+                                    partialCompletedReset.style.opacity = '1';
+                                    // Scroll the container to reveal the partial body
+                                    var scrollContainer = document.querySelector('.sec2-completed-scroll');
+                                    if (scrollContainer) {
+                                        setTimeout(function() {
+                                            scrollContainer.scrollTo({ top: scrollContainer.scrollHeight, behavior: 'smooth' });
+                                        }, 550);
+                                    }
+                                });
+                            });
+                        }, 500);
+                    }
+                }, { once: true });
+            }
+
+            // Bind partial drag events
+            var partialImg = document.getElementById('sec2-partial-body-img');
+            if (partialImg) {
+                partialImg.addEventListener('mousedown', partialStartDrag);
+                partialImg.addEventListener('touchstart', partialStartDrag, { passive: false });
+            }
+            document.addEventListener('mousemove', partialOnMove);
+            document.addEventListener('touchmove', partialOnMove, { passive: false });
+            document.addEventListener('mouseup', partialEndDrag);
+            document.addEventListener('touchend', partialEndDrag);
+
+            // Partial reset
+            function resetPartialBody() {
+                partialBodyLevel = 0;
+                var partialImg = document.getElementById('sec2-partial-body-img');
+                if (partialImg) partialImg.src = partialBodySequence[0];
+                // Only reset the 3 non-red orbs
+                partialConsumedOrbs.forEach(function(orb) {
+                    if (!orb.classList.contains('no-access')) {
+                        orb.classList.remove('consumed');
+                    }
+                });
+                partialConsumedOrbs.clear();
+                // Remove revealed from non-blocked dot texts (indices 0, 3, 4)
+                [0, 3, 4].forEach(function(idx) {
+                    var t = document.querySelector('#sec2-dots-field .dot-text[data-orb-index="' + idx + '"]');
+                    if (t) t.classList.remove('revealed');
+                });
+                document.getElementById('sec2-partial-completed').style.display = 'none';
+                document.getElementById('sec2-partial-completed').style.opacity = '';
+                document.getElementById('sec2-partial-completed').style.transition = '';
+                document.getElementById('sec2-partial-completed-reset').style.display = 'none';
+                document.getElementById('sec2-partial-completed-reset').style.opacity = '';
+                document.getElementById('sec2-partial-completed-reset').style.transition = '';
+                var partialIntro = document.getElementById('sec2-partial-intro');
+                partialIntro.classList.remove('fading-out');
+                partialIntro.style.display = 'flex';
+            }
+
+            document.getElementById('sec2-partial-reset-btn').addEventListener('click', resetPartialBody);
+            document.getElementById('sec2-partial-completed-reset').addEventListener('click', resetPartialBody);
         })();
 
         // ========== DRAGGABLE BODY WITH ORB COLLISION ==========
@@ -5399,9 +5907,9 @@
                 if (realityText) realityText.style.display = 'none';
             }
 
-            resetBtn.addEventListener('click', resetBody);
+            if (resetBtn) resetBtn.addEventListener('click', resetBody);
 
-            filledNote.addEventListener('click', function() {
+            if (filledNote) filledNote.addEventListener('click', function() {
                 const gapTrigger = document.getElementById('gap-tooltip-trigger');
                 if (!gapTrigger) return;
                 gapTrigger.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -6122,8 +6630,18 @@
             requestAnimationFrame(animate);
         }
 
-        sampleText();
-        animate();
+        // Wait for fonts to load before sampling text positions
+        if (document.fonts && document.fonts.ready) {
+            document.fonts.ready.then(function() {
+                sampleText();
+                animate();
+            });
+        } else {
+            window.addEventListener('load', function() {
+                sampleText();
+                animate();
+            });
+        }
 
         // Mouse perspective tilt
         outer.addEventListener('mousemove', function(e) {
