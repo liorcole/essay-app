@@ -2406,17 +2406,17 @@
             100% { transform: scale(1); border-color: rgba(134, 239, 172, 0.4); }
         }
 
-        /* ========== SECTION III FULLSCREEN DOTS ========== */
-        .sec3-beginning-trigger {
+        /* ========== SECTION II FULLSCREEN DOTS ========== */
+        .sec2-beginning-trigger {
             color: #86efac;
             cursor: pointer;
             border-bottom: 1px solid rgba(134, 239, 172, 0.4);
             transition: border-color 0.3s ease;
         }
-        .sec3-beginning-trigger:hover {
+        .sec2-beginning-trigger:hover {
             border-color: #86efac;
         }
-        .sec3-noteworthy {
+        .sec2-noteworthy {
             font-family: Georgia, 'Times New Roman', serif;
             font-style: italic;
             font-size: 0.75em;
@@ -2426,10 +2426,10 @@
             opacity: 0;
             transition: opacity 0.6s ease;
         }
-        .sec3-noteworthy.visible {
+        .sec2-noteworthy.visible {
             opacity: 1;
         }
-        .sec3-fullscreen-dots {
+        .sec2-fullscreen-dots {
             position: fixed;
             top: 0;
             left: 0;
@@ -2441,22 +2441,22 @@
             opacity: 0;
             transition: opacity 0.8s ease;
         }
-        .sec3-fullscreen-dots.visible {
+        .sec2-fullscreen-dots.visible {
             opacity: 1;
         }
-        .sec3-fullscreen-dots .orb {
+        .sec2-fullscreen-dots .orb {
             position: absolute;
             border-radius: 50%;
             opacity: 0;
             transition: opacity 0.6s ease;
         }
-        .sec3-fullscreen-dots.visible .orb {
+        .sec2-fullscreen-dots.visible .orb {
             opacity: var(--orb-opacity, 0.6);
         }
-        .sec3-fullscreen-dots .orb.white {
+        .sec2-fullscreen-dots .orb.white {
             background: rgba(255, 255, 255, 0.7);
         }
-        .sec3-fullscreen-dots .orb.green {
+        .sec2-fullscreen-dots .orb.green {
             background: #86efac;
             box-shadow: 0 0 6px rgba(134, 239, 172, 0.4);
         }
@@ -2867,6 +2867,13 @@
                         </p>
                     </div>
                 </div>
+                <p class="paragraph" id="sec2-history-text" style="display:none;">
+                    Throughout history, the human innovative drive has created a world of expanding access. <span class="sec2-beginning-trigger" id="sec2-beginning-trigger">Starting from the beginning&hellip;</span>
+                </p>
+                <p class="sec2-noteworthy" id="sec2-noteworthy" style="display:none;">
+                    noteworthy mention&hellip; the following is grossly oversimplified for purpose of getting a point across rather than an exhaustive historical exploration of our technological evolution
+                </p>
+                <div class="sec2-fullscreen-dots" id="sec2-fullscreen-dots"></div>
                 </div>
             </div>
         </section>
@@ -2919,13 +2926,6 @@
                     <p class="paragraph">
                         Our instinct to soul-search not only drives our individual human motivation, but also our drive to innovate as a species. From the printing press to AI and everything in between, all the technology we have ever produced is an instrument for soul-searching at its core: a way to expand how much of the world we can access, and therefore how much of ourselves we can find within it.
                     </p>
-                    <p class="paragraph">
-                        Throughout history, the human innovative drive has created a world of expanding access. <span class="sec3-beginning-trigger" id="sec3-beginning-trigger">Starting from the beginning&hellip;</span>
-                    </p>
-                    <p class="sec3-noteworthy" id="sec3-noteworthy" style="display:none;">
-                        noteworthy mention&hellip; the following is grossly oversimplified for purpose of getting a point across rather than an exhaustive historical exploration of our technological evolution
-                    </p>
-                    <div class="sec3-fullscreen-dots" id="sec3-fullscreen-dots"></div>
                 </div>
             </div>
         </section>
@@ -5423,6 +5423,11 @@
                 if (typeof partialConsumedOrbs !== 'undefined') partialConsumedOrbs.clear();
                 if (typeof partialBodyLevel !== 'undefined') partialBodyLevel = 0;
                 partialAccessClicked = false;
+                // Hide history text and noteworthy
+                var ht = document.getElementById('sec2-history-text');
+                if (ht) { ht.style.display = 'none'; ht.style.opacity = ''; ht.style.transition = ''; }
+                var nw = document.getElementById('sec2-noteworthy');
+                if (nw) { nw.style.display = 'none'; nw.classList.remove('visible'); }
             }
 
             resetBtn.addEventListener('click', resetBody);
@@ -5719,6 +5724,20 @@
                                             scrollContainer.scrollTo({ top: scrollContainer.scrollHeight, behavior: 'smooth' });
                                         }, 550);
                                     }
+                                    // Show history text after partial completion
+                                    setTimeout(function() {
+                                        var historyText = document.getElementById('sec2-history-text');
+                                        if (historyText) {
+                                            historyText.style.display = '';
+                                            historyText.style.opacity = '0';
+                                            historyText.style.transition = 'opacity 0.6s ease';
+                                            requestAnimationFrame(function() {
+                                                requestAnimationFrame(function() {
+                                                    historyText.style.opacity = '1';
+                                                });
+                                            });
+                                        }
+                                    }, 1000);
                                 });
                             });
                         }, 500);
@@ -5765,18 +5784,22 @@
                 var partialIntro = document.getElementById('sec2-partial-intro');
                 partialIntro.classList.remove('fading-out');
                 partialIntro.style.display = 'flex';
+                var historyText = document.getElementById('sec2-history-text');
+                if (historyText) { historyText.style.display = 'none'; historyText.style.opacity = ''; historyText.style.transition = ''; }
+                var noteworthyEl = document.getElementById('sec2-noteworthy');
+                if (noteworthyEl) { noteworthyEl.style.display = 'none'; noteworthyEl.classList.remove('visible'); }
             }
 
             document.getElementById('sec2-partial-reset-btn').addEventListener('click', resetPartialBody);
             document.getElementById('sec2-partial-completed-reset').addEventListener('click', resetPartialBody);
         })();
 
-        // ========== SECTION III FULLSCREEN DOTS ==========
+        // ========== SECTION II FULLSCREEN DOTS ==========
         (function() {
-            var trigger = document.getElementById('sec3-beginning-trigger');
+            var trigger = document.getElementById('sec2-beginning-trigger');
             if (!trigger) return;
-            var noteworthy = document.getElementById('sec3-noteworthy');
-            var container = document.getElementById('sec3-fullscreen-dots');
+            var noteworthy = document.getElementById('sec2-noteworthy');
+            var container = document.getElementById('sec2-fullscreen-dots');
             var dotsGenerated = false;
 
             function generateDots() {
