@@ -2349,9 +2349,10 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+        }
+        .sec2-completed-scroll.has-partial {
             max-height: 240px;
             overflow-y: auto;
-            overflow-x: visible;
             scrollbar-width: thin;
             scrollbar-color: rgba(134,239,172,0.3) transparent;
         }
@@ -5340,6 +5341,8 @@
                 if (pc) { pc.style.display = 'none'; pc.style.opacity = ''; pc.style.transition = ''; }
                 var pcr = document.getElementById('sec2-partial-completed-reset');
                 if (pcr) { pcr.style.display = 'none'; pcr.style.opacity = ''; pcr.style.transition = ''; }
+                var sc = document.querySelector('.sec2-completed-scroll');
+                if (sc) { sc.classList.remove('has-partial'); sc.scrollTop = 0; }
                 var partialIntro = document.getElementById('sec2-partial-intro');
                 if (partialIntro) { partialIntro.classList.remove('fading-out'); partialIntro.style.display = 'flex'; }
                 var partialImg = document.getElementById('sec2-partial-body-img');
@@ -5639,6 +5642,9 @@
                             partialCompletedReset.style.opacity = '0';
                             partialCompleted.style.display = '';
                             partialCompletedReset.style.display = 'inline-block';
+                            // Enable scroll now that partial body is being added
+                            var scrollContainer = document.querySelector('.sec2-completed-scroll');
+                            if (scrollContainer) scrollContainer.classList.add('has-partial');
                             requestAnimationFrame(function() {
                                 requestAnimationFrame(function() {
                                     partialCompleted.style.transition = 'opacity 0.5s ease';
@@ -5646,7 +5652,6 @@
                                     partialCompleted.style.opacity = '1';
                                     partialCompletedReset.style.opacity = '1';
                                     // Scroll the container to reveal the partial body
-                                    var scrollContainer = document.querySelector('.sec2-completed-scroll');
                                     if (scrollContainer) {
                                         setTimeout(function() {
                                             scrollContainer.scrollTo({ top: scrollContainer.scrollHeight, behavior: 'smooth' });
@@ -5693,6 +5698,8 @@
                 document.getElementById('sec2-partial-completed-reset').style.display = 'none';
                 document.getElementById('sec2-partial-completed-reset').style.opacity = '';
                 document.getElementById('sec2-partial-completed-reset').style.transition = '';
+                var scrollContainer = document.querySelector('.sec2-completed-scroll');
+                if (scrollContainer) { scrollContainer.classList.remove('has-partial'); scrollContainer.scrollTop = 0; }
                 var partialIntro = document.getElementById('sec2-partial-intro');
                 partialIntro.classList.remove('fading-out');
                 partialIntro.style.display = 'flex';
