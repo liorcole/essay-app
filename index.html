@@ -2496,6 +2496,27 @@
             background: rgba(255, 255, 255, 0.15);
             color: rgba(255, 255, 255, 0.8);
         }
+        .sec2-dots-curves {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 5;
+        }
+        .sec2-dots-curves path {
+            fill: none;
+            stroke: rgba(255, 255, 255, 0.6);
+            stroke-width: 2;
+            vector-effect: non-scaling-stroke;
+            stroke-dasharray: 2000;
+            stroke-dashoffset: 2000;
+            transition: stroke-dashoffset 2s ease;
+        }
+        .sec2-dots-curves.visible path {
+            stroke-dashoffset: 0;
+        }
 
         /* ========== MOBILE RESPONSIVE ========== */
         @media (max-width: 768px) {
@@ -2912,6 +2933,10 @@
                 <div class="sec2-dots-overlay" id="sec2-dots-overlay">
                     <div class="sec2-fullscreen-dots" id="sec2-fullscreen-dots">
                         <div class="sec2-dots-close" id="sec2-dots-close">&times;</div>
+                        <svg class="sec2-dots-curves" id="sec2-dots-curves" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <path d="M 50 8 Q 30 30, 5 95" />
+                            <path d="M 50 8 Q 70 30, 95 95" />
+                        </svg>
                     </div>
                 </div>
                 </div>
@@ -5875,9 +5900,11 @@
 
             var overlay = document.getElementById('sec2-dots-overlay');
             var closeBtn = document.getElementById('sec2-dots-close');
+            var curves = document.getElementById('sec2-dots-curves');
 
             function dismissOverlay() {
                 overlay.classList.remove('visible');
+                curves.classList.remove('visible');
                 setTimeout(function() {
                     overlay.style.display = 'none';
                 }, 600);
@@ -5898,6 +5925,10 @@
                     requestAnimationFrame(function() {
                         requestAnimationFrame(function() {
                             overlay.classList.add('visible');
+                            // After dots fade in, draw the curves
+                            setTimeout(function() {
+                                curves.classList.add('visible');
+                            }, 1200);
                         });
                     });
                 }, 1200);
