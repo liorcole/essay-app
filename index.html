@@ -1965,6 +1965,9 @@
         .dot-link:hover {
             color: #86efac;
         }
+        .dot-link.clicked {
+            color: #86efac;
+        }
 
         .dot-link-arrow {
             font-size: 0.75em;
@@ -5262,6 +5265,7 @@
             // Dot-link click handlers: clicking a word draws an arrow to matching green dot and reveals its text
             document.querySelectorAll('.dot-link').forEach(function(link) {
                 link.addEventListener('click', function() {
+                    link.classList.add('clicked');
                     var dotIndex = link.getAttribute('data-dot');
                     var matchingOrb = field.querySelector('.orb.green.clickable[data-orb-index="s2-' + dotIndex + '"]');
                     var matchingText = field.querySelector('.dot-text[data-orb-index="s2-' + dotIndex + '"]');
