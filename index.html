@@ -2353,6 +2353,39 @@
             50% { transform: scale(1.08); opacity: 1; }
         }
 
+        .sec2-hover-prompt {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: none;
+            align-items: center;
+            gap: 12px;
+            z-index: 100;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            pointer-events: none;
+        }
+        .sec2-hover-prompt.visible {
+            opacity: 1;
+        }
+        .sec2-hover-prompt-text {
+            font-family: Georgia, 'Times New Roman', serif;
+            font-style: italic;
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.75);
+            white-space: nowrap;
+        }
+        .sec2-hover-prompt-arrow {
+            font-size: 1.5rem;
+            color: rgba(134, 239, 172, 0.7);
+            animation: hover-arrow-pulse 1.2s ease-in-out infinite;
+        }
+        @keyframes hover-arrow-pulse {
+            0%, 100% { transform: translateX(0); opacity: 0.5; }
+            50% { transform: translateX(8px); opacity: 1; }
+        }
+
         .sec2-body-area { margin: 30px 0; }
         .sec2-body-intro { display: flex; align-items: flex-start; gap: 20px; transition: opacity 0.5s ease; }
         .sec2-body-intro.fading-out { opacity: 0; }
@@ -2955,6 +2988,10 @@
                     If you could fill your life with all the most aligned people/knowledge/things, <span class="tooltip-trigger" style="color:#fff; border-bottom:1px solid rgba(255,255,255,0.5); cursor:pointer;"><u>you&rsquo;d exist in full alignment</u><span class="tooltip-content" style="color:rgba(255,80,80,0.85);">As discussed in Section I, <u>full</u> alignment is impossible to achieve, this is just theoretical.</span></span>: all of who you are would be known as well as completely represented in the life around you.
                 </p>
                 <div class="sec2-drag-hint" id="sec2-drag-hint"></div>
+                <div class="sec2-hover-prompt" id="sec2-hover-prompt">
+                    <span class="sec2-hover-prompt-text">hover over</span>
+                    <span class="sec2-hover-prompt-arrow">&#x2192;</span>
+                </div>
                 <div class="sec2-body-area">
                     <div class="sec2-body-intro" id="sec2-body-intro">
                         <div class="sec2-body-img-wrap" id="sec2-body-img-wrap">
@@ -5514,27 +5551,43 @@
                         var dotsRow = document.querySelector('.sec2-dots-sticky-wrapper .dots-field-row');
                         dotsRow.classList.add('has-body');
                         completedWrap.classList.add('visible');
-                        // Show popup for 5 seconds with countdown
-                        popup.classList.add('visible');
-                        var countdownEl = document.getElementById('sec2-countdown');
-                        var remaining = 5;
-                        countdownEl.textContent = remaining;
-                        countdownEl.classList.add('pulse');
-                        var countdownTimer = setInterval(function() {
-                            remaining--;
-                            if (remaining > 0) {
-                                countdownEl.textContent = remaining;
-                                countdownEl.classList.remove('pulse');
-                                void countdownEl.offsetWidth;
-                                countdownEl.classList.add('pulse');
-                            } else {
-                                clearInterval(countdownTimer);
-                                countdownEl.textContent = '';
-                                countdownEl.classList.remove('pulse');
-                                popup.classList.remove('visible');
-                                document.getElementById('sec2-reality-text').style.display = '';
-                            }
-                        }, 1000);
+                        // Show hover prompt pointing to the completed body
+                        var hoverPrompt = document.getElementById('sec2-hover-prompt');
+                        setTimeout(function() {
+                            hoverPrompt.style.display = 'flex';
+                            requestAnimationFrame(function() {
+                                requestAnimationFrame(function() {
+                                    hoverPrompt.classList.add('visible');
+                                });
+                            });
+                        }, 600);
+                        // Reveal next part only when user hovers over completed body
+                        var completedBody = document.getElementById('sec2-completed-body');
+                        completedBody.addEventListener('mouseenter', function onHover() {
+                            completedBody.removeEventListener('mouseenter', onHover);
+                            hoverPrompt.classList.remove('visible');
+                            setTimeout(function() { hoverPrompt.style.display = 'none'; }, 500);
+                            popup.classList.add('visible');
+                            var countdownEl = document.getElementById('sec2-countdown');
+                            var remaining = 5;
+                            countdownEl.textContent = remaining;
+                            countdownEl.classList.add('pulse');
+                            var countdownTimer = setInterval(function() {
+                                remaining--;
+                                if (remaining > 0) {
+                                    countdownEl.textContent = remaining;
+                                    countdownEl.classList.remove('pulse');
+                                    void countdownEl.offsetWidth;
+                                    countdownEl.classList.add('pulse');
+                                } else {
+                                    clearInterval(countdownTimer);
+                                    countdownEl.textContent = '';
+                                    countdownEl.classList.remove('pulse');
+                                    popup.classList.remove('visible');
+                                    document.getElementById('sec2-reality-text').style.display = '';
+                                }
+                            }, 1000);
+                        });
                     }
                 }, { once: true });
             }
@@ -5549,6 +5602,10 @@
                 var dotsRow = document.querySelector('.sec2-dots-sticky-wrapper .dots-field-row');
                 dotsRow.classList.remove('has-body');
                 introWrap.style.display = 'flex';
+                // Clean up hover prompt
+                var hp = document.getElementById('sec2-hover-prompt');
+                if (hp) { hp.classList.remove('visible'); hp.style.display = 'none'; }
+                popup.classList.remove('visible');
                 // Clean up partial alignment state
                 document.getElementById('sec2-reality-text').style.display = 'none';
                 document.getElementById('sec2-partial-body-area').style.display = 'none';
