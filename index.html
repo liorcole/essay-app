@@ -2350,13 +2350,21 @@
 
         .sec2-hover-prompt {
             position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
             display: none;
+            flex-direction: column;
             align-items: center;
-            gap: 16px;
+            gap: 20px;
             z-index: 100;
             opacity: 0;
             transition: opacity 0.5s ease;
             pointer-events: none;
+            background: rgba(0, 0, 0, 1);
+            padding: 50px 60px;
+            border-radius: 20px;
+            border: 1px solid rgba(134, 239, 172, 0.25);
         }
         .sec2-hover-prompt.visible {
             opacity: 1;
@@ -2364,18 +2372,19 @@
         .sec2-hover-prompt-text {
             font-family: Georgia, 'Times New Roman', serif;
             font-style: italic;
-            font-size: 2rem;
-            color: rgba(255, 255, 255, 0.85);
+            font-size: 3rem;
+            color: #fff;
             white-space: nowrap;
         }
         .sec2-hover-prompt-arrow {
-            font-size: 3rem;
-            color: rgba(134, 239, 172, 0.8);
+            font-size: 5rem;
+            color: #86efac;
             animation: hover-arrow-pulse 1.2s ease-in-out infinite;
+            align-self: flex-end;
         }
         @keyframes hover-arrow-pulse {
-            0%, 100% { transform: translateX(0); opacity: 0.5; }
-            50% { transform: translateX(12px); opacity: 1; }
+            0%, 100% { transform: translate(0, 0); opacity: 0.6; }
+            50% { transform: translate(20px, -20px); opacity: 1; }
         }
 
         .sec2-body-area { margin: 30px 0; }
@@ -2990,7 +2999,7 @@
                 <div class="sec2-drag-hint" id="sec2-drag-hint"></div>
                 <div class="sec2-hover-prompt" id="sec2-hover-prompt">
                     <span class="sec2-hover-prompt-text">hover over</span>
-                    <span class="sec2-hover-prompt-arrow">&#x2192;</span>
+                    <span class="sec2-hover-prompt-arrow">&#x2197;</span>
                 </div>
                 <div class="sec2-body-area">
                     <div class="sec2-body-intro" id="sec2-body-intro">
@@ -5545,10 +5554,6 @@
                         // Show hover prompt pointing to the completed body
                         var hoverPrompt = document.getElementById('sec2-hover-prompt');
                         setTimeout(function() {
-                            var bodyRect = document.getElementById('sec2-completed-body').getBoundingClientRect();
-                            hoverPrompt.style.top = (bodyRect.top + bodyRect.height / 2) + 'px';
-                            hoverPrompt.style.right = (window.innerWidth - bodyRect.left + 16) + 'px';
-                            hoverPrompt.style.transform = 'translateY(-50%)';
                             hoverPrompt.style.display = 'flex';
                             requestAnimationFrame(function() {
                                 requestAnimationFrame(function() {
