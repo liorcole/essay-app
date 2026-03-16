@@ -2343,6 +2343,16 @@
             z-index: 5;
         }
 
+        .drag-cta-pulse {
+            display: inline-block;
+            color: rgba(255, 255, 255, 0.7);
+            animation: drag-cta-pulse 2s ease-in-out infinite;
+        }
+        @keyframes drag-cta-pulse {
+            0%, 100% { transform: scale(1); opacity: 0.6; }
+            50% { transform: scale(1.08); opacity: 1; }
+        }
+
         .sec2-body-area { margin: 30px 0; }
         .sec2-body-intro { display: flex; align-items: flex-start; gap: 20px; transition: opacity 0.5s ease; }
         .sec2-body-intro.fading-out { opacity: 0; }
@@ -2950,7 +2960,7 @@
                         <div class="sec2-body-img-wrap" id="sec2-body-img-wrap">
                             <img src="body1.png" alt="Empty body outline" class="body-intro-img" id="sec2-body-img" />
                         </div>
-                        <p class="body-intro-text" id="sec2-body-text">This is the person before they find anything in the world that reflects who they are. No passions discovered, no compatible friendships or energizing career. Drag them toward what fits.<span class="body-reset-btn" id="sec2-reset-btn">&#x21bb; Reset</span></p>
+                        <p class="body-intro-text" id="sec2-body-text">This is the person before they find anything in the world that reflects who they are. No passions discovered, no compatible friendships or energizing career. <span class="drag-cta-pulse">Drag them toward what fits.</span><span class="body-reset-btn" id="sec2-reset-btn">&#x21bb; Reset</span></p>
                     </div>
                 </div>
                 <p class="paragraph" id="sec2-reality-text" style="margin-top: 40px; display:none;">
@@ -2963,7 +2973,7 @@
                             <img src="body1.png" alt="Empty body outline" class="body-intro-img" id="sec2-partial-body-img" />
                         </div>
                         <p class="body-intro-text" id="sec2-partial-body-text">
-                            This is the person before they find anything in the world that reflects who they are. No passions discovered, no compatible friendships or energizing career. Drag them toward what fits.
+                            This is the person before they find anything in the world that reflects who they are. No passions discovered, no compatible friendships or energizing career. <span class="drag-cta-pulse">Drag them toward what fits.</span>
                             <span class="body-reset-btn" id="sec2-partial-reset-btn">&#x21bb; Reset</span>
                         </p>
                     </div>
