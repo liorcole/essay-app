@@ -2445,30 +2445,6 @@
             z-index: 10000;
             pointer-events: none;
         }
-        .sec2-popup-countdown {
-            position: absolute;
-            top: -10px;
-            right: -10px;
-            width: 24px;
-            height: 24px;
-            border-radius: 50%;
-            background: #1a1a1f;
-            border: 1px solid rgba(134, 239, 172, 0.4);
-            font-size: 0.7em;
-            font-style: normal;
-            color: #86efac;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 51;
-        }
-        .sec2-popup-countdown.pulse {
-            animation: countdown-pulse 0.4s ease-out;
-        }
-        @keyframes countdown-pulse {
-            0% { transform: scale(1.4); border-color: rgba(134, 239, 172, 0.8); }
-            100% { transform: scale(1); border-color: rgba(134, 239, 172, 0.4); }
-        }
 
         .sec2-drag-hint {
             position: fixed;
@@ -2967,7 +2943,6 @@
                                 <img src="body6_green.png" alt="Person in full alignment" style="width:60px; filter:invert(1); opacity:0.85;" />
                                 <div class="body-full-label visible">Person living in full alignment</div>
                                 <div class="sec2-popup" id="sec2-popup">
-                                    <span class="sec2-popup-countdown" id="sec2-countdown"></span>
                                     <p style="margin:0 0 8px 0;">The person has discovered everything in the world that most aligns with who they are &mdash; strongest passions, most compatible friendships, most energizing career, etc. Their world is a completely accurate reflection of their soul &mdash; allowing them to live a life of full alignment.</p>
                                 </div>
                             </div>
@@ -5568,25 +5543,10 @@
                             hoverPrompt.classList.remove('visible');
                             setTimeout(function() { hoverPrompt.style.display = 'none'; }, 500);
                             popup.classList.add('visible');
-                            var countdownEl = document.getElementById('sec2-countdown');
-                            var remaining = 5;
-                            countdownEl.textContent = remaining;
-                            countdownEl.classList.add('pulse');
-                            var countdownTimer = setInterval(function() {
-                                remaining--;
-                                if (remaining > 0) {
-                                    countdownEl.textContent = remaining;
-                                    countdownEl.classList.remove('pulse');
-                                    void countdownEl.offsetWidth;
-                                    countdownEl.classList.add('pulse');
-                                } else {
-                                    clearInterval(countdownTimer);
-                                    countdownEl.textContent = '';
-                                    countdownEl.classList.remove('pulse');
-                                    popup.classList.remove('visible');
-                                    document.getElementById('sec2-reality-text').style.display = '';
-                                }
-                            }, 1000);
+                            setTimeout(function() {
+                                popup.classList.remove('visible');
+                                document.getElementById('sec2-reality-text').style.display = '';
+                            }, 5000);
                         });
                     }
                 }, { once: true });
