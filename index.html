@@ -1968,6 +1968,11 @@
         .dot-link.clicked {
             color: #86efac;
         }
+        .dot-link.no-access-link {
+            color: #ff6b6b;
+            text-decoration: line-through;
+            transition: color 0.4s ease;
+        }
 
         .dot-link-arrow {
             font-size: 0.75em;
@@ -5510,6 +5515,10 @@
                 var cityText = document.querySelector('#sec2-dots-field .dot-text[data-orb-index="2"]');
                 if (dietText) dietText.classList.remove('no-access-text');
                 if (cityText) cityText.classList.remove('no-access-text');
+                var dietLink = document.querySelector('.dot-link[data-dot="1"]');
+                var cityLink = document.querySelector('.dot-link[data-dot="2"]');
+                if (dietLink) dietLink.classList.remove('no-access-link');
+                if (cityLink) cityLink.classList.remove('no-access-link');
                 // Remove any lingering red arrow SVGs
                 document.querySelectorAll('.sec2-red-arrow-svg').forEach(function(el) { el.remove(); });
                 // Reset partial consumed tracking
@@ -5636,7 +5645,7 @@
                     });
                 });
 
-                // After 600ms: turn dots red
+                // After 600ms: turn dots and their link words red
                 setTimeout(function() {
                     dietOrb.classList.add('no-access');
                     cityOrb.classList.add('no-access');
@@ -5644,6 +5653,10 @@
                     var cityText = document.querySelector('#sec2-dots-field .dot-text[data-orb-index="2"]');
                     if (dietText) dietText.classList.add('no-access-text');
                     if (cityText) cityText.classList.add('no-access-text');
+                    var dietLink = document.querySelector('.dot-link[data-dot="1"]');
+                    var cityLink = document.querySelector('.dot-link[data-dot="2"]');
+                    if (dietLink) dietLink.classList.add('no-access-link');
+                    if (cityLink) cityLink.classList.add('no-access-link');
                 }, 600);
 
                 // After 2500ms: fade arrows and show partial body area
