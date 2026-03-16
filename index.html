@@ -2436,6 +2436,14 @@
         }
         .sec2-popup.visible { opacity: 1; visibility: visible; pointer-events: auto; }
         .sec2-completed-body:hover .sec2-popup { opacity: 1; visibility: visible; pointer-events: auto; }
+        .sec2-partial-popup {
+            position: fixed;
+            right: auto;
+            top: auto;
+            transform: none;
+            z-index: 10000;
+            pointer-events: none;
+        }
         .sec2-popup-countdown {
             position: absolute;
             top: -10px;
@@ -2966,13 +2974,13 @@
                             <div class="sec2-completed-body body-hover-parent" id="sec2-partial-completed" style="display:none; margin-top: 20px;">
                                 <img src="body4_green.png" alt="Person in partial alignment" style="width:60px; filter:invert(1); opacity:0.85;" />
                                 <div class="body-full-label visible">Person living in partial alignment</div>
-                                <div class="sec2-popup">
-                                    <p style="margin:0;">The person has discovered everything in the world (<u>that they had access to</u>) that most aligns with who they are. Their world is a partial reflection of their soul &mdash; they live in partial alignment.</p>
-                                </div>
                             </div>
                             <span class="body-reset-btn" id="sec2-partial-completed-reset" style="margin-top:8px; display:none;">&#x21bb; Reset</span>
                         </div>
                     </div>
+                </div>
+                <div class="sec2-popup sec2-partial-popup" id="sec2-partial-popup">
+                    <p style="margin:0;">The person has discovered everything in the world (<u>that they had access to</u>) that most aligns with who they are. Their world is a partial reflection of their soul &mdash; they live in partial alignment.</p>
                 </div>
                 <p class="paragraph" style="margin-top: 3em;">
                     Out of everything that exists in the world, there is a most aligned path for you (this path of maximum alignment is indicated by the green dots, click below):
@@ -5985,6 +5993,22 @@
             document.addEventListener('touchmove', partialOnMove, { passive: false });
             document.addEventListener('mouseup', partialEndDrag);
             document.addEventListener('touchend', partialEndDrag);
+
+            // Partial completed body hover → show popup
+            var partialCompletedEl = document.getElementById('sec2-partial-completed');
+            var partialPopup = document.getElementById('sec2-partial-popup');
+            if (partialCompletedEl && partialPopup) {
+                partialCompletedEl.addEventListener('mouseenter', function() {
+                    var rect = partialCompletedEl.getBoundingClientRect();
+                    partialPopup.style.left = (rect.left - 314) + 'px';
+                    partialPopup.style.top = (rect.top + rect.height / 2) + 'px';
+                    partialPopup.style.transform = 'translateY(-50%)';
+                    partialPopup.classList.add('visible');
+                });
+                partialCompletedEl.addEventListener('mouseleave', function() {
+                    partialPopup.classList.remove('visible');
+                });
+            }
 
             // Partial reset
             function resetPartialBody() {
