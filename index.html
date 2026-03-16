@@ -5632,8 +5632,8 @@
                 var allOrbs = getOrbs();
                 if (allOrbs[1]) { allOrbs[1].classList.remove('no-access'); }
                 if (allOrbs[2]) { allOrbs[2].classList.remove('no-access'); }
-                var dietText = document.querySelector('#sec2-dots-field .dot-text[data-orb-index="1"]');
-                var cityText = document.querySelector('#sec2-dots-field .dot-text[data-orb-index="2"]');
+                var dietText = document.querySelector('#sec2-dots-field .dot-text[data-orb-index="s2-1"]');
+                var cityText = document.querySelector('#sec2-dots-field .dot-text[data-orb-index="s2-2"]');
                 if (dietText) dietText.classList.remove('no-access-text');
                 if (cityText) cityText.classList.remove('no-access-text');
                 // Remove any lingering red arrow SVGs
@@ -5766,8 +5766,8 @@
                 setTimeout(function() {
                     dietOrb.classList.add('no-access');
                     cityOrb.classList.add('no-access');
-                    var dietText = document.querySelector('#sec2-dots-field .dot-text[data-orb-index="1"]');
-                    var cityText = document.querySelector('#sec2-dots-field .dot-text[data-orb-index="2"]');
+                    var dietText = document.querySelector('#sec2-dots-field .dot-text[data-orb-index="s2-1"]');
+                    var cityText = document.querySelector('#sec2-dots-field .dot-text[data-orb-index="s2-2"]');
                     if (dietText) dietText.classList.add('no-access-text');
                     if (cityText) cityText.classList.add('no-access-text');
                 }, 600);
