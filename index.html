@@ -2930,6 +2930,9 @@
                 <p class="paragraph" id="sec2-innovation-text" style="display:none;">
                     So while we are personally driven to seek new experiences, people, things, and knowledge through our individual behaviors, the technology we&rsquo;ve built as a whole is what allows us to define and embody who we are in a perpetually increasing capacity. Innovation isn&rsquo;t just about solving individual problems; it&rsquo;s about building an instrument to externalize our identity.
                 </p>
+                <p class="paragraph" id="sec2-preinternet-text" style="display:none;">
+                    Before the internet, the limiting factor to channeling yourself in the world was access: to information, people, and things:
+                </p>
                 <p class="paragraph" id="sec2-history-text" style="display:none;">
                     Throughout history, the human innovative drive has created a world of expanding access. <span class="sec2-beginning-trigger" id="sec2-beginning-trigger">Starting from the beginning&hellip;</span>
                 </p>
@@ -5503,7 +5506,7 @@
                 if (typeof partialBodyLevel !== 'undefined') partialBodyLevel = 0;
                 partialAccessClicked = false;
                 // Hide drive text, innovation text, history text and noteworthy
-                ['sec2-drive-text', 'sec2-innovation-text', 'sec2-history-text'].forEach(function(id) {
+                ['sec2-drive-text', 'sec2-innovation-text', 'sec2-preinternet-text', 'sec2-history-text'].forEach(function(id) {
                     var el = document.getElementById(id);
                     if (el) { el.style.display = 'none'; el.style.opacity = ''; el.style.transition = ''; }
                 });
@@ -5823,7 +5826,8 @@
                                     }
                                     fadeInEl('sec2-drive-text', 1000);
                                     fadeInEl('sec2-innovation-text', 1800);
-                                    fadeInEl('sec2-history-text', 2600);
+                                    fadeInEl('sec2-preinternet-text', 2600);
+                                    fadeInEl('sec2-history-text', 3400);
                                 });
                             });
                         }, 500);
@@ -5870,7 +5874,7 @@
                 var partialIntro = document.getElementById('sec2-partial-intro');
                 partialIntro.classList.remove('fading-out');
                 partialIntro.style.display = 'flex';
-                ['sec2-drive-text', 'sec2-innovation-text', 'sec2-history-text'].forEach(function(id) {
+                ['sec2-drive-text', 'sec2-innovation-text', 'sec2-preinternet-text', 'sec2-history-text'].forEach(function(id) {
                     var el = document.getElementById(id);
                     if (el) { el.style.display = 'none'; el.style.opacity = ''; el.style.transition = ''; }
                 });
