@@ -2580,6 +2580,30 @@
             background: rgba(255, 255, 255, 0.15);
             color: rgba(255, 255, 255, 0.8);
         }
+        .sec2-dots-annotation {
+            position: absolute;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            max-width: 200px;
+            z-index: 10;
+            opacity: 0;
+            transition: opacity 0.8s ease;
+        }
+        .sec2-dots-annotation.visible {
+            opacity: 1;
+        }
+        .sec2-dots-anno-text {
+            font-family: Georgia, 'Times New Roman', serif;
+            font-style: italic;
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.75);
+            line-height: 1.4;
+        }
+        .sec2-dots-anno-arrow {
+            font-size: 1.5rem;
+            color: rgba(255, 255, 255, 0.6);
+        }
         .sec2-dots-curves {
             position: absolute;
             top: 0;
@@ -3035,6 +3059,14 @@
                 <div class="sec2-dots-overlay" id="sec2-dots-overlay">
                     <div class="sec2-fullscreen-dots" id="sec2-fullscreen-dots">
                         <div class="sec2-dots-close" id="sec2-dots-close">&times;</div>
+                        <div class="sec2-dots-annotation" id="sec2-dots-anno-1" style="top: 8%; left: 5%;">
+                            <div class="sec2-dots-anno-text">All people, information, and tangible stuff that exists in the world (represented by the dots)</div>
+                            <div class="sec2-dots-anno-arrow" style="transform: rotate(45deg); align-self: flex-end;">&#x2193;</div>
+                        </div>
+                        <div class="sec2-dots-annotation" id="sec2-dots-anno-2" style="top: 38%; left: 5%;">
+                            <div class="sec2-dots-anno-arrow" style="transform: rotate(-45deg); align-self: flex-start;">&#x2193;</div>
+                            <div class="sec2-dots-anno-text">This line represents the range of access we had to everything that exists in the world</div>
+                        </div>
                         <svg class="sec2-dots-curves" id="sec2-dots-curves" viewBox="0 0 100 100" preserveAspectRatio="none">
                             <defs>
                                 <marker id="sec2-arrow-left" markerWidth="8" markerHeight="6" refX="0" refY="3" orient="auto">
@@ -6086,6 +6118,8 @@
             function dismissOverlay() {
                 overlay.classList.remove('visible');
                 curves.classList.remove('visible');
+                document.getElementById('sec2-dots-anno-1').classList.remove('visible');
+                document.getElementById('sec2-dots-anno-2').classList.remove('visible');
                 setTimeout(function() {
                     overlay.style.display = 'none';
                 }, 600);
@@ -6106,9 +6140,16 @@
                     requestAnimationFrame(function() {
                         requestAnimationFrame(function() {
                             overlay.classList.add('visible');
-                            // After dots fade in, draw the curves
+                            // After dots fade in, draw the curves, then show annotations
                             setTimeout(function() {
                                 curves.classList.add('visible');
+                                // Show annotations after curves finish drawing
+                                setTimeout(function() {
+                                    document.getElementById('sec2-dots-anno-1').classList.add('visible');
+                                    setTimeout(function() {
+                                        document.getElementById('sec2-dots-anno-2').classList.add('visible');
+                                    }, 600);
+                                }, 2000);
                             }, 1200);
                         });
                     });
