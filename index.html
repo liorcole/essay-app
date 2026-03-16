@@ -2924,6 +2924,9 @@
                         </p>
                     </div>
                 </div>
+                <p class="paragraph" id="sec2-drive-text" style="display:none;">
+                    This drive powers everything &mdash; not only our individual behaviors, but also the way humanity functions at large: humankind&hellip;
+                </p>
                 <p class="paragraph" id="sec2-history-text" style="display:none;">
                     Throughout history, the human innovative drive has created a world of expanding access. <span class="sec2-beginning-trigger" id="sec2-beginning-trigger">Starting from the beginning&hellip;</span>
                 </p>
@@ -5496,7 +5499,9 @@
                 if (typeof partialConsumedOrbs !== 'undefined') partialConsumedOrbs.clear();
                 if (typeof partialBodyLevel !== 'undefined') partialBodyLevel = 0;
                 partialAccessClicked = false;
-                // Hide history text and noteworthy
+                // Hide drive text, history text and noteworthy
+                var dt = document.getElementById('sec2-drive-text');
+                if (dt) { dt.style.display = 'none'; dt.style.opacity = ''; dt.style.transition = ''; }
                 var ht = document.getElementById('sec2-history-text');
                 if (ht) { ht.style.display = 'none'; ht.style.opacity = ''; ht.style.transition = ''; }
                 var nw = document.getElementById('sec2-noteworthy');
@@ -5797,19 +5802,32 @@
                                             scrollContainer.scrollTo({ top: scrollContainer.scrollHeight, behavior: 'smooth' });
                                         }, 550);
                                     }
-                                    // Show history text after partial completion
+                                    // Show drive text, then history text after partial completion
                                     setTimeout(function() {
-                                        var historyText = document.getElementById('sec2-history-text');
-                                        if (historyText) {
-                                            historyText.style.display = '';
-                                            historyText.style.opacity = '0';
-                                            historyText.style.transition = 'opacity 0.6s ease';
+                                        var driveText = document.getElementById('sec2-drive-text');
+                                        if (driveText) {
+                                            driveText.style.display = '';
+                                            driveText.style.opacity = '0';
+                                            driveText.style.transition = 'opacity 0.6s ease';
                                             requestAnimationFrame(function() {
                                                 requestAnimationFrame(function() {
-                                                    historyText.style.opacity = '1';
+                                                    driveText.style.opacity = '1';
                                                 });
                                             });
                                         }
+                                        setTimeout(function() {
+                                            var historyText = document.getElementById('sec2-history-text');
+                                            if (historyText) {
+                                                historyText.style.display = '';
+                                                historyText.style.opacity = '0';
+                                                historyText.style.transition = 'opacity 0.6s ease';
+                                                requestAnimationFrame(function() {
+                                                    requestAnimationFrame(function() {
+                                                        historyText.style.opacity = '1';
+                                                    });
+                                                });
+                                            }
+                                        }, 800);
                                     }, 1000);
                                 });
                             });
@@ -5857,6 +5875,8 @@
                 var partialIntro = document.getElementById('sec2-partial-intro');
                 partialIntro.classList.remove('fading-out');
                 partialIntro.style.display = 'flex';
+                var driveText = document.getElementById('sec2-drive-text');
+                if (driveText) { driveText.style.display = 'none'; driveText.style.opacity = ''; driveText.style.transition = ''; }
                 var historyText = document.getElementById('sec2-history-text');
                 if (historyText) { historyText.style.display = 'none'; historyText.style.opacity = ''; historyText.style.transition = ''; }
                 var noteworthyEl = document.getElementById('sec2-noteworthy');
