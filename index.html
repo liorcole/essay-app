@@ -2927,6 +2927,9 @@
                 <p class="paragraph" id="sec2-drive-text" style="display:none;">
                     This drive powers everything &mdash; not only our individual behaviors, but also the way humanity functions at large: humankind&hellip;
                 </p>
+                <p class="paragraph" id="sec2-innovation-text" style="display:none;">
+                    So while we are personally driven to seek new experiences, people, things, and knowledge through our individual behaviors, the technology we&rsquo;ve built as a whole is what allows us to define and embody who we are in a perpetually increasing capacity. Innovation isn&rsquo;t just about solving individual problems; it&rsquo;s about building an instrument to externalize our identity.
+                </p>
                 <p class="paragraph" id="sec2-history-text" style="display:none;">
                     Throughout history, the human innovative drive has created a world of expanding access. <span class="sec2-beginning-trigger" id="sec2-beginning-trigger">Starting from the beginning&hellip;</span>
                 </p>
@@ -5499,11 +5502,11 @@
                 if (typeof partialConsumedOrbs !== 'undefined') partialConsumedOrbs.clear();
                 if (typeof partialBodyLevel !== 'undefined') partialBodyLevel = 0;
                 partialAccessClicked = false;
-                // Hide drive text, history text and noteworthy
-                var dt = document.getElementById('sec2-drive-text');
-                if (dt) { dt.style.display = 'none'; dt.style.opacity = ''; dt.style.transition = ''; }
-                var ht = document.getElementById('sec2-history-text');
-                if (ht) { ht.style.display = 'none'; ht.style.opacity = ''; ht.style.transition = ''; }
+                // Hide drive text, innovation text, history text and noteworthy
+                ['sec2-drive-text', 'sec2-innovation-text', 'sec2-history-text'].forEach(function(id) {
+                    var el = document.getElementById(id);
+                    if (el) { el.style.display = 'none'; el.style.opacity = ''; el.style.transition = ''; }
+                });
                 var nw = document.getElementById('sec2-noteworthy');
                 if (nw) { nw.style.display = 'none'; nw.classList.remove('visible'); }
             }
@@ -5802,33 +5805,25 @@
                                             scrollContainer.scrollTo({ top: scrollContainer.scrollHeight, behavior: 'smooth' });
                                         }, 550);
                                     }
-                                    // Show drive text, then history text after partial completion
-                                    setTimeout(function() {
-                                        var driveText = document.getElementById('sec2-drive-text');
-                                        if (driveText) {
-                                            driveText.style.display = '';
-                                            driveText.style.opacity = '0';
-                                            driveText.style.transition = 'opacity 0.6s ease';
-                                            requestAnimationFrame(function() {
-                                                requestAnimationFrame(function() {
-                                                    driveText.style.opacity = '1';
-                                                });
-                                            });
-                                        }
+                                    // Show drive text, innovation text, then history text after partial completion
+                                    function fadeInEl(id, delay) {
                                         setTimeout(function() {
-                                            var historyText = document.getElementById('sec2-history-text');
-                                            if (historyText) {
-                                                historyText.style.display = '';
-                                                historyText.style.opacity = '0';
-                                                historyText.style.transition = 'opacity 0.6s ease';
+                                            var el = document.getElementById(id);
+                                            if (el) {
+                                                el.style.display = '';
+                                                el.style.opacity = '0';
+                                                el.style.transition = 'opacity 0.6s ease';
                                                 requestAnimationFrame(function() {
                                                     requestAnimationFrame(function() {
-                                                        historyText.style.opacity = '1';
+                                                        el.style.opacity = '1';
                                                     });
                                                 });
                                             }
-                                        }, 800);
-                                    }, 1000);
+                                        }, delay);
+                                    }
+                                    fadeInEl('sec2-drive-text', 1000);
+                                    fadeInEl('sec2-innovation-text', 1800);
+                                    fadeInEl('sec2-history-text', 2600);
                                 });
                             });
                         }, 500);
@@ -5875,10 +5870,10 @@
                 var partialIntro = document.getElementById('sec2-partial-intro');
                 partialIntro.classList.remove('fading-out');
                 partialIntro.style.display = 'flex';
-                var driveText = document.getElementById('sec2-drive-text');
-                if (driveText) { driveText.style.display = 'none'; driveText.style.opacity = ''; driveText.style.transition = ''; }
-                var historyText = document.getElementById('sec2-history-text');
-                if (historyText) { historyText.style.display = 'none'; historyText.style.opacity = ''; historyText.style.transition = ''; }
+                ['sec2-drive-text', 'sec2-innovation-text', 'sec2-history-text'].forEach(function(id) {
+                    var el = document.getElementById(id);
+                    if (el) { el.style.display = 'none'; el.style.opacity = ''; el.style.transition = ''; }
+                });
                 var noteworthyEl = document.getElementById('sec2-noteworthy');
                 if (noteworthyEl) { noteworthyEl.style.display = 'none'; noteworthyEl.classList.remove('visible'); }
             }
