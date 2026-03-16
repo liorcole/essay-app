@@ -2354,9 +2354,8 @@
             left: 50%;
             transform: translate(-50%, -50%);
             display: none;
-            flex-direction: column;
             align-items: center;
-            gap: 20px;
+            justify-content: center;
             z-index: 100;
             opacity: 0;
             transition: opacity 0.5s ease;
@@ -2376,15 +2375,36 @@
             color: #fff;
             white-space: nowrap;
         }
-        .sec2-hover-prompt-arrow {
-            font-size: 5rem;
-            color: #86efac;
-            animation: hover-arrow-pulse 1.2s ease-in-out infinite;
-            align-self: flex-end;
+        .sec2-hover-arrow-svg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 101;
+            display: none;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+        .sec2-hover-arrow-svg.visible {
+            opacity: 1;
+        }
+        .sec2-hover-arrow-line {
+            stroke: #86efac;
+            stroke-width: 3;
+            fill: none;
+        }
+        .sec2-hover-arrow-head {
+            fill: #86efac;
         }
         @keyframes hover-arrow-pulse {
-            0%, 100% { transform: translate(0, 0); opacity: 0.6; }
-            50% { transform: translate(20px, -20px); opacity: 1; }
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+        .sec2-hover-arrow-svg.visible .sec2-hover-arrow-line,
+        .sec2-hover-arrow-svg.visible .sec2-hover-arrow-head {
+            animation: hover-arrow-pulse 1.2s ease-in-out infinite;
         }
 
         .sec2-body-area { margin: 30px 0; }
@@ -2974,8 +2994,15 @@
                 <div class="sec2-drag-hint" id="sec2-drag-hint"></div>
                 <div class="sec2-hover-prompt" id="sec2-hover-prompt">
                     <span class="sec2-hover-prompt-text">hover over</span>
-                    <span class="sec2-hover-prompt-arrow">&#x2197;</span>
                 </div>
+                <svg class="sec2-hover-arrow-svg" id="sec2-hover-arrow-svg">
+                    <defs>
+                        <marker id="sec2-hover-arrowhead" markerWidth="12" markerHeight="8" refX="12" refY="4" orient="auto">
+                            <polygon points="0 0, 12 4, 0 8" class="sec2-hover-arrow-head" />
+                        </marker>
+                    </defs>
+                    <line class="sec2-hover-arrow-line" id="sec2-hover-arrow-line" marker-end="url(#sec2-hover-arrowhead)" />
+                </svg>
                 <div class="sec2-body-area">
                     <div class="sec2-body-intro" id="sec2-body-intro">
                         <div class="sec2-body-img-wrap" id="sec2-body-img-wrap">
@@ -5528,11 +5555,27 @@
                         completedWrap.classList.add('visible');
                         // Show hover prompt pointing to the completed body
                         var hoverPrompt = document.getElementById('sec2-hover-prompt');
+                        var arrowSvg = document.getElementById('sec2-hover-arrow-svg');
+                        var arrowLine = document.getElementById('sec2-hover-arrow-line');
                         setTimeout(function() {
                             hoverPrompt.style.display = 'flex';
+                            arrowSvg.style.display = 'block';
+                            // Draw line from prompt to body
+                            var promptRect = hoverPrompt.getBoundingClientRect();
+                            var bodyEl = document.getElementById('sec2-completed-body');
+                            var bodyRect = bodyEl.getBoundingClientRect();
+                            var startX = promptRect.right - 20;
+                            var startY = promptRect.top + 20;
+                            var endX = bodyRect.left + bodyRect.width / 2;
+                            var endY = bodyRect.top + bodyRect.height / 2;
+                            arrowLine.setAttribute('x1', startX);
+                            arrowLine.setAttribute('y1', startY);
+                            arrowLine.setAttribute('x2', endX);
+                            arrowLine.setAttribute('y2', endY);
                             requestAnimationFrame(function() {
                                 requestAnimationFrame(function() {
                                     hoverPrompt.classList.add('visible');
+                                    arrowSvg.classList.add('visible');
                                 });
                             });
                         }, 600);
@@ -5541,7 +5584,11 @@
                         completedBody.addEventListener('mouseenter', function onHover() {
                             completedBody.removeEventListener('mouseenter', onHover);
                             hoverPrompt.classList.remove('visible');
-                            setTimeout(function() { hoverPrompt.style.display = 'none'; }, 500);
+                            arrowSvg.classList.remove('visible');
+                            setTimeout(function() {
+                                hoverPrompt.style.display = 'none';
+                                arrowSvg.style.display = 'none';
+                            }, 500);
                             popup.classList.add('visible');
                             setTimeout(function() {
                                 popup.classList.remove('visible');
@@ -5562,9 +5609,11 @@
                 var dotsRow = document.querySelector('.sec2-dots-sticky-wrapper .dots-field-row');
                 dotsRow.classList.remove('has-body');
                 introWrap.style.display = 'flex';
-                // Clean up hover prompt
+                // Clean up hover prompt and arrow
                 var hp = document.getElementById('sec2-hover-prompt');
                 if (hp) { hp.classList.remove('visible'); hp.style.display = 'none'; }
+                var has = document.getElementById('sec2-hover-arrow-svg');
+                if (has) { has.classList.remove('visible'); has.style.display = 'none'; }
                 popup.classList.remove('visible');
                 // Clean up partial alignment state
                 document.getElementById('sec2-reality-text').style.display = 'none';
