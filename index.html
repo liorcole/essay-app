@@ -2735,6 +2735,30 @@
         }
         .dots-bubble-nav-btn:hover { color: #fff; }
         .dots-bubble-nav-btn.disabled { opacity: 0.2; pointer-events: none; }
+        .dots-tl-bottom-arrows {
+            position: absolute;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 2%;
+            pointer-events: none;
+            z-index: 15;
+        }
+        .dots-tl-arrow-left, .dots-tl-arrow-right {
+            font-size: 1.8rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+        .dots-tl-arrow-left { animation: bounce-left 1.2s ease-in-out infinite; }
+        .dots-tl-arrow-right { animation: bounce-right 1.2s ease-in-out infinite; }
+        @keyframes bounce-left {
+            0%, 100% { transform: translateX(0); opacity: 0.5; }
+            50% { transform: translateX(-12px); opacity: 1; }
+        }
+        @keyframes bounce-right {
+            0%, 100% { transform: translateX(0); opacity: 0.5; }
+            50% { transform: translateX(12px); opacity: 1; }
+        }
         .sec2-inline-timeline-box {
             position: relative;
             width: 100%;
@@ -3236,6 +3260,20 @@
                             </ul>
                         </div>
 
+                        <div class="dots-timeline-line" id="dots-tl-line-5" style="top: 78%; left: 3%;"></div>
+                        <div class="dots-timeline-title" id="dots-tl-title-5" style="top: 73%; font-style: italic;" data-step="5">The Digital Era: Infinite Access<br>to Everything</div>
+                        <div class="dots-timeline-card" id="dots-tl-card-5" style="top: 80%;">
+                            <ul>
+                                <li><span class="tl-label">Biggest limiting factor:</span> Barriered access to (essentially) everything available in the world.</li>
+                                <li><span class="tl-label">Breakthrough:</span> The Internet (1980s)</li>
+                                <li><span class="tl-label">Impact:</span> Infinite access to everything &mdash; information, culture, goods, people, etc. Access to everything.</li>
+                            </ul>
+                        </div>
+                        <div class="dots-tl-bottom-arrows" id="dots-tl-bottom-arrows" style="top: 78%; opacity: 0; transition: opacity 0.8s ease;">
+                            <span class="dots-tl-arrow-left">&larr;</span>
+                            <span class="dots-tl-arrow-right">&rarr;</span>
+                        </div>
+
                         <div class="dots-bottom-bubble" id="dots-bottom-bubble">
                             <span id="dots-bubble-text">Beginning of human kind</span>
                             <span class="dots-bottom-bubble-hint" id="dots-bubble-hint">(click to continue the evolution of human innovation)</span>
@@ -3302,6 +3340,20 @@
                                 <li><span class="tl-label">Breakthroughs:</span> Spinning Jenny (1764), Power loom (1784), Assembly line (1913)</li>
                                 <li><span class="tl-label">Impact:</span> Mass production made goods cheap and plentiful, created optionality in physical things. More access to things.</li>
                             </ul>
+                        </div>
+
+                        <div class="dots-timeline-line visible" style="top: 78%; left: 3%;"></div>
+                        <div class="dots-timeline-title visible" style="top: 73%; font-style: italic;" data-inline-card="inline-card-5">The Digital Era: Infinite Access<br>to Everything</div>
+                        <div class="dots-timeline-card" id="inline-card-5" style="top: 80%;">
+                            <ul>
+                                <li><span class="tl-label">Biggest limiting factor:</span> Barriered access to (essentially) everything available in the world.</li>
+                                <li><span class="tl-label">Breakthrough:</span> The Internet (1980s)</li>
+                                <li><span class="tl-label">Impact:</span> Infinite access to everything &mdash; information, culture, goods, people, etc. Access to everything.</li>
+                            </ul>
+                        </div>
+                        <div class="dots-tl-bottom-arrows" style="top: 78%; opacity: 1;">
+                            <span class="dots-tl-arrow-left">&larr;</span>
+                            <span class="dots-tl-arrow-right">&rarr;</span>
                         </div>
 
                         <svg class="sec2-dots-curves visible" viewBox="0 0 100 100" preserveAspectRatio="none" style="opacity:1;">
@@ -6466,13 +6518,14 @@
                 document.getElementById('sec2-dots-anno-2').classList.remove('visible');
                 document.getElementById('sec2-anno-arrows').style.opacity = '0';
                 // Reset timeline
-                ['dots-tl-line-1','dots-tl-title-1','dots-tl-line-2','dots-tl-title-2','dots-tl-card-2','dots-tl-line-3','dots-tl-title-3','dots-tl-card-3','dots-tl-line-4','dots-tl-title-4','dots-tl-card-4','dots-bottom-bubble'].forEach(function(id) {
+                ['dots-tl-line-1','dots-tl-title-1','dots-tl-line-2','dots-tl-title-2','dots-tl-card-2','dots-tl-line-3','dots-tl-title-3','dots-tl-card-3','dots-tl-line-4','dots-tl-title-4','dots-tl-card-4','dots-tl-line-5','dots-tl-title-5','dots-tl-card-5','dots-bottom-bubble'].forEach(function(id) {
                     document.getElementById(id).classList.remove('visible');
                 });
                 document.getElementById('dots-bubble-text').textContent = 'Beginning of human kind';
                 document.getElementById('dots-bubble-hint').style.display = '';
                 document.getElementById('dots-nav-back').classList.add('disabled');
                 document.getElementById('dots-nav-forward').classList.remove('disabled');
+                document.getElementById('dots-tl-bottom-arrows').style.opacity = '0';
                 timelineStep = 0;
                 setTimeout(function() {
                     overlay.style.display = 'none';
@@ -6522,7 +6575,8 @@
                 { bubble: 'Beginning of human kind', showHint: true },
                 { bubble: 'Our earliest innovations addressed the most basic constraint: where we could physically go:', line: 'dots-tl-line-2', title: 'dots-tl-title-2', card: 'dots-tl-card-2' },
                 { bubble: 'Access to information was next: knowledge had been locked within religious leaders and elites. In this era, information became increasingly accessible.', line: 'dots-tl-line-3', title: 'dots-tl-title-3', card: 'dots-tl-card-3' },
-                { bubble: 'The Industrial Revolution addressed the scarcity of physical goods. Mechanized production gave us access to a wide range of physical things, that now also varied in style and functionality. Now instead of everyone owning the same handcrafted broom to clean the home, you could choose from a range of vacuums that align with your style and functionality preferences. 100 dresses instead of a handful of cloaks. Etc.', line: 'dots-tl-line-4', title: 'dots-tl-title-4', card: 'dots-tl-card-4' }
+                { bubble: 'The Industrial Revolution addressed the scarcity of physical goods. Mechanized production gave us access to a wide range of physical things, that now also varied in style and functionality. Now instead of everyone owning the same handcrafted broom to clean the home, you could choose from a range of vacuums that align with your style and functionality preferences. 100 dresses instead of a handful of cloaks. Etc.', line: 'dots-tl-line-4', title: 'dots-tl-title-4', card: 'dots-tl-card-4' },
+                { bubble: 'At this point, access to people, knowledge, and stuff had been revolutionized, but there were still limitations. The internet solidified the era of expanding access by (essentially) giving everyone access to everything: if it exists in the world, you can find it online.', line: 'dots-tl-line-5', title: 'dots-tl-title-5', card: 'dots-tl-card-5' }
             ];
             var bubbleText = document.getElementById('dots-bubble-text');
             var bubbleHint = document.getElementById('dots-bubble-hint');
@@ -6563,6 +6617,9 @@
                         document.getElementById(s.card).classList.remove('visible');
                     }
                 }
+                // Show bouncing arrows on last step
+                var bottomArrows = document.getElementById('dots-tl-bottom-arrows');
+                bottomArrows.style.opacity = step >= tlSteps.length - 1 ? '1' : '0';
             }
 
             navForward.addEventListener('click', function(e) {
@@ -6642,7 +6699,7 @@
                     var card = document.getElementById('dots-tl-card-' + stepNum);
                     var isOpen = card.classList.contains('visible');
                     // Close all overlay cards first
-                    for (var i = 2; i <= 4; i++) {
+                    for (var i = 2; i <= 5; i++) {
                         document.getElementById('dots-tl-card-' + i).classList.remove('visible');
                     }
                     if (!isOpen) card.classList.add('visible');
@@ -6662,7 +6719,7 @@
             });
 
             // Inline timeline title click to expand/collapse (only one open at a time)
-            var inlineCards = ['inline-card-2', 'inline-card-3', 'inline-card-4'];
+            var inlineCards = ['inline-card-2', 'inline-card-3', 'inline-card-4', 'inline-card-5'];
             document.querySelectorAll('.dots-timeline-title[data-inline-card]').forEach(function(title) {
                 title.addEventListener('click', function(e) {
                     e.stopPropagation();
