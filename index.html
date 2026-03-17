@@ -2653,52 +2653,58 @@
             right: 5%;
             font-family: Georgia, 'Times New Roman', serif;
             font-weight: 700;
-            font-size: 0.95rem;
+            font-size: 0.85rem;
             color: #fff;
-            z-index: 12;
+            z-index: 13;
             opacity: 0;
             transition: opacity 0.8s ease;
-            white-space: nowrap;
+            cursor: pointer;
+            text-align: right;
         }
         .dots-timeline-title.visible { opacity: 1; }
+        .dots-timeline-title:hover { color: #86efac; }
         .dots-timeline-card {
             position: absolute;
             right: 3%;
             width: 280px;
-            background: rgba(50, 50, 55, 0.85);
+            background: rgba(40, 40, 45, 0.95);
+            border: 1px solid rgba(255, 255, 255, 0.15);
             border-radius: 10px;
             padding: 14px 16px;
             font-family: Georgia, 'Times New Roman', serif;
-            font-size: 0.78rem;
+            font-size: 0.75rem;
             color: rgba(255, 255, 255, 0.85);
             line-height: 1.5;
-            z-index: 12;
+            z-index: 14;
             opacity: 0;
-            transition: opacity 0.8s ease;
+            max-height: 0;
+            overflow: hidden;
+            transition: opacity 0.5s ease, max-height 0.5s ease;
+            pointer-events: none;
         }
-        .dots-timeline-card.visible { opacity: 1; }
+        .dots-timeline-card.visible { opacity: 1; max-height: 300px; pointer-events: auto; }
         .dots-timeline-card ul {
-            margin: 8px 0 0 0;
-            padding-left: 18px;
+            margin: 4px 0 0 0;
+            padding-left: 16px;
+            list-style: disc;
         }
-        .dots-timeline-card li { margin-bottom: 6px; }
+        .dots-timeline-card li { margin-bottom: 5px; }
+        .dots-timeline-card .tl-label { font-weight: 700; color: #86efac; }
         .dots-bottom-bubble {
             position: absolute;
             bottom: 5%;
-            left: 50%;
-            transform: translateX(-50%);
-            background: rgba(80, 80, 85, 0.8);
+            left: 5%;
+            background: rgba(80, 80, 85, 0.85);
             border-radius: 14px;
             padding: 16px 24px;
             font-family: Georgia, 'Times New Roman', serif;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             color: rgba(255, 255, 255, 0.85);
             text-align: center;
             z-index: 12;
-            cursor: pointer;
             opacity: 0;
             transition: opacity 0.8s ease;
-            max-width: 400px;
+            max-width: 300px;
             line-height: 1.5;
         }
         .dots-bottom-bubble.visible { opacity: 1; }
@@ -2709,6 +2715,21 @@
             margin-top: 6px;
             font-style: italic;
         }
+        .dots-bubble-nav {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 10px;
+        }
+        .dots-bubble-nav-btn {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.6);
+            cursor: pointer;
+            transition: color 0.2s ease;
+            user-select: none;
+        }
+        .dots-bubble-nav-btn:hover { color: #fff; }
+        .dots-bubble-nav-btn.disabled { opacity: 0.2; pointer-events: none; }
 
         /* ========== MOBILE RESPONSIVE ========== */
         @media (max-width: 768px) {
@@ -3165,21 +3186,45 @@
                         </svg>
                         <!-- Timeline elements -->
                         <div class="dots-timeline-line" id="dots-tl-line-1" style="top: 8%;"></div>
-                        <div class="dots-timeline-title" id="dots-tl-title-1" style="top: 3%;">Beginning of humankind</div>
+                        <div class="dots-timeline-title" id="dots-tl-title-1" style="top: 3%;" data-step="1">Beginning of humankind</div>
 
                         <div class="dots-timeline-line" id="dots-tl-line-2" style="top: 22%;"></div>
-                        <div class="dots-timeline-title" id="dots-tl-title-2" style="top: 17%; font-style: italic;">Early Tools: Expanding the Body&rsquo;s Reach</div>
+                        <div class="dots-timeline-title" id="dots-tl-title-2" style="top: 17%; font-style: italic;" data-step="2">Early Tools: Expanding the Body&rsquo;s Reach</div>
                         <div class="dots-timeline-card" id="dots-tl-card-2" style="top: 24%;">
                             <ul>
-                                <li><b>Biggest limiting factor:</b> Physical constraints: distance, environment, survival.</li>
-                                <li><b>Breakthroughs:</b> (~1.5M BCE), Domesticated horses (~3500 BCE), Wheel (~3500 BCE), Sails (~3000 BCE)</li>
-                                <li><b>Impact:</b> Extended our ability to reach people and places beyond immediate geography. More access to people.</li>
+                                <li><span class="tl-label">Biggest limiting factor:</span> Physical constraints: distance, environment, survival.</li>
+                                <li><span class="tl-label">Breakthroughs:</span> (~1.5M BCE), Domesticated horses (~3500 BCE), Wheel (~3500 BCE), Sails (~3000 BCE)</li>
+                                <li><span class="tl-label">Impact:</span> Extended our ability to reach people and places beyond immediate geography. More access to people.</li>
+                            </ul>
+                        </div>
+
+                        <div class="dots-timeline-line" id="dots-tl-line-3" style="top: 40%;"></div>
+                        <div class="dots-timeline-title" id="dots-tl-title-3" style="top: 35%; font-style: italic;" data-step="3">The Information Era: Expanding<br>Knowledge &amp; Culture</div>
+                        <div class="dots-timeline-card" id="dots-tl-card-3" style="top: 42%;">
+                            <ul>
+                                <li><span class="tl-label">Biggest limiting factor:</span> Knowledge scarcity. Information locked in elites, religious leaders, or oral tradition.</li>
+                                <li><span class="tl-label">Breakthroughs:</span> Printing press (1430s), Newspapers (1600s), Radio (1890s), Television (1920s)</li>
+                                <li><span class="tl-label">Impact:</span> Knowledge became widely accessible. Religious, political, cultural, scientific, and interpersonal ideas spread across borders. More access to information.</li>
+                            </ul>
+                        </div>
+
+                        <div class="dots-timeline-line" id="dots-tl-line-4" style="top: 62%;"></div>
+                        <div class="dots-timeline-title" id="dots-tl-title-4" style="top: 57%; font-style: italic;" data-step="4">Industrial &amp; Manufacturing Era:<br>Expanding Material Access</div>
+                        <div class="dots-timeline-card" id="dots-tl-card-4" style="top: 64%;">
+                            <ul>
+                                <li><span class="tl-label">Biggest limiting factor:</span> Scarcity of goods. Things were limited to what could be handmade or bartered.</li>
+                                <li><span class="tl-label">Breakthroughs:</span> Spinning Jenny (1764), Power loom (1784), Assembly line (1913)</li>
+                                <li><span class="tl-label">Impact:</span> Mass production made goods cheap and plentiful, created optionality in physical things. More access to things.</li>
                             </ul>
                         </div>
 
                         <div class="dots-bottom-bubble" id="dots-bottom-bubble">
                             <span id="dots-bubble-text">Beginning of human kind</span>
-                            <span class="dots-bottom-bubble-hint">(click to continue the evolution of human innovation)</span>
+                            <span class="dots-bottom-bubble-hint" id="dots-bubble-hint">(click to continue the evolution of human innovation)</span>
+                            <div class="dots-bubble-nav">
+                                <span class="dots-bubble-nav-btn disabled" id="dots-nav-back">&larr;</span>
+                                <span class="dots-bubble-nav-btn" id="dots-nav-forward">&rarr;</span>
+                            </div>
                         </div>
 
                         <svg class="sec2-dots-curves" id="sec2-dots-curves" viewBox="0 0 100 100" preserveAspectRatio="none">
@@ -6315,11 +6360,13 @@
                 document.getElementById('sec2-dots-anno-2').classList.remove('visible');
                 document.getElementById('sec2-anno-arrows').style.opacity = '0';
                 // Reset timeline
-                ['dots-tl-line-1','dots-tl-title-1','dots-tl-line-2','dots-tl-title-2','dots-tl-card-2','dots-bottom-bubble'].forEach(function(id) {
+                ['dots-tl-line-1','dots-tl-title-1','dots-tl-line-2','dots-tl-title-2','dots-tl-card-2','dots-tl-line-3','dots-tl-title-3','dots-tl-card-3','dots-tl-line-4','dots-tl-title-4','dots-tl-card-4','dots-bottom-bubble'].forEach(function(id) {
                     document.getElementById(id).classList.remove('visible');
                 });
                 document.getElementById('dots-bubble-text').textContent = 'Beginning of human kind';
-                document.querySelector('.dots-bottom-bubble-hint').style.display = '';
+                document.getElementById('dots-bubble-hint').style.display = '';
+                document.getElementById('dots-nav-back').classList.add('disabled');
+                document.getElementById('dots-nav-forward').classList.remove('disabled');
                 timelineStep = 0;
                 setTimeout(function() {
                     overlay.style.display = 'none';
@@ -6364,19 +6411,59 @@
                 }, 1200);
             });
 
-            // Timeline bubble click progression
-            var bubble = document.getElementById('dots-bottom-bubble');
+            // Timeline step data
+            var tlSteps = [
+                { bubble: 'Beginning of human kind', showHint: true },
+                { bubble: 'Our earliest innovations addressed the most basic constraint: where we could physically go:', line: 'dots-tl-line-2', title: 'dots-tl-title-2', card: 'dots-tl-card-2' },
+                { bubble: 'Access to information was next: knowledge had been locked within religious leaders and elites. In this era, information became increasingly accessible.', line: 'dots-tl-line-3', title: 'dots-tl-title-3', card: 'dots-tl-card-3' },
+                { bubble: 'The Industrial Revolution addressed the scarcity of physical goods. Mechanized production gave us access to a wide range of physical things, that now also varied in style and functionality. Now instead of everyone owning the same handcrafted broom to clean the home, you could choose from a range of vacuums that align with your style and functionality preferences. 100 dresses instead of a handful of cloaks. Etc.', line: 'dots-tl-line-4', title: 'dots-tl-title-4', card: 'dots-tl-card-4' }
+            ];
             var bubbleText = document.getElementById('dots-bubble-text');
-            bubble.addEventListener('click', function(e) {
-                e.stopPropagation();
-                if (timelineStep === 0) {
-                    timelineStep = 1;
-                    bubbleText.textContent = 'Our earliest innovations addressed the most basic constraint: where we could physically go:';
-                    bubble.querySelector('.dots-bottom-bubble-hint').style.display = 'none';
-                    document.getElementById('dots-tl-line-2').classList.add('visible');
-                    document.getElementById('dots-tl-title-2').classList.add('visible');
-                    document.getElementById('dots-tl-card-2').classList.add('visible');
+            var bubbleHint = document.getElementById('dots-bubble-hint');
+            var navBack = document.getElementById('dots-nav-back');
+            var navForward = document.getElementById('dots-nav-forward');
+
+            function goToStep(step) {
+                if (step < 0 || step >= tlSteps.length) return;
+                timelineStep = step;
+                var data = tlSteps[step];
+                bubbleText.textContent = data.bubble;
+                bubbleHint.style.display = step === 0 ? '' : 'none';
+                navBack.classList.toggle('disabled', step === 0);
+                navForward.classList.toggle('disabled', step >= tlSteps.length - 1);
+                // Show all lines/titles up to current step, hide cards (titles toggle them)
+                for (var i = 1; i < tlSteps.length; i++) {
+                    var s = tlSteps[i];
+                    var show = i <= step;
+                    document.getElementById(s.line).classList.toggle('visible', show);
+                    document.getElementById(s.title).classList.toggle('visible', show);
+                    // Show card only for the current step, hide others
+                    if (i === step) {
+                        document.getElementById(s.card).classList.add('visible');
+                    } else {
+                        document.getElementById(s.card).classList.remove('visible');
+                    }
                 }
+            }
+
+            navForward.addEventListener('click', function(e) {
+                e.stopPropagation();
+                goToStep(timelineStep + 1);
+            });
+            navBack.addEventListener('click', function(e) {
+                e.stopPropagation();
+                goToStep(timelineStep - 1);
+            });
+
+            // Title click to expand/collapse card
+            document.querySelectorAll('.dots-timeline-title[data-step]').forEach(function(title) {
+                title.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    var stepNum = parseInt(title.dataset.step);
+                    if (stepNum < 2) return; // "Beginning of humankind" has no card
+                    var card = document.getElementById('dots-tl-card-' + stepNum);
+                    card.classList.toggle('visible');
+                });
             });
 
             // Click backdrop (outside dots panel) to dismiss
