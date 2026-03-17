@@ -6583,14 +6583,19 @@
                 goToStep(timelineStep - 1);
             });
 
-            // Title click to expand/collapse card
+            // Title click to expand/collapse card (only one open at a time)
             document.querySelectorAll('.dots-timeline-title[data-step]').forEach(function(title) {
                 title.addEventListener('click', function(e) {
                     e.stopPropagation();
                     var stepNum = parseInt(title.dataset.step);
-                    if (stepNum < 2) return; // "Beginning of humankind" has no card
+                    if (stepNum < 2) return;
                     var card = document.getElementById('dots-tl-card-' + stepNum);
-                    card.classList.toggle('visible');
+                    var isOpen = card.classList.contains('visible');
+                    // Close all overlay cards first
+                    for (var i = 2; i <= 4; i++) {
+                        document.getElementById('dots-tl-card-' + i).classList.remove('visible');
+                    }
+                    if (!isOpen) card.classList.add('visible');
                 });
             });
 
@@ -6606,13 +6611,16 @@
                 dismissOverlay();
             });
 
-            // Inline timeline title click to expand/collapse
+            // Inline timeline title click to expand/collapse (only one open at a time)
+            var inlineCards = ['inline-card-2', 'inline-card-3', 'inline-card-4'];
             document.querySelectorAll('.dots-timeline-title[data-inline-card]').forEach(function(title) {
                 title.addEventListener('click', function(e) {
                     e.stopPropagation();
                     var cardId = title.dataset.inlineCard;
                     var card = document.getElementById(cardId);
-                    card.classList.toggle('visible');
+                    var isOpen = card.classList.contains('visible');
+                    inlineCards.forEach(function(id) { document.getElementById(id).classList.remove('visible'); });
+                    if (!isOpen) card.classList.add('visible');
                 });
             });
         })();
