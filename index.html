@@ -2637,6 +2637,79 @@
             stroke-dashoffset: 0;
         }
 
+        /* ========== DOTS OVERLAY TIMELINE ========== */
+        .dots-timeline-line {
+            position: absolute;
+            left: 45%;
+            width: 50%;
+            border-top: 2px dashed rgba(255, 255, 255, 0.4);
+            z-index: 12;
+            opacity: 0;
+            transition: opacity 0.8s ease;
+        }
+        .dots-timeline-line.visible { opacity: 1; }
+        .dots-timeline-title {
+            position: absolute;
+            right: 5%;
+            font-family: Georgia, 'Times New Roman', serif;
+            font-weight: 700;
+            font-size: 0.95rem;
+            color: #fff;
+            z-index: 12;
+            opacity: 0;
+            transition: opacity 0.8s ease;
+            white-space: nowrap;
+        }
+        .dots-timeline-title.visible { opacity: 1; }
+        .dots-timeline-card {
+            position: absolute;
+            right: 3%;
+            width: 280px;
+            background: rgba(50, 50, 55, 0.85);
+            border-radius: 10px;
+            padding: 14px 16px;
+            font-family: Georgia, 'Times New Roman', serif;
+            font-size: 0.78rem;
+            color: rgba(255, 255, 255, 0.85);
+            line-height: 1.5;
+            z-index: 12;
+            opacity: 0;
+            transition: opacity 0.8s ease;
+        }
+        .dots-timeline-card.visible { opacity: 1; }
+        .dots-timeline-card ul {
+            margin: 8px 0 0 0;
+            padding-left: 18px;
+        }
+        .dots-timeline-card li { margin-bottom: 6px; }
+        .dots-bottom-bubble {
+            position: absolute;
+            bottom: 5%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(80, 80, 85, 0.8);
+            border-radius: 14px;
+            padding: 16px 24px;
+            font-family: Georgia, 'Times New Roman', serif;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.85);
+            text-align: center;
+            z-index: 12;
+            cursor: pointer;
+            opacity: 0;
+            transition: opacity 0.8s ease;
+            max-width: 400px;
+            line-height: 1.5;
+        }
+        .dots-bottom-bubble.visible { opacity: 1; }
+        .dots-bottom-bubble-hint {
+            display: block;
+            font-size: 0.7rem;
+            color: rgba(134, 239, 172, 0.7);
+            margin-top: 6px;
+            font-style: italic;
+        }
+
         /* ========== MOBILE RESPONSIVE ========== */
         @media (max-width: 768px) {
             /* Container & Text */
@@ -3090,6 +3163,25 @@
                             <!-- Arrow 2: from bottom of second text, pointing down to curve -->
                             <line x1="18%" y1="62%" x2="20%" y2="72%" stroke="rgba(255,255,255,0.6)" stroke-width="1.5" marker-end="url(#anno-arrow)" />
                         </svg>
+                        <!-- Timeline elements -->
+                        <div class="dots-timeline-line" id="dots-tl-line-1" style="top: 8%;"></div>
+                        <div class="dots-timeline-title" id="dots-tl-title-1" style="top: 3%;">Beginning of humankind</div>
+
+                        <div class="dots-timeline-line" id="dots-tl-line-2" style="top: 22%;"></div>
+                        <div class="dots-timeline-title" id="dots-tl-title-2" style="top: 17%; font-style: italic;">Early Tools: Expanding the Body&rsquo;s Reach</div>
+                        <div class="dots-timeline-card" id="dots-tl-card-2" style="top: 24%;">
+                            <ul>
+                                <li><b>Biggest limiting factor:</b> Physical constraints: distance, environment, survival.</li>
+                                <li><b>Breakthroughs:</b> (~1.5M BCE), Domesticated horses (~3500 BCE), Wheel (~3500 BCE), Sails (~3000 BCE)</li>
+                                <li><b>Impact:</b> Extended our ability to reach people and places beyond immediate geography. More access to people.</li>
+                            </ul>
+                        </div>
+
+                        <div class="dots-bottom-bubble" id="dots-bottom-bubble">
+                            <span id="dots-bubble-text">Beginning of human kind</span>
+                            <span class="dots-bottom-bubble-hint">(click to continue the evolution of human innovation)</span>
+                        </div>
+
                         <svg class="sec2-dots-curves" id="sec2-dots-curves" viewBox="0 0 100 100" preserveAspectRatio="none">
                             <defs>
                                 <marker id="sec2-arrow-left" markerWidth="8" markerHeight="6" refX="0" refY="3" orient="auto">
@@ -6217,6 +6309,7 @@
             var overlay = document.getElementById('sec2-dots-overlay');
             var closeBtn = document.getElementById('sec2-dots-close');
             var curves = document.getElementById('sec2-dots-curves');
+            var timelineStep = 0;
 
             function dismissOverlay() {
                 overlay.classList.remove('visible');
@@ -6224,6 +6317,13 @@
                 document.getElementById('sec2-dots-anno-1').classList.remove('visible');
                 document.getElementById('sec2-dots-anno-2').classList.remove('visible');
                 document.getElementById('sec2-anno-arrows').style.opacity = '0';
+                // Reset timeline
+                ['dots-tl-line-1','dots-tl-title-1','dots-tl-line-2','dots-tl-title-2','dots-tl-card-2','dots-bottom-bubble'].forEach(function(id) {
+                    document.getElementById(id).classList.remove('visible');
+                });
+                document.getElementById('dots-bubble-text').textContent = 'Beginning of human kind';
+                document.querySelector('.dots-bottom-bubble-hint').style.display = '';
+                timelineStep = 0;
                 setTimeout(function() {
                     overlay.style.display = 'none';
                 }, 600);
@@ -6253,12 +6353,33 @@
                                     document.getElementById('sec2-anno-arrows').style.opacity = '1';
                                     setTimeout(function() {
                                         document.getElementById('sec2-dots-anno-2').classList.add('visible');
+                                        // Show first timeline line + bubble
+                                        setTimeout(function() {
+                                            document.getElementById('dots-tl-line-1').classList.add('visible');
+                                            document.getElementById('dots-tl-title-1').classList.add('visible');
+                                            document.getElementById('dots-bottom-bubble').classList.add('visible');
+                                        }, 800);
                                     }, 600);
                                 }, 2000);
                             }, 1200);
                         });
                     });
                 }, 1200);
+            });
+
+            // Timeline bubble click progression
+            var bubble = document.getElementById('dots-bottom-bubble');
+            var bubbleText = document.getElementById('dots-bubble-text');
+            bubble.addEventListener('click', function(e) {
+                e.stopPropagation();
+                if (timelineStep === 0) {
+                    timelineStep = 1;
+                    bubbleText.textContent = 'Our earliest innovations addressed the most basic constraint: where we could physically go:';
+                    bubble.querySelector('.dots-bottom-bubble-hint').style.display = 'none';
+                    document.getElementById('dots-tl-line-2').classList.add('visible');
+                    document.getElementById('dots-tl-title-2').classList.add('visible');
+                    document.getElementById('dots-tl-card-2').classList.add('visible');
+                }
             });
 
             // Click backdrop (outside dots panel) to dismiss
