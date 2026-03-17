@@ -6489,8 +6489,24 @@
             var navBack = document.getElementById('dots-nav-back');
             var navForward = document.getElementById('dots-nav-forward');
 
+            var titleHintShown = false;
+            function showTitleHint() {
+                if (titleHintShown) return;
+                titleHintShown = true;
+                var hint = document.createElement('div');
+                hint.style.cssText = 'position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:rgba(0,0,0,0.92);border:1px solid rgba(255,80,80,0.4);border-radius:12px;padding:18px 28px;font-family:Georgia,serif;font-style:italic;font-size:0.9rem;color:rgba(255,100,100,0.9);z-index:10001;text-align:center;max-width:320px;line-height:1.5;opacity:0;transition:opacity 0.5s ease;pointer-events:none;';
+                hint.textContent = 'You can revisit any era\'s details by clicking its title on the right';
+                document.body.appendChild(hint);
+                requestAnimationFrame(function() { requestAnimationFrame(function() { hint.style.opacity = '1'; }); });
+                setTimeout(function() {
+                    hint.style.opacity = '0';
+                    setTimeout(function() { hint.remove(); }, 600);
+                }, 3500);
+            }
+
             function goToStep(step) {
                 if (step < 0 || step >= tlSteps.length) return;
+                if (timelineStep === 1 && step === 2) showTitleHint();
                 timelineStep = step;
                 var data = tlSteps[step];
                 bubbleText.textContent = data.bubble;
