@@ -5817,10 +5817,7 @@
                                 arrowSvg.style.display = 'none';
                             }, 500);
                             popup.classList.add('visible');
-                            setTimeout(function() {
-                                popup.classList.remove('visible');
-                                document.getElementById('sec2-reality-text').style.display = '';
-                            }, 5000);
+                            document.getElementById('sec2-reality-text').style.display = '';
                         });
                     }
                 }, { once: true });
