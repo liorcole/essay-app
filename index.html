@@ -3308,7 +3308,26 @@
                             <path d="M 50 3 C 52 55, 90 75, 97 75" marker-end="url(#inline-arrow-right)" style="stroke-dashoffset:0;" />
                         </svg>
                     </div>
-                    <div id="sec2-post-timeline-content"></div>
+                    <div id="sec2-post-timeline-content" style="display:none;">
+                        <p class="paragraph" style="margin-top: 40px;">
+                            So the internet was the final frontier of access! Access became infinite! For all intents and purposes, if something exists in the world, you should technically be able to find it on the internet. So shouldn&rsquo;t we be able to source all the ingredients to completely align our lived experience with who we are?
+                        </p>
+                        <p class="paragraph">
+                            In theory, yes. But we don&rsquo;t live in theory&hellip; we live in our physically constrained, human bodies and world. <span style="font-size:0.8em; color:rgba(255,255,255,0.5); font-style:italic;"><span class="hover-image-trigger" style="font-weight:normal; color:rgba(255,255,255,0.5); border-bottom:1px solid rgba(255,255,255,0.3);"><u>(At least in this part of our experience living as humans, while soaring through the multiverse and beyond ;) )</u><span class="hover-image-popup" style="width:300px; text-align:center; font-style:italic; font-size:1rem; color:#fff; background:rgba(20,20,25,0.95); padding:16px; border-radius:8px;">&ldquo;We are not human beings having a spiritual experience. We are spiritual beings having a human experience.&rdquo;<br><span style="font-size:0.8em; opacity:0.7;">&mdash; Pierre Teilhard de Chardin</span></span></span></span>
+                        </p>
+                        <p class="paragraph">
+                            The reality is&hellip; Humans are finite. So we cannot take advantage of an infinite resource on our own.
+                        </p>
+                        <p class="paragraph">
+                            Even though the perfect shirt, diet, career, partner, friends, religion, identity, etc. is technically available behind our screen, it&rsquo;s actually finding all these things through the infinite portal of the internet that is impossible for us. We don&rsquo;t know exactly what we are looking for when we search and even if we did, we don&rsquo;t know exactly where to find it (and we can&rsquo;t sift through every single piece of content on the internet at all times to remedy that&hellip; because we are finite beings limited by time and attention).
+                        </p>
+                        <p class="paragraph">
+                            So the internet was essentially the final frontier of granting people with infinite access to the world. But it wasn&rsquo;t the final frontier of maxing out our ability to define and channel ourselves in the world&hellip;
+                        </p>
+                        <p class="paragraph">
+                            In the post-internet era, process has now become the focus. Process is the way we tactically define and channel who we are into the world from the very beginning of our mental process, all the way to the result of our thoughts and actions.
+                        </p>
+                    </div>
                 </div>
                 </div>
             </div>
@@ -6534,7 +6553,7 @@
             navForward.addEventListener('click', function(e) {
                 e.stopPropagation();
                 if (timelineStep >= tlSteps.length - 1) {
-                    // Last step: close overlay and show inline timeline
+                    // Last step: close overlay and show inline timeline + post content
                     dismissOverlay();
                     var inlineTl = document.getElementById('sec2-inline-timeline');
                     inlineTl.style.display = '';
@@ -6544,6 +6563,18 @@
                         requestAnimationFrame(function() {
                             inlineTl.style.opacity = '1';
                             inlineTl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                            // Show post-timeline content after a delay
+                            setTimeout(function() {
+                                var postContent = document.getElementById('sec2-post-timeline-content');
+                                postContent.style.display = '';
+                                postContent.style.opacity = '0';
+                                postContent.style.transition = 'opacity 0.8s ease';
+                                requestAnimationFrame(function() {
+                                    requestAnimationFrame(function() {
+                                        postContent.style.opacity = '1';
+                                    });
+                                });
+                            }, 1500);
                         });
                     });
                     return;
