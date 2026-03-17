@@ -3261,7 +3261,16 @@
                 </div>
                 <!-- Inline embedded timeline (shown after overlay completes) -->
                 <div id="sec2-inline-timeline" style="display:none; margin-top: 40px;">
-                    <div class="sec2-inline-timeline-box">
+                    <div style="display:flex; align-items:stretch;">
+                        <div class="dots-field-label-wrap">
+                            <div class="dots-field-label">All people, information, and tangible stuff that exists in the world</div>
+                            <div class="dots-field-bracket"></div>
+                        </div>
+                    <div class="sec2-inline-timeline-box" id="sec2-inline-timeline-box">
+                        <!-- Annotation -->
+                        <div class="sec2-dots-annotation visible" style="top: 40%; left: 3%; max-width:180px;">
+                            <div class="sec2-dots-anno-text">This line represents the range of access we had to everything that exists in the world</div>
+                        </div>
                         <div class="dots-timeline-line visible" style="top: 8%; left: 49%;"></div>
                         <div class="dots-timeline-title visible" style="top: 3%; cursor: default;" >Beginning of humankind</div>
 
@@ -3307,6 +3316,7 @@
                             <path d="M 50 3 C 48 55, 10 75, 3 75" marker-end="url(#inline-arrow-left)" style="stroke-dashoffset:0;" />
                             <path d="M 50 3 C 52 55, 90 75, 97 75" marker-end="url(#inline-arrow-right)" style="stroke-dashoffset:0;" />
                         </svg>
+                    </div>
                     </div>
                     <div id="sec2-post-timeline-content" style="display:none;">
                         <p class="paragraph" style="margin-top: 40px;">
@@ -6552,6 +6562,38 @@
                 if (timelineStep >= tlSteps.length - 1) {
                     // Last step: close overlay and show inline timeline + post content
                     dismissOverlay();
+                    // Generate dots in inline timeline if not already done
+                    var inlineBox = document.getElementById('sec2-inline-timeline-box');
+                    if (!inlineBox.dataset.dotsGenerated) {
+                        inlineBox.dataset.dotsGenerated = '1';
+                        for (var di = 0; di < 300; di++) {
+                            var dot = document.createElement('div');
+                            dot.className = 'orb white';
+                            dot.style.left = (Math.random() * 98) + '%';
+                            dot.style.top = (Math.random() * 98) + '%';
+                            dot.style.width = '6px';
+                            dot.style.height = '6px';
+                            dot.style.position = 'absolute';
+                            dot.style.borderRadius = '50%';
+                            dot.style.background = 'rgba(255,255,255,0.7)';
+                            dot.style.opacity = (0.3 + Math.random() * 0.5).toFixed(2);
+                            inlineBox.appendChild(dot);
+                        }
+                        for (var gi = 0; gi < 20; gi++) {
+                            var gdot = document.createElement('div');
+                            gdot.className = 'orb green';
+                            gdot.style.left = (Math.random() * 96 + 2) + '%';
+                            gdot.style.top = (Math.random() * 96 + 2) + '%';
+                            gdot.style.width = '12px';
+                            gdot.style.height = '12px';
+                            gdot.style.position = 'absolute';
+                            gdot.style.borderRadius = '50%';
+                            gdot.style.background = '#86efac';
+                            gdot.style.boxShadow = '0 0 6px rgba(134,239,172,0.4)';
+                            gdot.style.opacity = (0.5 + Math.random() * 0.4).toFixed(2);
+                            inlineBox.appendChild(gdot);
+                        }
+                    }
                     var inlineTl = document.getElementById('sec2-inline-timeline');
                     inlineTl.style.display = '';
                     inlineTl.style.opacity = '0';
