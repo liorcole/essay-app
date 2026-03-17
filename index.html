@@ -6531,7 +6531,7 @@
                 bubbleText.textContent = data.bubble;
                 bubbleHint.style.display = step === 0 ? '' : 'none';
                 navBack.classList.toggle('disabled', step === 0);
-                navForward.classList.toggle('disabled', step >= tlSteps.length - 1);
+                navForward.classList.remove('disabled');
                 // Show all lines/titles up to current step, hide cards (titles toggle them)
                 for (var i = 1; i < tlSteps.length; i++) {
                     var s = tlSteps[i];
