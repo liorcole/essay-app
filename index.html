@@ -3395,11 +3395,21 @@
             </div>
         </section>
 
-        <!-- ========== SECTION III ========== -->
+        <!-- ========== SECTION II PT.2 ========== -->
+        <section class="section" id="section-access-pt2">
+            <div class="collapsed-widget visible" id="access-pt2-widget" onclick="toggleAccessPt2Section()">
+                <div class="collapsed-widget-label">SECTION III: Innovation is how we soul search at scale (pt.2) (DRAFT)</div>
+                <div class="widget-popup" id="access-pt2-popup">Read &nbsp;&nbsp;<b><u>SECTION II</u></b>&nbsp;&nbsp; first!!</div>
+            </div>
+            <div id="access-pt2-content" style="display:none;">
+            </div>
+        </section>
+
+        <!-- ========== SECTION IV ========== -->
         <section class="section" id="section-innovation">
             <div class="collapsed-widget visible" id="innovation-widget" onclick="toggleInnovationSection()">
-                <div class="collapsed-widget-label">SECTION III</div>
-                <div class="widget-popup" id="innovation-popup">Read &nbsp;&nbsp;<b><u>SECTION II</u></b>&nbsp;&nbsp; first!!</div>
+                <div class="collapsed-widget-label">SECTION IV</div>
+                <div class="widget-popup" id="innovation-popup">Read &nbsp;&nbsp;<b><u>SECTION III</u></b>&nbsp;&nbsp; first!!</div>
             </div>
             <div id="innovation-content">
                 <p class="paragraph">
@@ -3450,8 +3460,8 @@
         <!-- ========== SECTION IV ========== -->
         <section class="section" id="section-ari">
             <div class="collapsed-widget visible" id="ari-widget" onclick="toggleAriSection()">
-                <div class="collapsed-widget-label">SECTION IV: How this applies to ARI</div>
-                <div class="widget-popup" id="ari-popup">Read &nbsp;&nbsp;<b><u>SECTION III</u></b>&nbsp;&nbsp; first!!</div>
+                <div class="collapsed-widget-label">SECTION V: How this applies to ARI</div>
+                <div class="widget-popup" id="ari-popup">Read &nbsp;&nbsp;<b><u>SECTION IV</u></b>&nbsp;&nbsp; first!!</div>
             </div>
             <div id="ari-content">
             </div>
@@ -5381,6 +5391,47 @@
                 hasReadSection2 = true;
             }
         });
+
+        // ========== SECTION III (PT.2) TOGGLE ==========
+        const accessPt2Content = document.getElementById('access-pt2-content');
+        const accessPt2Popup = document.getElementById('access-pt2-popup');
+        let accessPt2Collapsed = true;
+
+        function toggleAccessPt2Section() {
+            if (!hasReadSection2) {
+                accessPt2Popup.classList.add('show');
+                setTimeout(() => accessPt2Popup.classList.remove('show'), 2000);
+                return;
+            }
+            if (accessPt2Collapsed) {
+                window.scrollTo({ top: document.getElementById('access-pt2-widget').offsetTop, behavior: 'smooth' });
+                accessPt2Content.style.display = '';
+                accessPt2Content.style.maxHeight = '0px';
+                accessPt2Content.style.opacity = '0';
+                accessPt2Content.style.overflow = 'hidden';
+                accessPt2Content.offsetHeight;
+                accessPt2Content.style.transition = 'max-height 0.6s ease, opacity 0.4s ease';
+                accessPt2Content.style.maxHeight = accessPt2Content.scrollHeight + 'px';
+                accessPt2Content.style.opacity = '1';
+                setTimeout(() => {
+                    accessPt2Content.style.maxHeight = '';
+                    accessPt2Content.style.overflow = 'visible';
+                    accessPt2Content.style.transition = '';
+                    accessPt2Collapsed = false;
+                }, 600);
+            } else {
+                accessPt2Content.style.overflow = 'hidden';
+                accessPt2Content.style.maxHeight = accessPt2Content.scrollHeight + 'px';
+                accessPt2Content.offsetHeight;
+                accessPt2Content.style.transition = 'max-height 0.6s ease, opacity 0.4s ease';
+                accessPt2Content.style.maxHeight = '0px';
+                accessPt2Content.style.opacity = '0';
+                setTimeout(() => {
+                    accessPt2Content.style.display = 'none';
+                }, 600);
+                accessPt2Collapsed = true;
+            }
+        }
 
         // ========== INNOVATION SECTION TOGGLE ==========
         const innovationContent = document.getElementById('innovation-content');
