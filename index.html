@@ -2733,6 +2733,15 @@
         }
         .dots-bubble-nav-btn:hover { color: #fff; }
         .dots-bubble-nav-btn.disabled { opacity: 0.2; pointer-events: none; }
+        .sec2-inline-timeline-box {
+            position: relative;
+            width: 100%;
+            height: 500px;
+            background: #0a0a0f;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            overflow: hidden;
+        }
 
         /* ========== MOBILE RESPONSIVE ========== */
         @media (max-width: 768px) {
@@ -3247,6 +3256,57 @@
                             <path d="M 50 3 C 52 55, 90 75, 97 75" marker-end="url(#sec2-arrow-right)" />
                         </svg>
                     </div>
+                </div>
+                <!-- Inline embedded timeline (shown after overlay completes) -->
+                <div id="sec2-inline-timeline" style="display:none; margin-top: 40px;">
+                    <div class="sec2-inline-timeline-box">
+                        <div class="dots-timeline-line visible" style="top: 8%;"></div>
+                        <div class="dots-timeline-title visible" style="top: 3%; cursor: default;" >Beginning of humankind</div>
+
+                        <div class="dots-timeline-line visible" style="top: 24%;"></div>
+                        <div class="dots-timeline-title visible" style="top: 19%; font-style: italic;" data-inline-card="inline-card-2">Early Tools: Expanding the Body&rsquo;s Reach</div>
+                        <div class="dots-timeline-card" id="inline-card-2" style="top: 26%;">
+                            <ul>
+                                <li><span class="tl-label">Biggest limiting factor:</span> Physical constraints: distance, environment, survival.</li>
+                                <li><span class="tl-label">Breakthroughs:</span> (~1.5M BCE), Domesticated horses (~3500 BCE), Wheel (~3500 BCE), Sails (~3000 BCE)</li>
+                                <li><span class="tl-label">Impact:</span> Extended our ability to reach people and places beyond immediate geography. More access to people.</li>
+                            </ul>
+                        </div>
+
+                        <div class="dots-timeline-line visible" style="top: 42%;"></div>
+                        <div class="dots-timeline-title visible" style="top: 37%; font-style: italic;" data-inline-card="inline-card-3">The Information Era: Expanding<br>Knowledge &amp; Culture</div>
+                        <div class="dots-timeline-card" id="inline-card-3" style="top: 44%;">
+                            <ul>
+                                <li><span class="tl-label">Biggest limiting factor:</span> Knowledge scarcity. Information locked in elites, religious leaders, or oral tradition.</li>
+                                <li><span class="tl-label">Breakthroughs:</span> Printing press (1430s), Newspapers (1600s), Radio (1890s), Television (1920s)</li>
+                                <li><span class="tl-label">Impact:</span> Knowledge became widely accessible. Religious, political, cultural, scientific, and interpersonal ideas spread across borders. More access to information.</li>
+                            </ul>
+                        </div>
+
+                        <div class="dots-timeline-line visible" style="top: 62%;"></div>
+                        <div class="dots-timeline-title visible" style="top: 57%; font-style: italic;" data-inline-card="inline-card-4">Industrial &amp; Manufacturing Era:<br>Expanding Material Access</div>
+                        <div class="dots-timeline-card" id="inline-card-4" style="top: 64%;">
+                            <ul>
+                                <li><span class="tl-label">Biggest limiting factor:</span> Scarcity of goods. Things were limited to what could be handmade or bartered.</li>
+                                <li><span class="tl-label">Breakthroughs:</span> Spinning Jenny (1764), Power loom (1784), Assembly line (1913)</li>
+                                <li><span class="tl-label">Impact:</span> Mass production made goods cheap and plentiful, created optionality in physical things. More access to things.</li>
+                            </ul>
+                        </div>
+
+                        <svg class="sec2-dots-curves visible" viewBox="0 0 100 100" preserveAspectRatio="none" style="opacity:1;">
+                            <defs>
+                                <marker id="inline-arrow-left" markerWidth="8" markerHeight="6" refX="0" refY="3" orient="auto">
+                                    <polygon points="0 0, 8 3, 0 6" fill="rgba(255,255,255,0.6)" />
+                                </marker>
+                                <marker id="inline-arrow-right" markerWidth="8" markerHeight="6" refX="0" refY="3" orient="auto">
+                                    <polygon points="0 0, 8 3, 0 6" fill="rgba(255,255,255,0.6)" />
+                                </marker>
+                            </defs>
+                            <path d="M 50 3 C 48 55, 10 75, 3 75" marker-end="url(#inline-arrow-left)" style="stroke-dashoffset:0;" />
+                            <path d="M 50 3 C 52 55, 90 75, 97 75" marker-end="url(#inline-arrow-right)" style="stroke-dashoffset:0;" />
+                        </svg>
+                    </div>
+                    <div id="sec2-post-timeline-content"></div>
                 </div>
                 </div>
             </div>
@@ -6455,6 +6515,21 @@
 
             navForward.addEventListener('click', function(e) {
                 e.stopPropagation();
+                if (timelineStep >= tlSteps.length - 1) {
+                    // Last step: close overlay and show inline timeline
+                    dismissOverlay();
+                    var inlineTl = document.getElementById('sec2-inline-timeline');
+                    inlineTl.style.display = '';
+                    inlineTl.style.opacity = '0';
+                    inlineTl.style.transition = 'opacity 0.8s ease';
+                    requestAnimationFrame(function() {
+                        requestAnimationFrame(function() {
+                            inlineTl.style.opacity = '1';
+                            inlineTl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        });
+                    });
+                    return;
+                }
                 goToStep(timelineStep + 1);
             });
             navBack.addEventListener('click', function(e) {
@@ -6483,6 +6558,16 @@
             // Click X button to dismiss
             closeBtn.addEventListener('click', function() {
                 dismissOverlay();
+            });
+
+            // Inline timeline title click to expand/collapse
+            document.querySelectorAll('.dots-timeline-title[data-inline-card]').forEach(function(title) {
+                title.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    var cardId = title.dataset.inlineCard;
+                    var card = document.getElementById(cardId);
+                    card.classList.toggle('visible');
+                });
             });
         })();
 
