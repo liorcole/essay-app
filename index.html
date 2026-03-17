@@ -5949,10 +5949,9 @@
                                 });
                             });
                         }, 600);
-                        // Reveal next part only when user hovers over completed body
+                        // Reveal next part when user hovers over completed body or clicks the prompt
                         var completedBody = document.getElementById('sec2-completed-body');
-                        completedBody.addEventListener('mouseenter', function onHover() {
-                            completedBody.removeEventListener('mouseenter', onHover);
+                        function dismissHoverPrompt() {
                             hoverPrompt.classList.remove('visible');
                             arrowSvg.classList.remove('visible');
                             setTimeout(function() {
@@ -5961,6 +5960,15 @@
                             }, 500);
                             popup.classList.add('visible');
                             document.getElementById('sec2-reality-text').style.display = '';
+                        }
+                        completedBody.addEventListener('mouseenter', function onHover() {
+                            completedBody.removeEventListener('mouseenter', onHover);
+                            dismissHoverPrompt();
+                        });
+                        hoverPrompt.style.pointerEvents = 'auto';
+                        hoverPrompt.style.cursor = 'pointer';
+                        hoverPrompt.addEventListener('click', function() {
+                            dismissHoverPrompt();
                         });
                     }
                 }, { once: true });
