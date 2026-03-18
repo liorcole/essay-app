@@ -5933,13 +5933,14 @@
             function updateArrow(cx, cy) {
                 var target = getNearestUnconsumedOrb(cx, cy);
                 if (!target) { arrowEl.classList.remove('visible'); return; }
-                // Only show arrow pointing toward the dots field (right side)
-                if (target.x < cx) { arrowEl.classList.remove('visible'); return; }
                 var angle = Math.atan2(target.y - cy, target.x - cx);
+                var angleDeg = angle * 180 / Math.PI;
+                // Only show arrow pointing rightward (between -90 and 90 degrees)
+                if (angleDeg > 90 || angleDeg < -90) { arrowEl.classList.remove('visible'); return; }
                 var dist = 55;
                 arrowEl.style.left = (cx + Math.cos(angle) * dist) + 'px';
                 arrowEl.style.top = (cy + Math.sin(angle) * dist) + 'px';
-                arrowEl.style.setProperty('--arrow-rotate', 'rotate(' + (angle * 180 / Math.PI) + 'deg)');
+                arrowEl.style.setProperty('--arrow-rotate', 'rotate(' + angleDeg + 'deg)');
                 arrowEl.classList.add('visible');
             }
 
@@ -6300,12 +6301,13 @@
             function updatePartialArrow(cx, cy) {
                 var target = getPartialNearestUnconsumedOrb(cx, cy);
                 if (!target) { partialArrowEl.classList.remove('visible'); return; }
-                if (target.x < cx) { partialArrowEl.classList.remove('visible'); return; }
                 var angle = Math.atan2(target.y - cy, target.x - cx);
+                var angleDeg = angle * 180 / Math.PI;
+                if (angleDeg > 90 || angleDeg < -90) { partialArrowEl.classList.remove('visible'); return; }
                 var dist = 55;
                 partialArrowEl.style.left = (cx + Math.cos(angle) * dist) + 'px';
                 partialArrowEl.style.top = (cy + Math.sin(angle) * dist) + 'px';
-                partialArrowEl.style.setProperty('--arrow-rotate', 'rotate(' + (angle * 180 / Math.PI) + 'deg)');
+                partialArrowEl.style.setProperty('--arrow-rotate', 'rotate(' + angleDeg + 'deg)');
                 partialArrowEl.classList.add('visible');
             }
 
