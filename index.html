@@ -3228,6 +3228,9 @@
                         <!-- Timeline elements -->
                         <div class="dots-timeline-line" id="dots-tl-line-1" style="top: 8%; left: 49%;"></div>
                         <div class="dots-timeline-title" id="dots-tl-title-1" style="top: 3%;" data-step="1">Beginning of humankind</div>
+                        <div class="dots-timeline-card" id="dots-tl-card-1" style="top: 10%;">
+                            <p style="margin:0; color:rgba(255,80,80,0.9); font-style:italic;">no content here</p>
+                        </div>
 
                         <div class="dots-timeline-line" id="dots-tl-line-2" style="top: 22%; left: 44%;"></div>
                         <div class="dots-timeline-title" id="dots-tl-title-2" style="top: 17%; font-style: italic;" data-step="2">Early Tools: Expanding the Body&rsquo;s Reach</div>
@@ -3309,7 +3312,10 @@
                             <div class="sec2-dots-anno-text">This line represents the range of access we had to everything that exists in the world</div>
                         </div>
                         <div class="dots-timeline-line visible" style="top: 8%; left: 49%;"></div>
-                        <div class="dots-timeline-title visible" style="top: 3%; cursor: default;" >Beginning of humankind</div>
+                        <div class="dots-timeline-title visible" style="top: 3%;" data-inline-card="inline-card-1">Beginning of humankind</div>
+                        <div class="dots-timeline-card" id="inline-card-1" style="top: 10%;">
+                            <p style="margin:0; color:rgba(255,80,80,0.9); font-style:italic;">no content here</p>
+                        </div>
 
                         <div class="dots-timeline-line visible" style="top: 24%; left: 44%;"></div>
                         <div class="dots-timeline-title visible" style="top: 19%; font-style: italic;" data-inline-card="inline-card-2">Early Tools: Expanding the Body&rsquo;s Reach</div>
@@ -6624,7 +6630,7 @@
                 document.getElementById('sec2-dots-anno-2').classList.remove('visible');
                 document.getElementById('sec2-anno-arrows').style.opacity = '0';
                 // Reset timeline
-                ['dots-tl-line-1','dots-tl-title-1','dots-tl-line-2','dots-tl-title-2','dots-tl-card-2','dots-tl-line-3','dots-tl-title-3','dots-tl-card-3','dots-tl-line-4','dots-tl-title-4','dots-tl-card-4','dots-tl-line-5','dots-tl-title-5','dots-tl-card-5','dots-bottom-bubble'].forEach(function(id) {
+                ['dots-tl-line-1','dots-tl-title-1','dots-tl-card-1','dots-tl-line-2','dots-tl-title-2','dots-tl-card-2','dots-tl-line-3','dots-tl-title-3','dots-tl-card-3','dots-tl-line-4','dots-tl-title-4','dots-tl-card-4','dots-tl-line-5','dots-tl-title-5','dots-tl-card-5','dots-bottom-bubble'].forEach(function(id) {
                     document.getElementById(id).classList.remove('visible');
                 });
                 document.getElementById('dots-bubble-text').textContent = 'Beginning of human kind';
@@ -6803,11 +6809,11 @@
                 title.addEventListener('click', function(e) {
                     e.stopPropagation();
                     var stepNum = parseInt(title.dataset.step);
-                    if (stepNum < 2) return;
+                    if (stepNum < 1) return;
                     var card = document.getElementById('dots-tl-card-' + stepNum);
                     var isOpen = card.classList.contains('visible');
                     // Close all overlay cards first
-                    for (var i = 2; i <= 5; i++) {
+                    for (var i = 1; i <= 5; i++) {
                         document.getElementById('dots-tl-card-' + i).classList.remove('visible');
                     }
                     if (!isOpen) card.classList.add('visible');
@@ -6827,7 +6833,7 @@
             });
 
             // Inline timeline title click to expand/collapse (only one open at a time)
-            var inlineCards = ['inline-card-2', 'inline-card-3', 'inline-card-4', 'inline-card-5'];
+            var inlineCards = ['inline-card-1', 'inline-card-2', 'inline-card-3', 'inline-card-4', 'inline-card-5'];
             document.querySelectorAll('.dots-timeline-title[data-inline-card]').forEach(function(title) {
                 title.addEventListener('click', function(e) {
                     e.stopPropagation();
