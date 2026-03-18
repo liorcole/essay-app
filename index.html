@@ -6436,23 +6436,58 @@
                                             scrollContainer.scrollTo({ top: scrollContainer.scrollHeight, behavior: 'smooth' });
                                         }, 550);
                                     }
-                                    // Show drive text, innovation text, then history text after partial completion
-                                    function fadeInEl(id, delay) {
-                                        setTimeout(function() {
-                                            var el = document.getElementById(id);
-                                            if (el) {
-                                                el.style.display = '';
-                                                el.style.opacity = '0';
-                                                el.style.transition = 'opacity 0.6s ease';
+                                    // Show hover prompt for partial body
+                                    var hoverPrompt2 = document.getElementById('sec2-hover-prompt');
+                                    var arrowSvg2 = document.getElementById('sec2-hover-arrow-svg');
+                                    setTimeout(function() {
+                                        var partialBody = document.getElementById('sec2-partial-completed');
+                                        var bodyRect2 = partialBody.getBoundingClientRect();
+                                        var arrowLine2 = document.getElementById('sec2-hover-arrow-line');
+                                        hoverPrompt2.style.display = 'flex';
+                                        arrowSvg2.style.display = 'block';
+                                        var promptRect2 = hoverPrompt2.getBoundingClientRect();
+                                        arrowLine2.setAttribute('x1', promptRect2.right - 20);
+                                        arrowLine2.setAttribute('y1', promptRect2.top + 20);
+                                        arrowLine2.setAttribute('x2', bodyRect2.left + bodyRect2.width / 2);
+                                        arrowLine2.setAttribute('y2', bodyRect2.top + bodyRect2.height / 2);
+                                        requestAnimationFrame(function() {
+                                            requestAnimationFrame(function() {
+                                                hoverPrompt2.classList.add('visible');
+                                                arrowSvg2.classList.add('visible');
+                                            });
+                                        });
+                                        // Dismiss on hover or click
+                                        function dismissPartialPrompt() {
+                                            hoverPrompt2.classList.remove('visible');
+                                            arrowSvg2.classList.remove('visible');
+                                            setTimeout(function() {
+                                                hoverPrompt2.style.display = 'none';
+                                                arrowSvg2.style.display = 'none';
+                                            }, 500);
+                                        }
+                                        function revealHistoryText() {
+                                            var ht = document.getElementById('sec2-history-text');
+                                            if (ht) {
+                                                ht.style.display = '';
+                                                ht.style.opacity = '0';
+                                                ht.style.transition = 'opacity 0.6s ease';
                                                 requestAnimationFrame(function() {
-                                                    requestAnimationFrame(function() {
-                                                        el.style.opacity = '1';
-                                                    });
+                                                    requestAnimationFrame(function() { ht.style.opacity = '1'; });
                                                 });
                                             }
-                                        }, delay);
-                                    }
-                                    fadeInEl('sec2-history-text', 1000);
+                                        }
+                                        partialBody.addEventListener('mouseenter', function onHover2() {
+                                            partialBody.removeEventListener('mouseenter', onHover2);
+                                            dismissPartialPrompt();
+                                            revealHistoryText();
+                                        });
+                                        hoverPrompt2.style.pointerEvents = 'auto';
+                                        hoverPrompt2.style.cursor = 'pointer';
+                                        hoverPrompt2.addEventListener('click', function() {
+                                            dismissPartialPrompt();
+                                            revealHistoryText();
+                                        }, { once: true });
+                                    }, 1200);
                                 });
                             });
                         }, 500);
