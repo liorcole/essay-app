@@ -5952,6 +5952,10 @@
                         if (bodyLevel < bodySequence.length - 1) {
                             bodyLevel++;
                             bodyImg.src = bodySequence[bodyLevel];
+                            // Auto-complete if all orbs consumed
+                            if (bodyLevel >= bodySequence.length - 1) {
+                                endDrag();
+                            }
                         }
                     }
                 });
@@ -6339,6 +6343,10 @@
                             partialBodyLevel++;
                             var partialImg = document.getElementById('sec2-partial-body-img');
                             partialImg.src = partialBodySequence[partialBodyLevel];
+                            // Auto-complete if all accessible orbs consumed
+                            if (partialBodyLevel >= partialBodySequence.length - 1) {
+                                partialEndDrag();
+                            }
                         }
                     }
                 });
