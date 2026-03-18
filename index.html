@@ -2308,6 +2308,9 @@
             position: sticky;
             top: 0;
             z-index: 5;
+        }
+        .sec2-dots-sticky-wrapper .dots-field-row.unstick {
+            position: relative;
             background: #0a0a0f;
             width: 100vw;
             margin-left: calc(-50vw + 50%);
@@ -6677,6 +6680,8 @@
                 if (timelineStep >= tlSteps.length - 1) {
                     // Last step: close overlay and show inline timeline + post content
                     dismissOverlay();
+                    // Unstick the dots field row
+                    document.querySelector('.sec2-dots-sticky-wrapper .dots-field-row').classList.add('unstick');
                     // Generate dots in inline timeline if not already done
                     var inlineBox = document.getElementById('sec2-inline-timeline-box');
                     if (!inlineBox.dataset.dotsGenerated) {
