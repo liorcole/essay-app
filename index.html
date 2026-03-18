@@ -5927,6 +5927,8 @@
             function updateArrow(cx, cy) {
                 var target = getNearestUnconsumedOrb(cx, cy);
                 if (!target) { arrowEl.classList.remove('visible'); return; }
+                // Only show arrow pointing toward the dots field (right side)
+                if (target.x < cx) { arrowEl.classList.remove('visible'); return; }
                 var angle = Math.atan2(target.y - cy, target.x - cx);
                 var dist = 55;
                 arrowEl.style.left = (cx + Math.cos(angle) * dist) + 'px';
@@ -6292,6 +6294,7 @@
             function updatePartialArrow(cx, cy) {
                 var target = getPartialNearestUnconsumedOrb(cx, cy);
                 if (!target) { partialArrowEl.classList.remove('visible'); return; }
+                if (target.x < cx) { partialArrowEl.classList.remove('visible'); return; }
                 var angle = Math.atan2(target.y - cy, target.x - cx);
                 var dist = 55;
                 partialArrowEl.style.left = (cx + Math.cos(angle) * dist) + 'px';
