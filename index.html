@@ -6058,9 +6058,12 @@
                                 });
                             });
                         }, 600);
-                        // Reveal next part when user hovers over completed body or clicks the prompt
+                        // Reveal next part when user hovers over completed body, clicks, or after 3s
                         var completedBody = document.getElementById('sec2-completed-body');
+                        var hoverDismissed = false;
                         function dismissHoverPrompt() {
+                            if (hoverDismissed) return;
+                            hoverDismissed = true;
                             hoverPrompt.classList.remove('visible');
                             arrowSvg.classList.remove('visible');
                             setTimeout(function() {
@@ -6069,6 +6072,7 @@
                             }, 500);
                             document.getElementById('sec2-reality-text').style.display = '';
                         }
+                        setTimeout(function() { dismissHoverPrompt(); }, 3600);
                         completedBody.addEventListener('mouseenter', function onHover() {
                             completedBody.removeEventListener('mouseenter', onHover);
                             dismissHoverPrompt();
@@ -6456,8 +6460,11 @@
                                                 arrowSvg2.classList.add('visible');
                                             });
                                         });
-                                        // Dismiss on hover or click
+                                        // Dismiss on hover, click, or after 3s
+                                        var partialPromptDismissed = false;
                                         function dismissPartialPrompt() {
+                                            if (partialPromptDismissed) return;
+                                            partialPromptDismissed = true;
                                             hoverPrompt2.classList.remove('visible');
                                             arrowSvg2.classList.remove('visible');
                                             setTimeout(function() {
@@ -6465,6 +6472,7 @@
                                                 arrowSvg2.style.display = 'none';
                                             }, 500);
                                         }
+                                        setTimeout(function() { dismissPartialPrompt(); revealHistoryText(); }, 3000);
                                         function revealHistoryText() {
                                             var ht = document.getElementById('sec2-history-text');
                                             if (ht) {
