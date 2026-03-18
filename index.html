@@ -3439,7 +3439,7 @@
                     </p>
                     <div class="body-intro-row" id="body-intro-row">
                         <div class="body-intro-img-wrap body-hover-parent completed" id="body-img-wrap">
-                            <img src="body6_green.png" alt="Person in full alignment" class="body-intro-img" />
+                            <img src="body6_green.png" alt="Person in full alignment" class="body-intro-img" id="sec3-body-img" />
                             <div class="body-full-label visible" id="body-full-label">Person living in full alignment</div>
                             <div class="body-hover-popup">The person has discovered everything in the world that most aligns with who they are &mdash; strongest passions, most compatible friendships, most energizing career, etc. Their world is a completely accurate reflection of their soul &mdash; allowing them to live a life of full alignment.</div>
                         </div>
@@ -5966,9 +5966,10 @@
                             bodyLevel++;
                             bodyImg.src = bodySequence[bodyLevel];
                         }
-                        // Auto-complete if all orbs consumed
+                        // Auto-complete if all orbs consumed — immediately
                         if (bodyLevel >= bodySequence.length - 1 && isDragging) {
-                            setTimeout(function() { endDrag(); }, 50);
+                            endDrag();
+                            return;
                         }
                     }
                 });
@@ -6001,6 +6002,7 @@
                 var cx = pos.clientX - offsetX + 45;
                 var cy = pos.clientY - offsetY + 45;
                 checkCollisions(cx, cy);
+                if (!isDragging) return; // endDrag was called by checkCollisions
                 updateArrow(cx, cy);
             }
 
@@ -6364,7 +6366,8 @@
                         }
                         // Auto-complete if all accessible orbs consumed
                         if (partialBodyLevel >= partialBodySequence.length - 1 && partialIsDragging) {
-                            setTimeout(function() { partialEndDrag(); }, 50);
+                            partialEndDrag();
+                            return;
                         }
                     }
                 });
@@ -6852,9 +6855,9 @@
             });
         })();
 
-        // ========== DRAGGABLE BODY WITH ORB COLLISION ==========
+        // ========== DRAGGABLE BODY WITH ORB COLLISION (SECTION III/IV) ==========
         (function() {
-            const bodyImg = document.querySelector('.body-intro-img');
+            const bodyImg = document.getElementById('sec3-body-img');
             if (!bodyImg) return;
 
             const bodySequence = ['body1.png', 'body2_green.png', 'body3_green.png', 'body4_green.png', 'body5_green.png', 'body6_green.png'];
