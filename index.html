@@ -4459,22 +4459,28 @@
             runStep(0);
         });
 
-        // ========== "NEVER FULLY ALIGN" CLICK → SAME AS LOOK ==========
+        // ========== "NEVER FULLY ALIGN" CLICK → VIDEO POPUP ==========
         var neverAlignKeyword = document.getElementById('never-align-keyword');
         if (neverAlignKeyword) {
             neverAlignKeyword.addEventListener('click', function(e) {
                 e.stopPropagation();
-                // Scroll to body diagram and trigger the look sequence
-                bodyDiagram.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                setTimeout(function() {
-                    if (!bodyDiagram.classList.contains('revealed')) {
-                        bodyDiagram.classList.add('revealed');
-                    }
-                    bodyDiagram.classList.add('flash-fill');
-                    setTimeout(function() {
-                        bodyDiagram.classList.remove('flash-fill');
-                    }, 2000);
-                }, 600);
+                // Create video popup overlay
+                var overlay = document.createElement('div');
+                overlay.style.cssText = 'position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.85);z-index:10002;display:flex;align-items:center;justify-content:center;cursor:pointer;opacity:0;transition:opacity 0.4s ease;';
+                var video = document.createElement('video');
+                video.src = 'uncaptured-identity.mov';
+                video.autoplay = true;
+                video.loop = true;
+                video.muted = true;
+                video.playsInline = true;
+                video.style.cssText = 'max-width:80vw;max-height:80vh;border-radius:16px;box-shadow:0 0 40px rgba(0,0,0,0.6);';
+                overlay.appendChild(video);
+                document.body.appendChild(overlay);
+                requestAnimationFrame(function() { requestAnimationFrame(function() { overlay.style.opacity = '1'; }); });
+                overlay.addEventListener('click', function() {
+                    overlay.style.opacity = '0';
+                    setTimeout(function() { overlay.remove(); }, 400);
+                });
             });
         }
 
