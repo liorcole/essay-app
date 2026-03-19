@@ -3028,7 +3028,7 @@
             </p>
 
             <p class="paragraph">
-                That feeling of discomfort from our internal misalignment never goes away&hellip; Because all of who we are will never fully align with our world. Consciously or subconsciously, we are always chasing relief from that discomfort, which comes from momentary alignment when we define and channel a bit more of ourselves into the world around us. <span style="font-weight:500"><u class="thesis-trigger" id="thesis-trigger" style="cursor:pointer">All human motivation has one core source: the desire to align who we are with how we live.</u></span> It drives everything that we do:
+                That feeling of discomfort from our internal misalignment never goes away&hellip; Because all of who we are will <span class="keyword keyword-gap" style="cursor:pointer;" id="never-align-keyword">never fully align with our world</span>. Consciously or subconsciously, we are always chasing relief from that discomfort, which comes from momentary alignment when we define and channel a bit more of ourselves into the world around us. <span style="font-weight:500"><u class="thesis-trigger" id="thesis-trigger" style="cursor:pointer">All human motivation has one core source: the desire to align who we are with how we live.</u></span> It drives everything that we do:
             </p>
 
             <div class="examples-postits">
@@ -4458,6 +4458,25 @@
             }
             runStep(0);
         });
+
+        // ========== "NEVER FULLY ALIGN" CLICK → SAME AS LOOK ==========
+        var neverAlignKeyword = document.getElementById('never-align-keyword');
+        if (neverAlignKeyword) {
+            neverAlignKeyword.addEventListener('click', function(e) {
+                e.stopPropagation();
+                // Scroll to body diagram and trigger the look sequence
+                bodyDiagram.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                setTimeout(function() {
+                    if (!bodyDiagram.classList.contains('revealed')) {
+                        bodyDiagram.classList.add('revealed');
+                    }
+                    bodyDiagram.classList.add('flash-fill');
+                    setTimeout(function() {
+                        bodyDiagram.classList.remove('flash-fill');
+                    }, 2000);
+                }, 600);
+            });
+        }
 
         // ========== DEBUG MODE FOR ORB POSITIONING ==========
         // Set to true to click and get coordinates, false for normal use
