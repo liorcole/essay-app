@@ -2900,6 +2900,28 @@
             opacity: 0;
         }
 
+        /* ========== SOUL IMAGE BACKGROUND CLICK ========== */
+
+        .soul-popup {
+            position: fixed;
+            z-index: 10003;
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            opacity: 1;
+            transition: opacity 1s ease 1s;
+        }
+
+        .soul-popup.fade {
+            opacity: 0;
+        }
+
+        .soul-popup img {
+            max-width: 320px;
+            max-height: 320px;
+            border-radius: 10px;
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.6);
+        }
+
     </style>
 </head>
 <body>
@@ -7966,6 +7988,61 @@
                 dragging.classList.remove('dragging');
                 dragging = null;
             }
+        });
+    })();
+
+    // ========== SOUL IMAGE BACKGROUND CLICK ==========
+    (function() {
+        var totalSoulImages = 39;
+        var soulDeck = [];
+        var soulCursor = "url('data:image/svg+xml," + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="155" height="36"><rect x="0" y="0" width="155" height="36" rx="4" fill="#0a0a0f" stroke="#888" stroke-width="1"/><text x="78" y="14" font-family="Georgia, serif" font-size="9" fill="#888" text-anchor="middle">click to see AI&#39;s visual</text><text x="78" y="28" font-family="Georgia, serif" font-size="9" fill="#888" text-anchor="middle">interpretation of a human soul</text></svg>') + "') 78 18, pointer";
+
+        function shuffleDeck() {
+            soulDeck = [];
+            for (var i = 1; i <= totalSoulImages; i++) soulDeck.push(i);
+            for (var i = soulDeck.length - 1; i > 0; i--) {
+                var j = Math.floor(Math.random() * (i + 1));
+                var tmp = soulDeck[i]; soulDeck[i] = soulDeck[j]; soulDeck[j] = tmp;
+            }
+        }
+        shuffleDeck();
+
+        function isBg(e) {
+            var t = e.target;
+            return t === document.body || t === document.documentElement ||
+                (t.classList && t.classList.contains('essay-container') && e.target === t);
+        }
+
+        // Show custom cursor on background hover
+        document.addEventListener('mousemove', function(e) {
+            if (isBg(e)) {
+                document.body.style.cursor = soulCursor;
+            } else {
+                document.body.style.cursor = '';
+            }
+        });
+
+        // Pop up soul image at click position
+        document.addEventListener('click', function(e) {
+            if (!isBg(e)) return;
+
+            if (soulDeck.length === 0) shuffleDeck();
+            var idx = soulDeck.pop();
+
+            var popup = document.createElement('div');
+            popup.className = 'soul-popup';
+            popup.style.left = e.clientX + 'px';
+            popup.style.top = e.clientY + 'px';
+            var img = document.createElement('img');
+            img.src = 'soul-images/soul-' + idx + '.png';
+            popup.appendChild(img);
+            document.body.appendChild(popup);
+
+            requestAnimationFrame(function() { requestAnimationFrame(function() {
+                popup.classList.add('fade');
+            }); });
+
+            setTimeout(function() { popup.remove(); }, 2200);
         });
     })();
 
