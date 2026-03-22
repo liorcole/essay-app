@@ -276,24 +276,30 @@
             height: auto;
         }
 
+
+        /* ========== VIDEO HOVER POPUP ========== */
         .video-hover-trigger .video-hover-popup {
-            display: none;
             position: absolute;
-            bottom: calc(100% + 10px);
+            bottom: calc(100% + 12px);
             left: 50%;
-            transform: translateX(-50%);
-            z-index: 100;
-            border-radius: 6px;
-            overflow: hidden;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+            margin-left: -180px;
+            z-index: 10002;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
         }
 
         .video-hover-trigger:hover .video-hover-popup {
-            display: block;
+            opacity: 1;
+            pointer-events: auto;
         }
 
         .video-hover-popup video {
             display: block;
+            width: 360px;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.8);
         }
 
         .diagram-placeholder {
@@ -2900,9 +2906,69 @@
             opacity: 0;
         }
 
+        /* ========== FUN FACT BOX ========== */
+        .fun-fact-trigger {
+            animation: funFactBounce 1.5s ease-in-out infinite;
+            display: inline-block;
+        }
+
+        .fun-fact-trigger.clicked {
+            animation: funFactPulseOnly 2s ease-in-out infinite;
+        }
+
+        @keyframes funFactBounce {
+            0% { box-shadow: 0 0 6px rgba(180,220,255,0.3), 0 0 14px rgba(200,180,255,0.2); transform: translateX(0) rotate(0deg); }
+            15% { box-shadow: 0 0 16px rgba(180,220,255,0.7), 0 0 30px rgba(200,180,255,0.5); transform: translateX(4px) rotate(2deg); }
+            30% { box-shadow: 0 0 8px rgba(180,220,255,0.4), 0 0 16px rgba(200,180,255,0.2); transform: translateX(-3px) rotate(-1.5deg); }
+            50% { box-shadow: 0 0 20px rgba(180,220,255,0.8), 0 0 35px rgba(200,180,255,0.6); transform: translateX(3px) rotate(1deg); }
+            70% { box-shadow: 0 0 8px rgba(180,220,255,0.4), 0 0 16px rgba(200,180,255,0.2); transform: translateX(-4px) rotate(-2deg); }
+            85% { box-shadow: 0 0 14px rgba(180,220,255,0.6), 0 0 25px rgba(200,180,255,0.4); transform: translateX(2px) rotate(1.5deg); }
+            100% { box-shadow: 0 0 6px rgba(180,220,255,0.3), 0 0 14px rgba(200,180,255,0.2); transform: translateX(0) rotate(0deg); }
+        }
+
+        @keyframes funFactPulseOnly {
+            0%, 100% { box-shadow: 0 0 4px rgba(180,220,255,0.2), 0 0 8px rgba(200,180,255,0.1); }
+            50% { box-shadow: 0 0 10px rgba(180,220,255,0.5), 0 0 20px rgba(200,180,255,0.3); }
+        }
+
+        .fun-fact-trigger:hover {
+            color: #fff !important;
+            border-color: rgba(255,255,255,0.4) !important;
+        }
+
+        .fun-fact-box {
+            position: relative;
+            display: none;
+            margin-top: 16px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 10px;
+            overflow: visible;
+        }
+
+        .fun-fact-box.visible {
+            display: block;
+        }
+
+        .fun-fact-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .fun-fact-glow {
+            position: absolute;
+            top: -30px;
+            left: -30px;
+            width: calc(100% + 60px);
+            height: calc(100% + 60px);
+            z-index: 0;
+            pointer-events: none;
+        }
+
         /* ========== SOUL IMAGE BACKGROUND CLICK ========== */
         body.soul-hover {
-            cursor: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="120" height="36"><rect x="0" y="0" width="120" height="36" rx="4" fill="%230a0a0f" stroke="%23888" stroke-width="1"/><text x="60" y="14" font-family="Georgia, serif" font-size="10" fill="%23888" text-anchor="middle">click for AI%27s</text><text x="60" y="28" font-family="Georgia, serif" font-size="10" fill="%23888" text-anchor="middle">soul interpretation</text></svg>') 60 18, pointer;
+            cursor: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="128" height="40"><rect x="0" y="0" width="128" height="40" rx="4" fill="%230a0a0f" stroke="%23888" stroke-width="1"/><text x="64" y="16" font-family="Georgia, serif" font-size="11" fill="%23888" text-anchor="middle">click for AI%27s interpretation</text><text x="64" y="32" font-family="Georgia, serif" font-size="11" fill="%23888" text-anchor="middle">of the human soul</text></svg>') 64 20, pointer;
         }
 
         .soul-popup {
@@ -2935,7 +3001,7 @@
         <p class="popup-title">THE MANIFESTO</p>
         <p class="popup-byline">&ndash; Lior Cole</p>
         <hr class="popup-divider">
-        <p class="popup-quote">It is my general belief that all human motivation has one core source: the desire to align who we are (our identity) with how we live (our reality).</p>
+        <p class="popup-quote">It is my general belief that beyond survival instincts, all human motivation has one core source: the desire to align who we are (our identity) with how we live (our reality).</p>
     </div>
 
     <div class="essay-container">
@@ -2951,7 +3017,7 @@
         </div>
 
         <div id="living-doc-box" style="max-width:520px; margin:30px auto; padding:20px 24px; border:1px solid rgba(255,80,80,0.5); border-radius:8px; background:rgba(255,80,80,0.06); font-size:0.95rem; line-height:1.7; color:#ccc; opacity:0; transition:opacity 1s ease;">
-            This is a living, breathing, document which is periodically revised/updated and will never be fully complete. This outlines my high level perspective on how humanity functions which will forever evolve with future experiences and knowledge, and as the world + humanity continue to evolve over time. Therefore I am ALWAYS open to be proven wrong or exposed to a new layer or angle I hadn&rsquo;t yet considered. My goal is to continuously move towards a greater understanding, so I would love to hear responses / counter-arguments if any arise. Message <a href="https://www.linkedin.com/in/liorcole/" target="_blank" style="color:#ff8080; font-weight:600;">HERE</a>
+            This is a living, breathing, document which is periodically revised/updated and will never be fully complete. This outlines my high level perspective on how humanity functions which will forever evolve with future experiences and knowledge, and as the world + humanity continue to evolve over time. Therefore I am ALWAYS open to be proven wrong or exposed to a new layer or angle I hadn&rsquo;t yet considered. My goal is to continuously move towards a greater understanding, so I would love to hear responses / counter-arguments if any arise. Inbox open <a href="https://www.linkedin.com/in/liorcole/" target="_blank" style="color:#ff8080; font-weight:600;">HERE</a>
         </div>
 
         <!-- ========== SECTION 1 ========== -->
@@ -2963,7 +3029,7 @@
 
             <div id="section-1-content">
             <h3 class="main-thesis">
-                It is my general belief that all human motivation has one core source: the desire to align who we are (our identity) with how we live (our reality).
+                It is my general belief that beyond survival instincts, all human motivation has one core source: the desire to align who we are (our identity) with how we live (our reality).
             </h3>
 
             <div class="identity-container">
@@ -3121,11 +3187,11 @@
             </div>
 
             <p class="paragraph">
-                The process of finding ourselves in the world through experiences, knowledge, and stuff is always happening. We feel a pressing, underlying discomfort when we live in a way that doesn&rsquo;t match who we are: that feeling of knowing you&rsquo;re in the wrong career, wearing a shirt you hate, putting on a persona for certain family members or friends that simply isn&rsquo;t you. No one can sit in the discomfort of that dissonance forever, so it drives us to do something about it. Sometimes it&rsquo;s as straight forward as changing the shirt you hate to one you like. Often it&rsquo;s not as clear - if we feel a general sense of wanting more or feeling out of place without a clear reason, we will do irrational things like get a crazy hair cut, quit your job, move to a totally new city, become completely immersed in a random new hobby, buy a sports car. How many lost post-grads do you see suddenly have the urge to run a marathon? Each thing is another spin of the roulette wheel that may land you on something that channels a bit more of who you are in the world, that would give you that <span class="video-hover-trigger" id="roulette-trigger" style="color:#fff; text-decoration:underline; cursor:pointer; position:relative;">temporary burst of alignment energy<span class="video-hover-popup" id="roulette-popup"><video src="roulette.mp4" muted playsinline loop width="360"></video></span></span>.
+                The process of finding ourselves in the world through experiences, knowledge, and stuff is always happening. We feel a pressing, underlying discomfort when we live in a way that doesn&rsquo;t match who we are: that feeling of knowing you&rsquo;re in the wrong career, wearing a shirt you hate, putting on a persona for certain family members or friends that simply isn&rsquo;t you. No one can sit in the discomfort of that dissonance forever, so it drives us to do something about it. Sometimes it&rsquo;s as straight forward as changing the shirt you hate to one you like. Often it&rsquo;s not as clear - if we feel a general sense of wanting more or feeling out of place without a clear reason, we will do irrational things like get a crazy hair cut, quit your job, move to a totally new city, become completely immersed in a random new hobby, buy a sports car. How many lost post-grads do you see suddenly have the urge to run a marathon? Each thing is another spin of the roulette wheel that may land you on something that channels a bit more of who you are in the world, that would give you that <span id="roulette-keyword" class="video-hover-trigger" style="color:#fff; text-decoration:underline; cursor:pointer; position:relative;">temporary burst of alignment energy<span class="video-hover-popup"><video playsinline webkit-playsinline loop preload="metadata" width="640" height="360"><source src="roulette-hover-hevc.mp4" type="video/mp4; codecs=hvc1"><source src="roulette-hover.mp4" type="video/mp4"></video></span></span>.
             </p>
 
             <p class="paragraph">
-                That feeling of discomfort from our internal misalignment never goes away&hellip; Because all of who we are will never fully align with our world since who we are is so much bigger than everything the world has to offer <span style="cursor:pointer; color:#fff; text-decoration:underline;" id="never-align-keyword">combined</span>. Consciously or subconsciously, we are always chasing relief from that discomfort, which comes from momentary alignment when we define and channel a bit more of ourselves into the world around us. <span style="font-weight:500"><u class="thesis-trigger" id="thesis-trigger" style="cursor:pointer">All human motivation has one core source: the desire to align who we are with how we live.</u></span> It drives everything that we do:
+                That feeling of discomfort from our internal misalignment never goes away&hellip; Because all of who we are will never fully align with our world since who we are is so much bigger than everything the world has to offer <span id="combined-keyword" class="video-hover-trigger" style="color:#fff; text-decoration:underline; cursor:pointer; position:relative;">combined<span class="video-hover-popup" style="margin-left:-90px;"><video muted playsinline webkit-playsinline loop preload="metadata" style="width:180px;" width="640" height="360"><source src="combined-hover-hevc.mp4" type="video/mp4; codecs=hvc1"><source src="combined-hover.mp4" type="video/mp4"></video></span></span>. Consciously or subconsciously, we are always chasing relief from that discomfort, which comes from momentary alignment when we define and channel a bit more of ourselves into the world around us. <span style="font-weight:500"><u class="thesis-trigger" id="thesis-trigger" style="cursor:pointer">All human motivation (beyond survival instincts) has one core source: the desire to align who we are with how we live</u></span>, driving us to do things like&hellip;
             </p>
 
             <div class="examples-postits">
@@ -3146,9 +3212,12 @@
                 </div>
             </div>
 
-            <p class="paragraph" id="but-why-text">
-                But why?
-            </p>
+            <div style="display:flex; align-items:center; gap:12px; margin-bottom:1.5em;">
+                <p class="paragraph" id="but-why-text" style="margin-bottom:0;">
+                    But why?
+                </p>
+                <span id="but-why-replay" style="display:none; cursor:pointer; font-size:1.2rem; opacity:0.5; transition:opacity 0.2s; user-select:none;" title="Replay">&#x21bb;</span>
+            </div>
 
             <p class="paragraph">
                 There&rsquo;s no tactical use for decor, no real reason to have 50 different shirt styles, no actual need for music or even knowledge beyond information related to food and shelter. Every other species seems to understand this: lions are out hunting prey, beavers are building dams, butterflies finding nectar&hellip; None are spending time or resources decorating their homes with funky colors or writing a thesis on shakespearean theatrical semiotics. So why did we evolve past the universal drive to survive into this complex and seemingly unnecessary universe of soul searching and identity formation?
@@ -3170,6 +3239,19 @@
                 <p class="paragraph">
                     We are wired to develop and embody the layers of our identity so intensely it feels almost like our life depends on it... because at one point it did.
                 </p>
+
+                <div style="text-align:right; margin-top:12px;">
+                    <span id="dance-toggle" style="display:none; cursor:pointer; font-size:0.65rem; letter-spacing:0.08em; color:#666; margin-right:8px; transition:color 0.2s;" onmouseenter="this.style.color='#aaa'" onmouseleave="this.style.color='#666'">bring back the dancing button</span>
+                    <span class="fun-fact-trigger" id="fun-fact-trigger" style="cursor:pointer; font-size:0.75rem; letter-spacing:0.1em; color:#888; border:1px solid rgba(255,255,255,0.15); border-radius:4px; padding:4px 10px; transition:color 0.2s;">CLICK FOR FUN FACT</span>
+                </div>
+
+                <div class="fun-fact-box" id="fun-fact-box">
+                    <canvas class="fun-fact-glow" id="fun-fact-glow"></canvas>
+                    <div class="fun-fact-content">
+                        <img src="homo-sapien-name.png" alt="Homo Sapien name origin" style="max-width:100%; border-radius:8px; margin-bottom:14px;">
+                        <p style="margin:0; font-size:1rem; color:#ccc; line-height:1.7;">Homo Sapien literally translates to &ldquo;thinking man&rdquo;. The intention behind the name was to distinguish us from other primates and human species with our greatest differentiator: our brain.</p>
+                    </div>
+                </div>
             </div>
 
             <p class="paragraph">
@@ -3177,11 +3259,11 @@
             </p>
 
             <p class="paragraph">
-                Instead, we live driven by forces larger than survival - constantly working to find and express ourselves in the world around us.
+                Our direct survival instincts occupy only a mere fraction of our drive to do anything. Beyond it, we are driven by forces larger than survival - constantly working to find and express ourselves in the world around us.
             </p>
 
             <p class="paragraph">
-                In Section II, we will explore how human innovation has evolved since the beginning of time to help us satisfy our innate burning desire to soul search. This will contextualize the technological landscape we exist within today, which will help us identify where we are headed next in the tumultuous era of AI and beyond.
+                In Section II, we will explore how human innovation has evolved since the beginning of time, shaped by the interplay of our innate burning desire to soul search and our original, primal survival instincts. This will contextualize the technological landscape we exist within today, which will help us identify where we are headed next in the tumultuous era of AI and beyond.
             </p>
 
             <hr style="border: 1px solid #333; margin: 2em 0;">
@@ -4569,34 +4651,6 @@
             runStep(0);
         });
 
-        // ========== "NEVER FULLY ALIGN" CLICK → VIDEO POPUP ==========
-        var neverAlignKeyword = document.getElementById('never-align-keyword');
-        if (neverAlignKeyword) {
-            var neverAlignOverlay = null;
-            neverAlignKeyword.addEventListener('mouseenter', function() {
-                // Create video popup overlay
-                neverAlignOverlay = document.createElement('div');
-                neverAlignOverlay.style.cssText = 'position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.85);z-index:10002;display:flex;align-items:center;justify-content:center;pointer-events:none;opacity:0;transition:opacity 0.4s ease;';
-                var video = document.createElement('video');
-                video.src = 'uncaptured-identity.mov';
-                video.autoplay = true;
-                video.loop = true;
-                video.muted = true;
-                video.playsInline = true;
-                video.style.cssText = 'max-width:80vw;max-height:80vh;border-radius:16px;box-shadow:0 0 40px rgba(0,0,0,0.6);';
-                neverAlignOverlay.appendChild(video);
-                document.body.appendChild(neverAlignOverlay);
-                requestAnimationFrame(function() { requestAnimationFrame(function() { if (neverAlignOverlay) neverAlignOverlay.style.opacity = '1'; }); });
-            });
-            neverAlignKeyword.addEventListener('mouseleave', function() {
-                if (neverAlignOverlay) {
-                    var ol = neverAlignOverlay;
-                    neverAlignOverlay = null;
-                    ol.style.opacity = '0';
-                    setTimeout(function() { ol.remove(); }, 400);
-                }
-            });
-        }
 
         // ========== DEBUG MODE FOR ORB POSITIONING ==========
         // Set to true to click and get coordinates, false for normal use
@@ -5805,15 +5859,33 @@
         // ========== BUT WHY? SPIN EFFECT ==========
         (function() {
             var butWhy = document.getElementById('but-why-text');
+            var replayBtn = document.getElementById('but-why-replay');
             if (!butWhy) return;
             var triggered = false;
+            var animating = false;
+
+            if (replayBtn) {
+                replayBtn.addEventListener('mouseenter', function() { replayBtn.style.opacity = '1'; });
+                replayBtn.addEventListener('mouseleave', function() { replayBtn.style.opacity = '0.5'; });
+                replayBtn.addEventListener('click', function() {
+                    triggered = false;
+                    animating = false;
+                    spawnClones();
+                });
+            }
 
             function spawnClones() {
                 if (triggered) return;
                 triggered = true;
+                animating = true;
                 var particles = [];
                 var spawnStart = performance.now();
                 var spawnDuration = 3000;
+
+                // Show replay button mid-animation
+                setTimeout(function() {
+                    if (replayBtn) replayBtn.style.display = 'inline';
+                }, 1500);
 
                 function makeClone() {
                     var rect = butWhy.getBoundingClientRect();
@@ -5867,6 +5939,9 @@
                     }
                     if (!allDone || performance.now() - spawnStart < spawnDuration + 4500) {
                         requestAnimationFrame(animate);
+                    } else {
+                        animating = false;
+                        if (replayBtn) replayBtn.style.display = 'inline';
                     }
                 }
                 requestAnimationFrame(animate);
@@ -7994,9 +8069,138 @@
         });
     })();
 
+    // ========== FUN FACT BOX ==========
+    (function() {
+        var trigger = document.getElementById('fun-fact-trigger');
+        var box = document.getElementById('fun-fact-box');
+        var canvas = document.getElementById('fun-fact-glow');
+        if (!trigger || !box || !canvas) return;
+
+        var ctx = canvas.getContext('2d');
+        var particles = [];
+        var running = false;
+        var danceToggle = document.getElementById('dance-toggle');
+        var dancing = false;
+
+        danceToggle.addEventListener('click', function() {
+            if (!dancing) {
+                trigger.classList.remove('clicked');
+                dancing = true;
+                danceToggle.textContent = 'stop the dancing button';
+            } else {
+                trigger.classList.add('clicked');
+                dancing = false;
+                danceToggle.textContent = 'bring back the dancing button';
+            }
+        });
+
+        trigger.addEventListener('click', function() {
+            trigger.classList.add('clicked');
+            dancing = false;
+            danceToggle.textContent = 'bring back the dancing button';
+            danceToggle.style.display = 'inline';
+            if (box.classList.contains('visible')) {
+                box.classList.remove('visible');
+                running = false;
+                trigger.textContent = 'CLICK FOR FUN FACT';
+                return;
+            }
+            box.classList.add('visible');
+            trigger.textContent = 'HIDE FUN FACT';
+            startGlow();
+        });
+
+        function startGlow() {
+            running = true;
+            resizeCanvas();
+            animate();
+        }
+
+        function resizeCanvas() {
+            var rect = canvas.getBoundingClientRect();
+            canvas.width = rect.width;
+            canvas.height = rect.height;
+        }
+
+        function spawnParticle() {
+            var w = canvas.width, h = canvas.height;
+            // Pick a random edge
+            var side = Math.floor(Math.random() * 4);
+            var x, y, vx, vy;
+            var pad = 30; // offset from inner box edge to canvas edge
+
+            if (side === 0) { // top
+                x = pad + Math.random() * (w - pad * 2);
+                y = pad;
+                vx = (Math.random() - 0.5) * 0.3;
+                vy = -0.3 - Math.random() * 0.5;
+            } else if (side === 1) { // bottom
+                x = pad + Math.random() * (w - pad * 2);
+                y = h - pad;
+                vx = (Math.random() - 0.5) * 0.3;
+                vy = 0.3 + Math.random() * 0.5;
+            } else if (side === 2) { // left
+                x = pad;
+                y = pad + Math.random() * (h - pad * 2);
+                vx = -0.3 - Math.random() * 0.5;
+                vy = (Math.random() - 0.5) * 0.3;
+            } else { // right
+                x = w - pad;
+                y = pad + Math.random() * (h - pad * 2);
+                vx = 0.3 + Math.random() * 0.5;
+                vy = (Math.random() - 0.5) * 0.3;
+            }
+
+            var hue = Math.random() > 0.5 ? '180,220,255' : '200,180,255';
+            particles.push({
+                x: x, y: y, vx: vx, vy: vy,
+                life: 0, maxLife: 60 + Math.random() * 40,
+                r: 1 + Math.random() * 2,
+                color: hue
+            });
+        }
+
+        function animate() {
+            if (!running) return;
+            requestAnimationFrame(animate);
+
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Spawn 2-3 particles per frame for continuous flow
+            for (var s = 0; s < 3; s++) spawnParticle();
+
+            for (var i = particles.length - 1; i >= 0; i--) {
+                var p = particles[i];
+                p.x += p.vx;
+                p.y += p.vy;
+                p.life++;
+
+                if (p.life > p.maxLife) {
+                    particles.splice(i, 1);
+                    continue;
+                }
+
+                var t = p.life / p.maxLife;
+                var alpha = t < 0.2 ? t / 0.2 : 1 - (t - 0.2) / 0.8;
+                alpha *= 0.5;
+
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+                ctx.fillStyle = 'rgba(' + p.color + ',' + alpha + ')';
+                ctx.fill();
+
+                // Glow
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.r * 3, 0, Math.PI * 2);
+                ctx.fillStyle = 'rgba(' + p.color + ',' + (alpha * 0.2) + ')';
+                ctx.fill();
+            }
+        }
+    })();
+
     // ========== SOUL IMAGE BACKGROUND CLICK ==========
     (function() {
-        var totalSoulImages = 55;
+        var totalSoulImages = 71;
         var soulDeck = [];
         // Soul cursor uses CSS class (body.soul-hover) for reliable SVG cursor
 
@@ -8102,13 +8306,21 @@
         box.addEventListener('mouseleave', function() { active = false; });
     })();
 
-    // ========== ROULETTE VIDEO HOVER ==========
+
+    // ========== VIDEO HOVER PLAY/PAUSE ==========
     (function() {
-        var trigger = document.getElementById('roulette-trigger');
-        if (!trigger) return;
-        var video = trigger.querySelector('video');
-        trigger.addEventListener('mouseenter', function() { video.currentTime = 0; video.play(); });
-        trigger.addEventListener('mouseleave', function() { video.pause(); });
+        var triggers = document.querySelectorAll('.video-hover-trigger');
+        triggers.forEach(function(trigger) {
+            var video = trigger.querySelector('video');
+            if (!video) return;
+            trigger.addEventListener('mouseenter', function() {
+                video.currentTime = 0;
+                video.play().catch(function(){});
+            });
+            trigger.addEventListener('mouseleave', function() {
+                video.pause();
+            });
+        });
     })();
 
     // ========== HEAD SPIRAL INTERACTIVE ==========
