@@ -324,7 +324,8 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            zoom: 0.667;
+            transform: scale(0.667);
+            transform-origin: top center;
         }
 
         .body-diagram.minimized {
@@ -1349,10 +1350,9 @@
             position: absolute;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
             pointer-events: none;
             z-index: 1000;
+            overflow: visible;
         }
 
         .gap-arrow-line {
@@ -1387,6 +1387,36 @@
             to {
                 opacity: 1;
             }
+        }
+
+        /* DIV-based arrow line (cross-browser) */
+        .div-arrow-line {
+            position: absolute;
+            height: 3px;
+            background: #86efac;
+            transform-origin: 0 50%;
+            pointer-events: none;
+            z-index: 1000;
+            border-radius: 2px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .div-arrow-line.visible {
+            opacity: 1;
+        }
+        .div-arrow-dot {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: #86efac;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 1001;
+            opacity: 0;
+            transition: opacity 0.3s ease 0.4s;
+        }
+        .div-arrow-dot.visible {
+            opacity: 1;
         }
 
         /* Permanent faint green fill when revealed */
@@ -2818,7 +2848,7 @@
             .manifesto-title-wrapper { height: 100px; }
 
             /* Body Diagram — desktop identical, just smaller */
-            .body-diagram { zoom: 0.45; }
+            .body-diagram { transform: scale(0.45); transform-origin: top center; }
 
             /* Popups — Centered */
             .thesis-popup { max-width: 90vw; padding: 16px 20px; left: 50%; transform: translateX(-50%); }
@@ -3676,6 +3706,43 @@
     </div>
 
     <script>
+
+        // ========== DIV ARROW UTILITY ==========
+        function createDivArrow(vx1, vy1, vx2, vy2) {
+            var sx = window.pageXOffset || 0;
+            var sy = window.pageYOffset || 0;
+            var x1 = vx1 + sx, y1 = vy1 + sy;
+            var x2 = vx2 + sx, y2 = vy2 + sy;
+
+            var dx = x2 - x1, dy = y2 - y1;
+            var len = Math.sqrt(dx * dx + dy * dy);
+            var angle = Math.atan2(dy, dx) * 180 / Math.PI;
+
+            var line = document.createElement('div');
+            line.style.cssText = 'position:absolute;height:3px;background:#86efac;transform-origin:0 50%;pointer-events:none;z-index:1000;border-radius:2px;';
+            line.style.left = x1 + 'px';
+            line.style.top = y1 + 'px';
+            line.style.width = len + 'px';
+            line.style.transform = 'rotate(' + angle + 'deg)';
+            document.body.appendChild(line);
+
+            var dot = document.createElement('div');
+            dot.style.cssText = 'position:absolute;width:8px;height:8px;background:#86efac;border-radius:50%;pointer-events:none;z-index:1001;';
+            dot.style.left = (x2 - 4) + 'px';
+            dot.style.top = (y2 - 4) + 'px';
+            document.body.appendChild(dot);
+
+            return { line: line, dot: dot, remove: function() {
+                line.style.opacity = '0';
+                dot.style.opacity = '0';
+                setTimeout(function() { line.remove(); dot.remove(); }, 500);
+            }};
+        }
+
+        // ========== SCROLL TO TOP ON LOAD ==========
+        window.scrollTo(0, 0);
+        if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+
         // ========== INTERACTIVE KEYWORD HOVER EFFECT ==========
         // Keywords follow the mouse when hovered
 
@@ -3748,7 +3815,7 @@
             limited:  { text: '...our reality is finite and <span class="echo-keyword">limited</span> by nature...', offsetY: -60, rotate: 3 },
             infinite: { text: '...can never capture the <span class="echo-keyword">infinite</span> totality of who we are...', offsetY: 20, rotate: -2.5 },
             look:     { text: '...Look at all the <span class="echo-keyword">uncaptured identity</span>!', offsetY: -30, rotate: 2 },
-            mind:     { text: '...Our <span class="echo-keyword">mind</span> helps us understand and embody our identity...', offsetY: 50, rotate: -3 },
+            mind:     { text: '...Our <span class="echo-keyword">mind</span> does this for us by sending us signals through emotion and intuition as we navigate the world...', offsetY: 50, rotate: -3 },
             gap:      { text: '...We are motivated to reduce this <span class="echo-keyword">gap</span>...', offsetY: -45, rotate: 2.5 },
             do:       { text: '...the core driver behind everything we <span class="echo-keyword">do</span>...', offsetY: 35, rotate: -2 }
         };
@@ -3840,46 +3907,18 @@
             // Get positions for arrow with scroll offset
             const keywordRect = limitedKeyword.getBoundingClientRect();
             const containerRect = senseBlocksContainer.getBoundingClientRect();
-            const scrollX = window.scrollX;
-            const scrollY = window.scrollY;
+
 
             // Start point: bottom center of "limited" keyword
-            const startX = keywordRect.left + keywordRect.width / 2 + scrollX;
-            const startY = keywordRect.bottom + 5 + scrollY;
+            const startX = keywordRect.left + keywordRect.width / 2;
+            const startY = keywordRect.bottom + 5;
 
             // End point: left side of sense blocks container
-            const endX = containerRect.left - 10 + scrollX;
-            const endY = containerRect.top + containerRect.height / 2 + scrollY;
+            const endX = containerRect.left - 10;
+            const endY = containerRect.top + containerRect.height / 2;
 
-            // Create SVG for the arrow
-            limitedArrowSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-            limitedArrowSvg.classList.add('gap-arrow-svg');
-            limitedArrowSvg.style.width = document.documentElement.scrollWidth + 'px';
-            limitedArrowSvg.style.height = document.documentElement.scrollHeight + 'px';
-            limitedArrowSvg.setAttribute('viewBox', `0 0 ${document.documentElement.scrollWidth} ${document.documentElement.scrollHeight}`);
-
-            // Create curved path
-            const midY = (startY + endY) / 2;
-            const pathD = `M ${startX} ${startY} Q ${endX - 50} ${midY}, ${endX} ${endY}`;
-
-            const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-            path.classList.add('gap-arrow-line');
-            path.setAttribute('d', pathD);
-
-            // Create arrow head pointing right
-            const arrowHead = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
-            arrowHead.classList.add('gap-arrow-head');
-            arrowHead.setAttribute('points', `${endX + 5},${endY} ${endX - 8},${endY - 6} ${endX - 8},${endY + 6}`);
-
-            limitedArrowSvg.appendChild(path);
-            limitedArrowSvg.appendChild(arrowHead);
-            document.body.appendChild(limitedArrowSvg);
-
-            // Trigger arrow animation
-            requestAnimationFrame(() => {
-                path.classList.add('animating');
-                arrowHead.classList.add('animating');
-            });
+            // Create div arrow
+            limitedArrowSvg = createDivArrow(startX, startY, endX, endY);
 
             // Force reflow then start sequence
             void senseBlocks[4].offsetWidth;
@@ -3918,14 +3957,8 @@
             // Remove arrow after animation completes
             setTimeout(() => {
                 if (limitedArrowSvg) {
-                    limitedArrowSvg.style.opacity = '0';
-                    limitedArrowSvg.style.transition = 'opacity 0.5s ease';
-                    setTimeout(() => {
-                        if (limitedArrowSvg) {
-                            limitedArrowSvg.remove();
-                            limitedArrowSvg = null;
-                        }
-                    }, 500);
+                    limitedArrowSvg.remove();
+                    limitedArrowSvg = null;
                 }
             }, limitedDuration);
 
@@ -4048,48 +4081,17 @@
             // Get positions with scroll offset for absolute positioning
             const keywordRect = identityKeyword.getBoundingClientRect();
             const noteRect = identityNote.getBoundingClientRect();
-            const scrollX = window.scrollX;
-            const scrollY = window.scrollY;
+
 
             // Start point: right side of keyword
-            const startX = keywordRect.right + 5 + scrollX;
-            const startY = keywordRect.top + keywordRect.height / 2 + scrollY;
+            const startX = keywordRect.right + 5;
+            const startY = keywordRect.top + keywordRect.height / 2;
 
             // End point: left side of sticky note
-            const endX = noteRect.left - 5 + scrollX;
-            const endY = noteRect.top + noteRect.height / 2 + scrollY;
+            const endX = noteRect.left - 5;
+            const endY = noteRect.top + noteRect.height / 2;
 
-            // Create SVG for the arrow
-            identityArrowSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-            identityArrowSvg.classList.add('gap-arrow-svg');
-            identityArrowSvg.style.width = document.documentElement.scrollWidth + 'px';
-            identityArrowSvg.style.height = document.documentElement.scrollHeight + 'px';
-            identityArrowSvg.setAttribute('viewBox', `0 0 ${document.documentElement.scrollWidth} ${document.documentElement.scrollHeight}`);
-
-            // Create curved path
-            const midX = (startX + endX) / 2;
-            const pathD = `M ${startX} ${startY} Q ${midX} ${startY - 30}, ${endX} ${endY}`;
-
-            const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-            path.classList.add('gap-arrow-line');
-            path.setAttribute('d', pathD);
-            path.style.stroke = '#60a5fa'; // Blue for identity
-
-            // Create arrow head pointing right
-            const arrowHead = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
-            arrowHead.classList.add('gap-arrow-head');
-            arrowHead.setAttribute('points', `${endX + 5},${endY} ${endX - 8},${endY - 6} ${endX - 8},${endY + 6}`);
-            arrowHead.style.fill = '#60a5fa'; // Blue for identity
-
-            identityArrowSvg.appendChild(path);
-            identityArrowSvg.appendChild(arrowHead);
-            document.body.appendChild(identityArrowSvg);
-
-            // Trigger animation
-            requestAnimationFrame(() => {
-                path.classList.add('animating');
-                arrowHead.classList.add('animating');
-            });
+            identityArrowSvg = createDivArrow(startX, startY, endX, endY);
 
             // Reveal the sticky note after arrow reaches
             setTimeout(() => {
@@ -4098,12 +4100,8 @@
                 // Remove arrow after a delay
                 setTimeout(() => {
                     if (identityArrowSvg) {
-                        identityArrowSvg.style.opacity = '0';
-                        identityArrowSvg.style.transition = 'opacity 0.5s ease';
-                        setTimeout(() => {
-                            identityArrowSvg.remove();
-                            identityArrowSvg = null;
-                        }, 500);
+                        identityArrowSvg.remove();
+                        identityArrowSvg = null;
                     }
                 }, 1500);
             }, 600);
@@ -4146,46 +4144,17 @@
             // Get positions with scroll offset
             const keywordRect = infiniteKeyword.getBoundingClientRect();
             const diagramRect = bodyDiagram.getBoundingClientRect();
-            const scrollX = window.scrollX;
-            const scrollY = window.scrollY;
+
 
             // Start point: bottom center of keyword
-            const startX = keywordRect.left + keywordRect.width / 2 + scrollX;
-            const startY = keywordRect.bottom + 5 + scrollY;
+            const startX = keywordRect.left + keywordRect.width / 2;
+            const startY = keywordRect.bottom + 5;
 
             // End point: top edge of body diagram (head area)
-            const endX = diagramRect.left + diagramRect.width / 2 + scrollX;
-            const endY = diagramRect.top - 10 + scrollY;
+            const endX = diagramRect.left + diagramRect.width / 2;
+            const endY = diagramRect.top - 10;
 
-            // Create SVG for the arrow
-            infiniteArrowSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-            infiniteArrowSvg.classList.add('gap-arrow-svg');
-            infiniteArrowSvg.style.width = document.documentElement.scrollWidth + 'px';
-            infiniteArrowSvg.style.height = document.documentElement.scrollHeight + 'px';
-            infiniteArrowSvg.setAttribute('viewBox', `0 0 ${document.documentElement.scrollWidth} ${document.documentElement.scrollHeight}`);
-
-            // Create curved path
-            const midY = (startY + endY) / 2;
-            const pathD = `M ${startX} ${startY} Q ${startX} ${midY}, ${endX} ${endY}`;
-
-            const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-            path.classList.add('gap-arrow-line');
-            path.setAttribute('d', pathD);
-
-            // Create arrow head pointing down
-            const arrowHead = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
-            arrowHead.classList.add('gap-arrow-head');
-            arrowHead.setAttribute('points', `${endX},${endY + 5} ${endX - 8},${endY - 8} ${endX + 8},${endY - 8}`);
-
-            infiniteArrowSvg.appendChild(path);
-            infiniteArrowSvg.appendChild(arrowHead);
-            document.body.appendChild(infiniteArrowSvg);
-
-            // Trigger animation
-            requestAnimationFrame(() => {
-                path.classList.add('animating');
-                arrowHead.classList.add('animating');
-            });
+            infiniteArrowSvg = createDivArrow(startX, startY, endX, endY);
 
             // Arrow reaches the body diagram — show green circle but not head orb
             setTimeout(() => {
@@ -4197,14 +4166,8 @@
                 // Remove arrow after a delay
                 setTimeout(() => {
                     if (infiniteArrowSvg) {
-                        infiniteArrowSvg.style.opacity = '0';
-                        infiniteArrowSvg.style.transition = 'opacity 0.5s ease';
-                        setTimeout(() => {
-                            if (infiniteArrowSvg) {
-                                infiniteArrowSvg.remove();
-                                infiniteArrowSvg = null;
-                            }
-                        }, 500);
+                        infiniteArrowSvg.remove();
+                        infiniteArrowSvg = null;
                     }
                 }, 1500);
             }, 600);
@@ -4269,46 +4232,17 @@
             // Get positions with scroll offset
             const keywordRect = mindKeyword.getBoundingClientRect();
             const diagramRect = bodyDiagram.getBoundingClientRect();
-            const scrollX = window.scrollX;
-            const scrollY = window.scrollY;
+
 
             // Start point: bottom center of keyword
-            const startX = keywordRect.left + keywordRect.width / 2 + scrollX;
-            const startY = keywordRect.bottom + 5 + scrollY;
+            const startX = keywordRect.left + keywordRect.width / 2;
+            const startY = keywordRect.bottom + 5;
 
             // End point: top edge of orb (outside)
-            const endX = diagramRect.left + diagramRect.width / 2 + scrollX;
-            const endY = diagramRect.top - 10 + scrollY;
+            const endX = diagramRect.left + diagramRect.width / 2;
+            const endY = diagramRect.top - 10;
 
-            // Create SVG for the arrow
-            mindArrowSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-            mindArrowSvg.classList.add('gap-arrow-svg');
-            mindArrowSvg.style.width = document.documentElement.scrollWidth + 'px';
-            mindArrowSvg.style.height = document.documentElement.scrollHeight + 'px';
-            mindArrowSvg.setAttribute('viewBox', `0 0 ${document.documentElement.scrollWidth} ${document.documentElement.scrollHeight}`);
-
-            // Create curved path
-            const midY = (startY + endY) / 2;
-            const pathD = `M ${startX} ${startY} Q ${startX} ${midY}, ${endX} ${endY}`;
-
-            const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-            path.classList.add('gap-arrow-line');
-            path.setAttribute('d', pathD);
-
-            // Create arrow head pointing down
-            const arrowHead = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
-            arrowHead.classList.add('gap-arrow-head');
-            arrowHead.setAttribute('points', `${endX},${endY + 5} ${endX - 8},${endY - 8} ${endX + 8},${endY - 8}`);
-
-            mindArrowSvg.appendChild(path);
-            mindArrowSvg.appendChild(arrowHead);
-            document.body.appendChild(mindArrowSvg);
-
-            // Trigger animation
-            requestAnimationFrame(() => {
-                path.classList.add('animating');
-                arrowHead.classList.add('animating');
-            });
+            mindArrowSvg = createDivArrow(startX, startY, endX, endY);
 
             // Reveal the head orb after arrow reaches
             setTimeout(() => {
@@ -4330,14 +4264,8 @@
                 // Remove arrow after a delay
                 setTimeout(() => {
                     if (mindArrowSvg) {
-                        mindArrowSvg.style.opacity = '0';
-                        mindArrowSvg.style.transition = 'opacity 0.5s ease';
-                        setTimeout(() => {
-                            if (mindArrowSvg) {
-                                mindArrowSvg.remove();
-                                mindArrowSvg = null;
-                            }
-                        }, 500);
+                        mindArrowSvg.remove();
+                        mindArrowSvg = null;
                     }
                 }, 1500);
             }, 600);
@@ -4357,7 +4285,8 @@
                 steps.push({ fn: function() { triggerInfinite(true); }, dur: infiniteDuration, kw: 'infinite' });
             if (!sequenceState.lookTriggered)
                 steps.push({ fn: function() { triggerLook(true); }, dur: lookDuration, kw: 'look' });
-            steps.push({ fn: function() { triggerMind(false); }, dur: mindDuration + 500, kw: 'mind' });
+            var mindAuto = steps.length > 0;
+            steps.push({ fn: function() { triggerMind(mindAuto); }, dur: mindDuration + 500, kw: 'mind' });
 
             function runStep(i) {
                 if (i >= steps.length) {
@@ -4406,43 +4335,17 @@
             // Get positions with scroll offset
             const lookRect = lookKeyword.getBoundingClientRect();
             const diagramRect = bodyDiagram.getBoundingClientRect();
-            const scrollX = window.scrollX;
-            const scrollY = window.scrollY;
+
 
             // Start: bottom center of "look"
-            const startX = lookRect.left + lookRect.width / 2 + scrollX;
-            const startY = lookRect.bottom + 5 + scrollY;
+            const startX = lookRect.left + lookRect.width / 2;
+            const startY = lookRect.bottom + 5;
 
             // End: top edge of body diagram
-            const endX = diagramRect.left + diagramRect.width / 2 + scrollX;
-            const endY = diagramRect.top - 10 + scrollY;
+            const endX = diagramRect.left + diagramRect.width / 2;
+            const endY = diagramRect.top - 10;
 
-            // Create SVG arrow
-            lookArrowSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-            lookArrowSvg.classList.add('gap-arrow-svg');
-            lookArrowSvg.style.width = document.documentElement.scrollWidth + 'px';
-            lookArrowSvg.style.height = document.documentElement.scrollHeight + 'px';
-            lookArrowSvg.setAttribute('viewBox', `0 0 ${document.documentElement.scrollWidth} ${document.documentElement.scrollHeight}`);
-
-            const midY = (startY + endY) / 2;
-            const pathD = `M ${startX} ${startY} Q ${startX} ${midY}, ${endX} ${endY}`;
-
-            const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-            path.classList.add('gap-arrow-line');
-            path.setAttribute('d', pathD);
-
-            const arrowHead = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
-            arrowHead.classList.add('gap-arrow-head');
-            arrowHead.setAttribute('points', `${endX},${endY + 5} ${endX - 8},${endY - 8} ${endX + 8},${endY - 8}`);
-
-            lookArrowSvg.appendChild(path);
-            lookArrowSvg.appendChild(arrowHead);
-            document.body.appendChild(lookArrowSvg);
-
-            requestAnimationFrame(() => {
-                path.classList.add('animating');
-                arrowHead.classList.add('animating');
-            });
+            lookArrowSvg = createDivArrow(startX, startY, endX, endY);
 
             // Reveal the body diagram if not already
             if (!bodyDiagram.classList.contains('revealed')) {
@@ -4459,12 +4362,8 @@
 
                 setTimeout(() => {
                     if (lookArrowSvg) {
-                        lookArrowSvg.style.opacity = '0';
-                        lookArrowSvg.style.transition = 'opacity 0.5s ease';
-                        setTimeout(() => {
-                            lookArrowSvg.remove();
-                            lookArrowSvg = null;
-                        }, 500);
+                        lookArrowSvg.remove();
+                        lookArrowSvg = null;
                     }
                 }, 2200);
 
@@ -4508,46 +4407,17 @@
             // Get positions with scroll offset
             const gapRect = gapKeyword.getBoundingClientRect();
             const diagramRect = bodyDiagram.getBoundingClientRect();
-            const scrollX = window.scrollX;
-            const scrollY = window.scrollY;
+
 
             // Start point: bottom center of "gap" word
-            const startX = gapRect.left + gapRect.width / 2 + scrollX;
-            const startY = gapRect.bottom + 5 + scrollY;
+            const startX = gapRect.left + gapRect.width / 2;
+            const startY = gapRect.bottom + 5;
 
             // End point: top edge of orb (outside)
-            const endX = diagramRect.left + diagramRect.width / 2 + scrollX;
-            const endY = diagramRect.top - 10 + scrollY;
+            const endX = diagramRect.left + diagramRect.width / 2;
+            const endY = diagramRect.top - 10;
 
-            // Create SVG for the arrow
-            arrowSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-            arrowSvg.classList.add('gap-arrow-svg');
-            arrowSvg.style.width = document.documentElement.scrollWidth + 'px';
-            arrowSvg.style.height = document.documentElement.scrollHeight + 'px';
-            arrowSvg.setAttribute('viewBox', `0 0 ${document.documentElement.scrollWidth} ${document.documentElement.scrollHeight}`);
-
-            // Create curved path
-            const midY = (startY + endY) / 2;
-            const pathD = `M ${startX} ${startY} Q ${startX} ${midY}, ${endX} ${endY}`;
-
-            const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-            path.classList.add('gap-arrow-line');
-            path.setAttribute('d', pathD);
-
-            // Create arrow head pointing down
-            const arrowHead = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
-            arrowHead.classList.add('gap-arrow-head');
-            arrowHead.setAttribute('points', `${endX},${endY + 5} ${endX - 8},${endY - 8} ${endX + 8},${endY - 8}`);
-
-            arrowSvg.appendChild(path);
-            arrowSvg.appendChild(arrowHead);
-            document.body.appendChild(arrowSvg);
-
-            // Trigger animation
-            requestAnimationFrame(() => {
-                path.classList.add('animating');
-                arrowHead.classList.add('animating');
-            });
+            arrowSvg = createDivArrow(startX, startY, endX, endY);
 
             // Reveal the bubble if not already revealed
             if (!bodyDiagram.classList.contains('revealed')) {
@@ -4566,12 +4436,8 @@
                 // Remove arrow after a delay
                 setTimeout(() => {
                     if (arrowSvg) {
-                        arrowSvg.style.opacity = '0';
-                        arrowSvg.style.transition = 'opacity 0.5s ease';
-                        setTimeout(() => {
-                            arrowSvg.remove();
-                            arrowSvg = null;
-                        }, 500);
+                        arrowSvg.remove();
+                        arrowSvg = null;
                     }
                 }, 2200);
             }, 600);
@@ -4593,7 +4459,8 @@
                 steps.push({ fn: function() { triggerLook(true); }, dur: lookDuration, kw: 'look' });
             if (startFrom <= 3 && !sequenceState.mindTriggered)
                 steps.push({ fn: function() { triggerMind(true); }, dur: mindDuration, kw: 'mind' });
-            steps.push({ fn: function() { triggerGap(false); }, dur: 3000, kw: 'gap' });
+            var gapAuto = steps.length > 0;
+            steps.push({ fn: function() { triggerGap(gapAuto); }, dur: 3000, kw: 'gap' });
 
             // Execute chain with delays
             function runStep(i) {
@@ -4632,7 +4499,8 @@
                 steps.push({ fn: function() { triggerLimited(true); }, dur: limitedDuration, kw: 'limited' });
             if (!sequenceState.infiniteTriggered)
                 steps.push({ fn: function() { triggerInfinite(true); }, dur: infiniteDuration, kw: 'infinite' });
-            steps.push({ fn: function() { triggerLook(false); }, dur: lookDuration, kw: 'look' });
+            var lookAuto = steps.length > 0;
+            steps.push({ fn: function() { triggerLook(lookAuto); }, dur: lookDuration, kw: 'look' });
 
             function runStep(i) {
                 if (i >= steps.length) {
@@ -5298,58 +5166,22 @@
             setTimeout(() => {
                 const keywordRect = doKeyword.getBoundingClientRect();
                 const textRect = orbText.getBoundingClientRect();
-                const scrollX = window.scrollX;
-                const scrollY = window.scrollY;
 
                 // Start point: bottom center of "do" keyword
-                const startX = keywordRect.left + keywordRect.width / 2 + scrollX;
-                const startY = keywordRect.bottom + 5 + scrollY;
+                const startX = keywordRect.left + keywordRect.width / 2;
+                const startY = keywordRect.bottom + 5;
 
                 // End point: top center of orb text
-                const endX = textRect.left + textRect.width / 2 + scrollX;
-                const endY = textRect.top - 10 + scrollY;
+                const endX = textRect.left + textRect.width / 2;
+                const endY = textRect.top - 10;
 
-                // Create SVG for the arrow
-                doArrowSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-                doArrowSvg.classList.add('gap-arrow-svg');
-                doArrowSvg.style.width = document.documentElement.scrollWidth + 'px';
-                doArrowSvg.style.height = document.documentElement.scrollHeight + 'px';
-                doArrowSvg.setAttribute('viewBox', `0 0 ${document.documentElement.scrollWidth} ${document.documentElement.scrollHeight}`);
-
-                // Create curved path
-                const midY = (startY + endY) / 2;
-                const pathD = `M ${startX} ${startY} Q ${startX} ${midY}, ${endX} ${endY}`;
-
-                const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-                path.classList.add('gap-arrow-line');
-                path.setAttribute('d', pathD);
-
-                // Create arrow head pointing down
-                const arrowHead = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
-                arrowHead.classList.add('gap-arrow-head');
-                arrowHead.setAttribute('points', `${endX},${endY + 5} ${endX - 8},${endY - 8} ${endX + 8},${endY - 8}`);
-
-                doArrowSvg.appendChild(path);
-                doArrowSvg.appendChild(arrowHead);
-                document.body.appendChild(doArrowSvg);
-
-                // Trigger animation
-                requestAnimationFrame(() => {
-                    path.classList.add('animating');
-                    arrowHead.classList.add('animating');
-                });
+                doArrowSvg = createDivArrow(startX, startY, endX, endY);
 
                 // Remove arrow after a delay
                 setTimeout(() => {
                     if (doArrowSvg) {
-                        doArrowSvg.style.opacity = '0';
-                        doArrowSvg.style.transition = 'opacity 0.5s ease';
-                        setTimeout(() => {
-                            if (doArrowSvg) {
-                                doArrowSvg.remove();
-                                doArrowSvg = null;
-                            }
-                        }, 500);
+                        doArrowSvg.remove();
+                        doArrowSvg = null;
                     }
                 }, 2000);
 
@@ -5383,7 +5215,8 @@
                 steps.push({ fn: function() { triggerMind(true); }, dur: mindDuration, kw: 'mind' });
             if (!sequenceState.gapTriggered)
                 steps.push({ fn: function() { triggerGap(true); }, dur: 2800, kw: 'gap' });
-            steps.push({ fn: function() { triggerDo(false); }, dur: 3000, kw: 'do' });
+            var doAuto = steps.length > 0;
+            steps.push({ fn: function() { triggerDo(doAuto); }, dur: 3000, kw: 'do' });
 
             function runStep(i) {
                 if (i >= steps.length) {
@@ -5426,48 +5259,17 @@
             // Get positions with scroll offset for absolute positioning
             const keywordRect = realityKeyword.getBoundingClientRect();
             const noteRect = realityNote.getBoundingClientRect();
-            const scrollX = window.scrollX;
-            const scrollY = window.scrollY;
+
 
             // Start point: right side of keyword
-            const startX = keywordRect.right + 5 + scrollX;
-            const startY = keywordRect.top + keywordRect.height / 2 + scrollY;
+            const startX = keywordRect.right + 5;
+            const startY = keywordRect.top + keywordRect.height / 2;
 
             // End point: left side of sticky note
-            const endX = noteRect.left - 5 + scrollX;
-            const endY = noteRect.top + noteRect.height / 2 + scrollY;
+            const endX = noteRect.left - 5;
+            const endY = noteRect.top + noteRect.height / 2;
 
-            // Create SVG for the arrow
-            realityArrowSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-            realityArrowSvg.classList.add('gap-arrow-svg');
-            realityArrowSvg.style.width = document.documentElement.scrollWidth + 'px';
-            realityArrowSvg.style.height = document.documentElement.scrollHeight + 'px';
-            realityArrowSvg.setAttribute('viewBox', `0 0 ${document.documentElement.scrollWidth} ${document.documentElement.scrollHeight}`);
-
-            // Create curved path
-            const midX = (startX + endX) / 2;
-            const pathD = `M ${startX} ${startY} Q ${midX} ${startY - 30}, ${endX} ${endY}`;
-
-            const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-            path.classList.add('gap-arrow-line');
-            path.setAttribute('d', pathD);
-            path.style.stroke = '#60a5fa'; // Blue for reality
-
-            // Create arrow head pointing right
-            const arrowHead = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
-            arrowHead.classList.add('gap-arrow-head');
-            arrowHead.setAttribute('points', `${endX + 5},${endY} ${endX - 8},${endY - 6} ${endX - 8},${endY + 6}`);
-            arrowHead.style.fill = '#60a5fa'; // Blue for reality
-
-            realityArrowSvg.appendChild(path);
-            realityArrowSvg.appendChild(arrowHead);
-            document.body.appendChild(realityArrowSvg);
-
-            // Trigger animation
-            requestAnimationFrame(() => {
-                path.classList.add('animating');
-                arrowHead.classList.add('animating');
-            });
+            realityArrowSvg = createDivArrow(startX, startY, endX, endY);
 
             // Reveal the sticky note after arrow reaches
             setTimeout(() => {
@@ -5476,12 +5278,8 @@
                 // Remove arrow after a delay
                 setTimeout(() => {
                     if (realityArrowSvg) {
-                        realityArrowSvg.style.opacity = '0';
-                        realityArrowSvg.style.transition = 'opacity 0.5s ease';
-                        setTimeout(() => {
-                            realityArrowSvg.remove();
-                            realityArrowSvg = null;
-                        }, 500);
+                        realityArrowSvg.remove();
+                        realityArrowSvg = null;
                     }
                 }, 1500);
             }, 600);
@@ -6054,40 +5852,16 @@
 
                     if (matchingOrb) {
                         // Draw arrow from word to green dot
-                        var scrollX = window.scrollX;
-                        var scrollY = window.scrollY;
+
                         var kwRect = link.getBoundingClientRect();
                         var orbRect = matchingOrb.getBoundingClientRect();
 
-                        var startX = kwRect.left + kwRect.width / 2 + scrollX;
-                        var startY = kwRect.bottom + 2 + scrollY;
-                        var endX = orbRect.left + orbRect.width / 2 + scrollX;
-                        var endY = orbRect.top + orbRect.height / 2 + scrollY;
-                        var midY = (startY + endY) / 2;
+                        var startX = kwRect.left + kwRect.width / 2;
+                        var startY = kwRect.bottom + 2;
+                        var endX = orbRect.left + orbRect.width / 2;
+                        var endY = orbRect.top + orbRect.height / 2;
 
-                        var svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-                        svg.classList.add('gap-arrow-svg');
-                        svg.style.width = document.documentElement.scrollWidth + 'px';
-                        svg.style.height = document.documentElement.scrollHeight + 'px';
-                        svg.setAttribute('viewBox', '0 0 ' + document.documentElement.scrollWidth + ' ' + document.documentElement.scrollHeight);
-
-                        var path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-                        path.classList.add('gap-arrow-line');
-                        var cpx = startX + (endX - startX) * 0.3;
-                        path.setAttribute('d', 'M ' + startX + ' ' + startY + ' Q ' + cpx + ' ' + midY + ', ' + endX + ' ' + endY);
-
-                        var arrowHead = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
-                        arrowHead.classList.add('gap-arrow-head');
-                        arrowHead.setAttribute('points', endX + ',' + (endY + 5) + ' ' + (endX - 6) + ',' + (endY - 8) + ' ' + (endX + 6) + ',' + (endY - 8));
-
-                        svg.appendChild(path);
-                        svg.appendChild(arrowHead);
-                        document.body.appendChild(svg);
-
-                        requestAnimationFrame(function() {
-                            path.classList.add('animating');
-                            arrowHead.classList.add('animating');
-                        });
+                        var svg = createDivArrow(startX, startY, endX, endY);
 
                         // Reveal dot text and mark consumed after arrow arrives
                         setTimeout(function() {
@@ -6095,10 +5869,10 @@
                             if (matchingText) matchingText.classList.add('revealed');
                         }, 600);
 
-                        // Fade out arrow
+                        // Remove arrow
                         setTimeout(function() {
-                            svg.classList.add('fade-out');
-                            setTimeout(function() { svg.remove(); }, 1600);
+                            svg.remove();
+                            svg = null;
                         }, 2500);
                     }
                 });
@@ -6415,67 +6189,14 @@
                 var cityOrb = allOrbs[2];
                 if (!dietOrb || !cityOrb) return;
 
-                // Draw red arrow SVGs from keyword to diet and city dots
-                [dietOrb, cityOrb].forEach(function(orb) {
+                // Draw arrows from keyword to diet and city dots
+                var sec2RedArrows = [dietOrb, cityOrb].map(function(orb) {
                     var orbRect = orb.getBoundingClientRect();
                     var sx = keyRect.left + keyRect.width / 2;
                     var sy = keyRect.top + keyRect.height / 2;
                     var ex = orbRect.left + orbRect.width / 2;
                     var ey = orbRect.top + orbRect.height / 2;
-
-                    var svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-                    svg.classList.add('sec2-red-arrow-svg');
-                    svg.style.cssText = 'position:fixed; top:0; left:0; width:100vw; height:100vh; pointer-events:none; z-index:9999;';
-                    svg.setAttribute('viewBox', '0 0 ' + window.innerWidth + ' ' + window.innerHeight);
-
-                    var defs = document.createElementNS('http://www.w3.org/2000/svg', 'defs');
-                    var marker = document.createElementNS('http://www.w3.org/2000/svg', 'marker');
-                    var markerId = 'sec2-arrowhead-' + Math.random().toString(36).substr(2, 9);
-                    marker.setAttribute('id', markerId);
-                    marker.setAttribute('markerWidth', '10');
-                    marker.setAttribute('markerHeight', '7');
-                    marker.setAttribute('refX', '10');
-                    marker.setAttribute('refY', '3.5');
-                    marker.setAttribute('orient', 'auto');
-                    var polygon = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
-                    polygon.setAttribute('points', '0 0, 10 3.5, 0 7');
-                    polygon.setAttribute('fill', '#ff6b6b');
-                    marker.appendChild(polygon);
-                    defs.appendChild(marker);
-                    svg.appendChild(defs);
-
-                    var line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-                    line.setAttribute('x1', sx);
-                    line.setAttribute('y1', sy);
-                    line.setAttribute('x2', sx);
-                    line.setAttribute('y2', sy);
-                    line.setAttribute('stroke', '#ff6b6b');
-                    line.setAttribute('stroke-width', '2');
-                    line.setAttribute('marker-end', 'url(#' + markerId + ')');
-                    svg.appendChild(line);
-                    document.body.appendChild(svg);
-
-                    // Animate line to target
-                    requestAnimationFrame(function() {
-                        line.style.transition = 'none';
-                        setTimeout(function() {
-                            line.setAttribute('x2', ex);
-                            line.setAttribute('y2', ey);
-                            // Use CSS transition on SVG via animate
-                            var animDuration = 500;
-                            var startTime = performance.now();
-                            var startX = sx, startY = sy;
-                            function animateLine(now) {
-                                var elapsed = now - startTime;
-                                var t = Math.min(elapsed / animDuration, 1);
-                                t = t * (2 - t); // ease-out
-                                line.setAttribute('x2', startX + (ex - startX) * t);
-                                line.setAttribute('y2', startY + (ey - startY) * t);
-                                if (t < 1) requestAnimationFrame(animateLine);
-                            }
-                            requestAnimationFrame(animateLine);
-                        }, 50);
-                    });
+                    return createDivArrow(sx, sy, ex, ey);
                 });
 
                 // After 600ms: turn dots and their link words red
@@ -6488,13 +6209,10 @@
                     if (cityText) cityText.classList.add('no-access-text');
                 }, 600);
 
-                // After 2500ms: fade arrows and show partial body area
+                // After 2500ms: remove arrows and show partial body area
                 setTimeout(function() {
-                    document.querySelectorAll('.sec2-red-arrow-svg').forEach(function(el) {
-                        el.style.transition = 'opacity 1.5s ease';
-                        el.style.opacity = '0';
-                        setTimeout(function() { el.remove(); }, 1600);
-                    });
+                    sec2RedArrows.forEach(function(arrow) { arrow.remove(); });
+                    sec2RedArrows = [];
                     document.getElementById('sec2-partial-body-area').style.display = '';
                 }, 2500);
             });
@@ -7299,70 +7017,37 @@
             document.addEventListener('touchend', endDrag);
 
             // "didn't have access" keyword click — draw lines to leftmost & rightmost orbs, fade them red
-            let accessArrowSvg = null;
+            let accessArrows = [];
             const accessKeyword = document.getElementById('access-keyword');
             if (accessKeyword) {
                 accessKeyword.addEventListener('click', function() {
                     // Remove previous arrows if any
-                    if (accessArrowSvg) accessArrowSvg.remove();
+                    accessArrows.forEach(function(a) { a.remove(); });
+                    accessArrows = [];
 
                     const orbs = getOrbs();
                     if (orbs.length < 2) return;
                     const leftOrb = orbs[0];
                     const rightOrb = orbs[orbs.length - 1];
 
-                    const scrollX = window.scrollX;
-                    const scrollY = window.scrollY;
                     const kwRect = accessKeyword.getBoundingClientRect();
-                    const startX = kwRect.left + kwRect.width / 2 + scrollX;
-                    const startY = kwRect.top - 5 + scrollY;
+                    const startX = kwRect.left + kwRect.width / 2;
+                    const startY = kwRect.top - 5;
 
-                    // Create SVG
-                    accessArrowSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-                    accessArrowSvg.classList.add('gap-arrow-svg');
-                    accessArrowSvg.style.width = document.documentElement.scrollWidth + 'px';
-                    accessArrowSvg.style.height = document.documentElement.scrollHeight + 'px';
-                    accessArrowSvg.setAttribute('viewBox', '0 0 ' + document.documentElement.scrollWidth + ' ' + document.documentElement.scrollHeight);
-
-                    // Line to left orb
+                    // Arrow to left orb
                     const leftRect = leftOrb.getBoundingClientRect();
-                    const leftEndX = leftRect.left + leftRect.width / 2 + scrollX;
-                    const leftEndY = leftRect.bottom + 5 + scrollY;
-                    const leftMidY = (startY + leftEndY) / 2;
-                    const leftPath = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-                    leftPath.classList.add('gap-arrow-line', 'red-line');
-                    leftPath.setAttribute('d', 'M ' + startX + ' ' + startY + ' Q ' + (leftEndX + 40) + ' ' + leftMidY + ', ' + leftEndX + ' ' + leftEndY);
+                    const leftEndX = leftRect.left + leftRect.width / 2;
+                    const leftEndY = leftRect.bottom + 5;
 
-                    const leftHead = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
-                    leftHead.classList.add('gap-arrow-head', 'red-line');
-                    leftHead.setAttribute('points', leftEndX + ',' + (leftEndY + 5) + ' ' + (leftEndX - 6) + ',' + (leftEndY - 8) + ' ' + (leftEndX + 6) + ',' + (leftEndY - 8));
-
-                    // Line to right orb
+                    // Arrow to right orb
                     const rightRect = rightOrb.getBoundingClientRect();
-                    const rightEndX = rightRect.left + rightRect.width / 2 + scrollX;
-                    const rightEndY = rightRect.bottom + 5 + scrollY;
-                    const rightMidY = (startY + rightEndY) / 2;
-                    const rightPath = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-                    rightPath.classList.add('gap-arrow-line', 'red-line');
-                    rightPath.setAttribute('d', 'M ' + startX + ' ' + startY + ' Q ' + (rightEndX - 40) + ' ' + rightMidY + ', ' + rightEndX + ' ' + rightEndY);
+                    const rightEndX = rightRect.left + rightRect.width / 2;
+                    const rightEndY = rightRect.bottom + 5;
 
-                    const rightHead = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
-                    rightHead.classList.add('gap-arrow-head', 'red-line');
-                    rightHead.setAttribute('points', rightEndX + ',' + (rightEndY + 5) + ' ' + (rightEndX - 6) + ',' + (rightEndY - 8) + ' ' + (rightEndX + 6) + ',' + (rightEndY - 8));
-
-                    accessArrowSvg.appendChild(leftPath);
-                    accessArrowSvg.appendChild(leftHead);
-                    accessArrowSvg.appendChild(rightPath);
-                    accessArrowSvg.appendChild(rightHead);
-                    document.body.appendChild(accessArrowSvg);
-
-                    // Animate lines
-                    requestAnimationFrame(() => {
-                        leftPath.classList.add('animating');
-                        leftHead.classList.add('animating');
-                        rightPath.classList.add('animating');
-                        rightHead.classList.add('animating');
-                    });
+                    accessArrows = [
+                        createDivArrow(startX, startY, leftEndX, leftEndY),
+                        createDivArrow(startX, startY, rightEndX, rightEndY)
+                    ];
 
                     // Fade orbs and their texts to red after lines finish drawing
                     setTimeout(() => {
@@ -7374,14 +7059,10 @@
                         if (rightText) rightText.classList.add('no-access-text');
                     }, 600);
 
-                    // Fade lines away after a few seconds, then trigger next phase
+                    // Remove arrows after a few seconds, then trigger next phase
                     setTimeout(() => {
-                        if (accessArrowSvg) {
-                            accessArrowSvg.classList.add('fade-out');
-                            setTimeout(() => {
-                                if (accessArrowSvg) { accessArrowSvg.remove(); accessArrowSvg = null; }
-                            }, 1500);
-                        }
+                        accessArrows.forEach(function(a) { a.remove(); });
+                        accessArrows = [];
                         // Fade away filled text and red note from first body row
                         bodyTextEl.classList.add('fading');
                         filledNote.classList.add('fading');
@@ -7726,44 +7407,20 @@
 
                 // Draw animated arrow from keyword to its scrub bar when showing
                 if (bar && bar.classList.contains('visible')) {
-                    const scrollX = window.scrollX;
-                    const scrollY = window.scrollY;
                     const kwRect = keyword.getBoundingClientRect();
                     const barRect = bar.getBoundingClientRect();
 
-                    const startX = kwRect.left + kwRect.width / 2 + scrollX;
-                    const startY = kwRect.bottom + 2 + scrollY;
-                    const endX = barRect.left + barRect.width / 2 + scrollX;
-                    const endY = barRect.top + scrollY;
-                    const midY = (startY + endY) / 2;
+                    const startX = kwRect.left + kwRect.width / 2;
+                    const startY = kwRect.bottom + 2;
+                    const endX = barRect.left + barRect.width / 2;
+                    const endY = barRect.top;
 
-                    const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-                    svg.classList.add('gap-arrow-svg');
-                    svg.style.width = document.documentElement.scrollWidth + 'px';
-                    svg.style.height = document.documentElement.scrollHeight + 'px';
-                    svg.setAttribute('viewBox', '0 0 ' + document.documentElement.scrollWidth + ' ' + document.documentElement.scrollHeight);
+                    var svg = createDivArrow(startX, startY, endX, endY);
 
-                    const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-                    path.classList.add('gap-arrow-line');
-                    const cpx = startX + (endX - startX) * 0.3;
-                    path.setAttribute('d', 'M ' + startX + ' ' + startY + ' Q ' + cpx + ' ' + midY + ', ' + endX + ' ' + endY);
-
-                    const arrowHead = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
-                    arrowHead.classList.add('gap-arrow-head');
-                    arrowHead.setAttribute('points', endX + ',' + (endY + 5) + ' ' + (endX - 6) + ',' + (endY - 8) + ' ' + (endX + 6) + ',' + (endY - 8));
-
-                    svg.appendChild(path);
-                    svg.appendChild(arrowHead);
-                    document.body.appendChild(svg);
-
-                    requestAnimationFrame(() => {
-                        path.classList.add('animating');
-                        arrowHead.classList.add('animating');
-                    });
-
-                    setTimeout(() => {
-                        svg.classList.add('fade-out');
-                        setTimeout(() => svg.remove(), 1600);
+                    // Remove arrow after delay
+                    setTimeout(function() {
+                        svg.remove();
+                        svg = null;
                     }, 2500);
                 }
             });
