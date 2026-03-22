@@ -2901,6 +2901,9 @@
         }
 
         /* ========== SOUL IMAGE BACKGROUND CLICK ========== */
+        body.soul-hover {
+            cursor: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="120" height="36"><rect x="0" y="0" width="120" height="36" rx="4" fill="%230a0a0f" stroke="%23888" stroke-width="1"/><text x="60" y="14" font-family="Georgia, serif" font-size="10" fill="%23888" text-anchor="middle">click for AI%27s</text><text x="60" y="28" font-family="Georgia, serif" font-size="10" fill="%23888" text-anchor="middle">soul interpretation</text></svg>') 60 18, pointer;
+        }
 
         .soul-popup {
             position: fixed;
@@ -2916,8 +2919,8 @@
         }
 
         .soul-popup img {
-            max-width: 320px;
-            max-height: 320px;
+            max-width: 192px;
+            max-height: 192px;
             border-radius: 10px;
             box-shadow: 0 0 30px rgba(0, 0, 0, 0.6);
         }
@@ -7993,9 +7996,9 @@
 
     // ========== SOUL IMAGE BACKGROUND CLICK ==========
     (function() {
-        var totalSoulImages = 39;
+        var totalSoulImages = 55;
         var soulDeck = [];
-        var soulCursor = "url('data:image/svg+xml," + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="155" height="36"><rect x="0" y="0" width="155" height="36" rx="4" fill="#0a0a0f" stroke="#888" stroke-width="1"/><text x="78" y="14" font-family="Georgia, serif" font-size="9" fill="#888" text-anchor="middle">click to see AI&#39;s visual</text><text x="78" y="28" font-family="Georgia, serif" font-size="9" fill="#888" text-anchor="middle">interpretation of a human soul</text></svg>') + "') 78 18, pointer";
+        // Soul cursor uses CSS class (body.soul-hover) for reliable SVG cursor
 
         function shuffleDeck() {
             soulDeck = [];
@@ -8009,16 +8012,15 @@
 
         function isBg(e) {
             var t = e.target;
-            return t === document.body || t === document.documentElement ||
-                (t.classList && t.classList.contains('essay-container') && e.target === t);
+            return t === document.body || t === document.documentElement;
         }
 
         // Show custom cursor on background hover
         document.addEventListener('mousemove', function(e) {
             if (isBg(e)) {
-                document.body.style.cursor = soulCursor;
+                document.body.classList.add('soul-hover');
             } else {
-                document.body.style.cursor = '';
+                document.body.classList.remove('soul-hover');
             }
         });
 
