@@ -326,6 +326,7 @@
             justify-content: center;
             transform: scale(0.667);
             transform-origin: top center;
+            margin-bottom: -106px;
         }
 
         .body-diagram.minimized {
@@ -367,7 +368,7 @@
             background: #0a0a0f;
             width: 100vw;
             margin-left: calc(-50vw + 50%);
-            padding: 50px 0 15px 0;
+            padding: 20px 0 0 0;
             margin-top: 0;
             margin-bottom: 0;
             transition: padding 0.6s ease-out;
@@ -376,10 +377,10 @@
         .body-sticky-wrapper .body-diagram-container::after {
             content: '';
             position: absolute;
-            bottom: -120px;
+            bottom: -60px;
             left: 0;
             right: 0;
-            height: 120px;
+            height: 60px;
             background: linear-gradient(to bottom, #0a0a0f, transparent);
             pointer-events: none;
             z-index: 5;
@@ -390,12 +391,12 @@
         }
 
         .body-diagram.minimized {
-            transform: scale(0.5);
-            transform-origin: center center;
+            transform: scale(0.35);
+            transform-origin: top center;
         }
 
         .body-sticky-wrapper .body-diagram-container.minimized-container {
-            padding: 2px 0 2px 0;
+            padding: 10px 0 0 0;
         }
 
         /* Expanded state when "do" is clicked */
@@ -3815,7 +3816,7 @@
             limited:  { text: '...our reality is finite and <span class="echo-keyword">limited</span> by nature...', offsetY: -60, rotate: 3 },
             infinite: { text: '...can never capture the <span class="echo-keyword">infinite</span> totality of who we are...', offsetY: 20, rotate: -2.5 },
             look:     { text: '...Look at all the <span class="echo-keyword">uncaptured identity</span>!', offsetY: -30, rotate: 2 },
-            mind:     { text: '...Our <span class="echo-keyword">mind</span> does this for us by sending us signals through emotion and intuition as we navigate the world...', offsetY: 50, rotate: -3 },
+            mind:     { text: '...indirect modality is how we shape our sense of self since our soul exists beyond our lived reality. Our <span class="echo-keyword">mind</span> does this for us...', offsetY: 50, rotate: -3 },
             gap:      { text: '...We are motivated to reduce this <span class="echo-keyword">gap</span>...', offsetY: -45, rotate: 2.5 },
             do:       { text: '...the core driver behind everything we <span class="echo-keyword">do</span>...', offsetY: 35, rotate: -2 }
         };
@@ -3827,13 +3828,13 @@
             return rect.top >= 0 && rect.bottom <= window.innerHeight;
         }
 
-        function showKeywordEcho(keywordName, duration) {
+        function showKeywordEcho(keywordName, duration, force) {
             // Get the keyword element
             const keywordEl = document.getElementById(keywordName === 'look' ? 'look-keyword' : keywordName + '-keyword');
             if (!keywordEl) return false;
 
-            // Check if keyword is visible in viewport
-            if (isKeywordInView(keywordName)) return false; // visible, no echo needed
+            // Check if keyword is visible in viewport (skip if forced)
+            if (!force && isKeywordInView(keywordName)) return false; // visible, no echo needed
 
             const data = keywordEchoData[keywordName];
             if (!data) return false;
@@ -4212,7 +4213,7 @@
 
             // Add grow animation if auto-triggered
             if (isAutomatic) {
-                showKeywordEcho('mind', mindDuration);
+                showKeywordEcho('mind', mindDuration, true);
                 mindKeyword.classList.remove('auto-trigger', 'auto-trigger-shrink');
                 void mindKeyword.offsetWidth;
                 mindKeyword.classList.add('auto-trigger');
@@ -4315,7 +4316,7 @@
             bodyDiagramContainer.classList.remove('minimized-container');
 
             if (isAutomatic) {
-                showKeywordEcho('look', lookDuration);
+                showKeywordEcho('look', lookDuration, true);
                 lookKeyword.classList.remove('auto-trigger', 'auto-trigger-shrink');
                 void lookKeyword.offsetWidth;
                 lookKeyword.classList.add('auto-trigger');
@@ -4386,7 +4387,7 @@
 
             // Add grow animation if auto-triggered
             if (isAutomatic) {
-                showKeywordEcho('gap', 2500);
+                showKeywordEcho('gap', 2500, true);
                 gapKeyword.classList.remove('auto-trigger', 'auto-trigger-shrink');
                 void gapKeyword.offsetWidth; // Force reflow
                 gapKeyword.classList.add('auto-trigger');
@@ -5141,7 +5142,7 @@
 
             // Add grow animation if auto-triggered
             if (isAutomatic) {
-                showKeywordEcho('do', 600);
+                showKeywordEcho('do', 600, true);
                 doKeyword.classList.remove('auto-trigger', 'auto-trigger-shrink');
                 void doKeyword.offsetWidth; // Force reflow
                 doKeyword.classList.add('auto-trigger');
@@ -5678,7 +5679,7 @@
                 animating = true;
                 var particles = [];
                 var spawnStart = performance.now();
-                var spawnDuration = 3000;
+                var spawnDuration = 1000;
 
                 // Show replay button mid-animation
                 setTimeout(function() {
