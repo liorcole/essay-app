@@ -276,6 +276,26 @@
             height: auto;
         }
 
+        .video-hover-trigger .video-hover-popup {
+            display: none;
+            position: absolute;
+            bottom: calc(100% + 10px);
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 100;
+            border-radius: 6px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+        }
+
+        .video-hover-trigger:hover .video-hover-popup {
+            display: block;
+        }
+
+        .video-hover-popup video {
+            display: block;
+        }
+
         .diagram-placeholder {
             min-height: 200px;
             margin-bottom: 30px;
@@ -2830,6 +2850,54 @@
 
             /* Font sizes */
             .keyword { font-size: 1.2rem; }
+
+            /* Head spiral */
+            .head-spiral-container { zoom: 0.7; }
+        }
+
+        /* ========== HEAD SPIRAL INTERACTIVE ========== */
+        .head-spiral-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            height: 320px;
+            margin: 40px auto;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        .head-spiral-img {
+            position: absolute;
+            left: -10px;
+            top: 50%;
+            transform: translateY(-50%);
+            height: 100%;
+            width: auto;
+            /* no filter needed — white lines on transparent bg */
+            pointer-events: none;
+        }
+
+        .head-spiral-svg {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .head-spiral-label {
+            position: absolute;
+            bottom: -8px;
+            right: 40px;
+            font-size: 0.8rem;
+            color: #666;
+            letter-spacing: 0.1em;
+            white-space: nowrap;
+            transition: opacity 0.4s ease;
+        }
+
+        .head-spiral-label.hidden {
+            opacity: 0;
         }
 
     </style>
@@ -2855,6 +2923,10 @@
                 <p class="manifesto-byline" style="font-size: 0.85rem; opacity: 0.6; margin-top: 8px;">(I had fun with the interactive animations... be sure to click around)</p>
             </div>
         </div>
+        </div>
+
+        <div id="living-doc-box" style="max-width:520px; margin:30px auto; padding:20px 24px; border:1px solid rgba(255,80,80,0.5); border-radius:8px; background:rgba(255,80,80,0.06); font-size:0.95rem; line-height:1.7; color:#ccc; opacity:0; transition:opacity 1s ease;">
+            This is a living, breathing, document which is periodically revised/updated and will never be fully complete. This outlines my high level perspective on how humanity functions which will forever evolve with future experiences and knowledge, and as the world + humanity continue to evolve over time. Therefore I am ALWAYS open to be proven wrong or exposed to a new layer or angle I hadn&rsquo;t yet considered. My goal is to continuously move towards a greater understanding, so I would love to hear responses / counter-arguments if any arise. Message <a href="https://www.linkedin.com/in/liorcole/" target="_blank" style="color:#ff8080; font-weight:600;">HERE</a>
         </div>
 
         <!-- ========== SECTION 1 ========== -->
@@ -3014,7 +3086,7 @@
             </p>
 
             <div class="indented-block" id="indirectly-block">
-                <p>A blind man cannot directly perceive sight &ndash; the visual world exists outside his reality. So to get a sense of what something &ldquo;looks&rdquo; like, he relies on what he can experience, like touch or sound: he can feel a vase that is round and smooth, the sound it makes when he taps it with his finger, he can interpret anecdotes like &ldquo;its red color feels like the sun&rsquo;s warmth&rdquo;. He can choose which vase he likes best of all the options at a pottery shop without ever seeing any of them, based on his indirect experiences.</p>
+                <p>A blind man cannot directly perceive sight &ndash; the visual world exists outside his reality. So to get a sense of what something &ldquo;looks&rdquo; like, he relies on what he can experience, like touch or sound: he can feel a vase that is round and smooth, the sound it makes when he taps it with his finger, he can interpret anecdotes like &ldquo;its red color feels like the sun&rsquo;s warmth&rdquo;. He can choose which vase he likes best of all the options at a pottery shop without ever seeing any of them, based on his indirect perception of it.</p>
             </div>
 
             <p class="paragraph">
@@ -3024,11 +3096,11 @@
             </div>
 
             <p class="paragraph">
-                The process of finding ourselves in the world through experiences, knowledge, and stuff is always happening. We feel a pressing, underlying discomfort when we live in a way that doesn&rsquo;t match who we are: that feeling of knowing you&rsquo;re in the wrong career, wearing a shirt you hate, putting on a persona for certain family members or friends that simply isn&rsquo;t you. No one can sit in the discomfort of that dissonance forever, so it drives us to do something about it. Sometimes it&rsquo;s as straight forward as changing the shirt you hate to one you like. Often it&rsquo;s not as clear - if we feel a general sense of wanting more or feeling out of place without a clear reason, we will do irrational things like get a crazy hair cut, quit your job, move to a totally new city, become completely immersed in a random new hobby, buy a sports car. Each thing is another spin of the roulette wheel that may land you on something that channels a bit more of who you are in the world, that would give you that temporary burst of alignment energy.
+                The process of finding ourselves in the world through experiences, knowledge, and stuff is always happening. We feel a pressing, underlying discomfort when we live in a way that doesn&rsquo;t match who we are: that feeling of knowing you&rsquo;re in the wrong career, wearing a shirt you hate, putting on a persona for certain family members or friends that simply isn&rsquo;t you. No one can sit in the discomfort of that dissonance forever, so it drives us to do something about it. Sometimes it&rsquo;s as straight forward as changing the shirt you hate to one you like. Often it&rsquo;s not as clear - if we feel a general sense of wanting more or feeling out of place without a clear reason, we will do irrational things like get a crazy hair cut, quit your job, move to a totally new city, become completely immersed in a random new hobby, buy a sports car. How many lost post-grads do you see suddenly have the urge to run a marathon? Each thing is another spin of the roulette wheel that may land you on something that channels a bit more of who you are in the world, that would give you that <span class="video-hover-trigger" id="roulette-trigger" style="color:#fff; text-decoration:underline; cursor:pointer; position:relative;">temporary burst of alignment energy<span class="video-hover-popup" id="roulette-popup"><video src="roulette.mp4" muted playsinline loop width="360"></video></span></span>.
             </p>
 
             <p class="paragraph">
-                That feeling of discomfort from our internal misalignment never goes away&hellip; Because all of who we are will <span class="keyword keyword-gap" style="cursor:pointer;" id="never-align-keyword">never fully align with our world</span>. Consciously or subconsciously, we are always chasing relief from that discomfort, which comes from momentary alignment when we define and channel a bit more of ourselves into the world around us. <span style="font-weight:500"><u class="thesis-trigger" id="thesis-trigger" style="cursor:pointer">All human motivation has one core source: the desire to align who we are with how we live.</u></span> It drives everything that we do:
+                That feeling of discomfort from our internal misalignment never goes away&hellip; Because all of who we are will never fully align with our world since who we are is so much bigger than everything the world has to offer <span style="cursor:pointer; color:#fff; text-decoration:underline;" id="never-align-keyword">combined</span>. Consciously or subconsciously, we are always chasing relief from that discomfort, which comes from momentary alignment when we define and channel a bit more of ourselves into the world around us. <span style="font-weight:500"><u class="thesis-trigger" id="thesis-trigger" style="cursor:pointer">All human motivation has one core source: the desire to align who we are with how we live.</u></span> It drives everything that we do:
             </p>
 
             <div class="examples-postits">
@@ -3063,11 +3135,11 @@
                 </p>
 
                 <p class="paragraph">
-                    This was a huge distinction. Humans can maintain about <a href="https://doi.org/10.1016/0047-2484(92)90081-J" target="_blank" style="color: #93b5ff;">150 stable relationships</a>. Not acquaintances - relationships where you track trust, history, and reciprocity. Without anything larger than personal bonds to organize groups of people, every tribe was therefore limited in size: you can only be in the tribe if there&rsquo;s a personal relationship, and the number of those we can handle at once is limited. However, Homo sapiens didn&rsquo;t need to rely on personal connection to establish trust. They could congregate around shared identity because their brains could handle the intangible concept of identity - religion, mythology, belief - the size of their tribes became limitless. Today this looks like - if you are a Jew and I am a Jew, we don&rsquo;t need to know each other to belong to the same group, so our group can essentially become infinite in size. The sheer imbalance in tribal size was enough for Homo sapiens to <span class="species-hover" data-species-img="wipe-everyone-else-out.png">wipe everyone else out</span>.
+                    This was a huge distinction. Humans can maintain about <a href="https://doi.org/10.1016/0047-2484(92)90081-J" target="_blank" style="color: #93b5ff;">150 stable relationships</a>. Not acquaintances - relationships where you track trust, history, and reciprocity. Without anything larger than personal bonds to organize groups of people, every tribe was therefore limited in size: you can only be in the tribe if there&rsquo;s a personal relationship, and the number of those we can handle at once is limited. However, Homo sapiens didn&rsquo;t need to rely on personal connection to establish trust. They could congregate around shared identity because their brains could handle the intangible concept of identity - religion, mythology, belief - therefore the size of their tribes became limitless. Today this looks like: if you are a Jew and I am a Jew, we don&rsquo;t need to know each other to belong to the same group, so our group can essentially become infinite in size. The sheer imbalance in tribal size was enough for Homo sapiens to <span class="species-hover" data-species-img="wipe-everyone-else-out.png">wipe everyone else out</span>.
                 </p>
 
                 <p class="paragraph">
-                    <span style="display:block; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.15); border-radius:8px; padding:14px 18px; margin-bottom:16px; font-weight:500;">So, in theory, a powerful connection to your identity was arguably the number one trait for human survival.</span> Without a strong sense and alliance to your identity, you wouldn&rsquo;t align with a massive tribe organized on shared values and instead seek safety in direct relationships&hellip; Placing you in one of the smaller tribes bound to defeat and extinction. If all this logic is sound, that would mean we are quite literally wired to prioritize intangible concepts we align with (which make up our identity) above all else. There is so much evidence around us today that would support this: why is the number one cause of war religion? Why is the power of nationalism so strong that people risk their own lives for their country? Why does the apple logo hold such a strong grip over billions of people even if Android makes a far superior product? Logically borders and belief systems should have little impact on society - people will live in that plot of land whether it&rsquo;s labeled Thailand or Cambodia, the religious beliefs your neighbor has shouldn&rsquo;t technically impact your life in any way. The fact that my sock has a nike swoosh on it doesn&rsquo;t actually change the sock&hellip; But for us, it does.
+                    <span style="display:block; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.15); border-radius:8px; padding:14px 18px; margin-bottom:16px; font-weight:500;">So, in theory, feeling a pressing connection to your identity that you prioritize above nearly everything else was arguably the number one trait for human survival.</span> Without a strong sense and alliance to your identity, you wouldn&rsquo;t align with a massive tribe organized on shared values and instead seek safety in direct relationships&hellip; Placing you in one of the smaller tribes bound to defeat and extinction. If all this logic is sound, that would mean our brains are quite literally wired to prioritize the intangible concepts we align with (which make up our identity) above all else. There is so much evidence around us today that would support this: why is the number one cause of war religion? Why is the power of nationalism so strong that people risk their own lives for their country? Why does the apple logo hold such a strong grip over billions of people even if Android makes a far superior product? Logically borders and belief systems should have little impact on society - people will live in that plot of land whether it&rsquo;s labeled Thailand or Cambodia, the religious beliefs your neighbor has shouldn&rsquo;t technically impact your life in any way. The fact that my sock has a nike swoosh on it doesn&rsquo;t actually change the sock&hellip; But for us, it does.
                 </p>
 
                 <p class="paragraph">
@@ -3094,16 +3166,22 @@
         <!-- ========== SECTION ACCESS ========== -->
         <section class="section" id="section-access">
             <div class="collapsed-widget visible access-widget" id="access-widget" onclick="toggleAccessSection()">
-                <div class="collapsed-widget-label">SECTION II: Innovation is how we soul search at scale (DRAFT)</div>
+                <div class="collapsed-widget-label">SECTION II: Innovation is how we soul search at scale</div>
                 <div class="widget-popup" id="access-popup">Read &nbsp;&nbsp;<b><u>SECTION I</u></b>&nbsp;&nbsp; first!!</div>
             </div>
             <div id="access-content">
                 <p class="paragraph">
-                    We&rsquo;ve established that <span class="tooltip-trigger"><u>everything</u><span class="tooltip-content" style="width:auto; white-space:nowrap; padding:8px 14px; background:#1a1a1f; border:1px solid rgba(255,80,80,0.3); border-radius:8px; color:rgba(255,80,80,0.9); font-size:1rem; font-style:italic; box-shadow:0 4px 16px rgba(0,0,0,0.4);">*everything meaning after our survival needs are met.</span></span> we do, at our core, is motivated by our innate desire to define and channel who we are into the world around us. To be human is to be in a perpetual state of soul searching.
+                    We&rsquo;ve established that <span class="tooltip-trigger"><u>everything</u><span class="tooltip-content" style="width:auto; white-space:nowrap; padding:8px 14px; background:#1a1a1f; border:1px solid rgba(255,80,80,0.3); border-radius:8px; color:rgba(255,80,80,0.9); font-size:1rem; font-style:italic; box-shadow:0 4px 16px rgba(0,0,0,0.4);">*everything meaning after our survival needs are met.</span></span> we do, at our core, is motivated by our innate desire to define ourselves, and channel who we are into the world around us. To be human is to be in a perpetual state of soul searching.
                 </p>
                 <p class="paragraph">
-                    This drive powers everything - not only our individual behaviors, but also the way humanity functions at large. Humankind has progressed not because of our physical strength but because of the innovation we consistently create around ourselves, and, at its core, all human innovation is fundamentally an instrument to help us soul search: the <span class="hover-image-trigger" style="font-weight:normal; font-style:normal; color:#fff; border-bottom:1px solid rgba(255,255,255,0.5);"><u>printing press</u><span class="hover-image-popup"><img src="printing_press.webp" alt="Printing press"></span></span> was born out of our chase for knowledge. The cascade of new product variations, clothing styles, and decor that poured out of the factories developed in the <span class="hover-image-trigger" style="font-weight:normal; font-style:normal; color:#fff; border-bottom:1px solid rgba(255,255,255,0.5);"><u>Industrial Revolution</u><span class="hover-image-popup"><img src="industrial_revolution.png" alt="Industrial Revolution"></span></span> helps satisfy our need to see ourselves reflected in the design of the world around us. <span class="hover-image-trigger" style="font-weight:normal; font-style:normal; color:#fff; border-bottom:1px solid rgba(255,255,255,0.5);"><u>Communication tools</u><span class="hover-image-popup"><img src="communication_tools.png" alt="Communication tools"></span></span> - from the postal system to the telephone to the internet - to spread the ideas and knowledge we use to understand ourselves and each other.
+                    This drive powers everything - not only our individual behaviors to meet new people, gain new experiences, collect stuff we like, etc, but it also powers the way humanity functions at large. And humankind is driven by innovation. We have progressed not because of our physical strength but because of the technology we create around ourselves. And, at its core, all human innovation (after our survival needs are met), is all just fundamentally an instrument to help us soul search at scale:
                 </p>
+                <div class="sticky-note">
+                    The <span class="hover-image-trigger" style="font-weight:normal; font-style:normal; color:#1a1a1a; border-bottom:1px solid rgba(0,0,0,0.5);"><u>printing press</u><span class="hover-image-popup"><img src="printing_press.webp" alt="Printing press"></span></span> is the product of our burning desire for knowledge- to make sense of the world and subsequently of ourselves within it. The original content people used the printing press to disseminate was 45% religious, 30% literature, 10% legal, and 10% scientific&hellip; Only a subset of that 10% scientific data was around medicine, the rest philosophy and mathematics. Given the freedom of a blank page we immediately yearn to understand our world and ourselves better.
+                </div>
+                <div class="sticky-note">
+                    The cascade of new product variations, clothing styles, and decor that poured out of the factories developed in the <span class="hover-image-trigger" style="font-weight:normal; font-style:normal; color:#1a1a1a; border-bottom:1px solid rgba(0,0,0,0.5);"><u>Industrial Revolution</u><span class="hover-image-popup"><img src="industrial_revolution.png" alt="Industrial Revolution"></span></span> helps satisfy our need to see ourselves reflected in the design of the world around us. Functionally, refrigerators operated more efficiently than its predecessor the ice box. But it didn&rsquo;t need hundreds of stylistic variations for that operational advancement. Our clothes worked perfectly fine before we could print infinite unique designs on them. Seeing yourself in the aesthetic of the objects around you deepens your sense of self beyond the length of articulation and experience. And to align with the aesthetic of the stuff around you is to live in greater harmony with your soul.
+                </div>
                 <p class="paragraph">
                     So while we are personally driven to seek new experiences, people, things, and knowledge through our individual behaviors, the technology we&rsquo;ve built as a whole is what allows us to define and embody who we are in a perpetually increasing capacity. Innovation isn&rsquo;t just about solving individual problems; it&rsquo;s about building an instrument to externalize our identity.
                 </p>
@@ -3410,7 +3488,7 @@
         <!-- ========== SECTION II PT.2 ========== -->
         <section class="section" id="section-access-pt2">
             <div class="collapsed-widget visible" id="access-pt2-widget" onclick="toggleAccessPt2Section()">
-                <div class="collapsed-widget-label">SECTION III: Innovation is how we soul search at scale (pt.2) (DRAFT)</div>
+                <div class="collapsed-widget-label">SECTION III: Human innovation pt. 1 (expanding access pre-internet)</div>
                 <div class="widget-popup" id="access-pt2-popup">Read &nbsp;&nbsp;<b><u>SECTION II</u></b>&nbsp;&nbsp; first!!</div>
             </div>
             <div id="access-pt2-content" style="display:none;">
@@ -3420,7 +3498,7 @@
         <!-- ========== SECTION IV ========== -->
         <section class="section" id="section-innovation">
             <div class="collapsed-widget visible" id="innovation-widget" onclick="toggleInnovationSection()">
-                <div class="collapsed-widget-label">SECTION IV</div>
+                <div class="collapsed-widget-label">SECTION IV: Human innovation pt. 2 (developing design post-internet)</div>
                 <div class="widget-popup" id="innovation-popup">Read &nbsp;&nbsp;<b><u>SECTION III</u></b>&nbsp;&nbsp; first!!</div>
             </div>
             <div id="innovation-content">
@@ -3476,6 +3554,13 @@
                 <div class="widget-popup" id="ari-popup">Read &nbsp;&nbsp;<b><u>SECTION IV</u></b>&nbsp;&nbsp; first!!</div>
             </div>
             <div id="ari-content">
+
+                <div class="head-spiral-container" id="head-spiral-container">
+                    <img src="head-profile.png" class="head-spiral-img" id="head-spiral-img" alt="">
+                    <svg class="head-spiral-svg" id="head-spiral-svg" viewBox="0 0 600 320"></svg>
+                    <div class="head-spiral-label" id="head-spiral-label">&larr; drag this end toward the head</div>
+                </div>
+
             </div>
         </section>
 
@@ -4462,11 +4547,11 @@
         // ========== "NEVER FULLY ALIGN" CLICK → VIDEO POPUP ==========
         var neverAlignKeyword = document.getElementById('never-align-keyword');
         if (neverAlignKeyword) {
-            neverAlignKeyword.addEventListener('click', function(e) {
-                e.stopPropagation();
+            var neverAlignOverlay = null;
+            neverAlignKeyword.addEventListener('mouseenter', function() {
                 // Create video popup overlay
-                var overlay = document.createElement('div');
-                overlay.style.cssText = 'position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.85);z-index:10002;display:flex;align-items:center;justify-content:center;cursor:pointer;opacity:0;transition:opacity 0.4s ease;';
+                neverAlignOverlay = document.createElement('div');
+                neverAlignOverlay.style.cssText = 'position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.85);z-index:10002;display:flex;align-items:center;justify-content:center;pointer-events:none;opacity:0;transition:opacity 0.4s ease;';
                 var video = document.createElement('video');
                 video.src = 'uncaptured-identity.mov';
                 video.autoplay = true;
@@ -4474,13 +4559,17 @@
                 video.muted = true;
                 video.playsInline = true;
                 video.style.cssText = 'max-width:80vw;max-height:80vh;border-radius:16px;box-shadow:0 0 40px rgba(0,0,0,0.6);';
-                overlay.appendChild(video);
-                document.body.appendChild(overlay);
-                requestAnimationFrame(function() { requestAnimationFrame(function() { overlay.style.opacity = '1'; }); });
-                overlay.addEventListener('click', function() {
-                    overlay.style.opacity = '0';
-                    setTimeout(function() { overlay.remove(); }, 400);
-                });
+                neverAlignOverlay.appendChild(video);
+                document.body.appendChild(neverAlignOverlay);
+                requestAnimationFrame(function() { requestAnimationFrame(function() { if (neverAlignOverlay) neverAlignOverlay.style.opacity = '1'; }); });
+            });
+            neverAlignKeyword.addEventListener('mouseleave', function() {
+                if (neverAlignOverlay) {
+                    var ol = neverAlignOverlay;
+                    neverAlignOverlay = null;
+                    ol.style.opacity = '0';
+                    setTimeout(function() { ol.remove(); }, 400);
+                }
             });
         }
 
@@ -7779,6 +7868,8 @@
                 if (fp >= 1) {
                     canvas.style.opacity = '0';
                     textEl.classList.add('revealed');
+                    var livingDocBox = document.getElementById('living-doc-box');
+                    if (livingDocBox) livingDocBox.style.opacity = '1';
                     animDone = true;
                     return;
                 }
@@ -7876,6 +7967,225 @@
                 dragging = null;
             }
         });
+    })();
+
+    // ========== LIVING DOC BOX SPARKLE TRAIL ==========
+    (function() {
+        var box = document.getElementById('living-doc-box');
+        if (!box) return;
+        var sparkles = [];
+        var raf = null;
+        var active = false;
+
+        function createSparkle(x, y) {
+            var el = document.createElement('div');
+            var size = 2 + Math.random() * 4;
+            el.style.cssText = 'position:fixed;pointer-events:none;z-index:9999;border-radius:50%;' +
+                'width:' + size + 'px;height:' + size + 'px;' +
+                'left:' + x + 'px;top:' + y + 'px;' +
+                'background:rgba(255,' + Math.floor(60 + Math.random() * 40) + ',' + Math.floor(60 + Math.random() * 40) + ',1);' +
+                'box-shadow:0 0 ' + (4 + Math.random() * 6) + 'px rgba(255,80,80,0.8);' +
+                'opacity:1;transition:none;';
+            document.body.appendChild(el);
+            sparkles.push({ el: el, born: performance.now(), life: 800 + Math.random() * 400,
+                vx: (Math.random() - 0.5) * 0.5, vy: (Math.random() - 0.5) * 0.5 + 0.3 });
+        }
+
+        function tick() {
+            var now = performance.now();
+            for (var i = sparkles.length - 1; i >= 0; i--) {
+                var s = sparkles[i];
+                var age = now - s.born;
+                if (age > s.life) {
+                    s.el.remove();
+                    sparkles.splice(i, 1);
+                } else {
+                    var t = age / s.life;
+                    s.el.style.opacity = String(1 - t);
+                    s.el.style.transform = 'translate(' + (s.vx * age * 0.05) + 'px,' + (s.vy * age * 0.05) + 'px) scale(' + (1 - t * 0.5) + ')';
+                }
+            }
+            if (sparkles.length > 0 || active) raf = requestAnimationFrame(tick);
+            else raf = null;
+        }
+
+        var throttle = 0;
+        box.addEventListener('mousemove', function(e) {
+            var now = performance.now();
+            if (now - throttle < 30) return;
+            throttle = now;
+            createSparkle(e.clientX + (Math.random() - 0.5) * 8, e.clientY + (Math.random() - 0.5) * 8);
+            createSparkle(e.clientX + (Math.random() - 0.5) * 12, e.clientY + (Math.random() - 0.5) * 12);
+            if (!raf) raf = requestAnimationFrame(tick);
+        });
+
+        box.addEventListener('mouseenter', function() { active = true; if (!raf) raf = requestAnimationFrame(tick); });
+        box.addEventListener('mouseleave', function() { active = false; });
+    })();
+
+    // ========== ROULETTE VIDEO HOVER ==========
+    (function() {
+        var trigger = document.getElementById('roulette-trigger');
+        if (!trigger) return;
+        var video = trigger.querySelector('video');
+        trigger.addEventListener('mouseenter', function() { video.currentTime = 0; video.play(); });
+        trigger.addEventListener('mouseleave', function() { video.pause(); });
+    })();
+
+    // ========== HEAD SPIRAL INTERACTIVE ==========
+    (function() {
+        const svg = document.getElementById('head-spiral-svg');
+        const label = document.getElementById('head-spiral-label');
+        if (!svg) return;
+
+        const NS = 'http://www.w3.org/2000/svg';
+        const numPts = 150;
+        const spiralTurns = 3;
+
+        // Brain center inside the head image (SVG viewBox 0 0 600 320)
+        // New head image is taller/wider, brain center roughly upper-center of skull
+        const brainCx = 95;
+        const brainCy = 115;
+        const brainR = 40;
+
+        // Generate spiral points (center outward)
+        function makeSpiral(cx, cy, r, turns, n) {
+            var pts = [], total = turns * 2 * Math.PI;
+            for (var i = 0; i <= n; i++) {
+                var f = i / n, a = f * total, ri = r * f;
+                pts.push({ x: cx + ri * Math.cos(a), y: cy + ri * Math.sin(a) });
+            }
+            return pts;
+        }
+
+        var targetPts = makeSpiral(brainCx, brainCy, brainR, spiralTurns, numPts);
+
+        function ptsToD(pts) {
+            var d = 'M' + pts[0].x.toFixed(1) + ' ' + pts[0].y.toFixed(1);
+            for (var i = 1; i < pts.length; i++) d += 'L' + pts[i].x.toFixed(1) + ' ' + pts[i].y.toFixed(1);
+            return d;
+        }
+
+        // Target spiral (faint green guide inside head)
+        var guidePath = document.createElementNS(NS, 'path');
+        guidePath.setAttribute('d', ptsToD(targetPts));
+        guidePath.setAttribute('fill', 'none');
+        guidePath.setAttribute('stroke', 'rgba(134, 239, 172, 0.25)');
+        guidePath.setAttribute('stroke-width', '2');
+        guidePath.setAttribute('stroke-linecap', 'round');
+        svg.appendChild(guidePath);
+
+        // The interactive line
+        var morphLine = document.createElementNS(NS, 'path');
+        morphLine.setAttribute('fill', 'none');
+        morphLine.setAttribute('stroke', '#e8e8e8');
+        morphLine.setAttribute('stroke-width', '2');
+        morphLine.setAttribute('stroke-linecap', 'round');
+        svg.appendChild(morphLine);
+
+        // Handle (draggable dot at right end of line)
+        var handle = document.createElementNS(NS, 'circle');
+        handle.setAttribute('r', '8');
+        handle.setAttribute('fill', '#e8e8e8');
+        handle.setAttribute('stroke', '#fff');
+        handle.setAttribute('stroke-width', '1.5');
+        handle.setAttribute('cursor', 'grab');
+        svg.appendChild(handle);
+
+        // Line params
+        var lineLeftX = 200;      // fixed left anchor (in front of face)
+        var lineY = 160;          // vertical position of straight line
+        var handleXMax = 570;     // starting position (far right)
+        // Minimum: handle can go all the way to where the spiral's outermost point would be
+        var handleXMin = brainCx + brainR; // ~140
+
+        var handleX = handleXMax;
+        var isDragging = false;
+
+        function lerp(a, b, t) { return a + (b - a) * t; }
+
+        function update() {
+            // t: 0 = far right (straight), 1 = fully dragged left (perfect spiral in head)
+            var range = handleXMax - handleXMin;
+            var t = Math.max(0, Math.min(1, (handleXMax - handleX) / range));
+
+            // Use a curve that gives visible change early on
+            var e = 1 - Math.pow(1 - t, 1.5);
+
+            // Generate a full-size spiral centered between the line midpoint
+            // and the brain center, sliding toward the brain as t increases.
+            var midX = (lineLeftX + handleX) / 2;
+            var curCx = lerp(midX, brainCx, e);
+            var curCy = lerp(lineY, brainCy, e);
+
+            // Always use full spiral radius — only the blend factor controls morph
+            var curSpiral = makeSpiral(curCx, curCy, brainR, spiralTurns, numPts);
+
+            // Blend each point between straight line and spiral
+            var pts = [];
+            for (var i = 0; i <= numPts; i++) {
+                var f = i / numPts;
+                var sx = lerp(lineLeftX, handleX, f);
+                var sy = lineY;
+                pts.push({
+                    x: lerp(sx, curSpiral[i].x, e),
+                    y: lerp(sy, curSpiral[i].y, e)
+                });
+            }
+
+            morphLine.setAttribute('d', ptsToD(pts));
+
+            // Handle at the outermost point of the spiral (last point)
+            var last = pts[pts.length - 1];
+            handle.setAttribute('cx', last.x);
+            handle.setAttribute('cy', last.y);
+
+            // Brighten guide
+            var opacity = 0.15 + e * 0.45;
+            guidePath.setAttribute('stroke', 'rgba(134, 239, 172, ' + opacity + ')');
+
+            if (t > 0.03) label.classList.add('hidden');
+            else label.classList.remove('hidden');
+        }
+
+        update();
+
+        function getPos(e) {
+            var pt = svg.createSVGPoint();
+            var src = e.touches ? e.touches[0] : e;
+            pt.x = src.clientX; pt.y = src.clientY;
+            return pt.matrixTransform(svg.getScreenCTM().inverse());
+        }
+
+        handle.addEventListener('mousedown', startDrag);
+        handle.addEventListener('touchstart', startDrag, { passive: false });
+
+        function startDrag(ev) {
+            ev.preventDefault();
+            isDragging = true;
+            handle.setAttribute('cursor', 'grabbing');
+            document.addEventListener('mousemove', onDrag);
+            document.addEventListener('mouseup', endDrag);
+            document.addEventListener('touchmove', onDrag, { passive: false });
+            document.addEventListener('touchend', endDrag);
+        }
+
+        function onDrag(ev) {
+            if (!isDragging) return;
+            ev.preventDefault();
+            var pos = getPos(ev);
+            handleX = Math.max(handleXMin, Math.min(handleXMax, pos.x));
+            update();
+        }
+
+        function endDrag() {
+            isDragging = false;
+            handle.setAttribute('cursor', 'grab');
+            document.removeEventListener('mousemove', onDrag);
+            document.removeEventListener('mouseup', endDrag);
+            document.removeEventListener('touchmove', onDrag);
+            document.removeEventListener('touchend', endDrag);
+        }
     })();
 
     </script>
