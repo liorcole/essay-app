@@ -393,6 +393,7 @@
         .body-diagram.minimized {
             transform: scale(0.35);
             transform-origin: top center;
+            margin-bottom: -200px;
         }
 
         .body-sticky-wrapper .body-diagram-container.minimized-container {
@@ -2357,6 +2358,17 @@
         .examples-postits .example-note:nth-child(4) { width: 240px; top: 340px; left: 20px;  transform: rotate(2deg);  background: #fecaca; z-index: 2; }
         .examples-postits .example-note:nth-child(5) { width: 310px; top: 310px; left: 260px; transform: rotate(-1.5deg); background: #e9d5ff; z-index: 1; }
 
+        /* Sec2 problem post-its (3 small) */
+        .sec2-problems-postits { height: 260px; }
+        .sec2-problems-postits .example-note:nth-child(1) { width: 210px; top: 0;   left: 10px;  transform: rotate(-2deg);  background: #fef08a; }
+        .sec2-problems-postits .example-note:nth-child(2) { width: 210px; top: 20px; left: 230px; transform: rotate(1.5deg); background: #bfdbfe; }
+        .sec2-problems-postits .example-note:nth-child(3) { width: 220px; top: 10px; left: 450px; transform: rotate(-1deg);  background: #bbf7d0; }
+
+        /* Sec2 soul search post-its (2 large) */
+        .sec2-soul-postits { height: 480px; }
+        .sec2-soul-postits .example-note:nth-child(1) { width: 300px; top: 0;    left: 10px;  transform: rotate(-1.5deg); background: #fef08a; }
+        .sec2-soul-postits .example-note:nth-child(2) { width: 310px; top: 20px;  left: 330px; transform: rotate(1.2deg);  background: #bfdbfe; }
+
         .sec2-dots-sticky-wrapper {
             position: relative;
         }
@@ -2997,6 +3009,8 @@
             pointer-events: none;
         }
 
+        /* ========== STICK FIGURE ========== */
+
         /* ========== SOUL IMAGE BACKGROUND CLICK ========== */
         body.soul-hover {
             cursor: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="128" height="40"><rect x="0" y="0" width="128" height="40" rx="4" fill="%230a0a0f" stroke="%23888" stroke-width="1"/><text x="64" y="16" font-family="Georgia, serif" font-size="11" fill="%23888" text-anchor="middle">click for AI%27s interpretation</text><text x="64" y="32" font-family="Georgia, serif" font-size="11" fill="%23888" text-anchor="middle">of the human soul</text></svg>') 64 20, pointer;
@@ -3042,7 +3056,7 @@
             <div class="manifesto-title-text">
                 <h1 class="manifesto-title">THE MANIFESTO</h1>
                 <p class="manifesto-byline">– Lior Cole</p>
-                <p class="manifesto-byline" style="font-size: 0.85rem; opacity: 0.6; margin-top: 8px;">(I had fun with the interactive animations... be sure to click around)</p>
+                <p class="manifesto-byline" style="font-size: 0.85rem; opacity: 0.6; margin-top: 8px;">(Throughout this it is evident that I was the kid who used all the animations on powerpoint presentations... so have fun and click around)</p>
             </div>
         </div>
         </div>
@@ -3200,11 +3214,11 @@
             </p>
 
             <p class="paragraph">
-                The posters on my wall say something about me, or when I say I like &ldquo;mid century modern&rdquo; that outlines a bit more of my mind, but no amount of decor or words could ever capture the <u>full</u> depth of who I am. Reflect parts - yes. Full picture - impossible. Your soul is greater than all the words or stuff or knowledge or people or anything else that exists on this Earth. Your soul is infinite, this world is finite.
+                The posters on my wall say something about me, or when I say I like &ldquo;mid century modern&rdquo; that outlines a bit more of my mind. Reflect parts - yes. Full picture - impossible. Your soul is greater than all the words or stuff or knowledge or people or anything else that exists on this Earth. Your soul is infinite, this world is finite.
             </p>
 
             <p class="paragraph">
-                In contrast, if I look at a red apple - I know it&rsquo;s red. It&rsquo;s observable fact that exists in reality. Our identity is so complex for us to grasp because you can&rsquo;t touch, taste, smell, see, or hear your soul - it exists somewhere beyond our lived experience. We don&rsquo;t have a sixth sense for soul detection. Because of this, we understand and channel who we are <u class="indirectly-trigger" id="indirectly-trigger" style="cursor:pointer">indirectly</u>:
+                In contrast, if I look at a red apple - I know it&rsquo;s red. It&rsquo;s observable fact that exists in reality. Our identity is so complex for us to grasp because you can&rsquo;t touch, taste, smell, see, or hear your soul - it exists somewhere beyond our lived experience: we don&rsquo;t have a sixth sense for soul detection. Because of this, we understand and channel who we are <u class="indirectly-trigger" id="indirectly-trigger" style="cursor:pointer">indirectly</u>:
             </p>
 
             <div class="indented-block" id="indirectly-block">
@@ -3218,7 +3232,10 @@
             </div>
 
             <p class="paragraph">
-                The process of finding ourselves in the world through experiences, knowledge, and stuff is always happening. We feel a pressing, underlying discomfort when we live in a way that doesn&rsquo;t match who we are: that feeling of knowing you&rsquo;re in the wrong career, wearing a shirt you hate, putting on a persona for certain family members or friends that simply isn&rsquo;t you. No one can sit in the discomfort of that dissonance forever, so it drives us to do something about it. Sometimes it&rsquo;s as straight forward as changing the shirt you hate to one you like. Often it&rsquo;s not as clear - if we feel a general sense of wanting more or feeling out of place without a clear reason, we will do irrational things like get a crazy hair cut, quit your job, move to a totally new city, become completely immersed in a random new hobby, buy a sports car. How many lost post-grads do you see suddenly have the urge to run a marathon? Each thing is another spin of the roulette wheel that may land you on something that channels a bit more of who you are in the world, that would give you that <span id="roulette-keyword" class="video-hover-trigger" style="color:#fff; text-decoration:underline; cursor:pointer; position:relative;">temporary burst of alignment energy<span class="video-hover-popup"><video playsinline webkit-playsinline loop preload="metadata" width="640" height="360"><source src="roulette-hover-hevc.mp4" type="video/mp4; codecs=hvc1"><source src="roulette-hover.mp4" type="video/mp4"></video></span></span>.
+                <span id="process-box" style="display:block; position:relative; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.15); border-radius:8px; padding:14px 18px; font-weight:500;">The process of finding ourselves in the world through experiences, knowledge, and stuff is always happening.<canvas id="process-stick" width="30" height="40" style="position:absolute;bottom:-39px;left:50%;opacity:0;"></canvas><span id="process-replay" style="display:none;position:absolute;right:-10px;top:-24px;cursor:pointer;font-size:0.8rem;color:#666;white-space:nowrap;transition:color 0.2s;" onmouseenter="this.style.color='#aaa'" onmouseleave="this.style.color='#666'">replay completely unnecessary animation &#x21bb;</span></span>
+            </p>
+            <p class="paragraph">
+                We feel a pressing, underlying discomfort when we live in a way that doesn&rsquo;t match who we are: that feeling of knowing you&rsquo;re in the wrong career, wearing a shirt you hate, putting on a persona for certain family members or friends that simply isn&rsquo;t you. No one can sit in the discomfort of that dissonance forever, so it drives us to do something about it. Sometimes it&rsquo;s as straight forward as changing the shirt you hate to one you like. Often it&rsquo;s not as clear - if we feel a general sense of wanting more or feeling out of place without a clear reason, we will do irrational things like get a crazy hair cut, quit your job, move to a totally new city, become completely immersed in a random new hobby, buy a sports car. How many lost post-grads do you see suddenly have the urge to run a marathon? How many friends do you have that randomly went to business school after losing passion in their career? Each thing is another spin of the roulette wheel that may land you on something that channels a bit more of who you are in the world. And in that winning moment where you find something that resonates, you feel that incredible <span id="roulette-keyword" class="video-hover-trigger" style="color:#fff; text-decoration:underline; cursor:pointer; position:relative;">temporary burst of alignment energy<span class="video-hover-popup"><video muted playsinline webkit-playsinline loop preload="metadata" width="640" height="360"><source src="roulette-hover-hevc.mp4" type="video/mp4; codecs=hvc1"><source src="roulette-hover.mp4" type="video/mp4"></video></span></span>.
             </p>
 
             <p class="paragraph">
@@ -3260,11 +3277,11 @@
                 </p>
 
                 <p class="paragraph">
-                    This was a huge distinction. Humans can maintain about <a href="https://doi.org/10.1016/0047-2484(92)90081-J" target="_blank" style="color: #93b5ff;">150 stable relationships</a>. Not acquaintances - relationships where you track trust, history, and reciprocity. Without anything larger than personal bonds to organize groups of people, every tribe was therefore limited in size: you can only be in the tribe if there&rsquo;s a personal relationship, and the number of those we can handle at once is limited. However, Homo sapiens didn&rsquo;t need to rely on personal connection to establish trust. They could congregate around shared identity because their brains could handle the intangible concept of identity - religion, mythology, belief - therefore the size of their tribes became limitless. Today this looks like: if you are a Jew and I am a Jew, we don&rsquo;t need to know each other to belong to the same group, so our group can essentially become infinite in size. The sheer imbalance in tribal size was enough for Homo sapiens to <span class="species-hover" data-species-img="wipe-everyone-else-out.png">wipe everyone else out</span>.
+                    This was a huge distinction. Humans can maintain only about <a href="https://doi.org/10.1016/0047-2484(92)90081-J" target="_blank" style="color: #93b5ff;">150 stable relationships</a>. Not acquaintances - relationships where you track trust, history, and reciprocity. Without anything larger than personal bonds to organize groups of people, every tribe was therefore limited in size: you can only be in the tribe if there&rsquo;s a personal relationship, and the number of those we can handle at once is limited. However, Homo sapiens didn&rsquo;t need to rely on personal connection to establish trust. They could congregate around shared identity because their brains could handle the intangible concept of identity - religion, mythology, belief - therefore the size of their tribes became limitless. Today this looks like: if you are a Jew and I am a Jew, we don&rsquo;t need to know each other to belong to the same group, so our group can essentially become infinite in size. The sheer imbalance in tribal size was enough for Homo sapiens to <span class="species-hover" data-species-img="wipe-everyone-else-out.png">wipe everyone else out</span>.
                 </p>
 
                 <p class="paragraph">
-                    <span style="display:block; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.15); border-radius:8px; padding:14px 18px; margin-bottom:16px; font-weight:500;">So, in theory, feeling a pressing connection to your identity that you prioritize above nearly everything else was arguably the number one trait for human survival.</span> Without a strong sense and alliance to your identity, you wouldn&rsquo;t align with a massive tribe organized on shared values and instead seek safety in direct relationships&hellip; Placing you in one of the smaller tribes bound to defeat and extinction. If all this logic is sound, that would mean our brains are quite literally wired to prioritize the intangible concepts we align with (which make up our identity) above all else. There is so much evidence around us today that would support this: why is the number one cause of war religion? Why is the power of nationalism so strong that people risk their own lives for their country? Why does the apple logo hold such a strong grip over billions of people even if Android makes a far superior product? Logically borders and belief systems should have little impact on society - people will live in that plot of land whether it&rsquo;s labeled Thailand or Cambodia, the religious beliefs your neighbor has shouldn&rsquo;t technically impact your life in any way. The fact that my sock has a nike swoosh on it doesn&rsquo;t actually change the sock&hellip; But for us, it does.
+                    <span id="theory-box" style="display:block; position:relative; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.15); border-radius:8px; padding:14px 18px; margin-bottom:16px; font-weight:500;">So, in theory, feeling a pressing connection to your identity that you prioritize above nearly everything else was arguably the number one trait for human survival.<canvas id="stick-figure" width="30" height="40" style="position:absolute;top:-39px;left:0;opacity:0;"></canvas><span id="stick-replay" style="display:none;position:absolute;right:-10px;top:-24px;cursor:pointer;font-size:0.8rem;color:#666;white-space:nowrap;transition:color 0.2s;" onmouseenter="this.style.color='#aaa'" onmouseleave="this.style.color='#666'">replay completely unnecessary animation &#x21bb;</span></span> Without a strong sense and alliance to your identity, you wouldn&rsquo;t align with a massive tribe organized on shared values and instead seek safety in direct relationships&hellip; Placing you in one of the smaller tribes bound to defeat and extinction. If all this logic is sound, that would mean our brains are quite literally wired to prioritize the intangible concepts we align with (which make up our identity) above all else. There is so much evidence around us today that would support this: why is the number one cause of war religion? Why is the power of nationalism so strong that people risk their own lives for their country? Why does the apple logo hold such a strong grip over billions of people even if Android makes a far superior product? Logically borders and belief systems should have little impact on society - people will live in that plot of land whether it&rsquo;s labeled Thailand or Cambodia, the religious beliefs your neighbor has shouldn&rsquo;t technically impact your life in any way. The fact that my sock has a nike swoosh on it doesn&rsquo;t actually change the sock&hellip; But for us, it does.
                 </p>
 
                 <p class="paragraph">
@@ -3309,20 +3326,59 @@
             </div>
             <div id="access-content">
                 <p class="paragraph">
-                    We&rsquo;ve established that <span class="tooltip-trigger"><u>everything</u><span class="tooltip-content" style="width:auto; white-space:nowrap; padding:8px 14px; background:#1a1a1f; border:1px solid rgba(255,80,80,0.3); border-radius:8px; color:rgba(255,80,80,0.9); font-size:1rem; font-style:italic; box-shadow:0 4px 16px rgba(0,0,0,0.4);">*everything meaning after our survival needs are met.</span></span> we do, at our core, is motivated by our innate desire to define ourselves, and channel who we are into the world around us. To be human is to be in a perpetual state of soul searching.
+                    We&rsquo;ve established that once our survival needs are met, everything we do is driven by our innate desire to define who we are and channel ourselves into the world. (A majority of our energy and focus today is centered around the later, given our survival needs are largely met in modern day society).
+                </p>
+                <div class="sec2-tangent-ref" style="position:relative; margin:-0.5em 0 1.5em 30px; max-width:92%; padding:10px 16px; border-left:2px solid rgba(255,255,255,0.1); font-size:0.8em; font-style:italic; color:rgba(255,255,255,0.3); line-height:1.6;">
+                    <span class="sec2-tangent-trigger" style="color:rgba(255,255,255,0.35); cursor:pointer;">I would actually argue that our soul searching instinct is an extension of our survival instincts and not separate from them, given the evolutionary theory that homo sapien dominance was completely reliant on early versions of &ldquo;soul searching&rdquo; behaviors&hellip; but that&rsquo;s personal opinion. Which I guess all of this is but this take feels extra fringe and philosophical.</span>
+                    <div class="sec2-tangent-popup" style="display:none; position:absolute; left:0; top:100%; z-index:100; padding-top:5px;">
+                        <div style="position:relative; border:1px solid rgba(255,255,255,0.1); border-radius:6px; padding:24px 28px; background:rgba(10,10,15,0.97); box-shadow:0 12px 40px rgba(0,0,0,0.7); max-width:520px; max-height:320px; overflow-y:auto; font-style:normal;">
+                            <div style="position:sticky; top:-24px; margin:-24px -28px 16px; padding:6px 20px; background:rgba(10,10,15,0.95); border-bottom:1px solid rgba(255,255,255,0.08); z-index:2; font-size:0.7rem; letter-spacing:0.15em; text-transform:uppercase; color:#666;">From Section I &mdash; Relevant Evolution Tangent</div>
+                            <p style="margin:0 0 14px; color:#bbb; font-size:0.95rem; line-height:1.6;">My personal theory begins at the genesis of our species. Homo sapiens were not the only humans - there were Neanderthals, Denisovans, Homo erectus, Homo floresiensis, among others. Research suggests that due to differences in brain structure, Homo sapiens were the only species capable of conceptualizing the intangible (early belief systems, ideologies, mathematical and scientific concepts). Every other human species was confined to what was right in front of them: eat the berry on the tree, run from the predator behind me.</p>
+                            <p style="margin:0 0 14px; color:#bbb; font-size:0.95rem; line-height:1.6;">This was a huge distinction. Humans can maintain only about <span style="color:#93b5ff;">150 stable relationships</span>. Not acquaintances - relationships where you track trust, history, and reciprocity. Without anything larger than personal bonds to organize groups of people, every tribe was therefore limited in size: you can only be in the tribe if there&rsquo;s a personal relationship, and the number of those we can handle at once is limited. However, Homo sapiens didn&rsquo;t need to rely on personal connection to establish trust. They could congregate around shared identity because their brains could handle the intangible concept of identity - religion, mythology, belief - therefore the size of their tribes became limitless. Today this looks like: if you are a Jew and I am a Jew, we don&rsquo;t need to know each other to belong to the same group, so our group can essentially become infinite in size. The sheer imbalance in tribal size was enough for Homo sapiens to wipe everyone else out.</p>
+                            <p style="margin:0 0 14px; color:#bbb; font-size:0.95rem; line-height:1.6;"><span style="display:block; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.15); border-radius:8px; padding:12px 16px; font-weight:500; color:#ddd;">So, in theory, feeling a pressing connection to your identity that you prioritize above nearly everything else was arguably the number one trait for human survival.</span></p>
+                            <p style="margin:0 0 14px; color:#bbb; font-size:0.95rem; line-height:1.6;">Without a strong sense and alliance to your identity, you wouldn&rsquo;t align with a massive tribe organized on shared values and instead seek safety in direct relationships&hellip; Placing you in one of the smaller tribes bound to defeat and extinction. If all this logic is sound, that would mean our brains are quite literally wired to prioritize the intangible concepts we align with (which make up our identity) above all else.</p>
+                            <p style="margin:0; color:#bbb; font-size:0.95rem; line-height:1.6;">We are wired to develop and embody the layers of our identity so intensely it feels almost like our life depends on it... because at one point it did.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <p class="paragraph">
+                    <span id="humanity-box" style="display:block; position:relative; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.15); border-radius:8px; padding:14px 18px; font-weight:500;">The way humanity functions at large is powered by the same force.<canvas id="joust-canvas" width="120" height="50" style="position:absolute;top:-50px;left:30%;opacity:0;"></canvas><span id="joust-replay" style="display:none;position:absolute;right:-10px;top:-24px;cursor:pointer;font-size:0.8rem;color:#666;white-space:nowrap;transition:color 0.2s;" onmouseenter="this.style.color='#aaa'" onmouseleave="this.style.color='#666'">replay completely unnecessary animation &#x21bb;</span></span>
+                </p>
+
+                <p class="paragraph">
+                    Humankind is driven by our innovation. We have progressed not because of our physical strength but because of the technology we create around ourselves. Considered in isolated examples, all our innovations may look like they were built to solve individual problems:
+                </p>
+                <div class="examples-postits sec2-problems-postits">
+                    <div class="sticky-note example-note" style="cursor:grab;">
+                        <div class="sticky-note-content" style="display:block;">Storytelling is a flawed mechanism for information spreading &rarr; enter the printing press.</div>
+                    </div>
+                    <div class="sticky-note example-note" style="cursor:grab;">
+                        <div class="sticky-note-content" style="display:block;">The ice box is ineffective in food preservation &rarr; enter the refrigerator.</div>
+                    </div>
+                    <div class="sticky-note example-note" style="cursor:grab;">
+                        <div class="sticky-note-content" style="display:block;">Hand crafted clothing is limited in its production speed &rarr; enter the loom.</div>
+                    </div>
+                </div>
+
+                <p class="paragraph">
+                    At face value, our motivation to build looks like it falls exclusively under our survival instincts:
                 </p>
                 <p class="paragraph">
-                    This drive powers everything - not only our individual behaviors to meet new people, gain new experiences, collect stuff we like, etc, but it also powers the way humanity functions at large. And humankind is driven by innovation. We have progressed not because of our physical strength but because of the technology we create around ourselves. And, at its core, all human innovation (after our survival needs are met), is all just fundamentally an instrument to help us soul search at scale:
+                    But if you look at the fundamental way people have predominantly leveraged every single innovation that has stuck, you will always see it&rsquo;s in a desperate, endless attempt to define who we are inside, and channel that soul into our world on the outside:
                 </p>
-                <div class="sticky-note">
-                    The <span class="hover-image-trigger" style="font-weight:normal; font-style:normal; color:#1a1a1a; border-bottom:1px solid rgba(0,0,0,0.5);"><u>printing press</u><span class="hover-image-popup"><img src="printing_press.webp" alt="Printing press"></span></span> is the product of our burning desire for knowledge- to make sense of the world and subsequently of ourselves within it. The original content people used the printing press to disseminate was 45% religious, 30% literature, 10% legal, and 10% scientific&hellip; Only a subset of that 10% scientific data was around medicine, the rest philosophy and mathematics. Given the freedom of a blank page we immediately yearn to understand our world and ourselves better.
+
+                <div class="examples-postits sec2-soul-postits">
+                    <div class="sticky-note example-note" style="cursor:grab;">
+                        <div class="sticky-note-content" style="display:block;">The <span class="hover-image-trigger" style="font-weight:normal; font-style:normal; color:#1a1a1a; border-bottom:1px solid rgba(0,0,0,0.5);"><u>printing press</u><span class="hover-image-popup"><img src="printing_press.webp" alt="Printing press"></span></span> was created to solve the problem of ineffective information sharing systems, but was popularized because of our burning desire for knowledge to make sense of the world and subsequently of ourselves within it. The original content people used the printing press to consume was 45% religious, 30% literature, 10% legal, and 10% scientific&hellip; Only a subset of that 10% scientific data was around medicine, the rest philosophy and mathematics. Given the freedom of a blank page we immediately yearn to understand our world and ourselves better.</div>
+                    </div>
+                    <div class="sticky-note example-note" style="cursor:grab;">
+                        <div class="sticky-note-content" style="display:block;">The cascade of new product variations, clothing styles, and decor that poured out of the factories developed in the <span class="hover-image-trigger" style="font-weight:normal; font-style:normal; color:#1a1a1a; border-bottom:1px solid rgba(0,0,0,0.5);"><u>Industrial Revolution</u><span class="hover-image-popup"><img src="industrial_revolution.png" alt="Industrial Revolution"></span></span> helps satisfy our need to see ourselves reflected in the design of the world around us. Functionally, refrigerators operated more efficiently than its predecessor the ice box. But it didn&rsquo;t need hundreds of stylistic variations for that operational advancement. Our clothes don&rsquo;t protect our skin better because we figured out how to print thousands of unique designs on them. Seeing yourself in the aesthetic of the objects around you deepens your sense of self beyond the length of articulation and experience. And to align with the aesthetic of the stuff around you is to live in greater harmony with your soul.</div>
+                    </div>
                 </div>
-                <div class="sticky-note">
-                    The cascade of new product variations, clothing styles, and decor that poured out of the factories developed in the <span class="hover-image-trigger" style="font-weight:normal; font-style:normal; color:#1a1a1a; border-bottom:1px solid rgba(0,0,0,0.5);"><u>Industrial Revolution</u><span class="hover-image-popup"><img src="industrial_revolution.png" alt="Industrial Revolution"></span></span> helps satisfy our need to see ourselves reflected in the design of the world around us. Functionally, refrigerators operated more efficiently than its predecessor the ice box. But it didn&rsquo;t need hundreds of stylistic variations for that operational advancement. Our clothes worked perfectly fine before we could print infinite unique designs on them. Seeing yourself in the aesthetic of the objects around you deepens your sense of self beyond the length of articulation and experience. And to align with the aesthetic of the stuff around you is to live in greater harmony with your soul.
-                </div>
-                <p class="paragraph">
-                    So while we are personally driven to seek new experiences, people, things, and knowledge through our individual behaviors, the technology we&rsquo;ve built as a whole is what allows us to define and embody who we are in a perpetually increasing capacity. Innovation isn&rsquo;t just about solving individual problems; it&rsquo;s about building an instrument to externalize our identity.
-                </p>
+
+                <hr style="border: 1px solid #333; margin: 3em 0 1em;">
+                <p style="color:#555; font-size:0.75em; letter-spacing:0.1em; margin-bottom:1.5em;">DRAFT NOTES</p>
                 <p class="paragraph" style="font-weight: 600; font-size: 1.2em;">
                     Before the internet, the limiting factor to channeling yourself in the world was access: to information, people, and things:
                 </p>
@@ -7690,31 +7746,93 @@
     /* ===== Draggable post-its (desktop only) ===== */
     (function() {
         if (window.matchMedia('(max-width: 768px)').matches) return;
-        var container = document.querySelector('.examples-postits');
-        if (!container) return;
-        var notes = container.querySelectorAll('.example-note');
-        var dragging = null, offsetX, offsetY, startLeft, startTop;
+        var containers = document.querySelectorAll('.examples-postits');
+        if (!containers.length) return;
+        var dragging = null, dragContainer = null, offsetX, offsetY;
 
-        notes.forEach(function(note) {
-            note.addEventListener('mousedown', function(e) {
-                dragging = note;
-                var rect = note.getBoundingClientRect();
-                var containerRect = container.getBoundingClientRect();
-                offsetX = e.clientX - rect.left;
-                offsetY = e.clientY - rect.top;
-                startLeft = rect.left - containerRect.left;
-                startTop = rect.top - containerRect.top;
-                note.classList.add('dragging');
-                note.style.left = startLeft + 'px';
-                note.style.top = startTop + 'px';
-                note.style.right = 'auto';
-                e.preventDefault();
+        containers.forEach(function(container) {
+            var notes = container.querySelectorAll('.example-note');
+            notes.forEach(function(note) {
+                var bouncing = false;
+                var didDrag = false;
+                var downX, downY;
+                note.addEventListener('mousedown', function(e) {
+                    if (bouncing) return;
+                    didDrag = false;
+                    downX = e.clientX;
+                    downY = e.clientY;
+                    dragging = note;
+                    dragContainer = container;
+                    var rect = note.getBoundingClientRect();
+                    var containerRect = container.getBoundingClientRect();
+                    offsetX = e.clientX - rect.left;
+                    offsetY = e.clientY - rect.top;
+                    var startLeft = rect.left - containerRect.left;
+                    var startTop = rect.top - containerRect.top;
+                    note.classList.add('dragging');
+                    note.style.left = startLeft + 'px';
+                    note.style.top = startTop + 'px';
+                    note.style.right = 'auto';
+                    e.preventDefault();
+                });
+                note._checkDrag = function(e) {
+                    if (Math.abs(e.clientX - downX) > 5 || Math.abs(e.clientY - downY) > 5) {
+                        didDrag = true;
+                    }
+                };
+                note.addEventListener('mouseup', function() {
+                    if (bouncing || didDrag) return;
+                    bouncing = true;
+                    var rect = note.getBoundingClientRect();
+                    var containerRect = container.getBoundingClientRect();
+                    var origLeft = parseFloat(note.style.left) || (rect.left - containerRect.left);
+                    var origTop = parseFloat(note.style.top) || (rect.top - containerRect.top);
+                    var origTransform = note.style.transform || '';
+                    note.style.left = origLeft + 'px';
+                    note.style.top = origTop + 'px';
+                    note.style.right = 'auto';
+                    note.style.transition = 'none';
+                    note.style.zIndex = '50';
+                    var cW = containerRect.width, cH = containerRect.height;
+                    var nW = rect.width, nH = rect.height;
+                    var dur = 800, start = performance.now();
+                    var bounces = 12;
+                    var targets = [];
+                    for (var i = 0; i < bounces; i++) {
+                        targets.push({ x: Math.random() * (cW - nW), y: Math.random() * (cH - nH), rot: (Math.random() - 0.5) * 30 });
+                    }
+                    function animBounce(now) {
+                        var p = Math.min((now - start) / dur, 1);
+                        var idx = Math.min(Math.floor(p * bounces), bounces - 1);
+                        var localP = (p * bounces) - idx;
+                        var prev = idx > 0 ? targets[idx - 1] : { x: origLeft, y: origTop, rot: 0 };
+                        var cur = targets[idx];
+                        var ease = localP;
+                        note.style.left = (prev.x + (cur.x - prev.x) * ease) + 'px';
+                        note.style.top = (prev.y + (cur.y - prev.y) * ease) + 'px';
+                        note.style.transform = 'rotate(' + (prev.rot + (cur.rot - prev.rot) * ease) + 'deg)';
+                        if (p < 1) requestAnimationFrame(animBounce);
+                        else {
+                            note.style.transition = 'left 0.3s ease, top 0.3s ease, transform 0.3s ease';
+                            note.style.left = origLeft + 'px';
+                            note.style.top = origTop + 'px';
+                            note.style.transform = origTransform;
+                            setTimeout(function() {
+                                note.style.transition = '';
+                                note.style.zIndex = '';
+                                bouncing = false;
+                            }, 350);
+                        }
+                    }
+                    requestAnimationFrame(animBounce);
+                });
             });
         });
 
         document.addEventListener('mousemove', function(e) {
-            if (!dragging) return;
-            var containerRect = container.getBoundingClientRect();
+            if (!dragging || !dragContainer) return;
+            if (dragging._checkDrag) dragging._checkDrag(e);
+            var containerRect = dragContainer.getBoundingClientRect();
             dragging.style.left = (e.clientX - containerRect.left - offsetX) + 'px';
             dragging.style.top = (e.clientY - containerRect.top - offsetY) + 'px';
         });
@@ -7723,6 +7841,7 @@
             if (dragging) {
                 dragging.classList.remove('dragging');
                 dragging = null;
+                dragContainer = null;
             }
         });
     })();
@@ -7964,6 +8083,915 @@
         box.addEventListener('mouseleave', function() { active = false; });
     })();
 
+
+    // (box effect options removed)
+    if(false){/*
+        var container = document.getElementById('meta-box');
+        var canvas = document.getElementById('meta-canvas');
+        if (!canvas || !container) return;
+        var ctx = canvas.getContext('2d');
+        var dpr = window.devicePixelRatio || 1;
+        var pad = 40, boxW, boxH, cw, ch;
+        var blobs = [], num = 10;
+        function resize() {
+            var cr = container.getBoundingClientRect();
+            boxW = cr.width; boxH = cr.height;
+            cw = boxW + pad*2; ch = boxH + pad*2;
+            canvas.width = cw*dpr; canvas.height = ch*dpr;
+            canvas.style.width = cw+'px'; canvas.style.height = ch+'px';
+            ctx.setTransform(dpr,0,0,dpr,0,0);
+        }
+        function init() {
+            blobs = [];
+            var perim = 2*(boxW+boxH);
+            for (var i = 0; i < num; i++) {
+                blobs.push({ pos: (i/num)*perim, speed:0.4+Math.random()*0.6, r:16+Math.random()*12, phase:Math.random()*Math.PI*2 });
+            }
+        }
+        function perimXY(p) {
+            var perim=2*(boxW+boxH); p=((p%perim)+perim)%perim;
+            if(p<boxW) return {x:pad+p,y:pad};
+            p-=boxW; if(p<boxH) return {x:pad+boxW,y:pad+p};
+            p-=boxH; if(p<boxW) return {x:pad+boxW-p,y:pad+boxH};
+            p-=boxW; return {x:pad,y:pad+boxH-p};
+        }
+        function draw(t) {
+            ctx.clearRect(0,0,cw,ch);
+            for (var b=0;b<blobs.length;b++) {
+                blobs[b].pos += blobs[b].speed;
+                var xy = perimXY(blobs[b].pos);
+                var wobble = Math.sin(t*0.002+blobs[b].phase)*8;
+                var perim=2*(boxW+boxH), pp=((blobs[b].pos%perim)+perim)%perim;
+                if(pp<boxW) xy.y-=Math.abs(wobble);
+                else if(pp<boxW+boxH) xy.x+=Math.abs(wobble);
+                else if(pp<2*boxW+boxH) xy.y+=Math.abs(wobble);
+                else xy.x-=Math.abs(wobble);
+                blobs[b].cx=xy.x; blobs[b].cy=xy.y;
+                blobs[b].cr=blobs[b].r+Math.sin(t*0.003+blobs[b].phase)*5;
+            }
+            // draw soft blobs
+            for (var b=0;b<blobs.length;b++) {
+                var bl=blobs[b];
+                var grad=ctx.createRadialGradient(bl.cx,bl.cy,0,bl.cx,bl.cy,bl.cr);
+                grad.addColorStop(0,'rgba(180,210,255,0.15)');
+                grad.addColorStop(0.5,'rgba(150,190,255,0.06)');
+                grad.addColorStop(1,'rgba(120,170,255,0)');
+                ctx.beginPath(); ctx.arc(bl.cx,bl.cy,bl.cr,0,Math.PI*2);
+                ctx.fillStyle=grad; ctx.fill();
+            }
+            requestAnimationFrame(draw);
+        }
+        resize(); init();
+        window.addEventListener('resize',function(){resize();init();});
+        requestAnimationFrame(draw);
+    })();
+
+    // ========== OPTION 2: LAVA LAMP ==========
+    (function() {
+        var container = document.getElementById('lava-box');
+        var canvas = document.getElementById('lava-canvas');
+        if (!canvas || !container) return;
+        var ctx = canvas.getContext('2d');
+        var dpr = window.devicePixelRatio || 1;
+        var blobs=[], num=6, W, H;
+        function resize() {
+            var cr=container.getBoundingClientRect(); W=cr.width; H=cr.height;
+            canvas.width=W*dpr; canvas.height=H*dpr;
+            canvas.style.width=W+'px'; canvas.style.height=H+'px';
+            ctx.setTransform(dpr,0,0,dpr,0,0);
+        }
+        function init() {
+            blobs=[];
+            for (var i=0;i<num;i++) blobs.push({x:Math.random()*W,y:Math.random()*H,vx:(Math.random()-0.5)*0.6,vy:(Math.random()-0.5)*0.6,r:30+Math.random()*40,hue:200+Math.random()*60,phase:Math.random()*Math.PI*2});
+        }
+        function draw(t) {
+            ctx.clearRect(0,0,W,H);
+            for (var i=0;i<blobs.length;i++) {
+                var b=blobs[i]; b.x+=b.vx; b.y+=b.vy;
+                if(b.x<-b.r)b.x=W+b.r; if(b.x>W+b.r)b.x=-b.r;
+                if(b.y<-b.r)b.y=H+b.r; if(b.y>H+b.r)b.y=-b.r;
+                var pR=b.r+Math.sin(t*0.001+b.phase)*8;
+                var alpha=0.12+0.05*Math.sin(t*0.002+b.phase);
+                var grad=ctx.createRadialGradient(b.x,b.y,0,b.x,b.y,pR);
+                grad.addColorStop(0,'hsla('+b.hue+',60%,65%,'+alpha+')');
+                grad.addColorStop(0.6,'hsla('+b.hue+',50%,50%,'+(alpha*0.4)+')');
+                grad.addColorStop(1,'hsla('+b.hue+',40%,40%,0)');
+                ctx.beginPath(); ctx.arc(b.x,b.y,pR,0,Math.PI*2); ctx.fillStyle=grad; ctx.fill();
+            }
+            requestAnimationFrame(draw);
+        }
+        resize(); init();
+        window.addEventListener('resize',function(){resize();init();});
+        requestAnimationFrame(draw);
+    })();
+
+    // ========== OPTION 3: LIQUID FILL WAVE ==========
+    (function() {
+        var container = document.getElementById('wave-box');
+        var canvas = document.getElementById('wave-canvas');
+        if (!canvas || !container) return;
+        var ctx = canvas.getContext('2d');
+        var dpr = window.devicePixelRatio || 1;
+        var W, H;
+        function resize() {
+            var cr=container.getBoundingClientRect(); W=cr.width; H=cr.height;
+            canvas.width=W*dpr; canvas.height=H*dpr;
+            canvas.style.width=W+'px'; canvas.style.height=H+'px';
+            ctx.setTransform(dpr,0,0,dpr,0,0);
+        }
+        function draw(t) {
+            ctx.clearRect(0,0,W,H);
+            var layers=[
+                {speed:0.0008,amp:6,yBase:H*0.55,color:'rgba(80,140,200,0.08)'},
+                {speed:0.0012,amp:4,yBase:H*0.6,color:'rgba(100,160,220,0.06)'},
+                {speed:0.0006,amp:8,yBase:H*0.5,color:'rgba(60,120,180,0.05)'}
+            ];
+            for (var l=0;l<layers.length;l++) {
+                var ly=layers[l]; ctx.beginPath(); ctx.moveTo(0,H);
+                for (var x=0;x<=W;x+=3) {
+                    var y=ly.yBase+Math.sin(x*0.015+t*ly.speed)*ly.amp+Math.sin(x*0.008-t*ly.speed*0.7)*ly.amp*0.6;
+                    ctx.lineTo(x,y);
+                }
+                ctx.lineTo(W,H); ctx.closePath(); ctx.fillStyle=ly.color; ctx.fill();
+            }
+            requestAnimationFrame(draw);
+        }
+        resize(); window.addEventListener('resize',resize); requestAnimationFrame(draw);
+    })();
+
+    // ========== OPTION 4: DRIPPING / MELTING ==========
+    (function() {
+        var container = document.getElementById('drip-box');
+        var canvas = document.getElementById('drip-canvas');
+        if (!canvas || !container) return;
+        var ctx = canvas.getContext('2d');
+        var dpr = window.devicePixelRatio || 1;
+        var drips=[], maxDrips=8, W, H;
+        function resize() {
+            var cr=container.getBoundingClientRect(); W=cr.width; H=cr.height;
+            canvas.width=W*dpr; canvas.height=(H+40)*dpr;
+            canvas.style.width=W+'px'; canvas.style.height=(H+40)+'px';
+            ctx.setTransform(dpr,0,0,dpr,0,0);
+        }
+        function draw(t) {
+            ctx.clearRect(0,0,W,H+40);
+            if(drips.length<maxDrips&&Math.random()<0.02) {
+                drips.push({x:10+Math.random()*(W-20),y:H-1,vy:0,width:2+Math.random()*3,length:0,maxLength:15+Math.random()*25,alpha:0.2+Math.random()*0.15,growing:true});
+            }
+            ctx.beginPath(); ctx.moveTo(0,H);
+            for(var x=0;x<=W;x+=2){var w=Math.sin(x*0.05+t*0.002)*1.5+Math.sin(x*0.12+t*0.003)*0.8;ctx.lineTo(x,H+w);}
+            ctx.lineTo(W,H-2);ctx.lineTo(0,H-2);ctx.closePath();ctx.fillStyle='rgba(255,255,255,0.08)';ctx.fill();
+            for(var i=drips.length-1;i>=0;i--){
+                var d=drips[i];
+                if(d.growing){d.vy+=0.01;d.length+=0.3+d.vy;if(d.length>=d.maxLength)d.growing=false;}
+                if(!d.growing){d.alpha-=0.003;if(d.alpha<=0){drips.splice(i,1);continue;}}
+                var tipY=d.y+d.length,bulge=d.width*1.3;
+                ctx.beginPath();ctx.moveTo(d.x-d.width/2,d.y);ctx.lineTo(d.x+d.width/2,d.y);
+                ctx.quadraticCurveTo(d.x+d.width/2,tipY-bulge,d.x,tipY);
+                ctx.quadraticCurveTo(d.x-d.width/2,tipY-bulge,d.x-d.width/2,d.y);
+                ctx.closePath();ctx.fillStyle='rgba(255,255,255,'+d.alpha+')';ctx.fill();
+            }
+            requestAnimationFrame(draw);
+        }
+        resize(); window.addEventListener('resize',resize); requestAnimationFrame(draw);
+    })();
+
+    // ========== OPTION 5: INK BLOB MORPH ==========
+    (function() {
+        var container = document.getElementById('ink-box');
+        var canvas = document.getElementById('ink-canvas');
+        if (!canvas || !container) return;
+        var ctx = canvas.getContext('2d');
+        var dpr = window.devicePixelRatio || 1;
+        var W, H;
+        function resize() {
+            var cr=container.getBoundingClientRect(); W=cr.width+20; H=cr.height+20;
+            canvas.width=W*dpr; canvas.height=H*dpr;
+            canvas.style.width=W+'px'; canvas.style.height=H+'px';
+            ctx.setTransform(dpr,0,0,dpr,0,0);
+        }
+        function noise(x,y,t){return(Math.sin(x*1.2+t)+Math.sin(y*1.5-t*0.7)+Math.sin((x+y)*0.8+t*1.3))/3;}
+        function draw(t) {
+            ctx.clearRect(0,0,W,H);
+            var cx=W/2,cy=H/2,hw=(W-20)/2,hh=(H-20)/2;
+            var numPts=80,pts=[],time=t*0.0006;
+            for(var i=0;i<numPts;i++){
+                var angle=(i/numPts)*Math.PI*2,cos=Math.cos(angle),sin=Math.sin(angle);
+                var bx,by;
+                if(Math.abs(cos)*hh>Math.abs(sin)*hw){bx=hw*(cos>0?1:-1);by=bx*sin/cos;}
+                else{by=hh*(sin>0?1:-1);bx=by*cos/sin;}
+                var n=noise(cos*2,sin*2,time)*10+noise(cos*4,sin*4,time*1.5)*5;
+                var len=Math.sqrt(bx*bx+by*by)||1;
+                pts.push({x:cx+bx+(bx/len)*n,y:cy+by+(by/len)*n});
+            }
+            ctx.beginPath();ctx.moveTo(pts[0].x,pts[0].y);
+            for(var i=0;i<pts.length;i++){
+                var p0=pts[(i-1+pts.length)%pts.length],p1=pts[i],p2=pts[(i+1)%pts.length],p3=pts[(i+2)%pts.length];
+                ctx.bezierCurveTo(p1.x+(p2.x-p0.x)/6,p1.y+(p2.y-p0.y)/6,p2.x-(p3.x-p1.x)/6,p2.y-(p3.y-p1.y)/6,p2.x,p2.y);
+            }
+            ctx.closePath();ctx.fillStyle='rgba(255,255,255,0.04)';ctx.fill();
+            ctx.strokeStyle='rgba(255,255,255,0.18)';ctx.lineWidth=1.5;ctx.stroke();
+            requestAnimationFrame(draw);
+        }
+*/}
+
+    // ========== SEC2 TANGENT POPUP ==========
+    (function() {
+        var wrapper = document.querySelector('.sec2-tangent-ref');
+        var trigger = document.querySelector('.sec2-tangent-trigger');
+        var popup = document.querySelector('.sec2-tangent-popup');
+        if (!wrapper || !trigger || !popup) return;
+        trigger.addEventListener('mouseenter', function() { popup.style.display = 'block'; });
+        // Use the whole wrapper (which contains both trigger + popup) for leave detection
+        wrapper.addEventListener('mouseleave', function() {
+            popup.style.display = 'none';
+        });
+    })();
+
+    // ========== JOUSTING STICK FIGURES ==========
+    (function() {
+        var canvas = document.getElementById('joust-canvas');
+        var box = document.getElementById('humanity-box');
+        var replayBtn = document.getElementById('joust-replay');
+        if (!canvas || !box) return;
+        var ctx = canvas.getContext('2d');
+        var running = false;
+
+        function drawStickAt(cx, cy, phase, flipX, lanceAngle) {
+            ctx.save();
+            if (flipX) { ctx.translate(cx * 2, 0); ctx.scale(-1, 1); }
+            ctx.strokeStyle = '#999'; ctx.lineWidth = 1.5; ctx.lineCap = 'round';
+            // head
+            ctx.beginPath(); ctx.arc(cx, cy, 3, 0, Math.PI * 2); ctx.stroke();
+            // body
+            ctx.beginPath(); ctx.moveTo(cx, cy + 3); ctx.lineTo(cx, cy + 13); ctx.stroke();
+            var t = phase * Math.PI * 2;
+            // legs (running)
+            ctx.beginPath(); ctx.moveTo(cx, cy + 13); ctx.lineTo(cx - 3 + Math.sin(t) * 3, cy + 19); ctx.lineTo(cx - 1 - Math.sin(t) * 2, cy + 25); ctx.stroke();
+            ctx.beginPath(); ctx.moveTo(cx, cy + 13); ctx.lineTo(cx + 3 - Math.sin(t) * 3, cy + 19); ctx.lineTo(cx + 1 + Math.sin(t) * 2, cy + 25); ctx.stroke();
+            // back arm
+            ctx.beginPath(); ctx.moveTo(cx, cy + 6); ctx.lineTo(cx - 4, cy + 10); ctx.lineTo(cx - 3, cy + 14); ctx.stroke();
+            // lance arm (front) - holds lance
+            var la = lanceAngle || 0;
+            ctx.beginPath(); ctx.moveTo(cx, cy + 6); ctx.lineTo(cx + 5, cy + 4); ctx.stroke();
+            // lance
+            ctx.strokeStyle = '#bbb'; ctx.lineWidth = 1.2;
+            ctx.beginPath(); ctx.moveTo(cx + 5, cy + 4); ctx.lineTo(cx + 5 + Math.cos(la) * 18, cy + 4 + Math.sin(la) * 18); ctx.stroke();
+            // lance tip
+            var tipX = cx + 5 + Math.cos(la) * 18, tipY = cy + 4 + Math.sin(la) * 18;
+            ctx.fillStyle = '#ccc';
+            ctx.beginPath(); ctx.moveTo(tipX, tipY); ctx.lineTo(tipX + Math.cos(la) * 4, tipY + Math.sin(la) * 4); ctx.lineTo(tipX + Math.cos(la + 0.5) * 2, tipY + Math.sin(la + 0.5) * 2); ctx.closePath(); ctx.fill();
+            ctx.restore();
+        }
+
+        function drawSuperman(cx, cy, capePhase) {
+            ctx.strokeStyle = '#999'; ctx.lineWidth = 1.5; ctx.lineCap = 'round';
+            // head
+            ctx.beginPath(); ctx.arc(cx, cy, 3, 0, Math.PI * 2); ctx.stroke();
+            // body (flying horizontal)
+            ctx.beginPath(); ctx.moveTo(cx - 3, cy); ctx.lineTo(cx - 16, cy); ctx.stroke();
+            // front arm (reaching)
+            ctx.beginPath(); ctx.moveTo(cx - 3, cy); ctx.lineTo(cx + 4, cy - 2); ctx.stroke();
+            // back arm
+            ctx.beginPath(); ctx.moveTo(cx - 10, cy); ctx.lineTo(cx - 8, cy + 4); ctx.stroke();
+            // legs (straight back)
+            ctx.beginPath(); ctx.moveTo(cx - 16, cy); ctx.lineTo(cx - 22, cy + 1); ctx.stroke();
+            ctx.beginPath(); ctx.moveTo(cx - 16, cy); ctx.lineTo(cx - 22, cy - 1); ctx.stroke();
+            // cape (wavy)
+            ctx.strokeStyle = 'rgba(255,80,80,0.7)'; ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.moveTo(cx - 8, cy - 1);
+            var cw = Math.sin(capePhase) * 3;
+            ctx.quadraticCurveTo(cx - 14, cy - 6 + cw, cx - 22, cy - 4 - cw);
+            ctx.stroke();
+            ctx.strokeStyle = '#999'; ctx.lineWidth = 1.5;
+        }
+
+        function drawCarrying(cx, cy, capePhase) {
+            // superman flying holding two guys
+            ctx.strokeStyle = '#999'; ctx.lineWidth = 1.5; ctx.lineCap = 'round';
+            // superman head
+            ctx.beginPath(); ctx.arc(cx, cy, 3, 0, Math.PI * 2); ctx.stroke();
+            // body
+            ctx.beginPath(); ctx.moveTo(cx - 3, cy); ctx.lineTo(cx - 16, cy); ctx.stroke();
+            // legs
+            ctx.beginPath(); ctx.moveTo(cx - 16, cy); ctx.lineTo(cx - 22, cy + 1); ctx.stroke();
+            ctx.beginPath(); ctx.moveTo(cx - 16, cy); ctx.lineTo(cx - 22, cy - 1); ctx.stroke();
+            // cape
+            ctx.strokeStyle = 'rgba(255,80,80,0.7)'; ctx.lineWidth = 2;
+            var cw = Math.sin(capePhase) * 3;
+            ctx.beginPath(); ctx.moveTo(cx - 8, cy - 1); ctx.quadraticCurveTo(cx - 14, cy - 6 + cw, cx - 22, cy - 4 - cw); ctx.stroke();
+            ctx.strokeStyle = '#999'; ctx.lineWidth = 1.5;
+            // left arm holding guy 1 (dangling below)
+            ctx.beginPath(); ctx.moveTo(cx - 6, cy); ctx.lineTo(cx - 6, cy + 6); ctx.stroke();
+            // guy 1 dangling
+            var g1x = cx - 6, g1y = cy + 9;
+            ctx.beginPath(); ctx.arc(g1x, g1y, 2, 0, Math.PI * 2); ctx.stroke();
+            ctx.beginPath(); ctx.moveTo(g1x, g1y + 2); ctx.lineTo(g1x, g1y + 8); ctx.stroke();
+            ctx.beginPath(); ctx.moveTo(g1x, g1y + 8); ctx.lineTo(g1x - 2, g1y + 13); ctx.stroke();
+            ctx.beginPath(); ctx.moveTo(g1x, g1y + 8); ctx.lineTo(g1x + 2, g1y + 13); ctx.stroke();
+            var flail = Math.sin(capePhase * 2) * 2;
+            ctx.beginPath(); ctx.moveTo(g1x, g1y + 4); ctx.lineTo(g1x - 3 + flail, g1y + 7); ctx.stroke();
+            ctx.beginPath(); ctx.moveTo(g1x, g1y + 4); ctx.lineTo(g1x + 3 - flail, g1y + 7); ctx.stroke();
+            // right arm holding guy 2
+            ctx.beginPath(); ctx.moveTo(cx - 12, cy); ctx.lineTo(cx - 12, cy + 6); ctx.stroke();
+            var g2x = cx - 12, g2y = cy + 9;
+            ctx.beginPath(); ctx.arc(g2x, g2y, 2, 0, Math.PI * 2); ctx.stroke();
+            ctx.beginPath(); ctx.moveTo(g2x, g2y + 2); ctx.lineTo(g2x, g2y + 8); ctx.stroke();
+            ctx.beginPath(); ctx.moveTo(g2x, g2y + 8); ctx.lineTo(g2x - 2, g2y + 13); ctx.stroke();
+            ctx.beginPath(); ctx.moveTo(g2x, g2y + 8); ctx.lineTo(g2x + 2, g2y + 13); ctx.stroke();
+            ctx.beginPath(); ctx.moveTo(g2x, g2y + 4); ctx.lineTo(g2x - 3 - flail, g2y + 7); ctx.stroke();
+            ctx.beginPath(); ctx.moveTo(g2x, g2y + 4); ctx.lineTo(g2x + 3 + flail, g2y + 7); ctx.stroke();
+        }
+
+        if (replayBtn) {
+            replayBtn.addEventListener('click', function() {
+                if (running) return;
+                replayBtn.style.display = 'none';
+                startJoust();
+            });
+        }
+
+        function startJoust() {
+            if (running) return;
+            running = true;
+            var boxW = box.offsetWidth;
+            canvas.width = 160; canvas.height = 55;
+            canvas.style.width = '160px'; canvas.style.height = '55px';
+            canvas.style.left = '20%';
+            canvas.style.top = '-55px';
+            canvas.style.opacity = '1';
+            canvas.style.display = '';
+            canvas.style.transition = 'opacity 0.3s ease';
+
+            var startTime = performance.now();
+
+            // PHASE 1: Two jousters charge and clash (5000ms)
+            var joustDur = 5000;
+            function joustPhase(now) {
+                var elapsed = now - startTime;
+                var p = Math.min(elapsed / joustDur, 1);
+                ctx.clearRect(0, 0, 160, 55);
+
+                var runPhase = (elapsed / 300) % 1;
+                // They charge toward center, clash, push back, charge again
+                var cycle = (elapsed / 1200) % 1;
+                var pushPull;
+                if (cycle < 0.4) pushPull = cycle / 0.4; // charge in
+                else if (cycle < 0.6) pushPull = 1 - (cycle - 0.4) / 0.2 * 0.3; // clash bounce
+                else pushPull = 0.7 + (1 - (cycle - 0.6) / 0.4) * 0.3; // reset
+
+                // left jouster: starts at x=15, charges to x=55
+                var l1x = 15 + pushPull * 40;
+                // right jouster: starts at x=145, charges to x=105
+                var r1x = 145 - pushPull * 40;
+
+                var lanceWobble = Math.sin(elapsed * 0.008) * 0.15;
+                drawStickAt(l1x, 12, runPhase, false, -0.15 + lanceWobble);
+                drawStickAt(r1x, 12, runPhase, true, -0.15 - lanceWobble);
+
+                // clash sparks when close
+                if (pushPull > 0.85) {
+                    var sparkX = (l1x + r1x) / 2 + 10;
+                    for (var s = 0; s < 3; s++) {
+                        var sx = sparkX + (Math.random() - 0.5) * 10;
+                        var sy = 14 + (Math.random() - 0.5) * 8;
+                        ctx.fillStyle = 'rgba(255,220,100,0.7)';
+                        ctx.fillRect(sx, sy, 1.5, 1.5);
+                    }
+                }
+
+                if (p < 1) requestAnimationFrame(joustPhase);
+                else { startTime = performance.now(); requestAnimationFrame(supermanEntry); }
+            }
+
+            // PHASE 2: Superman flies in from right (1200ms)
+            var entryDur = 1200;
+            function supermanEntry(now) {
+                var p = Math.min((now - startTime) / entryDur, 1);
+                var ease = 1 - Math.pow(1 - p, 3);
+                ctx.clearRect(0, 0, 160, 55);
+
+                // jousters stand still, stunned
+                drawStickAt(55, 12, 0, false, 0.3);
+                drawStickAt(105, 12, 0, true, 0.3);
+
+                // superman enters from right
+                var smX = 180 - ease * 100;
+                drawSuperman(smX, 8, now * 0.005);
+
+                if (p < 1) requestAnimationFrame(supermanEntry);
+                else { startTime = performance.now(); requestAnimationFrame(grabPhase); }
+            }
+
+            // PHASE 3: Superman grabs both (600ms)
+            var grabDur = 600;
+            function grabPhase(now) {
+                var p = Math.min((now - startTime) / grabDur, 1);
+                ctx.clearRect(0, 0, 160, 55);
+
+                // jousters get pulled up toward superman
+                var j1y = 12 + (8 - 12) * p;
+                var j2y = 12 + (8 - 12) * p;
+                var j1x = 55 + (74 - 55) * p;
+                var j2x = 105 + (68 - 105) * p;
+
+                if (p < 0.8) {
+                    drawStickAt(j1x, j1y, 0, false, 0.3 + p);
+                    drawStickAt(j2x, j2y, 0, true, 0.3 + p);
+                    drawSuperman(80, 8, now * 0.005);
+                } else {
+                    // merged into carrying pose
+                    drawCarrying(80, 8, now * 0.005);
+                }
+
+                if (p < 1) requestAnimationFrame(grabPhase);
+                else { startTime = performance.now(); requestAnimationFrame(flyAway); }
+            }
+
+            // PHASE 4: Fly off to the left (1000ms)
+            var flyDur = 1000;
+            function flyAway(now) {
+                var p = Math.min((now - startTime) / flyDur, 1);
+                var ease = p * p;
+                ctx.clearRect(0, 0, 160, 55);
+
+                var flyX = 80 - ease * 220;
+                var flyY = 8 - ease * 40;
+                drawCarrying(flyX, flyY, now * 0.006);
+
+                if (p < 1) requestAnimationFrame(flyAway);
+                else {
+                    canvas.style.opacity = '0';
+                    setTimeout(function() {
+                        canvas.style.display = 'none';
+                        running = false;
+                        if (replayBtn) replayBtn.style.display = 'inline';
+                    }, 300);
+                }
+            }
+
+            requestAnimationFrame(joustPhase);
+        }
+
+        var observer = new IntersectionObserver(function(entries) {
+            if (entries[0].isIntersecting) {
+                setTimeout(startJoust, 500);
+                observer.disconnect();
+            }
+        }, { threshold: 0.5 });
+        observer.observe(box);
+    })();
+
+    // ========== PROCESS BOX STICK FIGURE ==========
+    (function() {
+        var canvas = document.getElementById('process-stick');
+        var box = document.getElementById('process-box');
+        var replayBtn = document.getElementById('process-replay');
+        if (!canvas || !box) return;
+        var ctx = canvas.getContext('2d');
+        var running = false;
+        var W = 30, H = 40;
+
+        function drawStickman(cx, headY, phase, flipX) {
+            ctx.strokeStyle = '#999'; ctx.lineWidth = 1.8; ctx.lineCap = 'round';
+            if (flipX) { ctx.save(); ctx.translate(cx * 2, 0); ctx.scale(-1, 1); }
+            ctx.beginPath(); ctx.arc(cx, headY, 3.5, 0, Math.PI * 2); ctx.stroke();
+            var bt = headY + 4, bb = bt + 12, sy = bt + 3;
+            ctx.beginPath(); ctx.moveTo(cx, bt); ctx.lineTo(cx, bb); ctx.stroke();
+            var t = phase * Math.PI * 2;
+            ctx.beginPath(); ctx.moveTo(cx, bb); ctx.lineTo(cx - 3 + Math.sin(t) * 4, bb + 7); ctx.lineTo(cx - 1 - Math.sin(t) * 3, bb + 14); ctx.stroke();
+            ctx.beginPath(); ctx.moveTo(cx, bb); ctx.lineTo(cx + 3 - Math.sin(t) * 4, bb + 7); ctx.lineTo(cx + 1 + Math.sin(t) * 3, bb + 14); ctx.stroke();
+            ctx.beginPath(); ctx.moveTo(cx, sy); ctx.lineTo(cx - 4 - Math.sin(t + 0.5) * 2, sy + 5); ctx.lineTo(cx - 2 + Math.sin(t) * 2, sy + 9); ctx.stroke();
+            ctx.beginPath(); ctx.moveTo(cx, sy); ctx.lineTo(cx + 4 + Math.sin(t + 0.5) * 2, sy + 5); ctx.lineTo(cx + 2 - Math.sin(t) * 2, sy + 9); ctx.stroke();
+            if (flipX) ctx.restore();
+        }
+
+        function drawLookAround(cx, headY, lookAngle) {
+            ctx.strokeStyle = '#999'; ctx.lineWidth = 1.8; ctx.lineCap = 'round';
+            ctx.beginPath(); ctx.arc(cx + lookAngle * 2, headY, 3.5, 0, Math.PI * 2); ctx.stroke();
+            var bt = headY + 4, bb = bt + 12, sy = bt + 3;
+            ctx.beginPath(); ctx.moveTo(cx, bt); ctx.lineTo(cx, bb); ctx.stroke();
+            // standing still legs
+            ctx.beginPath(); ctx.moveTo(cx, bb); ctx.lineTo(cx - 4, bb + 7); ctx.lineTo(cx - 2, bb + 14); ctx.stroke();
+            ctx.beginPath(); ctx.moveTo(cx, bb); ctx.lineTo(cx + 4, bb + 7); ctx.lineTo(cx + 2, bb + 14); ctx.stroke();
+            // arms on hips
+            ctx.beginPath(); ctx.moveTo(cx, sy); ctx.lineTo(cx - 6, sy + 4); ctx.lineTo(cx - 3, sy + 9); ctx.stroke();
+            ctx.beginPath(); ctx.moveTo(cx, sy); ctx.lineTo(cx + 6, sy + 4); ctx.lineTo(cx + 3, sy + 9); ctx.stroke();
+        }
+
+        function drawFlipping(cx, cy, rotation) {
+            ctx.save();
+            ctx.translate(cx, cy);
+            ctx.rotate(rotation);
+            ctx.strokeStyle = '#999'; ctx.lineWidth = 1.8; ctx.lineCap = 'round';
+            // compact tuck position
+            ctx.beginPath(); ctx.arc(0, -8, 3.5, 0, Math.PI * 2); ctx.stroke();
+            ctx.beginPath(); ctx.moveTo(0, -4); ctx.lineTo(0, 4); ctx.stroke();
+            ctx.beginPath(); ctx.moveTo(0, 4); ctx.lineTo(-4, 8); ctx.lineTo(-3, 12); ctx.stroke();
+            ctx.beginPath(); ctx.moveTo(0, 4); ctx.lineTo(4, 8); ctx.lineTo(3, 12); ctx.stroke();
+            ctx.beginPath(); ctx.moveTo(0, -1); ctx.lineTo(-5, 2); ctx.stroke();
+            ctx.beginPath(); ctx.moveTo(0, -1); ctx.lineTo(5, 2); ctx.stroke();
+            ctx.restore();
+        }
+
+        function drawExplosion(cx, cy, progress) {
+            var numP = 16;
+            for (var i = 0; i < numP; i++) {
+                var angle = (i / numP) * Math.PI * 2 + progress * 0.5;
+                var dist = progress * 30;
+                var px = cx + Math.cos(angle) * dist;
+                var py = cy + Math.sin(angle) * dist;
+                var alpha = 1 - progress;
+                var r = 2.5 * (1 - progress * 0.5);
+                ctx.beginPath(); ctx.arc(px, py, r, 0, Math.PI * 2);
+                ctx.fillStyle = 'rgba(134, 239, 172, ' + alpha + ')';
+                ctx.fill();
+            }
+            // inner flash
+            if (progress < 0.3) {
+                var fa = (1 - progress / 0.3) * 0.4;
+                ctx.beginPath(); ctx.arc(cx, cy, 8 * (1 - progress), 0, Math.PI * 2);
+                ctx.fillStyle = 'rgba(134, 239, 172, ' + fa + ')';
+                ctx.fill();
+            }
+        }
+
+        if (replayBtn) {
+            replayBtn.addEventListener('click', function() {
+                if (running) return;
+                replayBtn.style.display = 'none';
+                startAnim();
+            });
+        }
+
+        function startAnim() {
+            if (running) return;
+            running = true;
+            var boxW = box.offsetWidth;
+            var boxH = box.offsetHeight;
+
+            // Start: jump up from bottom center
+            canvas.width = W; canvas.height = H;
+            canvas.style.left = '50%';
+            canvas.style.bottom = '-39px';
+            canvas.style.top = 'auto';
+            canvas.style.transform = 'translateX(-50%)';
+            canvas.style.opacity = '1';
+            canvas.style.transition = 'opacity 0.3s ease';
+            canvas.style.display = '';
+
+            var startTime = performance.now();
+
+            // PHASE 0: Pop up from bottom (400ms)
+            var popDur = 400;
+            function popUp(now) {
+                var p = Math.min((now - startTime) / popDur, 1);
+                var ease = 1 - Math.pow(1 - p, 3);
+                canvas.style.bottom = (-39 + ease * -2) + 'px';
+                ctx.clearRect(0, 0, W, H);
+                // slide up from offscreen
+                var drawY = 40 - ease * 35;
+                drawLookAround(15, drawY, 0);
+                if (p < 1) requestAnimationFrame(popUp);
+                else { startTime = performance.now(); requestAnimationFrame(lookAround); }
+            }
+
+            // PHASE 1: Look around (1200ms)
+            var lookDur = 1200;
+            function lookAround(now) {
+                var p = Math.min((now - startTime) / lookDur, 1);
+                ctx.clearRect(0, 0, W, H);
+                var look = Math.sin(p * Math.PI * 3) * (1 - p * 0.3);
+                drawLookAround(15, 5, look);
+                if (p < 1) requestAnimationFrame(lookAround);
+                else {
+                    // Decide: sprint to nearest corner (top-right)
+                    startTime = performance.now();
+                    // Move canvas to top positioning
+                    canvas.style.bottom = 'auto';
+                    canvas.style.top = (boxH + 1) + 'px';
+                    canvas.style.left = '50%';
+                    canvas.style.transform = 'translateX(-50%)';
+                    requestAnimationFrame(sprintToCorner);
+                }
+            }
+
+            // PHASE 2: Sprint to top-right corner (1500ms)
+            var sprintDur = 1500;
+            var cornerX, cornerY;
+            function sprintToCorner(now) {
+                var p = Math.min((now - startTime) / sprintDur, 1);
+                var ease = p < 0.5 ? 2 * p * p : 1 - Math.pow(-2 * p + 2, 2) / 2;
+                // move from center-bottom to top-right corner
+                var startX = boxW / 2 - 15;
+                var endXpos = boxW - 10;
+                var startY = boxH + 1;
+                var endYpos = -39;
+                var curX = startX + (endXpos - startX) * ease;
+                var curY = startY + (endYpos - startY) * ease;
+                canvas.style.left = curX + 'px';
+                canvas.style.top = curY + 'px';
+                canvas.style.transform = '';
+                ctx.clearRect(0, 0, W, H);
+                var phase = (p * 8) % 1;
+                drawStickman(15, 5, phase, false);
+                cornerX = curX;
+                cornerY = curY;
+                if (p < 1) requestAnimationFrame(sprintToCorner);
+                else { startTime = performance.now(); requestAnimationFrame(crouchPhase); }
+            }
+
+            // PHASE 3: Crouch at edge (500ms)
+            var crouchDur = 500;
+            function crouchPhase(now) {
+                var p = Math.min((now - startTime) / crouchDur, 1);
+                ctx.clearRect(0, 0, W, H);
+                ctx.strokeStyle = '#999'; ctx.lineWidth = 1.8; ctx.lineCap = 'round';
+                var cx = 15, headY = 5;
+                var crouch = p * 4;
+                ctx.beginPath(); ctx.arc(cx + crouch, headY, 3.5, 0, Math.PI * 2); ctx.stroke();
+                ctx.beginPath(); ctx.moveTo(cx, headY + 4); ctx.lineTo(cx + crouch, headY + 16 - crouch); ctx.stroke();
+                var hy = headY + 16 - crouch;
+                ctx.beginPath(); ctx.moveTo(cx + crouch, hy); ctx.lineTo(cx + crouch - 5, hy + 4 + crouch); ctx.lineTo(cx + crouch - 2, hy + 12); ctx.stroke();
+                ctx.beginPath(); ctx.moveTo(cx + crouch, hy); ctx.lineTo(cx + crouch + 4, hy + 4 + crouch); ctx.lineTo(cx + crouch + 3, hy + 12); ctx.stroke();
+                ctx.beginPath(); ctx.moveTo(cx + crouch * 0.5, headY + 7); ctx.lineTo(cx - 4 - crouch, headY + 10); ctx.stroke();
+                ctx.beginPath(); ctx.moveTo(cx + crouch * 0.5, headY + 7); ctx.lineTo(cx + 6 + crouch, headY + 8); ctx.stroke();
+                if (p < 1) requestAnimationFrame(crouchPhase);
+                else { startTime = performance.now(); requestAnimationFrame(tripleFlip); }
+            }
+
+            // PHASE 4: Jump off with triple flip (1400ms)
+            var flipDur = 1400;
+            function tripleFlip(now) {
+                var p = Math.min((now - startTime) / flipDur, 1);
+                canvas.width = 60; canvas.height = 60;
+                ctx.clearRect(0, 0, 60, 60);
+                // arc: up then down-right
+                var arcX = p * 40;
+                var arcY = -Math.sin(p * Math.PI * 0.5) * 30 + p * p * 60;
+                canvas.style.left = (cornerX + arcX) + 'px';
+                canvas.style.top = (cornerY - 10 + arcY) + 'px';
+                // triple flip = 3 full rotations
+                var rotation = p * Math.PI * 2 * 3;
+                drawFlipping(30, 30, rotation);
+                if (p < 1) requestAnimationFrame(tripleFlip);
+                else {
+                    // PHASE 5: Green explosion
+                    startTime = performance.now();
+                    canvas.width = 80; canvas.height = 80;
+                    requestAnimationFrame(explode);
+                }
+            }
+
+            var explodeDur = 700;
+            function explode(now) {
+                var p = Math.min((now - startTime) / explodeDur, 1);
+                ctx.clearRect(0, 0, 80, 80);
+                drawExplosion(40, 40, p);
+                if (p < 1) requestAnimationFrame(explode);
+                else {
+                    canvas.style.opacity = '0';
+                    setTimeout(function() {
+                        canvas.style.display = 'none';
+                        running = false;
+                        if (replayBtn) replayBtn.style.display = 'inline';
+                    }, 300);
+                }
+            }
+
+            requestAnimationFrame(popUp);
+        }
+
+        // Trigger on scroll into view
+        var observer = new IntersectionObserver(function(entries) {
+            if (entries[0].isIntersecting) {
+                setTimeout(startAnim, 500);
+                observer.disconnect();
+            }
+        }, { threshold: 0.5 });
+        observer.observe(box);
+    })();
+
+    // ========== STICK FIGURE WALK ==========
+    (function() {
+        var canvas = document.getElementById('stick-figure');
+        var box = document.getElementById('theory-box');
+        var replayBtn = document.getElementById('stick-replay');
+        if (!canvas || !box) return;
+        var ctx = canvas.getContext('2d');
+        var started = false;
+        var running = false;
+        var W = 30, H = 40;
+
+        function drawStickman(phase, jumping, jumpY) {
+            ctx.clearRect(0, 0, W, H);
+            ctx.strokeStyle = '#999';
+            ctx.lineWidth = 1.8;
+            ctx.lineCap = 'round';
+
+            var cx = 15, headY = 5 + (jumpY || 0);
+            var bodyTop = headY + 4;
+            var bodyBot = bodyTop + 12;
+            var hipY = bodyBot;
+            var shoulderY = bodyTop + 3;
+
+            // Head
+            ctx.beginPath();
+            ctx.arc(cx, headY, 3.5, 0, Math.PI * 2);
+            ctx.stroke();
+
+            // Body
+            ctx.beginPath();
+            ctx.moveTo(cx, bodyTop); ctx.lineTo(cx, bodyBot);
+            ctx.stroke();
+
+            var t = phase * Math.PI * 2;
+            var legSwing = Math.sin(t) * 0.5;
+            var armSwing = Math.sin(t) * 0.4;
+
+            // Left leg: thigh to knee, knee to foot
+            var lKneeX = cx - 3 + Math.sin(t) * 4;
+            var lKneeY = hipY + 7 + Math.abs(Math.sin(t)) * 1;
+            var lFootX = cx - 1 - Math.sin(t) * 3;
+            var lFootY = hipY + 14;
+            ctx.beginPath();
+            ctx.moveTo(cx, hipY); ctx.lineTo(lKneeX, lKneeY); ctx.lineTo(lFootX, lFootY);
+            ctx.stroke();
+
+            // Right leg
+            var rKneeX = cx + 3 - Math.sin(t) * 4;
+            var rKneeY = hipY + 7 + Math.abs(Math.cos(t)) * 1;
+            var rFootX = cx + 1 + Math.sin(t) * 3;
+            var rFootY = hipY + 14;
+            ctx.beginPath();
+            ctx.moveTo(cx, hipY); ctx.lineTo(rKneeX, rKneeY); ctx.lineTo(rFootX, rFootY);
+            ctx.stroke();
+
+            // Left arm: shoulder to elbow, elbow to hand
+            var lElbowX = cx - 4 - Math.sin(t + 0.5) * 2;
+            var lElbowY = shoulderY + 5;
+            var lHandX = cx - 2 + Math.sin(t) * 2;
+            var lHandY = shoulderY + 9;
+            ctx.beginPath();
+            ctx.moveTo(cx, shoulderY); ctx.lineTo(lElbowX, lElbowY); ctx.lineTo(lHandX, lHandY);
+            ctx.stroke();
+
+            // Right arm
+            var rElbowX = cx + 4 + Math.sin(t + 0.5) * 2;
+            var rElbowY = shoulderY + 5;
+            var rHandX = cx + 2 - Math.sin(t) * 2;
+            var rHandY = shoulderY + 9;
+            ctx.beginPath();
+            ctx.moveTo(cx, shoulderY); ctx.lineTo(rElbowX, rElbowY); ctx.lineTo(rHandX, rHandY);
+            ctx.stroke();
+        }
+
+        function drawExplosion(progress) {
+            ctx.clearRect(0, 0, 60, 60);
+            var cx = 30, cy = 30;
+            var numParticles = 12;
+            for (var i = 0; i < numParticles; i++) {
+                var angle = (i / numParticles) * Math.PI * 2;
+                var dist = progress * 25;
+                var px = cx + Math.cos(angle) * dist;
+                var py = cy + Math.sin(angle) * dist;
+                var alpha = 1 - progress;
+                var r = 2 * (1 - progress * 0.5);
+                ctx.beginPath();
+                ctx.arc(px, py, r, 0, Math.PI * 2);
+                ctx.fillStyle = 'rgba(134, 239, 172, ' + alpha + ')';
+                ctx.fill();
+            }
+        }
+
+        if (replayBtn) {
+            replayBtn.addEventListener('click', function() {
+                if (running) return;
+                replayBtn.style.display = 'none';
+                startWalk();
+            });
+        }
+
+        function startWalk() {
+            if (running) return;
+            started = true;
+            running = true;
+            canvas.width = W; canvas.height = H;
+            canvas.style.display = '';
+            canvas.style.left = '0px';
+            canvas.style.top = '-39px';
+            canvas.style.transform = '';
+            canvas.style.opacity = '1';
+            canvas.style.transition = 'opacity 0.5s ease';
+
+            var boxWidth = box.offsetWidth;
+            var endX = boxWidth - 30;
+            var walkDuration = 10000;
+            var startTime = performance.now();
+            var walkPhase = 0;
+
+            function animate(now) {
+                var elapsed = now - startTime;
+                var progress = Math.min(elapsed / walkDuration, 1);
+                var x = endX * progress;
+                canvas.style.left = x + 'px';
+
+                walkPhase = (elapsed / 600) % 1;
+                drawStickman(walkPhase, false, 0);
+
+                if (progress < 1) {
+                    requestAnimationFrame(animate);
+                } else {
+                    // === PHASE 1: Stop and crouch/lean to jump ===
+                    var leanStart = performance.now();
+                    var leanDur = 800;
+
+                    function drawLeaning(amt) {
+                        ctx.clearRect(0, 0, W, H + 20);
+                        ctx.strokeStyle = '#999'; ctx.lineWidth = 1.8; ctx.lineCap = 'round';
+                        var cx = 15;
+                        ctx.save();
+                        ctx.translate(cx, 5);
+                        ctx.rotate(amt * 0.25);
+                        ctx.beginPath(); ctx.arc(0, 0, 3.5, 0, Math.PI * 2); ctx.stroke();
+                        var crouch = amt * 3;
+                        ctx.beginPath(); ctx.moveTo(0, 4); ctx.lineTo(crouch, 16 - amt * 3); ctx.stroke();
+                        var hy = 16 - amt * 3;
+                        ctx.beginPath(); ctx.moveTo(crouch, hy); ctx.lineTo(crouch - 5, hy + 4 + amt * 3); ctx.lineTo(crouch - 2, hy + 12); ctx.stroke();
+                        ctx.beginPath(); ctx.moveTo(crouch, hy); ctx.lineTo(crouch + 4, hy + 4 + amt * 3); ctx.lineTo(crouch + 3, hy + 12); ctx.stroke();
+                        ctx.beginPath(); ctx.moveTo(crouch * 0.5, 7); ctx.lineTo(-4 - amt * 4, 10); ctx.lineTo(-2 - amt * 3, 14); ctx.stroke();
+                        ctx.beginPath(); ctx.moveTo(crouch * 0.5, 7); ctx.lineTo(-3 - amt * 3, 12); ctx.lineTo(-1 - amt * 2, 15); ctx.stroke();
+                        ctx.restore();
+                    }
+
+                    function leanAnim(now2) {
+                        var lp = Math.min((now2 - leanStart) / leanDur, 1);
+                        drawLeaning(lp * lp);
+                        if (lp < 1) {
+                            requestAnimationFrame(leanAnim);
+                        } else {
+                            // === PHASE 2: Jump arc with flailing ===
+                            var jumpStart2 = performance.now();
+                            var jumpDur2 = 1200;
+                            canvas.width = 60; canvas.height = 120;
+
+                            function drawFlailing(t) {
+                                ctx.clearRect(0, 0, 60, 120);
+                                ctx.strokeStyle = '#999'; ctx.lineWidth = 1.8; ctx.lineCap = 'round';
+                                var cx2 = 30, headY = 15;
+                                var spin = t * 5;
+                                ctx.beginPath(); ctx.arc(cx2, headY, 3.5, 0, Math.PI * 2); ctx.stroke();
+                                ctx.beginPath(); ctx.moveTo(cx2, headY + 4); ctx.lineTo(cx2, headY + 16); ctx.stroke();
+                                var a1 = Math.sin(spin * 3) * 9, a2 = Math.cos(spin * 2.5) * 9;
+                                var a3 = Math.sin(spin * 4 + 1) * 7, a4 = Math.cos(spin * 3.5 + 2) * 7;
+                                ctx.beginPath(); ctx.moveTo(cx2, headY + 7); ctx.lineTo(cx2 - 6 + a1, headY + 3 + a2); ctx.lineTo(cx2 - 9 + a3, headY - 1 + a4); ctx.stroke();
+                                ctx.beginPath(); ctx.moveTo(cx2, headY + 7); ctx.lineTo(cx2 + 6 - a2, headY + 2 - a1); ctx.lineTo(cx2 + 10 - a4, headY - 2 + a3); ctx.stroke();
+                                var l1 = Math.sin(spin * 2.3) * 6, l2 = Math.cos(spin * 2.8) * 6;
+                                ctx.beginPath(); ctx.moveTo(cx2, headY + 16); ctx.lineTo(cx2 - 5 + l1, headY + 23); ctx.lineTo(cx2 - 3 + l2, headY + 30); ctx.stroke();
+                                ctx.beginPath(); ctx.moveTo(cx2, headY + 16); ctx.lineTo(cx2 + 5 - l2, headY + 22); ctx.lineTo(cx2 + 3 - l1, headY + 29); ctx.stroke();
+                            }
+
+                            function jumpAnim2(now3) {
+                                var jp = Math.min((now3 - jumpStart2) / jumpDur2, 1);
+                                var arcY = -Math.sin(jp * Math.PI * 0.4) * 25 + jp * jp * 80;
+                                var arcX = jp * 25;
+                                canvas.style.left = (endX + arcX) + 'px';
+                                canvas.style.top = (-39 + arcY) + 'px';
+                                drawFlailing(jp);
+                                if (jp < 1) {
+                                    requestAnimationFrame(jumpAnim2);
+                                } else {
+                                    // === PHASE 3: Explosion ===
+                                    var explodeStart = performance.now();
+                                    var explodeDur = 600;
+                                    canvas.width = 80; canvas.height = 80;
+                                    function explodeAnim(now4) {
+                                        var ep = Math.min((now4 - explodeStart) / explodeDur, 1);
+                                        drawExplosion(ep);
+                                        if (ep < 1) { requestAnimationFrame(explodeAnim); }
+                                        else { canvas.style.opacity = '0'; setTimeout(function() { canvas.style.display = 'none'; running = false; if (replayBtn) replayBtn.style.display = 'inline'; }, 300); }
+                                    }
+                                    requestAnimationFrame(explodeAnim);
+                                }
+                            }
+                            requestAnimationFrame(jumpAnim2);
+                        }
+                    }
+                    requestAnimationFrame(leanAnim);
+                }
+            }
+            requestAnimationFrame(animate);
+        }
+
+        var observer = new IntersectionObserver(function(entries) {
+            if (entries[0].isIntersecting) {
+                setTimeout(startWalk, 500);
+                observer.disconnect();
+            }
+        }, { threshold: 0.5 });
+        observer.observe(box);
+    })();
 
     // ========== VIDEO HOVER PLAY/PAUSE ==========
     (function() {
